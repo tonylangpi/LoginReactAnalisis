@@ -29,12 +29,13 @@ const Register = () => {
       user.password.length >= 8 &&
         /[a-z]/.test(user.password) &&
         /[A-Z]/.test(user.password) &&
-        /[0-9]/.test(user.password)
+        /[0-9]/.test(user.password) &&
+        /[!@#$%^&*()_+={}\[\]|\\:;"'<,>.?/`~]/.test(user.password)
     );
   };
 
   const saveData = () => {
-    if (!passwordValid()) {
+    if (!passwordValid) {
       alert(
         "la contraseña debe tener al menos 8 caractere incluyendo letras mayusculas y al menos un numero"
       );
