@@ -10,14 +10,14 @@ import {
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Home from "./Components/Home";
-
+import ValidarToken from './Components/validarToken'; 
 function App() {
   library.add(fas);
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const validateAuth = async () => {
+  const validateAuth =  () => {
      
-    await axios('https://analisisapi.netlify.app/verificar', {headers: {
+     axios('https://analisisapi.netlify.app/verificar', {headers: {
         'x-access-token': localStorage.getItem('Auth')
     }} )
     .then(({data}) => {
@@ -47,6 +47,7 @@ function App() {
        <Routes>
           <Route path='/registrar' element={<Register/>} />
           <Route path='/' element={<Login/>} />
+          <Route path='/validarToken' element={<ValidarToken/>}/>
        </Routes>
      </>
     }

@@ -9,7 +9,7 @@ import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-  const notify = () => toast("Usuario creado!");
+  let notify ;
   const navigate = useNavigate(); 
   const [user, setUser] = React.useState({
     user: "",
@@ -19,6 +19,7 @@ const Register = () => {
   });
 
   const [passwordValid, setPasswordValid] = React.useState(false);
+  const [email, setEmail] = React.useState(false);
   const [showPass, setShowPass] = React.useState(false);
   const motrarPass = () => {
     setShowPass(!showPass);
@@ -42,14 +43,19 @@ const Register = () => {
     );
   };
 
+  const validateEmail = () => {
+    const correo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    setEmail(
+       user.user.length >= 0 && 
+       correo.test(user.user)
+    )
+  }
+
   const saveData =  (e) => {
-    debugger; 
     e.preventDefault(); 
     
-    if (!passwordValid) {
-      alert(
-        "la contraseña debe tener al menos 8 caractere incluyendo letras mayusculas y al menos un numero"
-      );
+    if (!passwordValid && !email) {
+      notify = () => toast("no se puede crear el usuario porque el password o el email son incorrectos"); 
       return;
     } else {
       try {
@@ -58,10 +64,9 @@ const Register = () => {
         .then(({data}) => {
           setTimeout(() => {
             navigate('/');
-          }, 5000);
+          }, 4000);
         })
         .catch((error) => console.log(error));
-
       } catch (error) {
         console.log(error)
       }
@@ -110,7 +115,9 @@ const Register = () => {
                 className="form-control"
                 name="user"
                 onChange={saveDataTemporaly}
+                onBlur={validateEmail}
               />
+               {email ? <p className="text-danger">Correo Válido</p> : <p className="text-danger">el correo debe contener un dominio ejemplo @gmail.com  para ser valido</p>}
             </div>
             <label for="texto-ejemplo" className="input-group-addon">Contraseña</label>
             <div className="input-group">
@@ -131,7 +138,7 @@ const Register = () => {
             <div className="d-grid">
               <button
                 type="submit"
-                onClick={notify}
+                onClick={email && passwordValid ? notify = () => toast('usuario creado'): notify = () => toast("no se pudo crear el usuario")}
                 className="btn btn-danger"
               >
                 Registrar

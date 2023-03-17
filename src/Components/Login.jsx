@@ -4,16 +4,29 @@ import Logo from "../../images/logoUniversidad.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import Home from './Home';
+import Home from "./Home";
 import "../App.css";
-function Login({onLogin}) {
-  const navigate = useNavigate(); 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+function Login() {
+  const notify = () =>
+    toast("🦄 login correcto, bienvenido", {
+      position: "top-center",
+      autoClose: 9000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  const navigate = useNavigate();
   const [showpass, setShowpass] = React.useState(false);
   const [usuario, setUser] = React.useState({
-    "user": "",
-    "pass": ""
+    user: "",
+    pass: "",
   });
- const navegar = useNavigate(); 
   const saveDataTemporaly = (e) => {
     e.preventDefault();
     setUser({
@@ -22,28 +35,25 @@ function Login({onLogin}) {
     });
   };
 
-  const [resp, setResp] = React.useState([]);
-
-  const apiLogin =  (e) => {
+  const apiLogin = (e) => {
     e.preventDefault();
     try {
-       axios
-      .post("https://analisisapi.netlify.app/login", usuario) //peticion a la api para loguearse
-      .then(({data}) => {
-        if(data.auth){
-         const token =  data.token; 
-          localStorage.setItem('Auth', token);
-          //aqui se redirige al usuario a la pagina home 
-          navigate(0);
-         }else{
-           alert("no se pudo iniciar sesion"); 
-         }
-      })
-      .catch((error) => console.log(error));
+      axios
+        .post("https://analisisapi.netlify.app/login", usuario) //peticion a la api para loguearse
+        .then(({ data }) => {
+          if (data.auth) {
+            const token = data.token;
+            localStorage.setItem("Auth", token);
+            //aqui se redirige al usuario a la pagina home
+              navigate(0);
+          } else {
+            alert("no se pudo iniciar sesion");
+          }
+        })
+        .catch((error) => console.log(error));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  
   };
 
   const showPassword = () => {
@@ -64,7 +74,12 @@ function Login({onLogin}) {
               <label for="email" className="form-label">
                 Correo electronico
               </label>
-              <input type="email" className="form-control" name="user" onChange={saveDataTemporaly} />
+              <input
+                type="email"
+                className="form-control"
+                name="user"
+                onChange={saveDataTemporaly}
+              />
             </div>
             <label for="texto-ejemplo" className="input-group-addon">
               Contraseña
@@ -87,11 +102,26 @@ function Login({onLogin}) {
               </div>
             </div>
             <div className="d-grid">
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                onClick={notify}
+                className="btn btn-primary"
+              >
                 Iniciar sesion
               </button>
             </div>
-
+            <ToastContainer
+              position="top-center"
+              autoClose={9000}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+            />
             <div className="my-3">
               <span className="pe-3">No tienes cuenta</span>
               <Link to={"/registrar"}>Registrarse</Link>
