@@ -1,21 +1,26 @@
 import React from "react";
 import Logo from "../../images/logoUniversidad.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import "../register.css";
+import axios from 'axios'; 
+
 const Register = () => {
+  const navigate = useNavigate(); 
   const [user, setUser] = React.useState({
-    name: "",
-    lastname: "",
-    email: "",
-    password: "",
+    user: "",
+    pass: "",
+    Nombre: "",
+    Apellido: "",
   });
+
   const [passwordValid, setPasswordValid] = React.useState(false);
   const [showPass, setShowPass] = React.useState(false);
   const motrarPass = () => {
     setShowPass(!showPass);
   }
+
   const saveDataTemporaly = (e) => {
     e.preventDefault();
     setUser({
@@ -26,22 +31,35 @@ const Register = () => {
   const validatePassword = () => {
     /*valida que la contraseña tenga al menos una mayuscula y una minuscula ademas de un numero en ella para ser aceptada*/
     setPasswordValid(
-      user.password.length >= 8 &&
-        /[a-z]/.test(user.password) &&
-        /[A-Z]/.test(user.password) &&
-        /[0-9]/.test(user.password) &&
-        /[!@#$%^&*()_+={}\[\]|\\:;"'<,>.?/`~]/.test(user.password)
+      user.pass.length >= 8 &&
+        /[a-z]/.test(user.pass) &&
+        /[A-Z]/.test(user.pass) &&
+        /[0-9]/.test(user.pass) &&
+        /[!@#$%^&*()_+={}\[\]|\\:;"'<,>.?/`~]/.test(user.pass)
     );
   };
 
-  const saveData = () => {
+  const saveData =  (e) => {
+    debugger; 
+    e.preventDefault(); 
+    
     if (!passwordValid) {
       alert(
         "la contraseña debe tener al menos 8 caractere incluyendo letras mayusculas y al menos un numero"
       );
       return;
     } else {
-      alert(user.email + " ha sido guardado");
+      try {
+         axios
+        .post("https://analisisapi.netlify.app/registrar", user) //peticion a la api para loguearse
+        .then(({data}) => {
+          navigate('/');
+        })
+        .catch((error) => console.log(error));
+
+      } catch (error) {
+        console.log(error)
+      }
     }
   };
   return (
@@ -54,7 +72,7 @@ const Register = () => {
           </div>
           <h2 className="fw-bold text-center py-5">Registrate</h2>
 
-          <form onSubmit={saveData}>
+          <form onSubmit={(e) => saveData(e)}>
             <div className="mb-4">
               <label for="text" className="form-label">
                 Nombre
@@ -62,7 +80,7 @@ const Register = () => {
               <input
                 type="text"
                 className="form-control"
-                name="name"
+                name="Nombre"
                 onChange={saveDataTemporaly}
               />
             </div>
@@ -73,7 +91,7 @@ const Register = () => {
               <input
                 type="text2"
                 className="form-control"
-                name="lastname"
+                name="Apellido"
                 onChange={saveDataTemporaly}
               />
             </div>
@@ -83,17 +101,18 @@ const Register = () => {
               </label>
               <input
                 type="email"
+                required ="required"
                 className="form-control"
-                name="email"
+                name="user"
                 onChange={saveDataTemporaly}
               />
             </div>
-            <label for="texto-ejemplo" class="input-group-addon">Contraseña</label>
+            <label for="texto-ejemplo" className="input-group-addon">Contraseña</label>
             <div className="input-group">
               <input
                 type={showPass ? "text":"password"}
                 className="form-control"
-                name="password"
+                name="pass"
                 onChange={saveDataTemporaly}
                 onBlur={validatePassword}
               />
@@ -107,7 +126,6 @@ const Register = () => {
             <div className="d-grid">
               <button
                 type="submit"
-                onClick={saveData}
                 className="btn btn-danger"
               >
                 Registrar
