@@ -5,8 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import "../register.css";
 import axios from 'axios'; 
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
+  const notify = () => toast("Usuario creado!");
   const navigate = useNavigate(); 
   const [user, setUser] = React.useState({
     user: "",
@@ -53,7 +56,9 @@ const Register = () => {
          axios
         .post("https://analisisapi.netlify.app/registrar", user) //peticion a la api para loguearse
         .then(({data}) => {
-          navigate('/');
+          setTimeout(() => {
+            navigate('/');
+          }, 5000);
         })
         .catch((error) => console.log(error));
 
@@ -126,11 +131,13 @@ const Register = () => {
             <div className="d-grid">
               <button
                 type="submit"
+                onClick={notify}
                 className="btn btn-danger"
               >
                 Registrar
               </button>
             </div>
+            <ToastContainer/>
             <div className="my-3">
               <span className="pe-3">ya tienes cuenta</span>
               <Link to={"/"}>Inicia Sesión</Link>

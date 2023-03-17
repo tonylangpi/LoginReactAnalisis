@@ -33,7 +33,7 @@ function App() {
   }
 
   useEffect(() => {
-    validateAuth(); 
+    validateAuth();
   }, []);
 
   return (

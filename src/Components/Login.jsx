@@ -7,6 +7,7 @@ import axios from "axios";
 import Home from './Home';
 import "../App.css";
 function Login({onLogin}) {
+  const navigate = useNavigate(); 
   const [showpass, setShowpass] = React.useState(false);
   const [usuario, setUser] = React.useState({
     "user": "",
@@ -23,25 +24,22 @@ function Login({onLogin}) {
 
   const [resp, setResp] = React.useState([]);
 
-  const apiLogin = async () => {
+  const apiLogin =  (e) => {
+    e.preventDefault();
     try {
-      await axios
+       axios
       .post("https://analisisapi.netlify.app/login", usuario) //peticion a la api para loguearse
       .then(({data}) => {
         if(data.auth){
          const token =  data.token; 
           localStorage.setItem('Auth', token);
           //aqui se redirige al usuario a la pagina home 
-            
+          navigate(0);
          }else{
            alert("no se pudo iniciar sesion"); 
          }
-         window.location.reload(); 
       })
       .catch((error) => console.log(error));
-       const auth = resp.auth;
-       console.log(auth);  
-      
     } catch (error) {
       console.log(error)
     }
@@ -61,7 +59,7 @@ function Login({onLogin}) {
           </div>
           <h2 className="fw-bold text-center py-5">Bienvenido</h2>
 
-          <form onSubmit={apiLogin}>
+          <form onSubmit={(e) => apiLogin(e)}>
             <div className="mb-4">
               <label for="email" className="form-label">
                 Correo electronico
@@ -89,7 +87,7 @@ function Login({onLogin}) {
               </div>
             </div>
             <div className="d-grid">
-              <button type="submit" onClick={apiLogin} className="btn btn-primary">
+              <button type="submit" className="btn btn-primary">
                 Iniciar sesion
               </button>
             </div>
