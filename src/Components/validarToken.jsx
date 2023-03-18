@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../images/logoUniversidad.png";
+
 import { Link, redirect, useNavigate } from "react-router-dom";
 
 const validarToken = () => {

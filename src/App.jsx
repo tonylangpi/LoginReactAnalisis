@@ -1,6 +1,6 @@
-import Login from "./Components/Login";
+import Login from "./Components/Login/Login";
 import React, { useEffect } from "react";
-import Register from './Components/Register';
+import Register from './Components/Register/Register';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
-import Home from "./Components/Home";
+import Home from "./Components/Home/Home";
 import ValidarToken from './Components/validarToken'; 
 function App() {
   library.add(fas);
