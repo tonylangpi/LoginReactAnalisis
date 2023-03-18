@@ -85,34 +85,38 @@ const Register = () => {
 
       <form onSubmit={(e) => saveData(e)}>
 
-        <div className="mb-4">
-          <label for="text" className="form-label">
-            Nombre
-          </label>
+        <div className="Container_Email">
+          <div className="Email-Content">
           <input
+            placeholder=" "
             type="text"
             className="form-control"
             name="Nombre"
             onChange={saveDataTemporaly}
           />
+           <span>Nombre</span>
+            </div>
         </div>
         
-        <div className="mb-4">
-          <label for="text2" className="form-label">
-            Apellido
-          </label>
+        <div className="Container_Email">
+          <div className="Email-Content">
           <input
+            placeholder=" "
             type="text2"
             className="form-control"
             name="Apellido"
             onChange={saveDataTemporaly}
           />
+            <span>Apellido</span>
+            </div>
         </div>
-        <div className="mb-4">
-          <label for="email" className="form-label">
-            Correo electronico
-          </label>
+
+        <div className="Container_Email">
+          <div className="Email-Content">
+        
+          
           <input
+            placeholder=" "
             type="email"
             required="required"
             className="form-control"
@@ -121,36 +125,55 @@ const Register = () => {
             onBlur={validateEmail}
           />
           {email ? <p className="text-danger">Correo Válido</p> : <p className="text-danger">el correo debe contener un dominio ejemplo @gmail.com  para ser valido</p>}
-        </div>
-        <label for="texto-ejemplo" className="input-group-addon">Contraseña</label>
-        <div className="input-group">
+          <span>Correo</span>
+          </div>
+        </div>  
+
+        <div className="Container_password">
+        <div className="Container_Email">
+          <div className="Email-Content">
+        
           <input
+            placeholder=" "
             type={showPass ? "text" : "password"}
             className="form-control"
             name="pass"
             onChange={saveDataTemporaly}
             onBlur={validatePassword}
           />
-          {passwordValid ? <p className="text-danger">Contraseña válida</p> : <p className="text-danger">La contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula y una letra minúscula y al menos un numero</p>}
-          <div className="input-group-btn">
-            <button className="btn rounded-circle btn-warning " onClick={motrarPass} type="button">
+             <div className="Container_button">
+            <button className="button_showPassword" onClick={motrarPass} type="button">
               <FontAwesomeIcon icon={faEye} />
             </button>
           </div>
+
+           {passwordValid ? <p className="text-danger">Contraseña válida</p> : <p className="text-danger">La contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula y una letra minúscula y al menos un numero</p>}
+          
+          <span>Contraseña</span>
+          </div>
+          
+         
+       
+
         </div>
-        <div className="d-grid">
+        </div>
+
+
+        <div className="Container_button_login">
           <button
             type="submit"
             onClick={email && passwordValid ? notify = () => toast('usuario creado') : notify = () => toast("no se pudo crear el usuario")}
-            className="btn btn-danger"
+            className="button_login"
           >
             Registrar
           </button>
         </div>
+
+
         <ToastContainer />
         <div className="my-3">
-          <span className="pe-3">ya tienes cuenta</span>
-          <Link to={"/"}>Inicia Sesión</Link>
+          <span className="text">ya tienes cuenta </span>
+          <Link className="link_register" to={"/"}>Inicia Sesión</Link>
         </div>
       </form>
     </div>

@@ -4,3 +4,8 @@
     font-weight: 600;
     color: #ffffff;
 }
+
+.text-danger{
+    color: #ff0000;
+    width: 100%;
+}
