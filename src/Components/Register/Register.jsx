@@ -3,7 +3,7 @@ import Logo from "../../assets/images/logoUniversidad.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import "./Register.css";
+import "./register.css";
 import axios from 'axios'; 
 import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
@@ -73,85 +73,87 @@ const Register = () => {
     }
   };
   return (
-    <div className="container  w-75  bg-primary mt-5 rounded shadow">
-      <div className="row align-items-stretch">
-        <div className="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded"></div>
-        <div className="col bg-white p-5 rounded-end">
-          <div className="text-end">
-            <img src={Logo} width="48px" alt="logo empresarial" />
-          </div>
-          <h2 className="fw-bold text-center py-5">Registrate</h2>
-
-          <form onSubmit={(e) => saveData(e)}>
-            <div className="mb-4">
-              <label for="text" className="form-label">
-                Nombre
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                name="Nombre"
-                onChange={saveDataTemporaly}
-              />
-            </div>
-            <div className="mb-4">
-              <label for="text2" className="form-label">
-                Apellido
-              </label>
-              <input
-                type="text2"
-                className="form-control"
-                name="Apellido"
-                onChange={saveDataTemporaly}
-              />
-            </div>
-            <div className="mb-4">
-              <label for="email" className="form-label">
-                Correo electronico
-              </label>
-              <input
-                type="email"
-                required ="required"
-                className="form-control"
-                name="user"
-                onChange={saveDataTemporaly}
-                onBlur={validateEmail}
-              />
-               {email ? <p className="text-danger">Correo Válido</p> : <p className="text-danger">el correo debe contener un dominio ejemplo @gmail.com  para ser valido</p>}
-            </div>
-            <label for="texto-ejemplo" className="input-group-addon">Contraseña</label>
-            <div className="input-group">
-              <input
-                type={showPass ? "text":"password"}
-                className="form-control"
-                name="pass"
-                onChange={saveDataTemporaly}
-                onBlur={validatePassword}
-              />
-               {passwordValid ? <p className="text-danger">Contraseña válida</p> : <p className="text-danger">La contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula y una letra minúscula y al menos un numero</p>}
-              <div className="input-group-btn">
-                <button className="btn rounded-circle btn-warning " onClick={motrarPass} type="button">
-                <FontAwesomeIcon icon={faEye} />
-                </button>
-              </div>
-            </div>
-            <div className="d-grid">
-              <button
-                type="submit"
-                onClick={email && passwordValid ? notify = () => toast('usuario creado'): notify = () => toast("no se pudo crear el usuario")}
-                className="btn btn-danger"
-              >
-                Registrar
-              </button>
-            </div>
-            <ToastContainer/>
-            <div className="my-3">
-              <span className="pe-3">ya tienes cuenta</span>
-              <Link to={"/"}>Inicia Sesión</Link>
-            </div>
-          </form>
-        </div>
+    <div className="Container">
+      
+       <div className="Container_Form">
+      <div className="Logo">
+        <img src={Logo} width="48px" alt="logo empresarial" />
       </div>
+      <div className="Container_Titulo">
+          <h2 className="Title">REGISTRAR</h2>
+          </div>
+
+      <form onSubmit={(e) => saveData(e)}>
+
+        <div className="mb-4">
+          <label for="text" className="form-label">
+            Nombre
+          </label>
+          <input
+            type="text"
+            className="form-control"
+            name="Nombre"
+            onChange={saveDataTemporaly}
+          />
+        </div>
+        
+        <div className="mb-4">
+          <label for="text2" className="form-label">
+            Apellido
+          </label>
+          <input
+            type="text2"
+            className="form-control"
+            name="Apellido"
+            onChange={saveDataTemporaly}
+          />
+        </div>
+        <div className="mb-4">
+          <label for="email" className="form-label">
+            Correo electronico
+          </label>
+          <input
+            type="email"
+            required="required"
+            className="form-control"
+            name="user"
+            onChange={saveDataTemporaly}
+            onBlur={validateEmail}
+          />
+          {email ? <p className="text-danger">Correo Válido</p> : <p className="text-danger">el correo debe contener un dominio ejemplo @gmail.com  para ser valido</p>}
+        </div>
+        <label for="texto-ejemplo" className="input-group-addon">Contraseña</label>
+        <div className="input-group">
+          <input
+            type={showPass ? "text" : "password"}
+            className="form-control"
+            name="pass"
+            onChange={saveDataTemporaly}
+            onBlur={validatePassword}
+          />
+          {passwordValid ? <p className="text-danger">Contraseña válida</p> : <p className="text-danger">La contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula y una letra minúscula y al menos un numero</p>}
+          <div className="input-group-btn">
+            <button className="btn rounded-circle btn-warning " onClick={motrarPass} type="button">
+              <FontAwesomeIcon icon={faEye} />
+            </button>
+          </div>
+        </div>
+        <div className="d-grid">
+          <button
+            type="submit"
+            onClick={email && passwordValid ? notify = () => toast('usuario creado') : notify = () => toast("no se pudo crear el usuario")}
+            className="btn btn-danger"
+          >
+            Registrar
+          </button>
+        </div>
+        <ToastContainer />
+        <div className="my-3">
+          <span className="pe-3">ya tienes cuenta</span>
+          <Link to={"/"}>Inicia Sesión</Link>
+        </div>
+      </form>
+    </div>
     </div>
   );
 };

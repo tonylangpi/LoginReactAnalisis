@@ -10,7 +10,7 @@ import {
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Home from "./Components/Home/Home";
-import ValidarToken from './Components/validarToken'; 
+import ValidarToken from './Components/Validar/validarToken'; 
 function App() {
   library.add(fas);
 

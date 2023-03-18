@@ -6,6 +6,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Home from "../Home/Home";
 import "../../App.css";
+import "./login.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -61,74 +62,93 @@ function Login() {
     setShowpass(!showpass);
   };
   return (
-    <div className="container  w-75  bg-primary mt-5 rounded shadow">
-      <div className="row align-items-stretch">
-        <div className="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded"></div>
-        <div className="col bg-white p-5 rounded-end">
-          <div className="text-end">
-            <img src={Logo} width="48px" alt="logo empresarial" />
-          </div>
-          <h2 className="fw-bold text-center py-5">Bienvenido</h2>
+    <div className="Container">
+      
 
-          <form onSubmit={(e) => apiLogin(e)}>
-            <div className="mb-4">
-              <label for="email" className="form-label">
-                Correo electronico
-              </label>
+
+      <div className="Container_Form">
+        <div className="Logo">
+          <img src={Logo} width="48px" alt="logo empresarial" />
+        </div>
+          <div className="Container_Titulo">
+          <h2 className="Title">INGRESAR</h2>
+          </div>
+        
+
+        <form onSubmit={(e) => apiLogin(e)}>
+          <div className="Container_Email">
+            <div className="Email-Content">
               <input
+                placeholder=" "
+                required= "required"
                 type="email"
                 className="form-control"
                 name="user"
                 onChange={saveDataTemporaly}
               />
+              <span>Correo Electronico</span>
             </div>
-            <label for="texto-ejemplo" className="input-group-addon">
-              Contraseña
-            </label>
-            <div className="input-group mb-4">
-              <input
-                type={showpass ? "text" : "password"}
-                className="form-control"
-                name="pass"
-                onChange={saveDataTemporaly}
-              />
-              <div className="input-group-btn">
+
+          </div>
+
+          <div className="Container_password">
+              <div className="Container_Email">
+                <div className="Email-Content">
+                  <input
+                    type={showpass ? "text" : "password"}
+                    className="form-control"
+                    name="pass"
+                    placeholder=" "
+                    onChange={saveDataTemporaly}
+                  />
+                  <span>Contraseña</span>
+                </div>
+
+              </div>
+
+
+              <div className="container_button">
                 <button
-                  className="btn rounded-circle btn-warning "
+                  className="button_showPassword"
                   onClick={showPassword}
                   type="button"
                 >
                   <FontAwesomeIcon icon={faEye} />
                 </button>
               </div>
-            </div>
-            <div className="d-grid">
-              <button
-                type="submit"
-                onClick={notify}
-                className="btn btn-primary"
-              >
-                Iniciar sesion
-              </button>
-            </div>
-            <ToastContainer
-              position="top-center"
-              autoClose={9000}
-              hideProgressBar={false}
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-            />
-            <div className="my-3">
-              <span className="pe-3">No tienes cuenta</span>
-              <Link to={"/registrar"}>Registrarse</Link>
-            </div>
-          </form>
-        </div>
+          </div>
+
+
+
+          <div className="Container_button_login">
+            <button
+              type="submit"
+              onClick={notify}
+              className="button_login"
+            >
+              Iniciar sesion
+            </button>
+          </div>
+
+          <ToastContainer
+            position="top-center"
+            autoClose={9000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
+
+          <div className="my-3">
+            <span className="text">No tienes cuenta </span>
+            <Link className="link_register" to={"/registrar"}>Registrarse</Link>
+          </div>
+
+        </form>
       </div>
     </div>
   );
