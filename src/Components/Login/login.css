@@ -34,18 +34,13 @@
     height: 100%;
 }
 
-
-
-
 /*Arauz*/
 
-
 .Container_Form{
-    padding: 30px 0;
     z-index: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     min-width: 500px;
     width: auto;
@@ -56,49 +51,49 @@
     box-shadow: 0 0 10px 0 rgba(0,0,0,0.7);
 }
 
-img{
-    width: 40%;
-    height: auto;
-}
-
-form{
+.Logo{
+    width: 150px;
+    height: 150px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+img{
     width: 100%;
     height: 100%;
 }
-.Logo{
-    width: auto;
-    height: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 2rem;
-    margin-top: 2rem;
 
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 300px;
 }
 
+.Container_Titulo {
+    margin-bottom: 20px;
+}
 
 .Title{
     font-size: var( --font-size-large);
     font-weight: var(--font-weight);
     color: var( --color-text);
-    margin-bottom: 1rem;
 }
 
-.Form{
+/* .Form{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100%;
-}
+} */
 
 .Container_Email{
-    margin: 10px 0;
+    margin-bottom: 10px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -132,33 +127,28 @@ form{
 .Email-Content input:not(:placeholder-shown) ~ span,
 .Email-Content input:focus ~ span
 {
-    transform: translateX(10px) translateY(-28px);
+    transform: translateX(0px) translateY(-28px);
     font-size: 0.95em;
     padding: 0 10px;
 }
 
-.Container_password{
+.Container_password {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
 }
 
 .Container_button_login{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 20vw;
-    height: 100%;
 }
 
 .button_login{
     background-color: var(--color-button);
     color: var(--color-text-secondary);
     width: 100%;
-    height: 2rem;
     border: var(--border);
     border-radius: var(--border-radius);
     margin-bottom: 1rem;
@@ -182,14 +172,15 @@ form{
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 100%;
 }
-.button_showPassword{
-    background-color: var(--color-button);
+
+.button_showPassword {
+    border: none;
+    position: absolute;
+    top: 10px;
+    right: 0;
     color: var(--color-text);
-    width: 100%;
     height: 2rem;
-    border: var(--border);
     border-radius: var(--border-radius);
     margin-bottom: 1rem;
     padding: 0.5rem;
@@ -197,7 +188,6 @@ form{
     font-weight: var(--font-weight);
     cursor: pointer;
 }
-
 
 .Container_button_showPassword{
     display: flex;
@@ -216,11 +206,18 @@ form{
     color: #f5f5f5;
 }
 
-
 .link_register{
-    color: var(--color-text);
+    color: var(--color-button);
     font-size: var(--font-size);
     font-weight: var(--font-weight);
     text-decoration: none;
     margin-top: 1rem;
+}
+
+.link_register:hover {
+    color: var(--color-button-hover);
+}
+
+.link_register:active {
+    color: var(--color-button-active);
 }

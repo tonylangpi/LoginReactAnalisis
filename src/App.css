@@ -1,11 +1,11 @@
 :root{
    /*Variables de colores */
+  --color-button: #078af8;
   --color-background: #eee1ff;
   --color-background-dark: #f5f5f5;
   --color-background-container: #f2f2f2c7;
-  --color-button: #7877ce;
-  --color-button-hover: #a3a8f1;
-  --color-button-active: #9a85fc;
+  --color-button-hover: #61c9fe;
+  --color-button-active: #085ca1;
   --color-link: #c49ddf;
   --color-link-hover: #9c4bff;
   --color-text: #2e223d;

@@ -10,7 +10,6 @@ import "./login.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 function Login() {
   const notify = () =>
     toast("🦄 login correcto, bienvenido", {
@@ -63,24 +62,21 @@ function Login() {
   };
   return (
     <div className="Container">
-      
-
 
       <div className="Container_Form">
         <div className="Logo">
           <img src={Logo} width="48px" alt="logo empresarial" />
         </div>
-          <div className="Container_Titulo">
-          <h2 className="Title">INGRESAR</h2>
-          </div>
-        
 
-        <form onSubmit={(e) => apiLogin(e)}>
+        <form className="Form" onSubmit={(e) => apiLogin(e)}>
+          <div className="Container_Titulo">
+            <h2 className="Title">INGRESAR</h2>
+          </div>
           <div className="Container_Email">
             <div className="Email-Content">
               <input
                 placeholder=" "
-                required= "required"
+                required="required"
                 type="email"
                 className="form-control"
                 name="user"
@@ -88,26 +84,19 @@ function Login() {
               />
               <span>Correo Electronico</span>
             </div>
-
           </div>
 
           <div className="Container_password">
-              <div className="Container_Email">
-                <div className="Email-Content">
-                  <input
-                    type={showpass ? "text" : "password"}
-                    className="form-control"
-                    name="pass"
-                    placeholder=" "
-                    onChange={saveDataTemporaly}
-                  />
-                  <span>Contraseña</span>
-                </div>
-
-              </div>
-
-
-              <div className="container_button">
+            <div className="Container_Email">
+              <div className="Email-Content">
+                <input
+                  type={showpass ? "text" : "password"}
+                  className="form-control"
+                  name="pass"
+                  placeholder=" "
+                  onChange={saveDataTemporaly}
+                />
+                <span>Contraseña</span>
                 <button
                   className="button_showPassword"
                   onClick={showPassword}
@@ -116,9 +105,8 @@ function Login() {
                   <FontAwesomeIcon icon={faEye} />
                 </button>
               </div>
+            </div>
           </div>
-
-
 
           <div className="Container_button_login">
             <button
