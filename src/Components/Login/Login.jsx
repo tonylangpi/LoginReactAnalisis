@@ -65,12 +65,12 @@ function Login() {
 
       <div className="Container_Form">
         <div className="Logo">
-          <img src={Logo} width="48px" alt="logo empresarial" />
+          <img src={Logo} alt="logo empresarial" />
         </div>
 
         <form className="Form" onSubmit={(e) => apiLogin(e)}>
           <div className="Container_Titulo">
-            <h2 className="Title">INGRESAR</h2>
+            <h2 className="Title">BIENVENIDO</h2>
           </div>
           <div className="Container_Email">
             <div className="Email-Content">
@@ -85,6 +85,8 @@ function Login() {
               <span>Correo Electronico</span>
             </div>
           </div>
+
+
 
           <div className="Container_password">
             <div className="Container_Email">
@@ -109,12 +111,11 @@ function Login() {
           </div>
 
           <div className="Container_button_login">
-            <button
-              type="submit"
-              onClick={notify}
-              className="button_login"
-            >
-              Iniciar sesion
+            <button type="submit" onClick={notify} className="container-button container-button-registrar">
+              <div class="container-button__icono">
+                <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />
+              </div>
+              <span class="container-button__span-iniciar">Iniciar Sesion</span>
             </button>
           </div>
 
@@ -132,7 +133,7 @@ function Login() {
           />
 
           <div className="my-3">
-            <span className="text">No tienes cuenta </span>
+            <span className="text">¿No tienes una cuenta? </span>
             <Link className="link_register" to={"/registrar"}>Registrarse</Link>
           </div>
 

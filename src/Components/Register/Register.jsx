@@ -44,6 +44,7 @@ const Register = () => {
         /[0-9]/.test(user.pass) &&
         /[!@#$%^&*()_+={}\[\]|\\:;"'<,>.?/`~]/.test(user.pass)
     );
+   
   };
 
 
@@ -78,18 +79,14 @@ const Register = () => {
     }
   };
   return (
-    <div className="Container2">
+    <div className="Container" >
 
-      <div className="Container_Form">
-        <div className="Logo">
-          <img src={Logo} width="48px" alt="logo empresarial" />
+      <div className="Container_Form2">
+        <form className="Form2" onSubmit={(e) => saveData(e)}>
+        <div className="Logo2">
+          <img src={Logo} alt="logo empresarial" />
         </div>
-        <div className="Container_Titulo">
-          <h2 className="Title">REGISTRAR</h2>
-        </div>
-
-        <form onSubmit={(e) => saveData(e)}>
-
+      
           <div className="Container_Email">
             <div className="Email-Content">
               <input
@@ -128,8 +125,8 @@ const Register = () => {
                 onChange={saveDataTemporaly}
                 onBlur={validateEmail}
               />
-              {email ? <p className="text-danger">Correo Válido</p> : <p className="text-danger">el correo debe contener un dominio ejemplo @gmail.com  para ser valido</p>}
-              <span>Correo</span>
+              {email ? <p className="text-danger">Correo Válido</p> : <p className="text-danger">Correo invalido</p>}
+              <span>Correo </span>
             </div>
           </div>
 
@@ -141,6 +138,7 @@ const Register = () => {
                   placeholder=" "
                   type={showPass ? "text" : "password"}
                   className="form-control"
+                  required="required"
                   name="pass"
                   onChange={saveDataTemporaly}
                   onBlur={validatePassword}
@@ -151,22 +149,25 @@ const Register = () => {
                   </button>
                 </div>
 
-                {passwordValid ? <p className="text-danger">Contraseña válida</p> : <p className="text-danger">La contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula y una letra minúscula y al menos un numero</p>}
+                {passwordValid ? <p className="text-danger">Contraseña válida</p> : <p  className="text-danger">Contraseña invalida</p>}
+                
 
                 <span>Contraseña</span>
               </div>
             </div>
           </div>
           <div className="Container_button_login">
-            <button type="submit" onClick={saveData} className="button_login">
-              Registrar
+            <button type="submit" onClick={saveData} className="container-button container-button-registrar">
+              <div class="container-button__icono">
+                <FontAwesomeIcon icon="fa-solid fa-user-plus" />
+              </div>
+              <span class="container-button__span">Registrar</span>
             </button>
           </div>
 
-          <ToastContainer />
-          <div className="my-3">
-            <span className="text">ya tienes cuenta </span>
-            <Link className="link_register" to={"/"}>Inicia Sesión</Link>
+          <div className="Container__text">
+            <span className="text">¿Ya tienes una cuenta? </span>
+            <Link className="link_2register" to={"/"}>Inicia Sesión</Link>
           </div>
         </form>
       </div>

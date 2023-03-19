@@ -1,6 +1,8 @@
 import React from "react";
 import Logo from "../../assets/images/logoUniversidad.png";
+import "./Validar.css";
 import { Link, redirect, useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const validarToken = () => {
     
     const apiLogin =  (e) => {
@@ -9,31 +11,39 @@ const validarToken = () => {
       };
 
   return (
-    <div className="container  w-75  bg-primary mt-5 rounded shadow">
-      <div className="row align-items-stretch">
-        <div className="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded"></div>
-        <div className="col bg-white p-5 rounded-end">
-          <div className="text-end">
-            <img src={Logo} width="48px" alt="logo empresarial" />
-          </div>
-          <h2 className="fw-bold text-center py-5">Ingresa el TOKEN que fue enviado a tu correo registrado</h2>
+    <div className="Container">
+      <div className="Container_Form3">
+        <form className="Form3" onSubmit={(e) => apiToken(e)}>
 
-          <form onSubmit={(e) => apiToken(e)}>
-            <div className="mb-4">
-              <label for="email" className="form-label">
-                TOKEN
-              </label>
+          <div className="Container_Titulo">
+            <h2 className="Title">Ingresa el TOKEN que fue enviado a tu correo registrado</h2>
+          </div>
+
+          <div className="Container_Email">
+            <div className="Email-Content">
               <input
+                placeholder=" "
                 type="email"
                 className="form-control"
                 name="user"
               />
+              <span>Token</span>
             </div>
-              <button type="submit" className="btn btn-primary">
-                Ingresar al sistema
-              </button>
-          </form>
-        </div>
+          </div>
+
+          <button type="submit" className="container-button container-button-registrar">
+            <div class="container-button__icono">
+              <FontAwesomeIcon icon="fa-solid fa-user-check" />
+            </div>
+            <span class="container-button__span">Registrar</span>
+          </button>
+
+          <div className="Container__text">
+            <span className="text">¿No te a llegado el TOKEN? </span>
+            <Link className="link_2register" to={"/"}>Reenviar Token</Link>
+          </div>
+
+        </form>
       </div>
     </div>
   );
