@@ -23,7 +23,7 @@ const validarToken = () => {
             <div className="Email-Content">
               <input
                 placeholder=" "
-                type="email"
+                type="text"
                 className="form-control"
                 name="user"
               />

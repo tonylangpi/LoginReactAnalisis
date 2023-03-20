@@ -23,6 +23,13 @@ const Register = () => {
   const [email, setEmail] = React.useState(false);
   const [showPass, setShowPass] = React.useState(false);
   
+  let icono ="fa-eye-slash";
+  if (showPass) {
+    icono ="fa-eye";
+  } else {
+    icono ="fa-eye-slash";
+  }
+
   const motrarPass = () => {
     setShowPass(!showPass);
   };
@@ -35,51 +42,97 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const validatePassword = () => {
-    /valida que la contraseña tenga al menos una mayuscula y una minuscula ademas de un numero en ella para ser aceptada/
-    setPasswordValid(
-      user.pass.length >= 8 &&
-        /[a-z]/.test(user.pass) &&
-        /[A-Z]/.test(user.pass) &&
-        /[0-9]/.test(user.pass) &&
-        /[!@#$%^&*()_+={}\[\]|\\:;"'<,>.?/`~]/.test(user.pass)
-    );
-   
-  };
 
+  const validatePassword = () => {
+    //valida que la contraseña tenga al menos una mayuscula y una minuscula ademas de un numero en ella para ser aceptada/
+    const passregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+    if (!passregex.test(user.pass)) {
+      setPasswordValid(false);
+    } else {
+      setPasswordValid(true);
+    }
+  };
 
   const validateEmail = () => {
     const correo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    setEmail(user.user.length >= 0 && correo.test(user.user));
+    if (!correo.test(user.user)) {
+      setEmail(false);
+    } else {
+      setEmail(true);
+    }
   };
 
   const saveData = (e) => {
     e.preventDefault();
-    if (!passwordValid && !email) {
-      alert("no se puede crear por el usuario y la contraseña");
-      return;
-    } else {
-      try {
-        axios
-          .post("https://analisisapi.netlify.app/registrar", user) //peticion a la api para loguearse
-          .then(({ data }) => {
-            if (data.auth) {
-              alert(data.message);
-              setTimeout(() => {
-                navigate("/");
-              }, 4000);
-            } else {
-              alert(data.message);
-            }
-          })
-          .catch((error) => console.log(error));
-      } catch (error) {
-        console.log(error);
-      }
+    try {
+      axios
+        .post("https://analisisapi.netlify.app/registrar", user) //peticion a la api para loguearse
+        .then(({ data }) => {
+          if (data.auth) {
+            document.getElementById('Modal').style.display = "flex";
+            document.getElementById('Error').textContent = data.message;
+            document.getElementById('Modal-Color').style.color = "#5b6f53";
+            document.getElementById('Modal-Color').style.backgroundColor = "#def2d5";
+            document.getElementById('iconoModal').style.display = "none";
+            document.getElementById('iconoModal2').style.display = "flex";
+            document.getElementById('Titulo').textContent = "USUARIO REGISTRADO 🙂";
+          } else {
+            document.getElementById('Modal').style.display = "flex";
+            document.getElementById('Error').textContent = data.message;
+            document.getElementById('Modal-Color').style.color = "#95722d";
+            document.getElementById('Modal-Color').style.backgroundColor = "#f8f3d6";
+            document.getElementById('iconoModal').style.display = "flex";
+            document.getElementById('iconoModal2').style.display = "none";
+            document.getElementById('Titulo').textContent = "ERROR 🙁";
+          }
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
     }
   };
+
+  const Validar = (e) => {
+    e.preventDefault();
+    try {
+      axios
+        .post("https://analisisapi.netlify.app/confirmar", user) //peticion a la api para loguearse 
+        .then(({ data }) => {
+          if (data.auth) {
+            alert(data.message);
+            setTimeout(() => {
+              navigate("/validarToken");
+            }, 4000);
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function Desaparecer() {
+    document.getElementById('Modal').style.display = "none";
+  }
+
   return (
     <div className="Container" >
+
+      <div id="Modal" className="Container-Modal">
+        <div className="Container-Modal__Capa">
+          <div id="Modal-Color" className="Container-Modal__Modal">
+            <FontAwesomeIcon id="iconoModal" className="Container-Modal__Icono" icon="fa-solid fa-triangle-exclamation" />
+            <FontAwesomeIcon id="iconoModal2" className="Container-Modal__Icono" icon="fa-solid fa-circle-check" />
+            <div className="Container-Modal__Error">
+              <p id="Titulo" className="Titulo"></p>
+              <p className="Error" id="Error"></p>
+            </div>
+            <FontAwesomeIcon className="Container-Modal__Icono-Cerrar" onClick={Desaparecer} icon="fa-solid fa-xmark" />
+          </div>
+        </div>
+      </div>
 
       <div className="Container_Form2">
         <form className="Form2" onSubmit={(e) => saveData(e)}>
@@ -125,7 +178,6 @@ const Register = () => {
                 onChange={saveDataTemporaly}
                 onBlur={validateEmail}
               />
-              {email ? <p className="text-danger">Correo Válido</p> : <p className="text-danger">Correo invalido</p>}
               <span>Correo </span>
             </div>
           </div>
@@ -145,13 +197,9 @@ const Register = () => {
                 />
                 <div className="Container_button">
                   <button className="button_showPassword" onClick={motrarPass} type="button">
-                    <FontAwesomeIcon icon={faEye} />
+                    <FontAwesomeIcon icon={`${icono}`} />
                   </button>
                 </div>
-
-                {passwordValid ? <p className="text-danger">Contraseña válida</p> : <p  className="text-danger">Contraseña invalida</p>}
-                
-
                 <span>Contraseña</span>
               </div>
             </div>
