@@ -134,7 +134,7 @@ const Register = () => {
             <FontAwesomeIcon id="iconoModal" className="Container-Modal__Icono" icon="fa-solid fa-triangle-exclamation" />
             <FontAwesomeIcon id="iconoModal2" className="Container-Modal__Icono" icon="fa-solid fa-circle-check" />
             <div className="Container-Modal__Error">
-              <p id="Titulo" className="Titulo">{prueba ? 'USUARIO REGISTRADO 🙂' : 'ERROR 🙁'}</p>
+              <p id="Titulo" className="Titulo">{prueba.auth ? 'USUARIO REGISTRADO 🙂' : 'ERROR 🙁'}</p>
               <p className="Error" id="Error">{prueba.message}</p>
             </div>
             <FontAwesomeIcon className="Container-Modal__Icono-Cerrar" onClick={Desaparecer} icon="fa-solid fa-xmark" />
