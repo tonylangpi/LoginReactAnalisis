@@ -9,8 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-  let notify;
-  let mensaje;
   const navigate = useNavigate();
   const [user, setUser] = React.useState({
     user: "",
@@ -18,10 +16,14 @@ const Register = () => {
     Nombre: "",
     Apellido: "",
   });
-  let tiempo; 
+
   const [passwordValid, setPasswordValid] = React.useState(false);
   const [email, setEmail] = React.useState(false);
   const [showPass, setShowPass] = React.useState(false);
+  const [prueba, setPrueba] = React.useState({
+    auth: false,
+    message: "",
+  });
   
   let icono ="fa-eye-slash";
   if (showPass) {
@@ -69,21 +71,27 @@ const Register = () => {
         .post("https://analisisapi.netlify.app/registrar", user) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
+            setPrueba({
+              auth: data.auth,
+              message: data.message
+            });
             document.getElementById('Modal').style.display = "flex";
-            document.getElementById('Error').textContent = data.message;
+            // document.getElementById('Error').textContent = data.message;
             document.getElementById('Modal-Color').style.color = "#5b6f53";
             document.getElementById('Modal-Color').style.backgroundColor = "#def2d5";
             document.getElementById('iconoModal').style.display = "none";
             document.getElementById('iconoModal2').style.display = "flex";
-            document.getElementById('Titulo').textContent = "USUARIO REGISTRADO 🙂";
           } else {
+            setPrueba({
+              auth: data.auth,
+              message: data.message
+            });
             document.getElementById('Modal').style.display = "flex";
-            document.getElementById('Error').textContent = data.message;
+            // document.getElementById('Error').textContent = data.message;
             document.getElementById('Modal-Color').style.color = "#95722d";
             document.getElementById('Modal-Color').style.backgroundColor = "#f8f3d6";
             document.getElementById('iconoModal').style.display = "flex";
             document.getElementById('iconoModal2').style.display = "none";
-            document.getElementById('Titulo').textContent = "ERROR 🙁";
           }
         })
         .catch((error) => console.log(error));
@@ -122,19 +130,19 @@ const Register = () => {
 
       <div id="Modal" className="Container-Modal">
         <div className="Container-Modal__Capa">
-          <div id="Modal-Color" className="Container-Modal__Modal">
+          <div id="Modal-Color" className={`Container-Modal__Modal ${prueba ? 'prueba_Valido' : 'prueba_Invalido'}`}>
             <FontAwesomeIcon id="iconoModal" className="Container-Modal__Icono" icon="fa-solid fa-triangle-exclamation" />
             <FontAwesomeIcon id="iconoModal2" className="Container-Modal__Icono" icon="fa-solid fa-circle-check" />
             <div className="Container-Modal__Error">
-              <p id="Titulo" className="Titulo"></p>
-              <p className="Error" id="Error"></p>
+              <p id="Titulo" className="Titulo">{prueba ? 'USUARIO REGISTRADO 🙂' : 'ERROR 🙁'}</p>
+              <p className="Error" id="Error">{prueba.message}</p>
             </div>
             <FontAwesomeIcon className="Container-Modal__Icono-Cerrar" onClick={Desaparecer} icon="fa-solid fa-xmark" />
           </div>
         </div>
       </div>
 
-      <div className="Container_Form2">
+      <div className="Container_Form">
         <form className="Form2" onSubmit={(e) => saveData(e)}>
         <div className="Logo2">
           <img src={Logo} alt="logo empresarial" />
@@ -206,10 +214,10 @@ const Register = () => {
           </div>
           <div className="Container_button_login">
             <button type="submit" onClick={saveData} className="container-button container-button-registrar">
-              <div class="container-button__icono">
+              <div className="container-button__icono">
                 <FontAwesomeIcon icon="fa-solid fa-user-plus" />
               </div>
-              <span class="container-button__span">Registrar</span>
+              <span className="container-button__span">Registrar</span>
             </button>
           </div>
 

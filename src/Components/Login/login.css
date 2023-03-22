@@ -1,11 +1,13 @@
-*{
-    margin: 0;
-    padding: 0;
+.prueba_Valido {
+    background-color: #000 !important;
+}
+
+.prueba_Invalido {
+    background-color: red !important;
 }
 
 .Container {
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100vw;
@@ -104,15 +106,15 @@
 }
 
 /*Arauz*/
-
-.Container_Form{
+.Container_Form {
+    font-family: var(--font-family);
+    letter-spacing: 1px;
     z-index: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    min-width: 500px;
-    width: auto;
+    width: 500px;
     min-height: 650px;
     height: auto;
     background-color: var(--color-background-container);
@@ -135,12 +137,12 @@
     align-items: center;
 }
 
-img{
+.Logo img{
     width: 100%;
     height: 100%;
 }
 
-form {
+.Container_Form form {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -153,23 +155,16 @@ form {
     margin-bottom: 20px;
 }
 
-.Title{
+.Title {
+    font-family: var(--font-family);
     font-size: var( --font-size-large);
     font-weight: var(--font-weight);
     color: var( --color-text);
+    letter-spacing: 10px;
 }
 
-/* .Form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-} */
-
 .Container_Email{
-    margin-bottom: 10px;
+    margin: 10px 0 10px 0;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -178,6 +173,7 @@ form {
 }
 
 .Container_Email .Email-Content {
+    left: -10px;
     position: relative;
     width: 80%;
 }
@@ -188,8 +184,6 @@ form {
     outline: none;
     background-color: var(--color-background-container);
 }
-
-
 
 .Email-Content span{
     position: absolute;
@@ -205,7 +199,7 @@ form {
 .Email-Content input:not(:placeholder-shown) ~ span,
 .Email-Content input:focus ~ span
 {
-    transform: translateX(0px) translateY(-28px);
+    transform: translateX(0px) translateY(-30px);
     font-size: 0.95em;
     padding: 0 10px;
 }
@@ -283,7 +277,7 @@ form {
     font-size: var(--font-size);
     font-weight: var(--font-weight);
     text-decoration: none;
-    margin-top: 1rem;
+    padding: 0 10px;
 }
 
 .link_register:hover {
@@ -302,4 +296,113 @@ form {
 
 .container-button:hover .container-button__span-iniciar {
 	left: 15px;
+}
+
+.Container_Registrar {
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 715px) {
+    .Container-Modal__Modal {
+        width: 500px;
+    }
+
+    .Container-Modal__Error .Error {
+        letter-spacing: 1px;
+        text-align: center;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .Container_Form {
+        width: 400px;
+    }
+
+    .Container-Modal__Modal {
+        flex-direction: column;
+        width: 300px;
+        height: 300px;
+    }
+
+    .Container-Modal__Error .Error {
+        padding: 10px;
+    } 
+}
+
+@media only screen and (max-width: 480px) {
+    .Container_Form {
+        width: 350px;
+    }
+
+    .Container-Modal__Modal {
+        flex-direction: column;
+        width: 300px;
+        height: 300px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .Container_Form {
+        width: 300px;
+    }
+
+    .Container-Modal__Modal {
+        flex-direction: column;
+        width: 250px;
+        height: 300px;
+    }
+
+    .Container-Modal__Error .Error {
+        font-size: 20px;
+        letter-spacing: 1px;
+    }
+
+    .Container_Registrar {
+        flex-direction: column;
+    }
+
+    .Logo {
+        height: 170px;
+        width: 170px;
+    }
+}
+
+@media only screen and (max-width: 330px) {
+    .Container_Form {
+        width: 230px;
+        min-height: 430px;
+        padding: 10px;
+    }
+
+    .Container-Modal__Modal {
+        flex-direction: column;
+        width: 230px;
+        height: 300px;
+    }
+
+    .Container-Modal__Error .Error {
+        font-size: 18px;
+        letter-spacing: 1px;
+    }
+
+    .Logo {
+        height: 130px;
+        width: 130px;
+    }
+
+    .Container_Titulo .Title {
+        font-size: 18px;
+    }
+
+    .Email-Content span, .Container_password span {
+        font-size: 10px;
+    }
+
+    .Email-Content input:not(:placeholder-shown)~span,
+    .Email-Content input:focus~span {
+        font-size: 12px;
+    }
 }
