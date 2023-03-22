@@ -32,10 +32,10 @@ const validarToken = () => {
           </div>
 
           <button type="submit" className="container-button container-button-registrar">
-            <div class="container-button__icono">
+            <div className="container-button__icono">
               <FontAwesomeIcon icon="fa-solid fa-user-check" />
             </div>
-            <span class="container-button__span">Registrar</span>
+            <span className="container-button__span">Registrar</span>
           </button>
 
           <div className="Container__text">

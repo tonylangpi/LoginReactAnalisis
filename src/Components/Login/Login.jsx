@@ -121,27 +121,14 @@ function Login() {
 
           <div className="Container_button_login">
             <button type="submit" className="container-button container-button-registrar">
-              <div class="container-button__icono">
+              <div className="container-button__icono">
                 <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />
               </div>
-              <span class="container-button__span-iniciar">Iniciar Sesion</span>
+              <span className="container-button__span-iniciar">Iniciar Sesion</span>
             </button>
           </div>
 
-          <ToastContainer
-            position="top-center"
-            autoClose={9000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-
-          <div className="my-3">
+          <div className="Container_Registrar">
             <span className="text">¿No tienes una cuenta? </span>
             <Link className="link_register" to={"/registrar"}>Registrarse</Link>
           </div>
