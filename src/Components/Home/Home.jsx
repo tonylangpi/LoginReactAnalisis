@@ -5,13 +5,11 @@ const Home = () => {
 return (
 
   <div className="Container">
-  
         <button
-          className="button_login"
+          className="Button"
           onClick={() => {
             localStorage.clear();
             location.reload();
-            
           }}
         >
           Cerrar sesion

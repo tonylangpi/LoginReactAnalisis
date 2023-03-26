@@ -2,6 +2,7 @@ import Login from "./Components/Login/Login";
 import React, { useEffect } from "react";
 import Register from './Components/Register/Register';
 import axios from 'axios';
+import './App.scss'; // Importar estilos
 import {
   BrowserRouter as Router,
   Routes,

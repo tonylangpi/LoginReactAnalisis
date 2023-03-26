@@ -1,9 +1,9 @@
 import React from "react";
-import Logo from "../../assets/images/logoUniversidad.png";
+import Logo from "../../assets/images/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import "./register.css";
+// import "./register.css";
 import axios from 'axios'; 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -76,22 +76,12 @@ const Register = () => {
               message: data.message
             });
             document.getElementById('Modal').style.display = "flex";
-            // document.getElementById('Error').textContent = data.message;
-            document.getElementById('Modal-Color').style.color = "#5b6f53";
-            document.getElementById('Modal-Color').style.backgroundColor = "#def2d5";
-            document.getElementById('iconoModal').style.display = "none";
-            document.getElementById('iconoModal2').style.display = "flex";
           } else {
             setPrueba({
               auth: data.auth,
               message: data.message
             });
             document.getElementById('Modal').style.display = "flex";
-            // document.getElementById('Error').textContent = data.message;
-            document.getElementById('Modal-Color').style.color = "#95722d";
-            document.getElementById('Modal-Color').style.backgroundColor = "#f8f3d6";
-            document.getElementById('iconoModal').style.display = "flex";
-            document.getElementById('iconoModal2').style.display = "none";
           }
         })
         .catch((error) => console.log(error));
@@ -128,103 +118,97 @@ const Register = () => {
   return (
     <div className="Container" >
 
-      <div id="Modal" className="Container-Modal">
-        <div className="Container-Modal__Capa">
-          <div id="Modal-Color" className={`Container-Modal__Modal ${prueba ? 'prueba_Valido' : 'prueba_Invalido'}`}>
-            <FontAwesomeIcon id="iconoModal" className="Container-Modal__Icono" icon="fa-solid fa-triangle-exclamation" />
-            <FontAwesomeIcon id="iconoModal2" className="Container-Modal__Icono" icon="fa-solid fa-circle-check" />
-            <div className="Container-Modal__Error">
-              <p id="Titulo" className="Titulo">{prueba ? 'USUARIO REGISTRADO 🙂' : 'ERROR 🙁'}</p>
-              <p className="Error" id="Error">{prueba.message}</p>
+        <div id="Modal" className="Container-Modal">
+          <div className={`Container-Modal__Modal ${prueba.auth ? 'Valido' : 'Invalido'}`}>
+            <FontAwesomeIcon className="Container-Modal__Modal-Icono Modal-Item" icon={`fa-solid ${prueba.auth ? 'fa-circle-check' : 'fa-triangle-exclamation'} `} />
+            <div className="Container-Modal__Modal-Message Modal-Item">
+              <p id="Titulo" className="Titulo">{prueba.auth ? 'USUARIO REGISTRADO 🙂' : 'ERROR 🙁'}</p>
+              <p className="Message">{prueba.message}</p>
             </div>
-            <FontAwesomeIcon className="Container-Modal__Icono-Cerrar" onClick={Desaparecer} icon="fa-solid fa-xmark" />
+            <FontAwesomeIcon className="Container-Modal__Modal-Icono-Cerrar Modal-Item" onClick={Desaparecer} icon="fa-solid fa-xmark" />
           </div>
         </div>
-      </div>
 
-      <div className="Container_Form">
-        <form className="Form2" onSubmit={(e) => saveData(e)}>
-        <div className="Logo2">
+      <div className="Container_Form Container-Form">
+        
+        <div className="Container-Form__Logo">
           <img src={Logo} alt="logo empresarial" />
         </div>
-      
-          <div className="Container_Email">
-            <div className="Email-Content">
+
+        <form className="Container-Form__Form" onSubmit={(e) => saveData(e)}>
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
               <input
                 placeholder=" "
                 type="text"
-                className="form-control"
+                className="Container-Input__Input"
                 name="Nombre"
                 onChange={saveDataTemporaly}
               />
-              <span>Nombre</span>
+              <span className="Container-Input__Span">Nombre</span>
             </div>
           </div>
 
-          <div className="Container_Email">
-            <div className="Email-Content">
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
               <input
                 placeholder=" "
                 type="text2"
-                className="form-control"
+                className="Container-Input__Input"
                 name="Apellido"
                 onChange={saveDataTemporaly}
               />
-              <span>Apellido</span>
+              <span className="Container-Input__Span" >Apellido</span>
             </div>
           </div>
 
-          <div className="Container_Email">
-            <div className="Email-Content">
-
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
               <input
                 placeholder=" "
                 type="email"
                 required="required"
-                className="form-control"
+                className="Container-Input__Input"
                 name="user"
                 onChange={saveDataTemporaly}
                 onBlur={validateEmail}
               />
-              <span>Correo </span>
+              <span className="Container-Input__Span" >Correo Electronico</span>
             </div>
           </div>
 
-          <div className="Container_password">
-            <div className="Container_Email">
-              <div className="Email-Content">
-
-                <input
-                  placeholder=" "
-                  type={showPass ? "text" : "password"}
-                  className="form-control"
-                  required="required"
-                  name="pass"
-                  onChange={saveDataTemporaly}
-                  onBlur={validatePassword}
-                />
-                <div className="Container_button">
-                  <button className="button_showPassword" onClick={motrarPass} type="button">
-                    <FontAwesomeIcon icon={`${icono}`} />
-                  </button>
-                </div>
-                <span>Contraseña</span>
-              </div>
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
+              <input
+                placeholder=" "
+                type={showPass ? "text" : "password"}
+                className="Container-Input__Input"
+                required="required"
+                name="pass"
+                onChange={saveDataTemporaly}
+                onBlur={validatePassword}
+              />
+              <button className="Container-Input__Button" onClick={motrarPass} type="button">
+                <FontAwesomeIcon icon={`${icono}`} />
+              </button>
+              <span className="Container-Input__Span">Contraseña</span>
             </div>
           </div>
-          <div className="Container_button_login">
-            <button type="submit" onClick={saveData} className="container-button container-button-registrar">
-              <div className="container-button__icono">
+
+          <div className="Container-Form__Form-item">
+            <button type="submit" onClick={saveData} className="Button">
+              <div className="Button__Icono">
                 <FontAwesomeIcon icon="fa-solid fa-user-plus" />
               </div>
-              <span className="container-button__span">Registrar</span>
+              <span className="Button__Span">Registrar</span>
             </button>
           </div>
 
-          <div className="Container__text">
-            <span className="text">¿Ya tienes una cuenta? </span>
-            <Link className="link_2register" to={"/"}>Inicia Sesión</Link>
+          <div className="Container-Form__Form-item">
+            <span className="Message">¿Ya tienes una cuenta? </span>
+            <Link className="Link" to={"/"}>Inicia Sesión</Link>
           </div>
+
         </form>
       </div>
     </div>

@@ -1,0 +1,266 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+Label {
+    font-size: $font-size;
+    font-weight: $font-weight;
+    color: $color-text;
+    margin-bottom: 0.5rem;
+}
+
+input {
+    background-color: $color-button;
+    width: 100%;
+    height: 2rem;
+    border-radius: $border-radius;
+    padding: 0.5rem;
+    font-size: $font-size;
+    font-weight: $font-weight;
+}
+
+// estilo Modal
+@keyframes Aparecer {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+.Container-Modal {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.711);
+    animation: Aparecer ease-in 0.2s;
+
+    &__Modal {
+        padding: 5px;
+        color: #95722d;
+        background-color: #f8f3d6;
+        height: 150px;
+        width: 650px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        border-radius: $border-radius;
+        box-shadow: 0 0 20px 0 #95722d;
+
+        &-Icono {
+            font-size: 60px;
+        }
+
+        .Modal-Item {
+            padding: 0 25px;
+        }
+
+        &-Message{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+
+            .Titulo {
+                font-family: $font-rubik;
+                font-size: 25px;
+                font-weight: 600;
+                margin: 5px 0;
+                letter-spacing: 3px;
+                text-align: center;
+            }
+
+            .Message {
+                font-family: $font-rubik;
+                font-size: 20px;
+                font-weight: 300;
+                margin: 5px 0;
+                letter-spacing: 3px;
+                text-align: center;
+            }
+        }
+
+        &-Icono-Cerrar {
+            font-size: 50px;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+
+// titulo
+.Title{
+    font-family: var(--font-family);
+    font-size: var(--font-size-large);
+    font-weight: var(--font-weight);
+    color: var(--color-text);
+    letter-spacing: 10px;
+}
+
+// estilo del Contenedor Form
+@keyframes Animacion-Form-Shadow {
+    0%{box-shadow: 0 0 10px 0 rgba(88,192,255,0.5)}
+    33%{box-shadow: 0 0 10px 0 rgba(1,132,251,0.5)}
+    66%{box-shadow: 0 0 10px 0 rgba(1,132,251,0.5)}
+    100%{box-shadow: 0 0 10px 0 rgba(88,192,255,0.5)}
+}
+
+.Container-Form {
+    font-size: $font-size-large;
+    font-weight: $font-weight;
+    color: $color-text;
+    font-family: $font-family;
+    letter-spacing: 2px;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 500px;
+    height: auto;
+    padding: 10px;
+    background-color: $color-background-container;
+    border-radius: $font-size-large;
+    animation: Animacion-Form-Shadow infinite ease-out 4s;
+    
+    &__Logo{
+        margin: 10px;
+        width: 200px;
+        height: 200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        img{
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    &__Form{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        width: 100%;
+        
+        &-item{
+            margin: 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+// Estilo de los input con animacion
+.Container-Input {
+    left: -10px;
+    position: relative;
+    width: 80%;
+
+    &__Input {
+        padding: 10px;
+        border: 1px solid grey;
+        outline: none;
+        background-color: $color-background-container;
+
+        &:not(:placeholder-shown) ~ span, &:focus ~ span {
+            transform: translateX(0px) translateY(-30px);
+            font-size: 0.8em;
+            padding: 0 10px;
+        }
+    }
+
+    &__Span {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        padding: 10px;
+        pointer-events: none;
+        font-size: 1rem;
+        text-transform: uppercase;
+        transition: 0.5s;
+    }
+
+    &__Button {
+        border: none;
+        position: absolute;
+        top: 18px;
+        right: 0;
+        color: $color-button;
+        font-size: $font-size;
+        cursor: pointer;
+
+        &:hover {
+            color: $color-button-hover;
+        }
+    }
+}
+
+// Estilo de los Botones 
+.Button {
+    display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 200px;
+	height: 50px;
+	background: $color-button;
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	font-weight: 100;
+	border: none;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: .3s ease all;
+	border-radius: 5px;
+	position: relative;
+	overflow: hidden;
+
+    &__Span {
+        transition: .4s ease-in-out all;
+	    position: absolute;
+	    left: 19%;
+    }
+
+    &__Icono {
+        display: flex;
+	    align-items: center;
+	    position: absolute;
+	    z-index: 2;
+	    left: -40px;
+	    transition: .3s ease-in-out all;
+	    opacity: 0;
+    }
+
+    &:hover {
+        background: $color-button-active;
+    }
+
+    &:hover &__Icono {
+        left: calc(100% - 30px);
+        opacity: 1;
+    }
+
+    &:hover &__Span {
+        left: 20px;
+    }
+}
+
+// estilo de los link 
+.Link {
+    color: $color-button;
+    text-decoration: none;
+
+    &:hover {
+        color: $color-button-hover;
+    }
+}

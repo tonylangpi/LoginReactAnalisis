@@ -1,12 +1,11 @@
 import React from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
-import Logo from "../../assets/images/logoUniversidad.png";
+import Logo from "../../assets/images/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Home from "../Home/Home";
-import "../../App.css";
-import "./login.css";
+import "./_Login.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -16,6 +15,10 @@ function Login() {
   const [usuario, setUser] = React.useState({
     user: "",
     pass: "",
+  });
+  const [prueba, setPrueba] = React.useState({
+    auth: false,
+    message: "",
   });
   const saveDataTemporaly = (e) => {
     e.preventDefault();
@@ -37,8 +40,11 @@ function Login() {
             //aqui se redirige al usuario a la pagina home
               navigate(0);
           } else {
+            setPrueba({
+              auth: data.auth,
+              message: data.message
+            });
             document.getElementById('Modal').style.display = "flex";
-            document.getElementById('Error').textContent = data.message;
           }
         })
         .catch((error) => console.log(error));
@@ -67,70 +73,65 @@ function Login() {
     <div className="Container">
       
       <div id="Modal" className="Container-Modal">
-        <div className="Container-Modal__Capa">
-          <div className="Container-Modal__Modal">
-            <FontAwesomeIcon className="Container-Modal__Icono" icon="fa-solid fa-triangle-exclamation" />
-            <div className="Container-Modal__Error">
-              <p className="Titulo">ERROR ☹</p>
-              <p className="Error" id="Error"></p>
-            </div>
-            <FontAwesomeIcon className="Container-Modal__Icono-Cerrar" onClick={Desaparecer} icon="fa-solid fa-xmark" />
+        <div className="Container-Modal__Modal">
+          <FontAwesomeIcon className="Container-Modal__Modal-Icono Modal-Item" icon="fa-solid fa-triangle-exclamation" />
+          <div className="Container-Modal__Modal-Message Modal-Item">
+            <p className="Titulo">ERROR 🙁</p>
+            <p className="Message">{prueba.message}</p>
           </div>
+          <FontAwesomeIcon className="Container-Modal__Modal-Icono-Cerrar Modal-Item" onClick={Desaparecer} icon="fa-solid fa-xmark" />
         </div>
       </div>
 
-      <div className="Container_Form">
-        <div className="Logo">
+      <div className="Container_Form Container-Form">
+        <div className="Container-Form__Logo">
           <img src={Logo} alt="logo empresarial" />
         </div>
-
-        <form className="Form" onSubmit={(e) => apiLogin(e)}>
-          <div className="Container_Titulo">
+        <form className="Container-Form__Form" onSubmit={(e) => apiLogin(e)}>
+          <div className="Container-Form__Form-item">
             <h2 className="Title">BIENVENIDO</h2>
           </div>
-          <div className="Container_Email">
-            <div className="Email-Content">
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
               <input
                 placeholder=" "
                 type="email"
-                className="form-control"
+                className="Container-Input__Input"
                 name="user"
                 onChange={saveDataTemporaly}
               />
-              <span>Correo Electronico</span>
+              <span className="Container-Input__Span">Correo Electronico</span>
             </div>
           </div>
 
-          <div className="Container_password">
-            <div className="Container_Email">
-              <div className="Email-Content">
+          <div className="Container-Form__Form-item">
+              <div className="Container-Input">
                 <input
                   type={showpass ? "text" : "password"}
-                  className="form-control"
+                  className="Container-Input__Input"
                   name="pass"
                   placeholder=" "
                   onChange={saveDataTemporaly}
                 />
-                <span>Contraseña</span>
-                <button className="button_showPassword" onClick={showPassword} type="button">
+                <span className="Container-Input__Span">Contraseña</span>
+                <button className="Container-Input__Button" onClick={showPassword} type="button">
                   <FontAwesomeIcon icon={`${icono}`} />
                 </button>
               </div>
-            </div>
           </div>
 
-          <div className="Container_button_login">
-            <button type="submit" className="container-button container-button-registrar">
-              <div className="container-button__icono">
+          <div className="Container-Form__Form-item">
+            <button type="submit" className="Button">
+              <div className="Button__Icono">
                 <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />
               </div>
-              <span className="container-button__span-iniciar">Iniciar Sesion</span>
+              <span className="Button__Span Iniciar">Iniciar Sesion</span>
             </button>
           </div>
 
-          <div className="Container_Registrar">
-            <span className="text">¿No tienes una cuenta? </span>
-            <Link className="link_register" to={"/registrar"}>Registrarse</Link>
+          <div className="Container-Form__Form-item">
+            <span className="Message">¿No tienes una cuenta? </span>
+            <Link className="Link" to={"/registrar"}>Registrate</Link>
           </div>
 
         </form>

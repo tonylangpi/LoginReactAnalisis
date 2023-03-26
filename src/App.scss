@@ -1,0 +1,10 @@
+// importar variables
+@import './Styles/Variables';
+
+// importar estilos generales
+@import './Styles/General';
+
+// importar estilos de componentes
+@import './Components/Login/Login';
+@import './Components/Register/Register';
+@import './Components/Validar/Validar';
