@@ -1,30 +1,42 @@
 import React from "react";
-import Logo from "../../assets/images/logoUniversidad.png";
+import Logo from "../../assets/images/Logo.png";
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import "./register.css";
+// import "./register.css";
 import axios from 'axios'; 
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = () => {
-  let notify ;
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [user, setUser] = React.useState({
     user: "",
     pass: "",
-    Nombre: "",
-    Apellido: "",
+    name: "",
+    lastName: "",
   });
 
   const [passwordValid, setPasswordValid] = React.useState(false);
   const [email, setEmail] = React.useState(false);
   const [showPass, setShowPass] = React.useState(false);
-  const motrarPass = () => {
-    setShowPass(!showPass);
+  const [prueba, setPrueba] = React.useState({
+    auth: false,
+    message: "",
+  });
+  
+  let icono ="fa-eye-slash";
+  if (showPass) {
+    icono ="fa-eye";
+  } else {
+    icono ="fa-eye-slash";
   }
 
+  const motrarPass = () => {
+    setShowPass(!showPass);
+  };
+
+  const validateName = () => {};
   const saveDataTemporaly = (e) => {
     e.preventDefault();
     setUser({
@@ -32,151 +44,152 @@ const Register = () => {
       [e.target.name]: e.target.value,
     });
   };
+
   const validatePassword = () => {
-    /*valida que la contraseña tenga al menos una mayuscula y una minuscula ademas de un numero en ella para ser aceptada*/
-    setPasswordValid(
-      user.pass.length >= 8 &&
-        /[a-z]/.test(user.pass) &&
-        /[A-Z]/.test(user.pass) &&
-        /[0-9]/.test(user.pass) &&
-        /[!@#$%^&*()_+={}\[\]|\\:;"'<,>.?/`~]/.test(user.pass)
-    );
+    //valida que la contraseña tenga al menos una mayuscula y una minuscula ademas de un numero en ella para ser aceptada/
+    const passregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+    if (!passregex.test(user.pass)) {
+      setPasswordValid(false);
+    } else {
+      setPasswordValid(true);
+    }
   };
 
   const validateEmail = () => {
-    const correo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
-    setEmail(
-       user.user.length >= 0 && 
-       correo.test(user.user)
-    )
-  }
-
-  const saveData =  (e) => {
-    e.preventDefault(); 
-    
-    if (!passwordValid && !email) {
-      notify = () => toast("no se puede crear el usuario porque el password o el email son incorrectos"); 
-      return;
+    const correo = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!correo.test(user.user)) {
+      setEmail(false);
     } else {
-      try {
-         axios
-        .post("https://analisisapi.netlify.app/registrar", user) //peticion a la api para loguearse
-        .then(({data}) => {
-          setTimeout(() => {
-            navigate('/');
-          }, 4000);
-        })
-        .catch((error) => console.log(error));
-      } catch (error) {
-        console.log(error)
-      }
+      setEmail(true);
     }
   };
+
+  const saveData = (e) => {
+    e.preventDefault();
+    try {
+      axios
+        .post("https://analisisapi.netlify.app/register", user) //peticion a la api para loguearse
+        .then(({ data }) => {
+          if (data.auth) {
+            setPrueba({
+              auth: data.auth,
+              message: data.message
+            });
+            document.getElementById('Modal').style.display = "flex";
+          } else {
+            setPrueba({
+              auth: data.auth,
+              message: data.message
+            });
+            document.getElementById('Modal').style.display = "flex";
+          }
+        })
+        .catch((error) => console.log(error));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function Desaparecer() {
+    document.getElementById('Modal').style.display = "none";
+  }
+
   return (
-    <div className="Container">
-      
-       <div className="Container_Form">
-      <div className="Logo">
-        <img src={Logo} width="48px" alt="logo empresarial" />
-      </div>
-      <div className="Container_Titulo">
-          <h2 className="Title">REGISTRAR</h2>
+    <div className="Container" >
+
+        <div id="Modal" className="Container-Modal">
+          <div className={`Container-Modal__Modal ${prueba.auth ? 'Valido' : 'Invalido'}`}>
+            <FontAwesomeIcon className="Container-Modal__Modal-Icono Modal-Item" icon={`fa-solid ${prueba.auth ? 'fa-circle-check' : 'fa-triangle-exclamation'} `} />
+            <div className="Container-Modal__Modal-Message Modal-Item">
+              <p id="Titulo" className="Titulo">{prueba.auth ? 'USUARIO REGISTRADO 🙂' : 'ERROR 🙁'}</p>
+              <p className="Message">{prueba.message}</p>
+            </div>
+            <FontAwesomeIcon className="Container-Modal__Modal-Icono-Cerrar Modal-Item" onClick={Desaparecer} icon="fa-solid fa-xmark" />
           </div>
-
-      <form onSubmit={(e) => saveData(e)}>
-
-        <div className="Container_Email">
-          <div className="Email-Content">
-          <input
-            placeholder=" "
-            type="text"
-            className="form-control"
-            name="Nombre"
-            onChange={saveDataTemporaly}
-          />
-           <span>Nombre</span>
-            </div>
-        </div>
-        
-        <div className="Container_Email">
-          <div className="Email-Content">
-          <input
-            placeholder=" "
-            type="text2"
-            className="form-control"
-            name="Apellido"
-            onChange={saveDataTemporaly}
-          />
-            <span>Apellido</span>
-            </div>
         </div>
 
-        <div className="Container_Email">
-          <div className="Email-Content">
+      <div className="Container_Form Container-Form">
         
-          
-          <input
-            placeholder=" "
-            type="email"
-            required="required"
-            className="form-control"
-            name="user"
-            onChange={saveDataTemporaly}
-            onBlur={validateEmail}
-          />
-          {email ? <p className="text-danger">Correo Válido</p> : <p className="text-danger">el correo debe contener un dominio ejemplo @gmail.com  para ser valido</p>}
-          <span>Correo</span>
-          </div>
-        </div>  
+        <div className="Container-Form__Logo">
+          <img src={Logo} alt="logo empresarial" />
+        </div>
 
-        <div className="Container_password">
-        <div className="Container_Email">
-          <div className="Email-Content">
-        
-          <input
-            placeholder=" "
-            type={showPass ? "text" : "password"}
-            className="form-control"
-            name="pass"
-            onChange={saveDataTemporaly}
-            onBlur={validatePassword}
-          />
-             <div className="Container_button">
-            <button className="button_showPassword" onClick={motrarPass} type="button">
-              <FontAwesomeIcon icon={faEye} />
+        <form className="Container-Form__Form" onSubmit={(e) => saveData(e)}>
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
+              <input
+                placeholder=" "
+                type="text"
+                className="Container-Input__Input"
+                name="Nombre"
+                onChange={saveDataTemporaly}
+              />
+              <span className="Container-Input__Span">Nombre</span>
+            </div>
+          </div>
+
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
+              <input
+                placeholder=" "
+                type="text2"
+                className="Container-Input__Input"
+                name="Apellido"
+                onChange={saveDataTemporaly}
+              />
+              <span className="Container-Input__Span" >Apellido</span>
+            </div>
+          </div>
+
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
+              <input
+                placeholder=" "
+                type="email"
+                required="required"
+                className="Container-Input__Input"
+                name="user"
+                onChange={saveDataTemporaly}
+                onBlur={validateEmail}
+              />
+              <span className="Container-Input__Span" >Correo Electronico</span>
+            </div>
+          </div>
+
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
+              <input
+                placeholder=" "
+                type={showPass ? "text" : "password"}
+                className="Container-Input__Input"
+                required="required"
+                name="pass"
+                onChange={saveDataTemporaly}
+                onBlur={validatePassword}
+              />
+              <button className="Container-Input__Button" onClick={motrarPass} type="button">
+                <FontAwesomeIcon icon={`${icono}`} />
+              </button>
+              <span className="Container-Input__Span">Contraseña</span>
+            </div>
+          </div>
+
+          <div className="Container-Form__Form-item">
+            <button type="submit" onClick={saveData} className="Button">
+              <div className="Button__Icono">
+                <FontAwesomeIcon icon="fa-solid fa-user-plus" />
+              </div>
+              <span className="Button__Span">Registrar</span>
             </button>
           </div>
 
-           {passwordValid ? <p className="text-danger">Contraseña válida</p> : <p className="text-danger">La contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula y una letra minúscula y al menos un numero</p>}
-          
-          <span>Contraseña</span>
+          <div className="Container-Form__Form-item">
+            <span className="Message">¿Ya tienes una cuenta? </span>
+            <Link className="Link" to={"/"}>Inicia Sesión</Link>
           </div>
-          
-         
-       
 
-        </div>
-        </div>
-
-
-        <div className="Container_button_login">
-          <button
-            type="submit"
-            onClick={email && passwordValid ? notify = () => toast('usuario creado') : notify = () => toast("no se pudo crear el usuario")}
-            className="button_login"
-          >
-            Registrar
-          </button>
-        </div>
-
-
-        <ToastContainer />
-        <div className="my-3">
-          <span className="text">ya tienes cuenta </span>
-          <Link className="link_register" to={"/"}>Inicia Sesión</Link>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
     </div>
   );
 };

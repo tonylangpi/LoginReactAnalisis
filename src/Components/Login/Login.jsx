@@ -1,33 +1,24 @@
 import React from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
-import Logo from "../../assets/images/logoUniversidad.png";
+import Logo from "../../assets/images/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Home from "../Home/Home";
-import "../../App.css";
-import "./login.css";
+import "./_Login.scss";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
 function Login() {
-  const notify = () =>
-    toast("🦄 login correcto, bienvenido", {
-      position: "top-center",
-      autoClose: 9000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-    });
   const navigate = useNavigate();
   const [showpass, setShowpass] = React.useState(false);
   const [usuario, setUser] = React.useState({
-    user: "",
-    pass: "",
+    email: "",
+    password: "",
+  });
+  const [prueba, setPrueba] = React.useState({
+    auth: false,
+    message: "",
   });
   const saveDataTemporaly = (e) => {
     e.preventDefault();
@@ -47,9 +38,13 @@ function Login() {
             const token = data.token;
             localStorage.setItem("Auth", token);
             //aqui se redirige al usuario a la pagina home
-              navigate(0);
+            navigate(0);
           } else {
-            alert("no se pudo iniciar sesion");
+            setPrueba({
+              auth: data.auth,
+              message: data.message
+            });
+            document.getElementById('Modal').style.display = "flex";
           }
         })
         .catch((error) => console.log(error));
@@ -58,94 +53,85 @@ function Login() {
     }
   };
 
+  // Cambio de icono en el evento clic
+  let icono ="fa-eye-slash";
+  if (showpass) {
+    icono ="fa-eye";
+  } else {
+    icono ="fa-eye-slash";
+  }
+
   const showPassword = () => {
     setShowpass(!showpass);
   };
+
+  function Desaparecer() {
+    document.getElementById('Modal').style.display = "none";
+  }
+
   return (
     <div className="Container">
       
-
-
-      <div className="Container_Form">
-        <div className="Logo">
-          <img src={Logo} width="48px" alt="logo empresarial" />
-        </div>
-          <div className="Container_Titulo">
-          <h2 className="Title">INGRESAR</h2>
+      <div id="Modal" className="Container-Modal">
+        <div className="Container-Modal__Modal">
+          <FontAwesomeIcon className="Container-Modal__Modal-Icono Modal-Item" icon="fa-solid fa-triangle-exclamation" />
+          <div className="Container-Modal__Modal-Message Modal-Item">
+            <p className="Titulo">ERROR 🙁</p>
+            <p className="Message">{prueba.message}</p>
           </div>
-        
+          <FontAwesomeIcon className="Container-Modal__Modal-Icono-Cerrar Modal-Item" onClick={Desaparecer} icon="fa-solid fa-xmark" />
+        </div>
+      </div>
 
-        <form onSubmit={(e) => apiLogin(e)}>
-          <div className="Container_Email">
-            <div className="Email-Content">
+      <div className="Container_Form Container-Form">
+        <div className="Container-Form__Logo">
+          <img src={Logo} alt="logo empresarial" />
+        </div>
+        <form className="Container-Form__Form" onSubmit={(e) => apiLogin(e)}>
+          <div className="Container-Form__Form-item">
+            <h2 className="Title">BIENVENIDO</h2>
+          </div>
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
               <input
                 placeholder=" "
-                required= "required"
                 type="email"
-                className="form-control"
-                name="user"
+                className="Container-Input__Input"
+                name="email"
                 onChange={saveDataTemporaly}
               />
-              <span>Correo Electronico</span>
+              <span className="Container-Input__Span">Correo Electronico</span>
             </div>
-
           </div>
 
-          <div className="Container_password">
-              <div className="Container_Email">
-                <div className="Email-Content">
-                  <input
-                    type={showpass ? "text" : "password"}
-                    className="form-control"
-                    name="pass"
-                    placeholder=" "
-                    onChange={saveDataTemporaly}
-                  />
-                  <span>Contraseña</span>
-                </div>
-
-              </div>
-
-
-              <div className="container_button">
-                <button
-                  className="button_showPassword"
-                  onClick={showPassword}
-                  type="button"
-                >
-                  <FontAwesomeIcon icon={faEye} />
+          <div className="Container-Form__Form-item">
+              <div className="Container-Input">
+                <input
+                  type={showpass ? "text" : "password"}
+                  className="Container-Input__Input"
+                  name="password"
+                  placeholder=" "
+                  onChange={saveDataTemporaly}
+                />
+                <span className="Container-Input__Span">Contraseña</span>
+                <button className="Container-Input__Button" onClick={showPassword} type="button">
+                  <FontAwesomeIcon icon={`${icono}`} />
                 </button>
               </div>
           </div>
 
-
-
-          <div className="Container_button_login">
-            <button
-              type="submit"
-              onClick={notify}
-              className="button_login"
-            >
-              Iniciar sesion
+          <div className="Container-Form__Form-item">
+            <button type="submit" className="Button">
+              <div className="Button__Icono">
+                <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />
+              </div>
+              <span className="Button__Span Iniciar">Iniciar Sesion</span>
             </button>
           </div>
 
-          <ToastContainer
-            position="top-center"
-            autoClose={9000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-          />
-
-          <div className="my-3">
-            <span className="text">No tienes cuenta </span>
-            <Link className="link_register" to={"/registrar"}>Registrarse</Link>
+          <div className="Container-Form__Form-item">
+            <span className="Message">¿No tienes una cuenta? </span>
+            <Link className="Link" to={"/registrar"}>Registrate</Link>
           </div>
 
         </form>
