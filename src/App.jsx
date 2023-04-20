@@ -18,7 +18,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const validateAuth =  () => {
      
-     axios('https://analisisapi.netlify.app/verificar', {headers: {
+     axios('https://analisisapi.netlify.app/auth', {headers: {
         'x-access-token': localStorage.getItem('Auth')
     }} )
     .then(({data}) => {

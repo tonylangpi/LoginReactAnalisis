@@ -13,8 +13,8 @@ const Register = () => {
   const [user, setUser] = React.useState({
     user: "",
     pass: "",
-    Nombre: "",
-    Apellido: "",
+    name: "",
+    lastName: "",
   });
 
   const [passwordValid, setPasswordValid] = React.useState(false);
@@ -68,7 +68,7 @@ const Register = () => {
     e.preventDefault();
     try {
       axios
-        .post("https://analisisapi.netlify.app/registrar", user) //peticion a la api para loguearse
+        .post("https://analisisapi.netlify.app/register", user) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
             setPrueba({
@@ -82,27 +82,6 @@ const Register = () => {
               message: data.message
             });
             document.getElementById('Modal').style.display = "flex";
-          }
-        })
-        .catch((error) => console.log(error));
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const Validar = (e) => {
-    e.preventDefault();
-    try {
-      axios
-        .post("https://analisisapi.netlify.app/confirmar", user) //peticion a la api para loguearse 
-        .then(({ data }) => {
-          if (data.auth) {
-            alert(data.message);
-            setTimeout(() => {
-              navigate("/validarToken");
-            }, 4000);
-          } else {
-            alert(data.message);
           }
         })
         .catch((error) => console.log(error));

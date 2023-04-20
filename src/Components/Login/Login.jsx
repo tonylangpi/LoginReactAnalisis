@@ -13,8 +13,8 @@ function Login() {
   const navigate = useNavigate();
   const [showpass, setShowpass] = React.useState(false);
   const [usuario, setUser] = React.useState({
-    user: "",
-    pass: "",
+    email: "",
+    password: "",
   });
   const [prueba, setPrueba] = React.useState({
     auth: false,
@@ -38,7 +38,7 @@ function Login() {
             const token = data.token;
             localStorage.setItem("Auth", token);
             //aqui se redirige al usuario a la pagina home
-              navigate(0);
+            navigate(0);
           } else {
             setPrueba({
               auth: data.auth,
@@ -97,7 +97,7 @@ function Login() {
                 placeholder=" "
                 type="email"
                 className="Container-Input__Input"
-                name="user"
+                name="email"
                 onChange={saveDataTemporaly}
               />
               <span className="Container-Input__Span">Correo Electronico</span>
@@ -109,7 +109,7 @@ function Login() {
                 <input
                   type={showpass ? "text" : "password"}
                   className="Container-Input__Input"
-                  name="pass"
+                  name="password"
                   placeholder=" "
                   onChange={saveDataTemporaly}
                 />
