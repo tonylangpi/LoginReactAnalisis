@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    width: 100vw;
+    background-color: rgb(80, 130, 5);
+    width: 15vw;
     height: 100vh;
     
     .Menu-Left {
@@ -37,6 +38,6 @@
     .Container-Menu{
         height: 100%;
         width: 100%;
-        background-color: blue;
+        background-color: rgb(80, 130, 5);
     }
 }

@@ -1,12 +1,16 @@
 import Login from "./Components/Login/Login";
 import React, { useEffect } from "react";
 import Register from './Components/Register/Register';
+import FormBeneficiario from './Components/Forms/FormBeneficiario';
+import Navbar  from "./Components/Navbar/Navbar";
+import RolesForm from "./Components/Forms/FomRoles"
 import axios from 'axios';
 import './App.scss'; // Importar estilos
 import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate
 } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -41,14 +45,21 @@ function App() {
     <>
     {isLoggedIn ? 
      <>
+     <div style={{display: "flex"}}>
+     <Navbar/>
       <Routes>
           <Route path='/' element={<Home/>}/>
+          <Route path='/formBene' element={<FormBeneficiario/>}/>
+          <Route path='/formRoles' element={<RolesForm/>}/> 
+          <Route path='*' element={<Navigate to='/' />} />
        </Routes>
+     </div>
      </> : <>
        <Routes>
           <Route path='/registrar' element={<Register/>} />
           <Route path='/' element={<Login/>} />
           <Route path='/validarToken' element={<ValidarToken/>}/>
+          <Route path='*' element={<Navigate to='/' />} />
        </Routes>
      </>
     }
