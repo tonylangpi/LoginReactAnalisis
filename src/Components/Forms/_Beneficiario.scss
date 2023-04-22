@@ -1,0 +1,23 @@
+.Container-Beneficiario {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+}
+
+.Container-Beneficiario__Form{
+    display: grid;
+    grid-template-columns: repeat(4, 300px);
+}
+
+.Container-Beneficiario__Button{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.Container-Beneficiario__Titulo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px 0 10px 0;
+}
