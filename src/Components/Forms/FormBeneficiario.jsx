@@ -141,7 +141,6 @@ const FormBeneficiario = () => {
             </div>
           </div>
 
-
           <div className="Container-Form__Form-item">
             <div className="Container-Input">
               <input
@@ -182,7 +181,7 @@ const FormBeneficiario = () => {
             </div>
           </div>
 
-          <div className="Container-Form__Form-item">
+          <div className="Container-Form__Form-item item17">
             <div className="Container-Input">
               <textarea className='Container-Input__Input' placeholder=" "></textarea>
               <span className="Container-Input__Span">Motivo de la Consulta</span>
@@ -192,27 +191,30 @@ const FormBeneficiario = () => {
         </div>
 
         <div className='Container-Beneficiario__Button'>
-          <button className="Button">
+          <button className="Button Button--Guardar">
             <div className="Button__Icono">
-              <FontAwesomeIcon icon="fa-solid fa-right-to-bracket" />
+              <FontAwesomeIcon icon="fa-solid fa-file-export" />
             </div>
             <span className="Button__Span Iniciar">Guardar</span>
           </button>
 
-          <button className="Button">
+          <button className="Button Button--Eliminar">
             <div className="Button__Icono">
+              <FontAwesomeIcon icon="fa-solid fa-trash-can" />
             </div>
             <span className="Button__Span Iniciar">Eliminar</span>
           </button>
 
-          <button className="Button">
+          <button className="Button Button--Actualizar">
             <div className="Button__Icono">
+              <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
             </div>
             <span className="Button__Span Iniciar">Actualizar</span>
           </button>
 
-          <button className="Button">
+          <button className="Button Button--Buscar">
             <div className="Button__Icono">
+              <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
             </div>
             <span className="Button__Span Iniciar">Buscar</span>
           </button>

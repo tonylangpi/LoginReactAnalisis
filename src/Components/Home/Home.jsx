@@ -7,7 +7,7 @@ const Home = () => {
     return (
         <>
             <div className='Container-Imagen'>
-                <img src={amorDown} alt="" />
+                {/* <img src={amorDown} alt="" /> */}
             </div>
         </>
     );

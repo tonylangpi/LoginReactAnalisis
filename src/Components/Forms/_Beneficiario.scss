@@ -2,22 +2,44 @@
     display: flex;
     flex-direction: column;
     height: auto;
-}
 
-.Container-Beneficiario__Form{
-    display: grid;
-    grid-template-columns: repeat(4, 300px);
-}
+    &__Titulo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 5px 0 10px 0;
+        font-family: $font-rubik;
+        letter-spacing: 2px;
+    }
 
-.Container-Beneficiario__Button{
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
+    &__Form {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        // align-items: center;
+        // justify-content: center;
+        // justify-items: center;
+        // gap: 15px;
 
-.Container-Beneficiario__Titulo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 5px 0 10px 0;
+        &-item {
+            background-color: blue;
+            align-items: center;
+            justify-items: center;
+
+            .Container-Input {
+                margin: 0;
+                width: 0;
+            }
+        }
+        .item17 {
+            grid-column: 1/5;
+        }
+    }
+
+    &__Button {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 20px 0;
+    }
 }

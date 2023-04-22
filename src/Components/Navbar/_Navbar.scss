@@ -41,6 +41,10 @@
             margin: 10px 0;
             display: grid;
             gap: 15px;
+
+            li {
+                list-style-type: none;
+            }
         }
     }
 
