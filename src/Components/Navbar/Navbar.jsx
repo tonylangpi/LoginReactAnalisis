@@ -1,6 +1,7 @@
 import React, {useRef, useEffect} from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/Logo.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Navbar = () => {
    
@@ -26,17 +27,16 @@ const Navbar = () => {
           </div>
 
           <div className="Menu-Left__Buttons">
-            <ul>
               {menus.map((x, index) => (
                 <>
-                  <li className="Menu-Left__Buttons-Li" hidden={!x.permiso} >
-                    <Link key={index} to={x.path}>{x.title}</Link>
+                  <li hidden={!x.permiso} >
+                    <Link className="Button" key={index} to={x.path}>{x.title}</Link>
                   </li>
                 </>
               ))}
-            </ul>
-            <button onClick={() => { localStorage.clear(); location.reload(); }}>Cerrar sesion</button>
+            <button className="Button" onClick={() => { localStorage.clear(); location.reload(); }}>Cerrar sesion</button>
           </div>
+          
         </div>
 
       </div>

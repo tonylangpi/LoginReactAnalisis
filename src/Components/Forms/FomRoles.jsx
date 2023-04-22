@@ -1,9 +1,12 @@
 import React from 'react'
+import choper from '../../assets/images/choper.png';
 
 const FomRoles = () => {
   return (
     <>
-        <h1>Administración de Roles</h1>
+      <div className='Container-Imagen'>
+        <img src={choper} alt="" />
+      </div>
     </>
   )
 }
