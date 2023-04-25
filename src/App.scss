@@ -1,13 +1,19 @@
 // importar variables
 @import './Styles/Variables';
+@import './Styles/Mixins';
+
 
 // importar estilos generales
 @import './Styles/General';
 
 // importar estilos de componentes
-// @import './Components/Login/Login';
 @import './Components/Register/Register';
 @import './Components/Validar/Validar';
 @import './Components/Home/Home.scss';
-@import './Components/Navbar/Navbar.scss';
+// @import './Components/Navbar/Navbar.scss';
 @import './Components/Forms/Beneficiario.scss';
+
+
+.Container-Home {
+    @include FlexBox(center, center, column);
+}

@@ -5,9 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Home from "../Home/Home";
-import "./_Login.scss";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import styles from "./Login.module.scss";
 
 function Login() {
   const navigate = useNavigate();
@@ -70,7 +68,7 @@ function Login() {
   }
 
   return (
-    <div className="Container">
+    <div className={styles.Container}>
       
       <div id="Modal" className="Container-Modal">
         <div className="Container-Modal__Modal">
@@ -83,7 +81,7 @@ function Login() {
         </div>
       </div>
 
-      <div className="Container_Form Container-Form">
+      <div className="Container-Form">
         <div className="Container-Form__Logo">
           <img src={Logo} alt="logo empresarial" />
         </div>

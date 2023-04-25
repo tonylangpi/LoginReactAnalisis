@@ -1,6 +1,5 @@
 import React from "react";
 import Logo from "../../assets/images/logoUniversidad.png";
-import "../Login/_Login.scss";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const validarToken = () => {

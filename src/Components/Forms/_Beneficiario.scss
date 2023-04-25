@@ -10,16 +10,34 @@
         margin: 5px 0 10px 0;
         font-family: $font-rubik;
         letter-spacing: 2px;
+        grid-column: 1/5;
+        color: #140172;
+        font-family: $font-family;
+    }
+
+    &__SubTitulo {
+        position: relative;
+        left: -565px;
+        margin: 5px 0 10px 0;
+        font-family: $font-rubik;
+        letter-spacing: 2px;
+        grid-column: 1/5;
+        color: black;
+
+        h3 {
+            font-size: 20px;
+            font-weight: 400;
+        }
     }
 
     &__Form {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(5, 1fr);
-        // align-items: center;
-        // justify-content: center;
-        // justify-items: center;
-        // gap: 15px;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        gap: 10px;
 
         &-item {
             background-color: blue;
@@ -31,7 +49,7 @@
                 width: 0;
             }
         }
-        .item17 {
+        .itemTextArea {
             grid-column: 1/5;
         }
     }
@@ -41,5 +59,61 @@
         align-items: center;
         justify-content: space-around;
         margin: 20px 0;
+    }
+}
+
+.Beneficiario-Container-Input {
+    left: -10px ;
+    position: relative ;
+    width: 80% ;
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        resize: vertical;
+    }
+
+    &__Input {
+        border: 1px solid grey;
+        outline: none;
+        background-color: $color-background-container;
+        width: 300px ;
+        height: 35px ;
+        border-radius: $border-radius ;
+        padding: 0.5rem ;
+        font-size: $font-size ;
+        font-weight: $font-weight ;
+
+        &:not(:placeholder-shown) ~ span, &:focus ~ span {
+            transform: translateX(0px) translateY(-30px);
+            font-size: 0.8em;
+            padding: 0 10px;
+        }
+    }
+
+    &__Span {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        padding: 10px;
+        pointer-events: none;
+        font-size: 1rem;
+        text-transform: uppercase;
+        transition: 0.5s;
+    }
+}
+
+.Beneficiario-Container-Radio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    label {
+        font-family: $font-rubik;
+    }
+
+    input {
+        margin: 10px 10px;
     }
 }
