@@ -5,6 +5,8 @@ import Register from './Components/Register/Register';
 import FormBeneficiario from './Components/Forms/FormBeneficiario';
 import Navbar  from "./Components/Navbar/Navbar";
 import RolesForm from "./Components/Forms/FomRoles"
+import Servicios from './Components/Forms/FormServicio';
+import Citas from './Components/Forms/FormCitas';
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -34,8 +36,6 @@ function App() {
       }
     })
     .catch((error) => console.log(error));
-
-
   }
 
   useEffect(() => {
@@ -51,7 +51,11 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/formBene' element={<FormBeneficiario />} />
+              <Route path='/form' />
               <Route path='/formRoles' element={<RolesForm />} />
+              <Route path='/FormServicios' element={<Servicios />} />
+              <Route path='/FormCitas' element={<Citas />} />
+              
               <Route path='*' element={<Navigate to='/' />} />
             </Routes>
           </div>

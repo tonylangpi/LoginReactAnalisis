@@ -6,6 +6,7 @@ import { faEye } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import Home from "../Home/Home";
 import styles from "./Login.module.scss";
+import ImagenFondo from '../../assets/images/wave.svg';
 
 function Login() {
   const navigate = useNavigate();
@@ -79,6 +80,9 @@ function Login() {
           </div>
           <FontAwesomeIcon className="Container-Modal__Modal-Icono-Cerrar Modal-Item" onClick={Desaparecer} icon="fa-solid fa-xmark" />
         </div>
+      </div>
+
+      <div className={styles.Background}>
       </div>
 
       <div className="Container-Form">
