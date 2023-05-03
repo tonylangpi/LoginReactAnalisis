@@ -94,7 +94,6 @@ const FormBeneficiario = () => {
         console.log(error);
       }
     }
-
   }
 
   return (
