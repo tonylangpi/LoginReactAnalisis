@@ -22,25 +22,25 @@ function App() {
 
   library.add(fas);
 
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const validateAuth =  () => {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  // const validateAuth =  () => {
      
-     axios('https://analisisapi.netlify.app/auth', {headers: {
-        'x-access-token': localStorage.getItem('Auth')
-    }} )
-    .then(({data}) => {
-      if(!data.auth){
-        setIsLoggedIn(data.auth);
-      }else{
-        setIsLoggedIn(data.auth); 
-      }
-    })
-    .catch((error) => console.log(error));
-  }
+  //     axios('https://analisisapi.netlify.app/auth', {headers: {
+  //       'x-access-token': localStorage.getItem('Auth')
+  //    }} )
+  //    .then(({data}) => {
+  //      if(!data.auth){
+  //        setIsLoggedIn(data.auth);
+  //      }else{
+  //        setIsLoggedIn(data.auth); 
+  //      }
+  //   })
+  //    .catch((error) => console.log(error));
+  //  }
 
-  useEffect(() => {
-    validateAuth();
-  }, []);
+  //  useEffect(() => {
+  //    validateAuth();
+  //  }, []);
 
   return (
     <>
