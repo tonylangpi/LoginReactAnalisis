@@ -10,7 +10,7 @@ import ImagenFondo from '../../assets/images/wave.svg';
 
 function Login() {
   const navigate = useNavigate();
-  const [showpass, setShowpass] = React.useState(false);
+  const [showpass, setShowpass] = React.useState(true);
   const [usuario, setUser] = React.useState({
     email: "",
     password: "",
