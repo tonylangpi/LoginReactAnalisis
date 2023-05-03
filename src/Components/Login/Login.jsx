@@ -107,19 +107,19 @@ function Login() {
           </div>
 
           <div className="Container-Form__Form-item">
-              <div className="Container-Input">
-                <input
-                  type={showpass ? "text" : "password"}
-                  className="Container-Input__Input"
-                  name="password"
-                  placeholder=" "
-                  onChange={saveDataTemporaly}
-                />
-                <span className="Container-Input__Span">Contraseña</span>
-                <button className="Container-Input__Button" onClick={showPassword} type="button">
-                  <FontAwesomeIcon icon={`${icono}`} />
-                </button>
-              </div>
+            <div className="Container-Input">
+              <input
+                type={showpass ? "text" : "password"}
+                className="Container-Input__Input"
+                name="password"
+                placeholder=" "
+                onChange={saveDataTemporaly}
+              />
+              <span className="Container-Input__Span">Contraseña</span>
+              <button className="Container-Input__Button" onClick={showPassword} type="button">
+                <FontAwesomeIcon icon={`${icono}`} />
+              </button>
+            </div>
           </div>
 
           <div className="Container-Form__Form-item">

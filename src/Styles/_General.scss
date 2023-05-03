@@ -296,6 +296,67 @@
     }
 }
 
+.Container-Input-file {
+    @include FlexBox(start, center, column);
+    padding: 0.5rem;
+    width: 100%;
+    font-family: $font-family;
+
+    &__Span {
+        font-size: $font-size;
+        letter-spacing: 2px;
+        text-align: center;
+
+        @media only screen and (max-width: 860px) {
+            & {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media only screen and (max-width: 350px) {
+            & {
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+        }
+
+    }
+
+    &__Input {
+        border: 1px solid #777;
+        margin: 5px 0;
+        cursor: pointer;
+        font-size: 1.1em;
+        width: 92%;
+
+        &::-webkit-file-upload-button {
+            border: none;
+            background: $color-button;
+            padding: 10px;
+            color: #fff;
+            cursor: pointer;
+            transition: background .2s ease-in-out;
+
+            &:hover {
+                background: $color-button-active;
+            }
+        }
+
+        @media only screen and (max-width: 860px) {
+            & {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media only screen and (max-width: 350px) {
+            & {
+                font-size: 0.8rem;
+                letter-spacing: 1px;
+            }
+        }
+    }
+}
+
 // Estilo de los Botones 
 .Button {
     display: inline-flex;

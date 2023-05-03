@@ -84,6 +84,13 @@
                 width: 0;
             }
         }
+
+        &-button {
+            position: relative;
+            align-self: center;
+            justify-self: center;
+            left: 10px;
+        }
     }
 
     &__Button {
