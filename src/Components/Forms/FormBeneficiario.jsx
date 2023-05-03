@@ -1,11 +1,27 @@
 import React, { useState } from 'react'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from 'axios'; 
+import axios from 'axios';
 
 const FormBeneficiario = () => {
+  const [archivo, setArchivo] = useState(null)
+  const [idBeneficiary, setIdBeneficiary] = useState(null)
+  const [isBeneficiary, setisBeneficiary] = useState(false)
 
-  const [archivo, setArchivo] = React.useState([])
+  const selectImageList = (e) => {
+    const uplodad = e.target.files
+    console.log(uplodad.length)
+    if (uplodad.length > 2) {
+      alert("no puedes subir mas de dos archivos")
+      setArchivo(null)
+    } else {
+      const uplodadList = []
 
+      for (let i = 0; i < uplodad?.length; i++) {
+        uplodadList.push(uplodad.item(i))
+      }
+      setArchivo(uplodadList)
+    }
+  }
 
   const [beneficiario, setBeneficiario] = React.useState({
     ID_EMPRESA: 1,
@@ -21,97 +37,79 @@ const FormBeneficiario = () => {
     REFERENCIA: "",
     NUMERO_HERMANOS: 0,
     NUMERO_OCUPA: 0,
-    files: []
   });
 
   const saveDataTemporaly = (e) => {
     e.preventDefault();
     setBeneficiario({
       ...beneficiario,
-      [e.target.name]: e.target.value,
-      files: [...e.target.files]
+      [e.target.name]: e.target.value
     })
-    console.log(e.target.files);
   }
 
-  const fileSubmit = (e)=>{
-    e.preventDefault();
+  const fileSubmit = (e) => {
+    if (!archivo) {
+      e.preventDefault()
+      alert("tiene que tener archivos")
+    } else {
 
-    const data = new FormData();
+      e.preventDefault();
+      try {
 
-    data.append('NOMBRE1',beneficiario.NOMBRE1)
-    data.append('NOMBRE2',beneficiario.NOMBRE2)
-    data.append('NOMBRE3',beneficiario.NOMBRE3)
-    data.append('APELLIDO1',beneficiario.APELLIDO1)
-    data.append('APELLIDO2',beneficiario.APELLIDO2)
-    data.append('ESCOLARIDAD',beneficiario.ESCOLARIDAD)
-    data.append('SEXO',beneficiario.SEXO)
-    data.append('FECHA_NACIMIENTO',beneficiario.FECHA_NACIMIENTO)
-    data.append('DIRECCION',beneficiario.DIRECCION)
-    data.append('REFERENCIA',beneficiario.REFERENCIA)
-    data.append('NUMERO_HERMANOS',beneficiario.NUMERO_HERMANOS)
-    data.append('NUMERO_OCUPA',beneficiario.NUMERO_OCUPA)
-    data.append('files',beneficiario.files)
+        const data = new FormData();
+        data.append('ID_EMPRESA', beneficiario.ID_EMPRESA)
+        data.append('NOMBRE1', beneficiario.NOMBRE1)
+        data.append('NOMBRE2', beneficiario.NOMBRE2)
+        data.append('NOMBRE3', beneficiario.NOMBRE3)
+        data.append('APELLIDO1', beneficiario.APELLIDO1)
+        data.append('APELLIDO2', beneficiario.APELLIDO2)
+        data.append('ESCOLARIDAD', beneficiario.ESCOLARIDAD)
+        data.append('SEXO', beneficiario.SEXO)
+        data.append('FECHA_NACIMIENTO', beneficiario.FECHA_NACIMIENTO)
+        data.append('DIRECCION', beneficiario.DIRECCION)
+        data.append('REFERENCIA', beneficiario.REFERENCIA)
+        data.append('NUMERO_HERMANOS', beneficiario.NUMERO_HERMANOS)
+        data.append('NUMERO_OCUPA', beneficiario.NUMERO_OCUPA)
+        for (let i = 0; i < archivo?.length; i++) {
+          data.append('files', archivo[i])
+        }
 
-    try {
-      axios
-        .post("http://localhost:4000/beneficiarios/create", data) //peticion a la api para loguearse
-        .then(({ data }) => {
-          console.log(data);
-          // if (data.auth) {
-          //   setPrueba({
-          //     auth: data.auth,
-          //     message: data.message
-          //   });
-          //   document.getElementById('Modal').style.display = "flex";
-          // } else {
-          //   setPrueba({
-          //     auth: data.auth,
-          //     message: data.message
-          //   });
-          //   document.getElementById('Modal').style.display = "flex";
-          // }
+        axios({
+          method: "post",
+          url: "http://localhost:4000/beneficiarios/create",
+          data: data,
+          headers: { "Content-Type": "multipart/form-data" },
         })
-        .catch((error) => console.log(error));
-    } catch (error) {
-      console.log(error);
+          .then(function (response) {
+
+            const idBeneficiaryCurrent = response?.data?.idBeneficiario[0]?.ID_BENE_INGRESADO
+            !idBeneficiaryCurrent ? alert("no existe beneficiario") : setIdBeneficiary(idBeneficiaryCurrent)
+            setisBeneficiary(true)
+          })
+          .catch(function (response) {
+            alert("no se ha encontrado un registro")
+            console.log(response);
+          });
+      } catch (error) {
+        console.log(error);
+      }
     }
+
   }
-  
-  // function previewFile(e) {
-  //   e.preventDefault();
-    
-  //   const reader = new FileReader();
-
-  //   reader.addEventListener(
-  //     "load",
-  //     () => {
-  //       var direccion = reader.readAsDataURL(e);
-  //     },
-  //   );
-
-  //   setBeneficiario({
-  //     ...beneficiario,
-  //     [e.target.name]: direccion
-  //   })
-  // }
-
 
   return (
     <>
       <div className='Container-Beneficiario'>
-
         <div className='Container-Beneficiario Datos-Beneficiario'>
-
           <div className='Container-Beneficiario__item Titulo'>
             <h1>Datos del Beneficiarios</h1>
           </div>
-
           <form onSubmit={fileSubmit} className='Container-Beneficiario__Grid'>
-
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   name='NOMBRE1'
                   onChange={saveDataTemporaly}
                   placeholder=" "
@@ -120,10 +118,11 @@ const FormBeneficiario = () => {
                 <span className="Beneficiario-Container-Input__Span">Primer Nombre</span>
               </div>
             </div>
-
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   placeholder=" "
                   name='NOMBRE2'
                   onChange={saveDataTemporaly}
@@ -136,6 +135,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   placeholder=" "
                   name='NOMBRE3'
                   onChange={saveDataTemporaly}
@@ -148,6 +149,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   name='APELLIDO1'
                   onChange={saveDataTemporaly}
                   placeholder=" "
@@ -160,6 +163,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   name='APELLIDO2'
                   onChange={saveDataTemporaly}
                   placeholder=" "
@@ -171,7 +176,7 @@ const FormBeneficiario = () => {
 
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
-                <select className='Beneficiario-Container-Input__Input' name="ESCOLARIDAD" onChange={saveDataTemporaly} id="">
+                <select required disabled={isBeneficiary} className='Beneficiario-Container-Input__Input' name="ESCOLARIDAD" onChange={saveDataTemporaly} id="">
                   <option value="Primaria">Primaria</option>
                   <option value="Basico">Basico</option>
                   <option value="Diversificado">Diversificado</option>
@@ -184,6 +189,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   name='SEXO'
                   onChange={saveDataTemporaly}
                   placeholder=" "
@@ -196,6 +203,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   name='FECHA_NACIMIENTO'
                   onChange={saveDataTemporaly}
                   placeholder=" "
@@ -208,6 +217,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   name='DIRECCION'
                   onChange={saveDataTemporaly}
                   placeholder=" "
@@ -219,7 +230,7 @@ const FormBeneficiario = () => {
 
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
-                <select className='Beneficiario-Container-Input__Input' name="REFERENCIA" onChange={saveDataTemporaly} id="">
+                <select required disabled={isBeneficiary} className='Beneficiario-Container-Input__Input' name="REFERENCIA" onChange={saveDataTemporaly} id="">
                   <option value="Primaria">Primaria</option>
                   <option value="Basico">Basico</option>
                   <option value="Diversificado">Diversificado</option>
@@ -232,6 +243,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   name='NUMERO_HERMANOS'
                   onChange={saveDataTemporaly}
                   placeholder=" "
@@ -244,6 +257,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  disabled={isBeneficiary}
                   name='NUMERO_OCUPA'
                   onChange={saveDataTemporaly}
                   placeholder=" "
@@ -257,9 +272,11 @@ const FormBeneficiario = () => {
               <div className="Container-Input-file">
                 <span className="Container-Input-file__Span">Referencia de Centro Medico</span>
                 <input
+                  required
+                  disabled={isBeneficiary}
                   multiple
                   name='files'
-                  onChange={saveDataTemporaly}
+                  onChange={selectImageList}
                   placeholder=" "
                   type="file"
                   className="Container-Input-file__Input" />
@@ -277,15 +294,19 @@ const FormBeneficiario = () => {
                   className="Container-Input-file__Input" />
               </div>
             </div> */}
-
-            <div className='Container-Beneficiario__Grid-button'>
-              <button className="Button Button--Guardar">
-                <div className="Button__Icono">
-                  <FontAwesomeIcon icon="fa-solid fa-file-export" />
+            {
+              !isBeneficiary ?
+                <div className='Container-Beneficiario__Grid-button'>
+                  <button className="Button Button--Guardar">
+                    <div className="Button__Icono">
+                      <FontAwesomeIcon icon="fa-solid fa-file-export" />
+                    </div>
+                    <span className="Button__Span Iniciar">Guardar</span>
+                  </button>
                 </div>
-                <span className="Button__Span Iniciar">Guardar</span>
-              </button>
-            </div>
+
+                : null
+            }
 
           </form>
 
