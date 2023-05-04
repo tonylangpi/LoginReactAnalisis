@@ -31,7 +31,7 @@ function Login() {
     e.preventDefault();
     try {
       axios
-        .post("https://analisisapi.netlify.app/login", usuario) //peticion a la api para loguearse
+        .post("http://localhost:4000/auth/logi", usuario) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
             const token = data.token;

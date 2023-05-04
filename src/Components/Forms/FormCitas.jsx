@@ -4,56 +4,100 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const FormCitas = () => {
   
+const Ocultar = ()=>{
+  const tabla = document.getElementById('Tabla');
+  tabla.style.display = 'none';
+}
+
+const MostarTabla = ()=>{
+  const tabla = document.getElementById('Tabla');
+  tabla.style.display = 'flex';
+}
   
   return (
     <>
-     <div className='Container-Citas'>
-      
-     <div className='Container-Citas_item Titulo'>
-          <h1>Area de Citas</h1>
-    </div>
+      <div className='Container-Citas'>
+     
+        <div id='Tabla' className='Container-Citas__Tabla'>
 
-    <div className='Container-Citas__Grid'>
+          <div className='Container-Citas_item Titulo'>
+            <h1>Area de Citas</h1>
+          </div>
+          
+          <table class="default">
+            <tr>
+              <th>ID Beneficiario</th>
+              <th>ID Sesion</th>
+              <th>Nombre Beneficiario</th>
+              <th>Fecha</th>
+              <th>Servicio</th>
+              <th>Acciones</th>
+            </tr>
+            <tr>
+              <td>Mario Cortez</td>
+              <td>03/05/2023</td>
+              <td>Sesion 1</td>
+              <td>Normal</td>
+              <td>Taba mal</td>
+              <td>
+                <button>Eliminar</button>
+                <button>Listo</button>
+              </td>
+            </tr>     
+          </table>
 
-        
-    <div className="Container-Citas__Grid-item">
+          <div className='Container-Citas__Grid-button'>
+            <button onClick={Ocultar} className="Button Button--Guardar">
+              <div className="Button__Icono">
+                <FontAwesomeIcon icon="fa-solid fa-file-export" />
+              </div>
+              <span className="Button__Span Iniciar">Agregar Nueva Cita</span>
+            </button>
+          </div>
+
+        </div>
+
+        <div className='Container-Citas_item Titulo'>
+          <h1>Agregar Nueva Cita</h1>
+        </div>
+
+        <div className='Container-Citas__Grid'>
+
+          <div className="Container-Citas__Grid-item">
             <div className="Citas-Container-Input">
-              <select className='Citas-Container-Input__Input' name="" id="">
-              <option value="Beneficiario 0"></option>
-                <option value="Beneficiario 1">Juan Roberto</option>
-                <option value="Beneficiario 2">Carlos Mario</option>
-                <option value="Beneficiario 3">Angel Fernandez</option>
-               
-              </select>
-              <span className="Citas-Container-Input__Span">Beneficiario</span>
+              <input
+                disabled
+                placeholder=" "
+                type="text"
+                className="Citas-Container-Input__Input" />
+              <span className="Citas-Container-Input__Span">Nombre Beneficia</span>
             </div>
           </div>
 
           <div className="Container-Citas__Grid-item">
             <div className="Citas-Container-Input">
               <select className='Citas-Container-Input__Input' name="" id="">
-              <option value="Session 0"></option>
-                <option value="Session 1">Sessión 08:00 A.M - 08:30 A.M</option>
-                <option value="Session 2">Sessión 08:30 A.M - 09:00 A.M</option>
-                <option value="Session 3">Sessión 09:00 A.M - 09:30 A.M</option>
-                <option value="Session 4">Sessión 09:30 A.M - 10:00 A.M</option>
-                <option value="Session 5">Sessión 10:00 A.M - 10:30 A.M</option>
-                <option value="Session 6">Sessión 10:30 A.M - 11:00 A.M</option>
-                <option value="Session 7">Sessión 11:00 A.M - 11:30 A.M</option>
-                <option value="Session 8">Sessión 11:30 A.M - 12:00 A.M</option>
-                <option value="Session 9">Sessión 12:00 A.M - 12:30 A.M</option>
-                <option value="Session 10">Sessión 12:30 A.M - 13:00 A.M</option>
-                <option value="Session 11">Sessión 13:00 A.M - 13:30 A.M</option>
-                <option value="Session 12">Sessión 14:00 A.M - 14:30 A.M</option>
-                <option value="Session 13">Sessión 15:00 A.M - 15:30 A.M</option>
-                <option value="Session 14">Sessión 14:00 A.M - 14:30 A.M</option>
+                <option value="1">Sesion 1</option>
+                <option value="2">Sesion 2</option>
+                <option value="3">Sesion 3</option>
+                <option value="4">Sesion 4</option>
+                <option value="5">Sesion 5</option>
+                <option value="6">Sesion 6</option>
+                <option value="7">Sesion 7</option>
+                <option value="8">Sesion 8</option>
+                <option value="9">Sesion 9</option>
+                <option value="10">Sesion 10</option>
+                <option value="11">Sesion 11</option>
+                <option value="12">Sesion 12</option>
+                <option value="13">Sesion 13</option>
+                <option value="14">Sesion 14</option>
               </select>
               <span className="Citas-Container-Input__Span">Sessiones</span>
             </div>
           </div>
 
-          
-          
+
+
 
           <div className="Container-Citas__Grid-item">
             <div className="Citas-Container-Input">
@@ -78,13 +122,13 @@ const FormCitas = () => {
             </div>
           </div>
 
-         
+
           <div className="Container-Citas__item TextArea">
-          <div className="Citas-Container-Input">
-            <textarea className='Citas-Container-Input__Input' placeholder=" "></textarea>
-            <span className="Citas-Container-Input__Span">Observaciones:</span>
+            <div className="Citas-Container-Input">
+              <textarea className='Citas-Container-Input__Input' placeholder=" "></textarea>
+              <span className="Citas-Container-Input__Span">Observaciones:</span>
+            </div>
           </div>
-        </div>
 
           <div className="Container-Citas__item TextArea">
             <div className="Container-Input-file">
@@ -95,20 +139,20 @@ const FormCitas = () => {
                 className="Container-Input-file__Input" />
             </div>
           </div>
-          
 
-        
+
+
         </div>
 
-        <button className="Button Button--Buscar">
-            <div className="Button__Icono">
-            </div>
-            <span className="Button__Span Iniciar" data-bs-toggle="modal">Guardar</span>
-           
-          </button>
-    
+        <button onClick={MostarTabla} className="Button Button--Buscar">
+          <div className="Button__Icono">
+          </div>
+          <span className="Button__Span Iniciar" data-bs-toggle="modal">Agendar Cita</span>
 
-     </div>
+        </button>
+
+
+      </div>
     </>
   )
 }

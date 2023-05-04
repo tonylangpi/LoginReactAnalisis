@@ -23,24 +23,24 @@ function App() {
   library.add(fas);
 
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-  // const validateAuth =  () => {
+  const validateAuth =  () => {
      
-  //    axios('https://analisisapi.netlify.app/auth', {headers: {
-  //       'x-access-token': localStorage.getItem('Auth')
-  //   }} )
-  //   .then(({data}) => {
-  //     if(!data.auth){
-  //       setIsLoggedIn(data.auth);
-  //     }else{
-  //       setIsLoggedIn(data.auth); 
-  //     }
-  //   })
-  //   .catch((error) => console.log(error));
-  // }
+     axios.post('http://localhost:4000/auth/verifyToken', {
+        token : localStorage.getItem('Auth')
+    })
+    .then(({data}) => {
+      if(!data.auth){
+        setIsLoggedIn(data.auth);
+      }else{
+        setIsLoggedIn(data.auth); 
+      }
+    })
+    .catch((error) => console.log(error));
+  }
 
-  // useEffect(() => {
-  //   validateAuth();
-  // }, []);
+  useEffect(() => {
+    validateAuth();
+  }, []);
 
   return (
     <>

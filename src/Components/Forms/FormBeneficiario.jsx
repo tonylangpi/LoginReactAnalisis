@@ -6,12 +6,14 @@ const FormBeneficiario = () => {
   const [archivo, setArchivo] = useState(null)
   const [idBeneficiary, setIdBeneficiary] = useState(null)
   const [isBeneficiary, setisBeneficiary] = useState(false)
-
+  
+ 
+  
   const selectImageList = (e) => {
     const uplodad = e.target.files
-    console.log(uplodad.length)
+    // console.log(uplodad.length)
     if (uplodad.length > 2) {
-      alert("no puedes subir mas de dos archivos")
+      alert("No puedes subir más de 2 archivos")
       setArchivo(null)
     } else {
       const uplodadList = []
@@ -70,6 +72,7 @@ const FormBeneficiario = () => {
         data.append('REFERENCIA', beneficiario.REFERENCIA)
         data.append('NUMERO_HERMANOS', beneficiario.NUMERO_HERMANOS)
         data.append('NUMERO_OCUPA', beneficiario.NUMERO_OCUPA)
+
         for (let i = 0; i < archivo?.length; i++) {
           data.append('files', archivo[i])
         }
@@ -87,7 +90,7 @@ const FormBeneficiario = () => {
             setisBeneficiary(true)
           })
           .catch(function (response) {
-            alert("no se ha encontrado un registro")
+            alert("No se ha encontrado un registro")
             console.log(response);
           });
       } catch (error) {
@@ -95,14 +98,118 @@ const FormBeneficiario = () => {
       }
     }
   }
+// CAMPOS DEL ENCARGADO
+  const [Encargado, setEncargado] = React.useState({
+    ID_EMPRESA: 1,
+    NOMBRE1: "",
+    NOMBRE2: "",
+    NOMBRE3: "",
+    APELLIDO1: "",
+    APELLIDO2: "",
+    TELEFONO: "",
+    TIPOENCARGADO: "",
+    ESCOLARIDAD: "",
+    OCUPACION: "",
+    FECHA_NACIMIENTO: ""
+  });
+      axios.post('http://localhost:4000/beneficiarios/unionBeneficiarioEncargado',Encargado)
+      .then(function (response) {
+      console.log(response)
+      })
+      .catch(function (response) {
+        alert("No se ha encontrado un registro")
+        console.log(response);
+      });
+// CAMPOS DEL HISTORIAL
+      const [Historial, setHistorial] = React.useState({
+        ID_BENEFICIARIO: 1,
+        ENFERMEDAD_PADECE: "",
+        MEDICAMENTOS_INGIERE: "",
+        VACUNAS: "",
+        AUDICION: "",
+        ORFTAMOLOGICAS: "",
+        APARATO_AUDITIVO: "",
+        LENTES: "",
+        CIRUJIAS: "",
+        OTRAS: "",
+      });
+      axios.post('http://localhost:4000/beneficiarios/createHistorialClinico',Historial)
+      .then(function (response) {
+      console.log(response)
+      })
+      .catch(function (response) {
+        alert("No se ha encontrado un registro")
+        console.log(response);
+      });
+
+// CAMPOS DEL PRENATALES
+      const [Prenatales, setPrenatales] = React.useState({
+        ID_BENEFICIARIO: 1,
+        EMBARAZO_TERMINO: "",
+        EXPLIQUE_EMBARAZO: "",
+        PARTO_NORMAL: "",
+        EXPLIQUE_PARTO: "",
+        COMPLICACIONES: "",
+        EXPLIQUE_COMPLICACION: "",
+      });
+      axios.post('http://localhost:4000/beneficiarios//createPrenatales',Prenatales)
+      .then(function (response) {
+      console.log(response)
+      })
+      .catch(function (response) {
+        alert("No se ha encontrado un registro")
+        console.log(response);
+      });
+
+ // CAMPOS DEL PERINATALES
+       const [Perinatales, setPerinatales] = React.useState({
+        ID_BENEFICIARIO: 1,
+        LLORO_INMEDIATAMENTE: "",
+        COLORACION: "",
+        INCUBADORA: "",
+        COLOR: "",
+      });
+      axios.post('http://localhost:4000/beneficiarios/createPeriNatales',Perinatales)
+      .then(function (response) {
+      console.log(response)
+      })
+      .catch(function (response) {
+        alert("No se ha encontrado un registro")
+        console.log(response);
+      });
+
+// CAMPOS DEL PERINATALES
+        const [Postnatales, setPostnatales] = React.useState({
+          ID_BENEFICIARIO: 1,
+          TRATAMIENTO: "",
+          INFECCIONES: "",
+          FIEBRE: "",
+          CONVULCIONES: "",
+          LENGUAJE: "",
+          CAMINA: "",
+          OBSERVACIONES: "",
+        });
+        axios.post('http://localhost:4000/beneficiarios/createPostNatales',Postnatales)
+        .then(function (response) {
+        console.log(response)
+        })
+        .catch(function (response) {
+          alert("No se ha encontrado un registro")
+          console.log(response);
+        });
+  
 
   return (
     <>
       <div className='Container-Beneficiario'>
-        <div className='Container-Beneficiario Datos-Beneficiario'>
+{/* DATOS DEL BENEFICIARIO */}
+      {
+              !isBeneficiary ?
+        <div id='FormBeneficiario' className='Container-Beneficiario Datos-Beneficiario'>
           <div className='Container-Beneficiario__item Titulo'>
             <h1>Datos del Beneficiarios</h1>
           </div>
+
           <form onSubmit={fileSubmit} className='Container-Beneficiario__Grid'>
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
@@ -117,6 +224,7 @@ const FormBeneficiario = () => {
                 <span className="Beneficiario-Container-Input__Span">Primer Nombre</span>
               </div>
             </div>
+
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
@@ -281,22 +389,9 @@ const FormBeneficiario = () => {
                   className="Container-Input-file__Input" />
               </div>
             </div>
-
-            {/* <div className="Container-Beneficiario__Grid-item">
-              <div className="Container-Input-file">
-                <span className="Container-Input-file__Span">Hoja de Gratitud</span>
-                <input
-                  name='files'
-                  onChange={previewFile}
-                  placeholder=" "
-                  type="file"
-                  className="Container-Input-file__Input" />
-              </div>
-            </div> */}
-            {
-              !isBeneficiary ?
+     
                 <div className='Container-Beneficiario__Grid-button'>
-                  <button className="Button Button--Guardar">
+                  <button id="button-beneficiario" className="Button Button--Guardar">
                     <div className="Button__Icono">
                       <FontAwesomeIcon icon="fa-solid fa-file-export" />
                     </div>
@@ -304,16 +399,19 @@ const FormBeneficiario = () => {
                   </button>
                 </div>
 
-                : null
-            }
 
           </form>
 
         </div>
+        : null
+      }
 
-        <div className='Container-Beneficiario Datos-Encargado'>
+{/* DATOS DEL ENCARGADO */}
+      {
+         !isBeneficiary ?
+        <div id="FormDatosEncargado" className='Container-Beneficiario Datos-Encargado'>
 
-          <div className='Container-Beneficiario__item Titulo'>
+          <div   className='Container-Beneficiario__item Titulo'>
             <h1>Datos del Encargado</h1>
           </div>
 
@@ -322,6 +420,9 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                 required
+                 disabled={isBeneficiary}
+                 name='NOMBRE1'
                   placeholder=" "
                   type="text"
                   className="Beneficiario-Container-Input__Input" />
@@ -332,6 +433,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                   required
+                   name='NOMBRE2'
                   placeholder=" "
                   type="text"
                   className="Beneficiario-Container-Input__Input" />
@@ -342,6 +445,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  name='NOMBRE3'
                   placeholder=" "
                   type="text"
                   className="Beneficiario-Container-Input__Input" />
@@ -352,6 +457,20 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                  required
+                  name='APELLIDO1'
+                  placeholder=" "
+                  type="text"
+                  className="Beneficiario-Container-Input__Input" />
+                <span className="Beneficiario-Container-Input__Span">Primer Apellido</span>
+              </div>
+            </div>
+
+            <div className="Container-Beneficiario__Grid-item">
+              <div className="Beneficiario-Container-Input">
+                <input
+                 required
+                 name='APELLIDO2'
                   placeholder=" "
                   type="text"
                   className="Beneficiario-Container-Input__Input" />
@@ -362,16 +481,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
-                  placeholder=" "
-                  type="text"
-                  className="Beneficiario-Container-Input__Input" />
-                <span className="Beneficiario-Container-Input__Span">Segundo Apellido</span>
-              </div>
-            </div>
-
-            <div className="Container-Beneficiario__Grid-item">
-              <div className="Beneficiario-Container-Input">
-                <input
+                 required
+                 name='TELEFONO'
                   placeholder=" "
                   type="number"
                   className="Beneficiario-Container-Input__Input" />
@@ -381,7 +492,7 @@ const FormBeneficiario = () => {
 
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
-                <select className='Beneficiario-Container-Input__Input' name="" id="">
+                <select  required className='Beneficiario-Container-Input__Input' name="TIPOENCARGADO" id="">
                   <option value="Diversificado">Encargado</option>
                   <option value="Primaria">Mamá</option>
                   <option value="Basico">Papá</option>
@@ -392,7 +503,7 @@ const FormBeneficiario = () => {
 
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
-                <select className='Beneficiario-Container-Input__Input' name="" id="">
+                <select required className='Beneficiario-Container-Input__Input' name="ESCOLARIDAD" id="">
                   <option value="Primaria">Primaria</option>
                   <option value="Basico">Basico</option>
                   <option value="Diversificado">Diversificado</option>
@@ -405,6 +516,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                required
+                name='OCUPACION'
                   placeholder=" "
                   type="text"
                   className="Beneficiario-Container-Input__Input" />
@@ -415,6 +528,8 @@ const FormBeneficiario = () => {
             <div className="Container-Beneficiario__Grid-item">
               <div className="Beneficiario-Container-Input">
                 <input
+                required
+                name='FECHA_NACIMIENTO'
                   placeholder=" "
                   type="date"
                   className="Beneficiario-Container-Input__Input" />
@@ -422,27 +537,28 @@ const FormBeneficiario = () => {
               </div>
             </div>
 
-            <div className='Container-Beneficiario__Grid-button'>
-              <button className="Button Button--Guardar">
-                <div className="Button__Icono">
-                  <FontAwesomeIcon icon="fa-solid fa-file-export" />
+          </div>
+
+      
+                <div className='Container-Beneficiario__Grid-button'>
+                  <button id="button-Encargado" className="Button Button--Guardar">
+                    <div className="Button__Icono">
+                      <FontAwesomeIcon icon="fa-solid fa-file-export" />
+                    </div>
+                    <span className="Button__Span Iniciar">Guardar</span>
+                  </button>
                 </div>
-                <span className="Button__Span Iniciar">Guardar</span>
-              </button>
-            </div>
 
-          </div>
-
-          <div className="Container-Beneficiario__item TextArea">
-            <div className="Beneficiario-Container-Input">
-              <textarea className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
-              <span className="Beneficiario-Container-Input__Span">Motivo de la Consulta</span>
-            </div>
-          </div>
+            
 
         </div>
 
-        <div className='Container-Beneficiario Historial-Clinico'>
+        : null
+      }
+{/* HISTORIAL */}
+      {
+              !isBeneficiary ?
+        <div id="FormHistorialClinico" className='Container-Beneficiario Historial-Clinico'>
 
           <div className='Container-Beneficiario__item Titulo'>
             <h1>Historial Clinico</h1>
@@ -450,14 +566,14 @@ const FormBeneficiario = () => {
 
           <div className="Container-Beneficiario__item TextArea">
             <div className="Beneficiario-Container-Input">
-              <textarea className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
+              <textarea  required name='ENFERMEDAD_PADECE' disabled={isBeneficiary} className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
               <span className="Beneficiario-Container-Input__Span">Enfermedades que padece:</span>
             </div>
           </div>
 
           <div className="Container-Beneficiario__item TextArea">
             <div className="Beneficiario-Container-Input">
-              <textarea className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
+              <textarea required name='MEDICAMENTOS_INGIERE' className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
               <span className="Beneficiario-Container-Input__Span">Medicamentos que ingiere:</span>
             </div>
           </div>
@@ -469,10 +585,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Esquema Completo de Vacunas?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Vacunas" />SI
+                    <input required className="" type="radio" name="VACUNAS" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Vacunas" />NO
+                    <input required className="" type="radio" name="VACUNAS" />NO
                   </div>
                 </div>
               </div>
@@ -483,10 +599,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Tiene Examenes Auditivos?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="ExamenAuditivo" />SI
+                    <input required className="" type="radio" name="AUDICION" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="ExamenAuditivo" />NO
+                    <input required className="" type="radio" name="AUDICION" />NO
                   </div>
                 </div>
               </div>
@@ -497,10 +613,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Tiene Pruebas Oftamologicas?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="PruebaOftamologicas" />SI
+                    <input required className="" type="radio" name="ORFTAMOLOGICAS" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="PruebaOftamologicas" />NO
+                    <input required className="" type="radio" name="ORFTAMOLOGICAS" />NO
                   </div>
                 </div>
               </div>
@@ -511,10 +627,24 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Usa Aparatos Auditivos?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="AparatoAuditivo" />SI
+                    <input required className="" type="radio" name="APARATO_AUDITIVO" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="AparatoAuditivo" />NO
+                    <input required className="" type="radio" name="APARATO_AUDITIVO" />NO
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="Container-Beneficiario__Grid-item">
+              <div className="Beneficiario-Container-Radio">
+                <label htmlFor="">¿lentes?</label>
+                <div className='Beneficiario-Container-Radio__Radio'>
+                  <div className='InputRadio'>
+                    <input required className="" type="radio" name="LENTES" />SI
+                  </div>
+                  <div className='InputRadio'>
+                    <input required className="" type="radio" name="LENTES" />NO
                   </div>
                 </div>
               </div>
@@ -525,10 +655,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Ha tenido Cirugias?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Cirugias" />SI
+                    <input required className="" type="radio" name="CIRUJIAS" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Cirugias" />NO
+                    <input required className="" type="radio" name="CIRUJIAS" />NO
                   </div>
                 </div>
               </div>
@@ -538,14 +668,29 @@ const FormBeneficiario = () => {
 
           <div className="Container-Beneficiario__item TextArea">
             <div className="Beneficiario-Container-Input">
-              <textarea className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
+              <textarea required name='OTRAS' className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
               <span className="Beneficiario-Container-Input__Span">Otros:</span>
             </div>
           </div>
 
-        </div>
+     
+                <div  className='Container-Beneficiario__Grid-button'>
+                  <button id="button-Historial" className="Button Button--Guardar">
+                    <div className="Button__Icono">
+                      <FontAwesomeIcon icon="fa-solid fa-file-export" />
+                    </div>
+                    <span className="Button__Span Iniciar">Guardar</span>
+                  </button>
+                </div>
 
-        <div className='Container-Beneficiario Antecedentes-Pre-Natales'>
+            
+        </div>
+         : null
+      }
+{/* PRE-NATALES */}
+      {
+              !isBeneficiary ?
+        <div id="FormPrenatales" className='Container-Beneficiario Antecedentes-Pre-Natales'>
 
           <div className='Container-Beneficiario__item Titulo'>
             <h1>Antecedentes Pre-Natales</h1>
@@ -556,10 +701,10 @@ const FormBeneficiario = () => {
               <label htmlFor="">¿Fue un embarazo de termino?</label>
               <div className='Beneficiario-Container-Radio__Radio'>
                 <div className='InputRadio'>
-                  <input className="" type="radio" name="EmbarazoTermino" />SI
+                  <input required  disabled={isBeneficiary} className="" type="radio" name="EMBARAZO_TERMINO" />SI
                 </div>
                 <div className='InputRadio'>
-                  <input className="" type="radio" name="EmbarazoTermino" />NO
+                  <input required className="" type="radio" name="EMBARAZO_TERMINO" />NO
                 </div>
               </div>
             </div>
@@ -567,7 +712,7 @@ const FormBeneficiario = () => {
 
           <div className="Container-Beneficiario__item TextArea">
             <div className="Beneficiario-Container-Input">
-              <textarea className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
+              <textarea required name='EXPLIQUE_EMBARAZO' className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
               <span className="Beneficiario-Container-Input__Span">Explique:</span>
             </div>
           </div>
@@ -577,10 +722,10 @@ const FormBeneficiario = () => {
               <label htmlFor="">¿Fue un embarazo normal?</label>
               <div className='Beneficiario-Container-Radio__Radio'>
                 <div className='InputRadio'>
-                  <input className="" type="radio" name="EmbarazoNormal" />SI
+                  <input required className="" type="radio" name="PARTO_NORMAL" />SI
                 </div>
                 <div className='InputRadio'>
-                  <input className="" type="radio" name="EmbarazoNormal" />NO
+                  <input required className="" type="radio" name="PARTO_NORMAL" />NO
                 </div>
               </div>
             </div>
@@ -588,7 +733,7 @@ const FormBeneficiario = () => {
 
           <div className="Container-Beneficiario__item TextArea">
             <div className="Beneficiario-Container-Input">
-              <textarea className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
+              <textarea required name='EXPLIQUE_PARTO' className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
               <span className="Beneficiario-Container-Input__Span">Explique:</span>
             </div>
           </div>
@@ -598,10 +743,10 @@ const FormBeneficiario = () => {
               <label htmlFor="">¿Tuvo complicaciones durante el embarazo?</label>
               <div className='Beneficiario-Container-Radio__Radio'>
                 <div className='InputRadio'>
-                  <input className="" type="radio" name="ComplicacionEmbarazo" />SI
+                  <input required  className="" type="radio" name="COMPLICACIONES" />SI
                 </div>
                 <div className='InputRadio'>
-                  <input className="" type="radio" name="ComplicacionEmbarazo" />NO
+                  <input required  className="" type="radio" name="COMPLICACIONES" />NO
                 </div>
               </div>
             </div>
@@ -609,14 +754,31 @@ const FormBeneficiario = () => {
 
           <div className="Container-Beneficiario__item TextArea">
             <div className="Beneficiario-Container-Input">
-              <textarea className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
+              <textarea required  name='EXPLIQUE_COMPLICACION' className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
               <span className="Beneficiario-Container-Input__Span">Explique:</span>
             </div>
           </div>
 
+         
+                <div className='Container-Beneficiario__Grid-button'>
+                  <button id="Prenatales" className="Button Button--Guardar">
+                    <div className="Button__Icono">
+                      <FontAwesomeIcon icon="fa-solid fa-file-export" />
+                    </div>
+                    <span className="Button__Span Iniciar">Guardar</span>
+                  </button>
+                </div>
+
+            
+
         </div>
 
-        <div className='Container-Beneficiario Antecedentes-Peri-Natales'>
+          : null
+      }
+{/* PERINATALES    */}
+    {
+              !isBeneficiary ?
+        <div id="FormPeriNatales" className='Container-Beneficiario Antecedentes-Peri-Natales'>
 
           <div className='Container-Beneficiario__item Titulo'>
             <h1>Antecedentes Peri-Natales</h1>
@@ -629,10 +791,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿El niño lloro inmediatamente?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="cry" />SI
+                    <input required disabled={isBeneficiary} className="" type="radio" name="LLORO_INMEDIATAMENTE" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="cry" />NO
+                    <input  required className="" type="radio" name="LLORO_INMEDIATAMENTE" />NO
                   </div>
                 </div>
               </div>
@@ -643,10 +805,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Su coloracion fue normal?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="ColoracionNormal" />SI
+                    <input required className="" type="radio" name="COLORACION" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="ColoracionNormal" />NO
+                    <input required className="" type="radio" name="COLORACION" />NO
                   </div>
                 </div>
               </div>
@@ -657,10 +819,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Estuvo en incubadora?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Incubadora" />SI
+                    <input required className="" type="radio" name="INCUBADORA" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Incubadora" />NO
+                    <input required className="" type="radio" name="INCUBADORA" />NO
                   </div>
                 </div>
               </div>
@@ -670,14 +832,31 @@ const FormBeneficiario = () => {
 
           <div className="Container-Beneficiario__item TextArea">
             <div className="Beneficiario-Container-Input">
-              <textarea className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
+              <textarea required name='COLOR' className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
               <span className="Beneficiario-Container-Input__Span">¿Nacio amarillo o morado?:</span>
             </div>
           </div>
 
+          
+                <div className='Container-Beneficiario__Grid-button'>
+                  <button id="Perinatales" className="Button Button--Guardar">
+                    <div className="Button__Icono">
+                      <FontAwesomeIcon icon="fa-solid fa-file-export" />
+                    </div>
+                    <span className="Button__Span Iniciar">Guardar</span>
+                  </button>
+                </div>
+
+           
         </div>
 
-        <div className='Container-Beneficiario Antecedentes-Post-Natales'>
+        : null
+    }
+{/* POSTNATALES */}
+    {
+              !isBeneficiary ?
+
+        <div id="FormPostNatales" className='Container-Beneficiario Antecedentes-Post-Natales'>
 
           <div className='Container-Beneficiario__item Titulo'>
             <h1>Antecedentes Post-Natales</h1>
@@ -690,10 +869,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Tuvo tratamiento despues del parto?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="TratamientoParto" />SI
+                    <input required disabled={isBeneficiary} className="" type="radio" name="TRATAMIENTO" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="TratamientoParto" />NO
+                    <input required className="" type="radio" name="TRATAMIENTO" />NO
                   </div>
                 </div>
               </div>
@@ -704,10 +883,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Tuvo infecciones?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Infecciones" />SI
+                    <input required className="" type="radio" name="INFECCIONES" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Infecciones" />NO
+                    <input required className="" type="radio" name="INFECCIONES" />NO
                   </div>
                 </div>
               </div>
@@ -718,10 +897,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Tuvo Fiebre?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Fiebre" />SI
+                    <input required className="" type="radio" name="FIEBRE" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Fiebre" />NO
+                    <input required className="" type="radio" name="FIEBRE" />NO
                   </div>
                 </div>
               </div>
@@ -732,10 +911,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Tuvo convulciones?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Convulcion" />SI
+                    <input required className="" type="radio" name="CONVULCIONES" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Convulcion" />NO
+                    <input required className="" type="radio" name="CONVULCIONES" />NO
                   </div>
                 </div>
               </div>
@@ -746,10 +925,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Tiene lenguaje?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Lenguaje" />SI
+                    <input required className="" type="radio" name="LENGUAJE" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Lenguaje" />NO
+                    <input required className="" type="radio" name="LENGUAJE" />NO
                   </div>
                 </div>
               </div>
@@ -760,10 +939,10 @@ const FormBeneficiario = () => {
                 <label htmlFor="">¿Camina?</label>
                 <div className='Beneficiario-Container-Radio__Radio'>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Camina" />SI
+                    <input required className="" type="radio" name="CAMINA" />SI
                   </div>
                   <div className='InputRadio'>
-                    <input className="" type="radio" name="Camina" />NO
+                    <input required className="" type="radio" name="CAMINA" />NO
                   </div>
                 </div>
               </div>
@@ -773,43 +952,27 @@ const FormBeneficiario = () => {
 
           <div className="Container-Beneficiario__item TextArea">
             <div className="Beneficiario-Container-Input">
-              <textarea className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
+              <textarea required name='OBSERVACIONES' className='Beneficiario-Container-Input__Input' placeholder=" "></textarea>
               <span className="Beneficiario-Container-Input__Span">Observaciones</span>
             </div>
           </div>
 
+          
+                <div className='Container-Beneficiario__Grid-button'>
+                  <button id="Postnatales" className="Button Button--Guardar">
+                    <div className="Button__Icono">
+                      <FontAwesomeIcon icon="fa-solid fa-file-export" />
+                    </div>
+                    <span className="Button__Span Iniciar">Guardar</span>
+                  </button>
+                </div>
+
+            
         </div>
 
-        {/* <div className='Container-Beneficiario__Button'>
-
-          <button className="Button Button--Guardar">
-            <div className="Button__Icono">
-              <FontAwesomeIcon icon="fa-solid fa-file-export" />
-            </div>
-            <span className="Button__Span Iniciar">Guardar</span>
-          </button>
-
-          <button className="Button Button--Eliminar">
-            <div className="Button__Icono">
-              <FontAwesomeIcon icon="fa-solid fa-trash-can" />
-            </div>
-            <span className="Button__Span Iniciar">Eliminar</span>
-          </button>
-
-          <button className="Button Button--Actualizar">
-            <div className="Button__Icono">
-              <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
-            </div>
-            <span className="Button__Span Iniciar">Actualizar</span>
-          </button>
-
-          <button className="Button Button--Buscar">
-            <div className="Button__Icono">
-              <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
-            </div>
-            <span className="Button__Span Iniciar">Buscar</span>
-          </button>
-        </div> */}
+        
+      : null
+    }
 
       </div>
     </>
