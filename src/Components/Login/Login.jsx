@@ -31,7 +31,7 @@ function Login() {
     e.preventDefault();
     try {
       axios
-        .post("http://localhost:4000/auth/logi", usuario) //peticion a la api para loguearse
+        .post("http://localhost:4000/auth/login", usuario) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
             const token = data.token;
@@ -131,10 +131,10 @@ function Login() {
             </button>
           </div>
 
-          <div className="Container-Form__Form-item">
+          {/* <div className="Container-Form__Form-item">
             <span className="Message">¿No tienes una cuenta? </span>
             <Link className="Link" to={"/registrar"}>Registrate</Link>
-          </div>
+          </div> */}
 
         </form>
       </div>

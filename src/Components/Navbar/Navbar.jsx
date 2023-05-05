@@ -10,7 +10,7 @@ const Navbar = () => {
     { title: "Beneficiario", path: "/formBene", icon: "", permiso:true },
     { title: "Servicios", path: "/FormServicios", icon: "", permiso:true },
     { title: "Citas", path: "/FormCitas", icon: "", permiso:true },
-    { title: "Roles", path: "/formRoles", icon: "", permiso:true},
+    { title: "VER beneficiarios", path: "/formRoles", icon: "", permiso:true},
     { title: "Beneficiario", path: "/formBene", icon: "" , permiso:false},
   ];
 
