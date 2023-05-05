@@ -1,0 +1,86 @@
+.searchBeneficiary{
+  margin-top: 20px;
+  margin-bottom: 20px;
+	width: 40ch;
+	height: 3rem;
+	padding-left: 1.5rem;
+	border-radius: 1.5rem;
+	background: #aebcc0;
+	box-shadow: 0 1.25rem 5rem -1rem rgba(0, 0, 30, 0.5);
+	transition: transform 200ms ease-in-out;
+  &::before {
+		content: "";
+		position: absolute;
+		inset: 0;
+		border-radius: 1.5rem;
+		box-shadow: 0 0.5rem 2rem -1rem rgba(0, 0, 100, 0.5);
+		opacity: 0;
+		pointer-events: none;
+
+		transition: opacity 300ms ease-in-out;
+	}
+  input {
+		all: unset;
+		height: 100%;
+		color: #000000;
+
+		&::placeholder {
+			color: rgb(0, 4, 8);
+			opacity: 0.3;
+		}
+	}
+}
+.tableBeneficiary{
+    background: rgb(202, 196, 196);
+  width: 60%;
+  margin: 0 auto;
+  margin-top: 2%;
+  border-collapse: collapse;
+  text-align: center;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  th {
+    background-color: rgb(4, 63, 82);
+    height: 35px;
+    border-bottom: 1px solid rgb(210, 220, 250);
+    color: rgb(223, 216, 216);
+    text-align: center;
+  }
+  td {
+    color: rgb(32, 35, 36);
+    height: 30px;
+    border: 0.5px solid rgba(240, 240, 240, 10);
+  }
+  tr:hover {
+    background-color: rgb(167, 248, 244);
+  }
+  .actionsBeneficiary{
+    background-color: rgba(2, 9, 78, 0.192);
+    text-align: center;
+  }
+  .tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #02143b;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+}
