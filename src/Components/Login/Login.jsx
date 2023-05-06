@@ -131,10 +131,10 @@ function Login() {
             </button>
           </div>
 
-          <div className="Container-Form__Form-item">
+          {/* <div className="Container-Form__Form-item">
             <span className="Message">¿No tienes una cuenta? </span>
             <Link className="Link" to={"/registrar"}>Registrate</Link>
-          </div>
+          </div> */}
 
         </form>
       </div>
