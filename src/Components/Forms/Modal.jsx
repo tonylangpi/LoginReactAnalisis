@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import '../assets/scss/Modal.scss'
+import axios from 'axios';
 const Modal=({onClose, visible, dataSelect}) => {
   const [archivo, setArchivo] = useState(null)
   const fileSubmit = async (e) => {
@@ -22,7 +23,7 @@ const Modal=({onClose, visible, dataSelect}) => {
         headers: { "Content-Type": "multipart/form-data" },
       })
         .then(function (response) {
-          console.log('hola', response);
+          alert('cita insertada correctamente');
         })
         .catch(function (response) {
           alert("No se ha encontrado un registro")
