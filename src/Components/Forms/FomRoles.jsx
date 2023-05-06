@@ -15,8 +15,10 @@ const FomRoles = () => {
   const indexOfFirstBeneficiary = indexOfLastBeneficiary - beneficiaryPerPage;
   const currentBeneficiary = beneficiarios?.slice(indexOfFirstBeneficiary, indexOfLastBeneficiary);
   const pagination = (pageNumber) => { setCurrentPage(pageNumber) };
+
   
   const handleOnClose = () => setshowMyModal(false)
+
 
   const underSelect = (item) => {
     setDataSelect(item)

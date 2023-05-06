@@ -269,7 +269,7 @@ const FormPostNatal = ({ idBen }) => {
         </div>
         {!isPostnatal ? (
           <div className="Container-Beneficiario__Grid-button">
-            <button id="Postnatales" className="Button Button--Guardar">
+            <button  id="Postnatales" className="Button Button--Guardar">
               <div className="Button__Icono">
                 <FontAwesomeIcon icon="fa-solid fa-file-export" />
               </div>
@@ -277,6 +277,14 @@ const FormPostNatal = ({ idBen }) => {
             </button>
           </div>
         ) : null}
+        <div className="Container-Beneficiario__Grid-button">
+            <button onClick={() => window.location.reload()} id="Postnatales" className="Button Button--Guardar">
+              <div className="Button__Icono">
+                <FontAwesomeIcon icon="fa-solid fa-file-export" />
+              </div>
+              <span className="Button__Span Iniciar">REFRESCAR</span>
+            </button>
+          </div>
       </form>
     </div>
   );
