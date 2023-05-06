@@ -1,0 +1,16 @@
+.ModalBeneficiary{
+    position: fixed;
+    display: flex;
+        align-items: center;
+        justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    width: 100%;
+    inset: 10px 20px 30px 40px;
+    backdrop-filter: blur(5px);
+    .ModalBeneficiary_content{
+        
+        width: 50%;
+        height: 40vh;
+        background-color: green
+    }
+}
