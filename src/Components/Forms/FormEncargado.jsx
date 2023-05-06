@@ -29,20 +29,23 @@ function FormEncargado({idBene }) {
   const dataSend = (e) => {
     e.preventDefault();
     try {
+      if(idBene != null){
         axios
-      .post("http://localhost:4000/beneficiarios/createEncargados", Encargado)
-      .then(function (response) {
-        const idEncargadocurrent =
-          response?.data?.idEncargado[0]?.ID_ENCARGADO_INGRESADO;
-        !idEncargadocurrent
-          ? alert("no existe encargado")
-          : setIdencargado(idEncargadocurrent);
-             guardarBeneAndEncargado(e);
-      })
-      .catch(function (response) {
-        alert("No se ha encontrado un registro");
-        console.log(response);
-      });
+        .post(`http://localhost:4000/beneficiarios/createEncargados/${idBene}`, Encargado)
+        .then(function (response) {
+          const mensaje =
+            response?.data?.message;
+          !mensaje
+            ? alert("paso algo")
+            : alert(mensaje);
+        })
+        .catch(function (response) {
+          alert("No se ha encontrado un registro");
+          console.log(response);
+        });
+      }else{
+        alert("No se encontro el id del beneficiario");
+      }
     } catch (error) {
         console.error(error); 
     }

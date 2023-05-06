@@ -36,8 +36,8 @@ const FomRoles = () => {
   const selectImageList = (e) => {
     const uplodad = e.target.files
     // console.log(uplodad.length)
-    if (uplodad.length > 2) {
-      alert("No puedes subir más de 2 archivos")
+    if (uplodad.length > 1) {
+      alert("No puedes subir más de 1 archivos")
       setArchivo(null)
     } else {
       const uplodadList = []
