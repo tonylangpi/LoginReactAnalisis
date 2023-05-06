@@ -86,9 +86,6 @@ const Modal=({onClose, visible, dataSelect}) => {
 if(!visible) return null
   return (
     <div className='ModalBeneficiary'>
-    
-
-
       <form className='ModalBeneficiary_content' onSubmit={fileSubmit} action="">
         <div className='Container-Citas__Grid'>
 
@@ -166,8 +163,6 @@ if(!visible) return null
           <button onClick={handleOnClose} className='Button'>x</button>
         </div>
       </form>
-  
-  
   </div>
   )
 }

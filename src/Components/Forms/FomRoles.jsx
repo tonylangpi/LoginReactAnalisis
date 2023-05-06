@@ -3,7 +3,6 @@ import axios from 'axios';
 import Pagination from '../utils/pagination'
 import '../assets/scss/form.scss'
 import Modal from  './Modal'
-import Prueba from './prueba'
 
 const FomRoles = () => {
   const [search, setSearch] = useState('')
@@ -95,7 +94,6 @@ const FomRoles = () => {
       onClose={handleOnClose}
       visible={showMyModal}
       />
-      <Prueba />
       </div>
     </>
   )
