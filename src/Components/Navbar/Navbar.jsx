@@ -1,32 +1,71 @@
-import React, {useRef, useEffect} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import './Navbar.scss';
+import "./Navbar.scss";
 
 const Navbar = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [dropdownClose, setIsDropdownClose] = useState(true);
+
+  const Cerrar = () => {
+    setIsDropdownClose(!isDropdownClose);
+  };
+  const Abrir = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
 
   const menus = [
-    { title: "Beneficiario", path: "/formBene", icon: "", permiso:true },
-    { title: "Servicios", path: "/FormServicios", icon: "", permiso:true },
-    { title: "Citas", path: "/FormCitas", icon: "", permiso:true },
-    { title: "VER beneficiarios", path: "/formRoles", icon: "", permiso:true},
-    { title: "Beneficiario", path: "/formBene", icon: "" , permiso:false},
+    { title: "Beneficiario", path: "/formBene", icon: "", permiso: true },
+    { title: "Reportes", path: "/FormReportes", icon: "", permiso: false },
+    { title: "Citas", path: "/FormCitas", icon: "", permiso: true },
+    { title: "VER beneficiarios", path: "/formRoles", icon: "", permiso: true },
+    { title: "Beneficiario", path: "/formBene", icon: "", permiso: false },
   ];
 
   return (
     <>
       <div className="Navbar">
-
         <div className="Navbar__Buttons">
           {menus.map((x, index) => (
-            <>
-              <li hidden={!x.permiso} >
-                <Link className="Button" key={index} to={x.path}>{x.title}</Link>
-              </li>
-            </>
+            <li hidden={!x.permiso} key={index}>
+              <Link className="Button" to={x.path}>
+                {x.title}
+              </Link>
+            </li>
           ))}
-          <button className="Button" onClick={() => { localStorage.clear(); location.reload(); }}>Cerrar sesion</button>
+          
+         <div className="Dropdown">
+            <button className="Button" onClick={Abrir}>
+              Reportes 
+            </button>
+            <div
+              className={`Dropdown__Options ${
+                isDropdownOpen ? "Dropdown__Options--open" : ""
+              }`}
+            >
+              <Link className="Dropdown__Option" onClick={Cerrar} to="/FormReporteArea" >
+                Reporte de Areas
+              </Link>
+              <Link className="Dropdown__Option" onClick={Cerrar} to="/FormReporteBeneficiario">
+                Reporte de Beneficiarios
+              </Link>
+            </div>
+
+            
+          </div>
+          
+          <button
+            className="Button"
+            onClick={() => {
+              localStorage.clear();
+              location.reload();
+            }}
+          >
+            Cerrar sesion
+          </button>
+
+         
         </div>
 
         <div className="Navbar__User">
@@ -37,7 +76,6 @@ const Navbar = () => {
             </Link>
           </div>
         </div>
-
       </div>
     </>
   );

@@ -5,7 +5,8 @@ import Register from './Components/Register/Register';
 import FormBeneficiario from './Components/Forms/FormBeneficiario';
 import Navbar  from "./Components/Navbar/Navbar";
 import RolesForm from "./Components/Forms/FomRoles"
-import Servicios from './Components/Forms/FormServicio';
+import ReporteBeneficiario from './Components/Forms/FormReporteBeneficiario';
+import ReporteArea from './Components/Forms/FormReporteArea';
 import Citas from './Components/Forms/FormCitas';
 import axios from 'axios';
 import {
@@ -53,7 +54,8 @@ function App() {
               <Route path='/formBene' element={<FormBeneficiario />} />
               <Route path='/form' />
               <Route path='/formRoles' element={<RolesForm />} />
-              <Route path='/FormServicios' element={<Servicios />} />
+              <Route path='/FormReporteBeneficiario' element={<ReporteBeneficiario/>} />
+              <Route path='/FormReporteArea' element={<ReporteArea />} />
               <Route path='/FormCitas' element={<Citas />} />
               
               <Route path='*' element={<Navigate to='/' />} />
