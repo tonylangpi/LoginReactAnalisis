@@ -30,14 +30,16 @@
 		}
 	}
 }
-.tableBeneficiary{
-    background: rgb(202, 196, 196);
+
+.tableBeneficiary {
+  background: rgb(202, 196, 196);
   width: 60%;
   margin: 0 auto;
   margin-top: 2%;
   border-collapse: collapse;
   text-align: center;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+
   th {
     background-color: rgb(4, 63, 82);
     height: 35px;
@@ -45,23 +47,27 @@
     color: rgb(223, 216, 216);
     text-align: center;
   }
+
   td {
     color: rgb(32, 35, 36);
     height: 30px;
     border: 0.5px solid rgba(240, 240, 240, 10);
   }
+
   tr:hover {
     background-color: rgb(167, 248, 244);
   }
-  .actionsBeneficiary{
+
+  .actionsBeneficiary {
     background-color: rgba(2, 9, 78, 0.192);
     text-align: center;
   }
+
   .tooltip {
     position: relative;
     display: inline-block;
   }
-  
+
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
@@ -78,7 +84,7 @@
     opacity: 0;
     transition: opacity 0.3s;
   }
-  
+
   .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;

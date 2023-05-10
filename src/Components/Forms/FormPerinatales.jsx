@@ -46,15 +46,12 @@ const FormPerinatales = ({idBen}) => {
     }
   };
   return (
-    <div
-      id="FormPeriNatales"
-      className="Container-Beneficiario Antecedentes-Peri-Natales"
-    >
+    <div id="FormPeriNatales" className="Container-Beneficiario Antecedentes-Peri-Natales">
       <div className="Container-Beneficiario__item Titulo">
         <h1>Antecedentes Peri-Natales</h1>
       </div>
 
-      <form onSubmit={savePerinatal} className="Container-Beneficiario__Grid">
+      <form onSubmit={savePerinatal} className="Container-Beneficiario">
         <div className="Container-Beneficiario__Grid">
           <div className="Container-Beneficiario__Grid-item">
             <div className="Beneficiario-Container-Radio">
@@ -126,7 +123,7 @@ const FormPerinatales = ({idBen}) => {
             <textarea
               required
               name="COLOR"
-              onChange={saveDataTemporalyPerinatal} 
+              onChange={saveDataTemporalyPerinatal}
               disabled={isPerinatal}
               className="Beneficiario-Container-Input__Input"
               placeholder=" "
@@ -138,15 +135,15 @@ const FormPerinatales = ({idBen}) => {
         </div>
 
         {!isPerinatal ? (
-            <div className="Container-Beneficiario__Grid-button">
-          <button id="Perinatales" className="Button Button--Guardar">
-            <div className="Button__Icono">
-              <FontAwesomeIcon icon="fa-solid fa-file-export" />
-            </div>
-            <span className="Button__Span Iniciar">Guardar</span>
-          </button>
-        </div>
-            ) : null}
+          <div className="Container-Beneficiario__Grid-button">
+            <button id="Perinatales" className="Button Button--Guardar">
+              <div className="Button__Icono">
+                <FontAwesomeIcon icon="fa-solid fa-file-export" />
+              </div>
+              <span className="Button__Span Iniciar">Guardar</span>
+            </button>
+          </div>
+        ) : null}
 
 
       </form>

@@ -212,6 +212,7 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     id=""
                   >
+                    <option value="Ninguno"></option>
                     <option value="Primaria">Primaria</option>
                     <option value="Basico">Basico</option>
                     <option value="Diversificado">Diversificado</option>
@@ -233,6 +234,7 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     id=""
                   >
+                    <option value="Ninguno"></option>
                     <option value="M">MASCULINO</option>
                     <option value="F">FEMENINO</option>
                   </select>
@@ -285,6 +287,7 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     id=""
                   >
+                    <option value="Ninguno"></option>
                     <option value="NO APLICA">----NO APLICA ------</option>
                     <option value="CENTRO DE SALUD">CENTRO DE SALUD</option>
                   </select>

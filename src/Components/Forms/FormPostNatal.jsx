@@ -52,15 +52,13 @@ const FormPostNatal = ({ idBen }) => {
   };
 
   return (
-    <div
-      id="FormPostNatales"
-      className="Container-Beneficiario Antecedentes-Post-Natales"
-    >
+    <div id="FormPostNatales" className="Container-Beneficiario Antecedentes-Post-Natales">
       <div className="Container-Beneficiario__item Titulo">
         <h1>Antecedentes Post-Natales</h1>
       </div>
 
-      <form onSubmit={savePostnatal} className="Container-Beneficiario__Grid">
+      <form onSubmit={savePostnatal} className="Container-Beneficiario">
+
         <div className="Container-Beneficiario__Grid">
           <div className="Container-Beneficiario__Grid-item">
             <div className="Beneficiario-Container-Radio">
@@ -267,9 +265,10 @@ const FormPostNatal = ({ idBen }) => {
             </span>
           </div>
         </div>
+
         {!isPostnatal ? (
           <div className="Container-Beneficiario__Grid-button">
-            <button  id="Postnatales" className="Button Button--Guardar">
+            <button id="Postnatales" className="Button Button--Guardar">
               <div className="Button__Icono">
                 <FontAwesomeIcon icon="fa-solid fa-file-export" />
               </div>
@@ -278,13 +277,13 @@ const FormPostNatal = ({ idBen }) => {
           </div>
         ) : null}
         <div className="Container-Beneficiario__Grid-button">
-            <button onClick={() => window.location.reload()} id="Postnatales" className="Button Button--Guardar">
-              <div className="Button__Icono">
-                <FontAwesomeIcon icon="fa-solid fa-file-export" />
-              </div>
-              <span className="Button__Span Iniciar">REFRESCAR</span>
-            </button>
-          </div>
+          <button onClick={() => window.location.reload()} id="Postnatales" className="Button Button--Refresh">
+            <div className="Button__Icono">
+              <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
+            </div>
+            <span className="Button__Span Iniciar">REFRESCAR</span>
+          </button>
+        </div>
       </form>
     </div>
   );
