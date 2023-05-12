@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import '../assets/scss/Modal.scss'
+import styles from '../assets/scss/Modal.module.scss';
 import axios from 'axios';
 const Modal=({onClose, visible, dataSelect}) => {
   const [archivo, setArchivo] = useState(null)
@@ -55,7 +55,6 @@ const Modal=({onClose, visible, dataSelect}) => {
     { id: 12, title: "Sesion 12" },
     { id: 13, title: "Sesion 13" },
     { id: 14, title: "Sesion 14" },
-
   ]
 
   const selectImageList = (e) => {
@@ -86,11 +85,11 @@ const Modal=({onClose, visible, dataSelect}) => {
 }
 if(!visible) return null
   return (
-    <div className='ModalBeneficiary'>
-      <form className='ModalBeneficiary_content' onSubmit={fileSubmit} action="">
-        <div className='Container-Citas__Grid'>
+    <div className={styles.ModalBeneficiary}>
+      <form className={styles.ModalBeneficiary__Content} onSubmit={fileSubmit} action="">
+        <div className='Container-Beneficiario__Grid'>
 
-          <div className="Container-Citas__Grid-item">
+          <div className="Container-Beneficiario__Grid-item">
             <div className="Citas-Container-Input">
               <input
                 onChange={saveDataTemporaly}
@@ -103,7 +102,7 @@ if(!visible) return null
             </div>
           </div>
 
-          <div className="Container-Citas__Grid-item">
+          <div className="Container-Beneficiario__Grid-item">
             <div className="Citas-Container-Input">
               <select onChange={saveDataTemporaly} className='Citas-Container-Input__Input' name='id_sesion' id="">
                 {
@@ -116,7 +115,7 @@ if(!visible) return null
             </div>
           </div>
 
-          <div className="Container-Citas__Grid-item">
+          <div className="Container-Beneficiario__Grid-item">
             <div className="Citas-Container-Input">
               <input
                 onChange={saveDataTemporaly}
@@ -128,7 +127,7 @@ if(!visible) return null
             </div>
           </div>
 
-          <div className="Container-Citas__Grid-item">
+          <div className="Container-Beneficiario__Grid-item">
             <div className="Citas-Container-Radio">
               <label htmlFor="">¿Tipo de Sessión?</label>
               <div className='Citas-Container-Radio__Radio'>
@@ -142,14 +141,14 @@ if(!visible) return null
             </div>
           </div>
 
-          <div className="Container-Citas__item TextArea">
+          <div className="Container-Beneficiario__Grid-item TextArea">
             <div className="Citas-Container-Input">
               <textarea onChange={saveDataTemporaly} name='observacion' className='Citas-Container-Input__Input' placeholder=" "></textarea>
               <span className="Citas-Container-Input__Span">Observaciones:</span>
             </div>
           </div>
 
-          <div className="Container-Citas__item TextArea">
+          <div className="Container-Beneficiario__Grid-item">
             <div className="Container-Input-file">
               <span className="Container-Input-file__Span">Hoja</span>
               <input
@@ -160,11 +159,13 @@ if(!visible) return null
                 className="Container-Input-file__Input" />
             </div>
           </div>
+
           <button className='Button'>Registrar Cita</button>
           <button onClick={handleOnClose} className='Button'>x</button>
+
         </div>
       </form>
-  </div>
+    </div>
   )
 }
 

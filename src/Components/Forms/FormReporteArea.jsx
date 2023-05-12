@@ -1,126 +1,115 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Pagination from '../utils/pagination';
+import '../assets/scss/form.scss'
+import styles from './ReporteArea.module.scss';
 
 const FormReporteArea = () => {
+  const [search, setSearch] = useState('');
+  const [sesiones, setSesiones] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sessionsPerPage] = useState(5);
+  const indexOfLastSession = currentPage * sessionsPerPage;
+  const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
+  const currentSessions = sesiones?.slice(indexOfFirstSession, indexOfLastSession);
+  const pagination = (pageNumber) => setCurrentPage(pageNumber);
+  
+  const [datos, setDatos] = React.useState({
+    fecha_desde: "",
+    fecha_hasta: ""
+  });
+
+  const saveDataTemporaly = (e) => {
+    e.preventDefault();
+    setDatos({
+      ...datos,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const ListarSesionesPorArea = () => {
+    const idUsuario = localStorage.getItem('idUsuario');
+    const idEmpresa = localStorage.getItem('idEmpresa');  
+
+    axios
+      .get(`http://localhost:4000/reportes/sesionesPorArea/${1}/${idEmpresa}`, datos)
+      .then(function (response) {
+        console.log(response);
+        setSesiones(response.data);
+      })
+      .catch(function (error) {
+        alert('No se ha encontrado un registro');
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    ListarSesionesPorArea();
+  }, []);
+
   return (
     <>
-      <div className="Container-Beneficiario">
-        <div className='Container-Beneficiario_item Titulo'>
-          <h1>Reporte de Area</h1>
+      <div className={styles.Container}>
+        {/* search */}
+        <div className='searchSession'>
+          <input
+            className='inputSession'
+            onChange={saveDataTemporaly}
+            name="fecha_desde"
+            placeholder='Ingrese la sesión'
+            type='date'
+          />
+          <label>Fecha Inicio</label>
         </div>
 
-        <div className='Container-Citas__Grid'>
-
-        <div className="Container-Citas__Grid-item">
-            <div className="Citas-Container-Input">
-              <input
-                placeholder=" "
-                type="text"
-                className="Citas-Container-Input__Input" />
-              <span className="Citas-Container-Input__Span">Area</span>
-            </div>
-          </div>
-
-          <div className="Container-Citas__Grid-item">
-            <div className="Citas-Container-Input">
-              <input
-                placeholder=" "
-                type="text"
-                className="Citas-Container-Input__Input" />
-              <span className="Citas-Container-Input__Span">Nombre Beneficiario</span>
-            </div>
-          </div>
-
-          
-          <div className="Container-Beneficiario__Grid-item">
-            <div className="Beneficiario-Container-Input">
-              <input
-
-                placeholder=" "
-                type="date"
-                className="Beneficiario-Container-Input__Input"
-              />
-              <span className="Beneficiario-Container-Input__Span">
-                Fecha
-              </span>
-            </div>
-          </div>
-
-          <div className="Container-Citas__Grid-item">
-            <div className="Citas-Container-Input">
-              <select className='Citas-Container-Input__Input' name="" id="">
-                <option value="1">Sesion 1</option>
-                <option value="2">Sesion 2</option>
-                <option value="3">Sesion 3</option>
-                <option value="4">Sesion 4</option>
-                <option value="5">Sesion 5</option>
-                <option value="6">Sesion 6</option>
-                <option value="7">Sesion 7</option>
-                <option value="8">Sesion 8</option>
-                <option value="9">Sesion 9</option>
-                <option value="10">Sesion 10</option>
-                <option value="11">Sesion 11</option>
-                <option value="12">Sesion 12</option>
-                <option value="13">Sesion 13</option>
-                <option value="14">Sesion 14</option>
-              </select>
-              <span className="Citas-Container-Input__Span">Sessiones</span>
-            </div>
-          </div>
-
-
+        <div className='searchSession'>
+          <input
+            className='inputSession'
+            onChange={saveDataTemporaly}
+            name="fecha_hasta"
+            placeholder='Ingrese la sesión'
+            type='date'
+          />
+          <label>Fecha Final</label>
         </div>
 
-        <button className="Button Button--Buscar">
-          <div className="Button__Icono">
-          </div>
-          <span className="Button__Span Iniciar" >Agregar</span>
-
-        </button>
-
-      </div>
-
-      <div className="Container-Beneficiario">
-         
-      <div id='Tabla2' className='Container-Citas__Tabla'>
-
-        <div className='Container-Citas_item Titulo'>
-          <h1>Listado</h1>
-        </div>
-
-        <div className="searchBeneficiary" >
-            <input className="inputBeneficiary"  placeholder="Ingrese el Area " type="text" />
-          </div>
-
-        <table class="default">
-          <tr>
-            <th>Area</th>
-            <th>Nombre Beneficiario</th>
-            <th>Fecha</th>
-            <th>Sessiones</th>
-            <th>Acciones</th>
-          </tr>
-          <tr>
-            <td>Manicomio</td>
-            <td>Juan Baltazar</td>
-            <td>21/04/2023</td>
-            <td>Session 1</td>     
-            <td>
-              <button>Eliminar</button>
-              <button>Listo</button>
-            </td>
-          </tr>
+        <h1>Lista de sesiones por área</h1>
+        <table className='Table'>
+          <thead>
+            <tr>
+              <th>Area</th>
+              <th>Beneficiario</th>
+              <th>Sesiones</th>
+              <th>Fecha</th>
+              <th>Hora Egreso</th>
+              <th>Hora Ingreso</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentSessions.filter((item) => {
+              return search.toLowerCase() === '' ? item
+                : item.BENEFICIARIO.toLowerCase().includes(search) || item.BENEFICIARIO.toLowerCase().includes(search)
+            }).map((row, index) => (
+              <tr key={index}>
+                <td>{row.AREA}</td>
+                <td>{row.BENEFICIARIO}</td>
+                <td>{row.SESIONES}</td>
+                <td>{row.FECHA}</td>
+                <td>{row.HORA_EGRESO}</td>
+                <td>{row.HORA_INGRESO}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
-
-      </div>
-      <button className="Button Button--Buscar">
-          <div className="Button__Icono">
-          </div>
-          <span className="Button__Span Iniciar" >Agregar</span>
-
-        </button>
+        <Pagination
+          beneficiaryPerPage={sessionsPerPage}
+          allbeneficiary={sesiones.length}
+          pagination={pagination}
+          currentPage={currentPage}
+        />
       </div>
     </>
-  )
-}
+  );
+};
 
-export default FormReporteArea
+export default FormReporteArea;

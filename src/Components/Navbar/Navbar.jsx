@@ -50,6 +50,9 @@ const Navbar = () => {
               <Link className="Dropdown__Option" onClick={Cerrar} to="/FormReporteBeneficiario">
                 Reporte de Beneficiarios
               </Link>
+              <Link className="Dropdown__Option" onClick={Cerrar} to="/FormReporteCitas">
+                Reporte de Citas
+              </Link>
             </div>
 
             

@@ -1,0 +1,6 @@
+@import '../../Styles/Mixins';
+
+.Container {
+    @include FlexBox(center, center, column);
+    width: 100%;
+}

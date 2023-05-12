@@ -8,6 +8,7 @@
 	background: #aebcc0;
 	box-shadow: 0 1.25rem 5rem -1rem rgba(0, 0, 30, 0.5);
 	transition: transform 200ms ease-in-out;
+  
   &::before {
 		content: "";
 		position: absolute;
@@ -16,9 +17,9 @@
 		box-shadow: 0 0.5rem 2rem -1rem rgba(0, 0, 100, 0.5);
 		opacity: 0;
 		pointer-events: none;
-
 		transition: opacity 300ms ease-in-out;
 	}
+
   input {
 		all: unset;
 		height: 100%;
@@ -30,9 +31,10 @@
 		}
 	}
 }
-.tableBeneficiary{
+
+.Table{
     background: rgb(202, 196, 196);
-  width: 60%;
+  width: 70%;
   margin: 0 auto;
   margin-top: 2%;
   border-collapse: collapse;

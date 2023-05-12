@@ -15,11 +15,8 @@ const FomRoles = () => {
   const indexOfFirstBeneficiary = indexOfLastBeneficiary - beneficiaryPerPage;
   const currentBeneficiary = beneficiarios?.slice(indexOfFirstBeneficiary, indexOfLastBeneficiary);
   const pagination = (pageNumber) => { setCurrentPage(pageNumber) };
-
   
   const handleOnClose = () => setshowMyModal(false)
-
-
   const underSelect = (item) => {
     setDataSelect(item)
   }
@@ -44,13 +41,15 @@ const FomRoles = () => {
   return (
     <>
       <div className='ListaBeneficiarios-Container'>
-    
+
         {/* search */}
-          <div className="searchBeneficiary" >
-            <input className="inputBeneficiary" onChange={(e)=>setSearch(e.target.value)} placeholder="Ingrese el Beneficiario " type="text" />
-          </div>
-        <h1>Lista de beneficiarios</h1>
-        <table class="tableBeneficiary">
+        <div className="searchBeneficiary" >
+          <input className="inputBeneficiary" onChange={(e) => setSearch(e.target.value)} placeholder="Ingrese el Beneficiario " type="text" />
+        </div>
+        <div className="Titulo">
+          <h1>Lista de Beneficiarios</h1>
+        </div>
+        <table class="Table">
           <thead>
             <tr>
               <th>ID Beneficiario</th>
@@ -64,9 +63,9 @@ const FomRoles = () => {
             </tr>
           </thead>
           <tbody>
-            {currentBeneficiary.filter((item)=>{
-              return search.toLowerCase()=== '' ? item
-              : item.NOMBRE1.toLowerCase().includes(search) || item.NOMBRE2.toLowerCase().includes(search)
+            {currentBeneficiary.filter((item) => {
+              return search.toLowerCase() === '' ? item
+                : item.NOMBRE1.toLowerCase().includes(search) || item.NOMBRE2.toLowerCase().includes(search)
             }).map((row, index) => (
               <tr key={index}>
                 <td>{row.ID_BENEFICIARIO}</td>
@@ -77,7 +76,7 @@ const FomRoles = () => {
                 <td>{row.SEXO}</td>
                 <td>{row.DIRECCION}</td>
                 <td className='actionsBeneficiary'><div className='tooltip'><span class="tooltiptext">Agregar cita</span>
-                  <button onClick={() => {setshowMyModal(true), underSelect(row)}}><span class="material-symbols-sharp">
+                  <button onClick={() => { setshowMyModal(true), underSelect(row) }}><span class="material-symbols-sharp">
                     group_add
                   </span></button>
                 </div></td>
@@ -91,11 +90,11 @@ const FomRoles = () => {
           pagination={pagination}
           currentPage={currentPage}
         />
-      <Modal 
-      dataSelect={dataSelect}
-      onClose={handleOnClose}
-      visible={showMyModal}
-      />
+        <Modal
+          dataSelect={dataSelect}
+          onClose={handleOnClose}
+          visible={showMyModal}
+        />
       </div>
     </>
   )
