@@ -117,9 +117,10 @@ const FormBeneficiario = () => {
 
             <form
               onSubmit={fileSubmit}
-              className="Container-Beneficiario__Grid"
+              className="Grid"
+              // className="Container-Beneficiario__Grid"
             >
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <input
                     required

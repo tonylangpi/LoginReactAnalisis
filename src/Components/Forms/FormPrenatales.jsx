@@ -56,7 +56,7 @@ const FormPrenatales = ({idBen}) => {
     <div className='Container-Beneficiario__item Titulo'>
       <h1>Antecedentes Pre-Natales</h1>
     </div>
-    <form  onSubmit={savePrenatal}  className="Container-Beneficiario__Grid">
+    <form  onSubmit={savePrenatal}  className="Container-Beneficiario">
 
     <div className="Container-Beneficiario__item RadioButton">
       <div className="Beneficiario-Container-Radio">

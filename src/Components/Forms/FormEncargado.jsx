@@ -83,8 +83,8 @@ function FormEncargado({idBene }) {
       <div className="Container-Beneficiario__item Titulo">
         <h1>Datos del Encargado</h1>
       </div>
+      
       <form onSubmit={dataSend} className="Container-Beneficiario__Grid">
-        <div className="Container-Beneficiario__Grid">
           <div className="Container-Beneficiario__Grid-item">
             <div className="Beneficiario-Container-Input">
               <input
@@ -251,7 +251,6 @@ function FormEncargado({idBene }) {
               </span>
             </div>
           </div>
-        </div>
 
         <div className="Container-Beneficiario__Grid-button">
           <button id="button-Encargado" className="Button Button--Guardar">

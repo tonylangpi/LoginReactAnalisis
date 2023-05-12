@@ -60,7 +60,7 @@ const FormPostNatal = ({ idBen }) => {
         <h1>Antecedentes Post-Natales</h1>
       </div>
 
-      <form onSubmit={savePostnatal} className="Container-Beneficiario__Grid">
+      <form onSubmit={savePostnatal} className="Container-Beneficiario">
         <div className="Container-Beneficiario__Grid">
           <div className="Container-Beneficiario__Grid-item">
             <div className="Beneficiario-Container-Radio">
@@ -282,7 +282,7 @@ const FormPostNatal = ({ idBen }) => {
               <div className="Button__Icono">
                 <FontAwesomeIcon icon="fa-solid fa-file-export" />
               </div>
-              <span className="Button__Span Iniciar">REFRESCAR</span>
+              <span className="Button__Span Iniciar">Nuevo</span>
             </button>
           </div>
       </form>

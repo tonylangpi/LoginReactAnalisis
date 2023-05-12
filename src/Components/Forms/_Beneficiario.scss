@@ -29,24 +29,6 @@
         }
     }
 
-    .SubTitulo {
-        margin: 10px 0;
-        font-family: $font-rubik;
-        letter-spacing: 2px;
-        color: black;
-        
-        h3 {
-            font-size: 1.5rem;
-            font-weight: 400;
-
-            @media only screen and (max-width: 600px) {
-                & {
-                    font-size: 1.3rem;
-                }
-            }
-        }
-    }
-
     .TextArea {
         margin: 25px 0;
     }

@@ -54,7 +54,7 @@ const FormPerinatales = ({idBen}) => {
         <h1>Antecedentes Peri-Natales</h1>
       </div>
 
-      <form onSubmit={savePerinatal} className="Container-Beneficiario__Grid">
+      <form onSubmit={savePerinatal} className="Container-Beneficiario">
         <div className="Container-Beneficiario__Grid">
           <div className="Container-Beneficiario__Grid-item">
             <div className="Beneficiario-Container-Radio">
