@@ -1,155 +1,139 @@
-import React from 'react'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import Pagination from '../utils/pagination';
+import '../assets/scss/form.scss'
+import styles from './Reporte.module.scss';
 
 const FormReporteBeneficiario = () => {
+  const [search, setSearch] = useState('');
+  const [beneficiario, setBeneficiario] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [sessionsPerPage] = useState(5);
+  const indexOfLastSession = currentPage * sessionsPerPage;
+  const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
+  const currentSessions = beneficiario?.slice(indexOfFirstSession, indexOfLastSession);
+  const pagination = (pageNumber) => setCurrentPage(pageNumber);
+  
+  const [datos, setDatos] = React.useState({
+    idBeneficiario: "",
+    fecha_desde: "",
+    fecha_hasta: ""
+  });
+
+  const saveDataTemporaly = (e) => {
+    e.preventDefault();
+    setDatos({
+      ...datos,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const ListarSesionesPorArea = () => {
+    const idUsuario = localStorage.getItem('idUsuario');
+    const idEmpresa = localStorage.getItem('idEmpresa');
+
+    axios
+      .get(`http://localhost:4000/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${idEmpresa}/${datos.fecha_desde}/${datos.fecha_hasta}`)
+      .then(function (response) {
+        setBeneficiario(response.data);
+        console.log(response.data);
+      })
+      .catch(function (error) {
+        alert('No se ha encontrado un registro');
+        console.log(error);
+      });
+  };
+
+  // useEffect(() => {
+  //   ListarSesionesPorArea();
+  // }, []);
+
   return (
     <>
+      <div className={styles.Container}>
+        {/* search */}
+        <div className={styles.ContainerSearch}>
+          <div className={styles.ContainerInput}>
+            <input
+              onChange={saveDataTemporaly}
+              name="fecha_desde"
+              placeholder=' '
+              type='date'
+              className={styles.ContainerInput__Input}
+            />
+            <span className={styles.ContainerInput__Span}>
+              Fecha Inicio
+            </span>
+          </div>
 
+          <div className={styles.ContainerInput}>
+            <input
+              onChange={saveDataTemporaly}
+              name="fecha_hasta"
+              placeholder=' '
+              type='date'
+              className={styles.ContainerInput__Input}
+            />
+            <span className={styles.ContainerInput__Span}>
+              Fecha Final
+            </span>
+          </div>
 
-      <div className="Container-Beneficiario">
-        <div className='Container-Beneficiario_item Titulo'>
-          <h1>Reporte Beneficiario</h1>
+          <div className={styles.ContainerInput}>
+            <input
+              onChange={saveDataTemporaly}
+              name="idBeneficiario"
+              placeholder=' '
+              type='number'
+              className={styles.ContainerInput__Input}
+            />
+            <span className={styles.ContainerInput__Span}>
+              ID Beneficiario
+            </span>
+          </div>
+
+          <button className='Button' onClick={ListarSesionesPorArea}>Buscar Reporte</button>
         </div>
 
-        <div className='Container-Citas__Grid'>
-
-          <div className="Container-Citas__Grid-item">
-            <div className="Citas-Container-Input">
-              <input
-                placeholder=" "
-                type="text"
-                className="Citas-Container-Input__Input" />
-              <span className="Citas-Container-Input__Span">Nombre Beneficiario</span>
-            </div>
-          </div>
-
-          <div className="Container-Citas__Grid-item">
-            <div className="Citas-Container-Input">
-              <select className='Citas-Container-Input__Input' name="" id="">
-                <option value="0"></option>
-                <option value="1">Masculino</option>
-                <option value="2">Femenino</option>
-
-              </select>
-              <span className="Citas-Container-Input__Span">Genero</span>
-            </div>
-          </div>
-
-          <div className="Container-Citas__Grid-item">
-            <div className="Citas-Container-Input">
-              <input
-                placeholder=" "
-                type="number"
-                className="Citas-Container-Input__Input" />
-              <span className="Citas-Container-Input__Span">Año de Nacimiento</span>
-            </div>
-          </div>
-
-          <div className="Container-Citas__Grid-item">
-            <div className="Citas-Container-Input">
-              <input
-                placeholder=" "
-                type="text"
-                className="Citas-Container-Input__Input" />
-              <span className="Citas-Container-Input__Span">Area</span>
-            </div>
-          </div>
-
-
-          <div className="Container-Beneficiario__Grid-item">
-            <div className="Beneficiario-Container-Input">
-              <input
-
-                placeholder=" "
-                type="date"
-                className="Beneficiario-Container-Input__Input"
-              />
-              <span className="Beneficiario-Container-Input__Span">
-                Fecha
-              </span>
-            </div>
-          </div>
-
-          <div className="Container-Citas__Grid-item">
-            <div className="Citas-Container-Input">
-              <select className='Citas-Container-Input__Input' name="" id="">
-                <option value="1">Sesion 1</option>
-                <option value="2">Sesion 2</option>
-                <option value="3">Sesion 3</option>
-                <option value="4">Sesion 4</option>
-                <option value="5">Sesion 5</option>
-                <option value="6">Sesion 6</option>
-                <option value="7">Sesion 7</option>
-                <option value="8">Sesion 8</option>
-                <option value="9">Sesion 9</option>
-                <option value="10">Sesion 10</option>
-                <option value="11">Sesion 11</option>
-                <option value="12">Sesion 12</option>
-                <option value="13">Sesion 13</option>
-                <option value="14">Sesion 14</option>
-              </select>
-              <span className="Citas-Container-Input__Span">Sessiones</span>
-            </div>
-          </div>
-
-        </div>
-
-        <button className="Button Button--Buscar">
-          <div className="Button__Icono">
-          </div>
-          <span className="Button__Span Iniciar" >Agregar</span>
-
-        </button>
-
-      </div>
-
-      <div className="Container-Beneficiario">
-         
-      <div id='Tabla2' className='Container-Citas__Tabla'>
-
-        <div className='Container-Citas_item Titulo'>
-          <h1>Listado</h1>
-        </div>
-
-        <div className="searchBeneficiary" >
-            <input className="inputBeneficiary"  placeholder="Ingrese el Beneficiario " type="text" />
-          </div>
-
-        <table class="default">
-          <tr>
-            <th>Nombre Beneficiario</th>
-            <th>Genero</th>
-            <th>Edad</th>
-            <th>Area</th>
-            <th>Fecha</th>
-            <th>Session</th>
-            <th>Acciones</th>
-          </tr>
-          <tr>
-            <td>Mario Cortez</td>
-            <td>Masculino</td>
-            <td>21</td>
-            <td>Manicomio</td>
-            <td>21/07/2001</td>
-            <td>Session 1</td>
-            <td>
-              <button>Eliminar</button>
-              <button>Listo</button>
-            </td>
-          </tr>
+        <h1 className={styles.Titulo}>Lista de Sesiones por Beneficiario</h1>
+        <table className='Table'>
+          <thead>
+            <tr>
+              <th>Area Atendido</th>
+              <th>Beneficiario</th>
+              <th>Edad</th>
+              <th>Fecha</th>
+              <th>Horario Atendido</th>
+              <th>Sesion Atendido</th>
+              <th>Sexo</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentSessions.filter((item) => {
+              return search.toLowerCase() === '' ? item
+                : item.BENEFICIARIO.toLowerCase().includes(search) || item.BENEFICIARIO.toLowerCase().includes(search)
+            }).map((row, index) => (
+              <tr key={index}>
+                <td>{row.AREA_ATENDIO}</td>
+                <td>{row.BENEFICIARIO}</td>
+                <td>{Math.trunc(row.EDAD)}</td>
+                <td>{row.FECHA.slice(0, 10)}</td>
+                <td>{row.HORARIO_ATENDIDO}</td>
+                <td>{row.SESION_ATENDIDA}</td>
+                <td>{row.SEXO}</td>
+              </tr>
+            ))}
+          </tbody>
         </table>
-
+        <Pagination
+          beneficiaryPerPage={sessionsPerPage}
+          allbeneficiary={beneficiario.length}
+          pagination={pagination}
+          currentPage={currentPage}
+        />
       </div>
-      <button className="Button Button--Buscar">
-          <div className="Button__Icono">
-          </div>
-          <span className="Button__Span Iniciar" >Agregar</span>
-
-        </button>
-      </div>
-
     </>
-  )
-}
+  );
+};
 
-export default FormReporteBeneficiario
+export default FormReporteBeneficiario;

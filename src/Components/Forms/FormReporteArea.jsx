@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Pagination from '../utils/pagination';
 import '../assets/scss/form.scss'
-import styles from './ReporteArea.module.scss';
+import styles from './Reporte.module.scss';
 
 const FormReporteArea = () => {
   const [search, setSearch] = useState('');
@@ -32,10 +32,10 @@ const FormReporteArea = () => {
     const idEmpresa = localStorage.getItem('idEmpresa');  
 
     axios
-      .get(`http://localhost:4000/reportes/sesionesPorArea/${1}/${idEmpresa}`, datos)
+      .get(`http://localhost:4000/reportes/sesionesPorArea/${1}/${idEmpresa}/${datos.fecha_desde}/${datos.fecha_hasta}`, datos)
       .then(function (response) {
-        console.log(response);
         setSesiones(response.data);
+        console.log(response);
       })
       .catch(function (error) {
         alert('No se ha encontrado un registro');
@@ -43,37 +43,45 @@ const FormReporteArea = () => {
       });
   };
 
-  useEffect(() => {
-    ListarSesionesPorArea();
-  }, []);
+  // useEffect(() => {
+  //   ListarSesionesPorArea();
+  // }, []);
 
   return (
     <>
       <div className={styles.Container}>
         {/* search */}
-        <div className='searchSession'>
-          <input
-            className='inputSession'
-            onChange={saveDataTemporaly}
-            name="fecha_desde"
-            placeholder='Ingrese la sesión'
-            type='date'
-          />
-          <label>Fecha Inicio</label>
+        <div className={styles.ContainerSearch}>
+          <div className={styles.ContainerInput}>
+            <input
+              onChange={saveDataTemporaly}
+              name="fecha_desde"
+              placeholder=' '
+              type='date'
+              className={styles.ContainerInput__Input}
+            />
+            <span className={styles.ContainerInput__Span}>
+              Fecha Inicio
+            </span>
+          </div>
+
+          <div className={styles.ContainerInput}>
+            <input
+              onChange={saveDataTemporaly}
+              name="fecha_hasta"
+              placeholder=' '
+              type='date'
+              className={styles.ContainerInput__Input}
+            />
+            <span className={styles.ContainerInput__Span}>
+              Fecha Final
+            </span>
+          </div>
+
+          <button className='Button' onClick={ListarSesionesPorArea}>Buscar Reporte</button>
         </div>
 
-        <div className='searchSession'>
-          <input
-            className='inputSession'
-            onChange={saveDataTemporaly}
-            name="fecha_hasta"
-            placeholder='Ingrese la sesión'
-            type='date'
-          />
-          <label>Fecha Final</label>
-        </div>
-
-        <h1>Lista de sesiones por área</h1>
+        <h1 className={styles.Titulo}>Lista de sesiones por área</h1>
         <table className='Table'>
           <thead>
             <tr>
@@ -94,7 +102,7 @@ const FormReporteArea = () => {
                 <td>{row.AREA}</td>
                 <td>{row.BENEFICIARIO}</td>
                 <td>{row.SESIONES}</td>
-                <td>{row.FECHA}</td>
+                <td>{row.FECHA.slice(0, 10)}</td>
                 <td>{row.HORA_EGRESO}</td>
                 <td>{row.HORA_INGRESO}</td>
               </tr>

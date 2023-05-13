@@ -18,7 +18,6 @@ const Navbar = () => {
   const menus = [
     { title: "Beneficiario", path: "/formBene", icon: "", permiso: true },
     { title: "Reportes", path: "/FormReportes", icon: "", permiso: false },
-    { title: "Citas", path: "/FormCitas", icon: "", permiso: true },
     { title: "VER beneficiarios", path: "/formRoles", icon: "", permiso: true },
     { title: "Beneficiario", path: "/formBene", icon: "", permiso: false },
   ];
@@ -50,7 +49,7 @@ const Navbar = () => {
               <Link className="Dropdown__Option" onClick={Cerrar} to="/FormReporteBeneficiario">
                 Reporte de Beneficiarios
               </Link>
-              <Link className="Dropdown__Option" onClick={Cerrar} to="/FormReporteCitas">
+              <Link className="Dropdown__Option" onClick={Cerrar} to="/FormListarCitas">
                 Reporte de Citas
               </Link>
             </div>
