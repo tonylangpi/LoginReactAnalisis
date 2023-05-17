@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
+import styles from './Antecedentes.module.scss';
 const FormPerinatales = ({idBen}) => {
     const [isPerinatal, setPerinatal] = useState(false);
 
@@ -46,92 +47,105 @@ const FormPerinatales = ({idBen}) => {
     }
   };
   return (
-    <div
-      id="FormPeriNatales"
-      className="Container-Beneficiario Antecedentes-Peri-Natales"
-    >
-      <div className="Container-Beneficiario__item Titulo">
+    <div id="FormPeriNatales" className={styles.Container}>
+      <div className={styles.Titulo}>
         <h1>Antecedentes Peri-Natales</h1>
       </div>
 
-      <form onSubmit={savePerinatal} className="Container-Beneficiario">
-        <div className="Container-Beneficiario__Grid">
-          <div className="Container-Beneficiario__Grid-item">
-            <div className="Beneficiario-Container-Radio">
-              <label htmlFor="">¿El niño lloro inmediatamente?</label>
-              <div className="Beneficiario-Container-Radio__Radio">
-                <div className="InputRadio">
-                  <input
-                    required
-                    disabled={isPerinatal}
-                    onChange={saveDataTemporalyPerinatal}
-                    value="SI"
-                    className=""
-                    type="radio"
-                    name="LLORO_INMEDIATAMENTE"
-                  />
-                  SI
-                </div>
-                <div className="InputRadio">
-                  <input
-                    required
-                    className=""
-                    value="NO"
-                    disabled={isPerinatal}
-                    onChange={saveDataTemporalyPerinatal}
-                    type="radio"
-                    name="LLORO_INMEDIATAMENTE"
-                  />
-                  NO
-                </div>
+      <form onSubmit={savePerinatal} className={styles.Form}>
+
+        <div className={styles.Grid}>
+
+          <div className={styles.Grid__item}>
+            <label htmlFor="">¿El niño lloro inmediatamente?</label>
+            <div className={styles.ContainerRadio}>
+              <div className={styles.ContainerRadio__Radio}>
+                <input
+                  required
+                  disabled={isPerinatal}
+                  onChange={saveDataTemporalyPerinatal}
+                  value="SI"
+                  type="radio"
+                  name="LLORO_INMEDIATAMENTE"
+                />
+                SI
+              </div>
+              <div className={styles.ContainerRadio__Radio}>
+                <input
+                  required
+                  value="NO"
+                  disabled={isPerinatal}
+                  onChange={saveDataTemporalyPerinatal}
+                  type="radio"
+                  name="LLORO_INMEDIATAMENTE"
+                />
+                NO
               </div>
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
-            <div className="Beneficiario-Container-Radio">
-              <label htmlFor="">¿Su coloracion fue normal?</label>
-              <div className="Beneficiario-Container-Radio__Radio">
-                <div className="InputRadio">
-                  <input required value="SI" disabled={isPerinatal} onChange={saveDataTemporalyPerinatal} className="" type="radio" name="COLORACION" />
-                  SI
-                </div>
-                <div className="InputRadio">
-                  <input required value="NO" disabled={isPerinatal} onChange={saveDataTemporalyPerinatal} className="" type="radio" name="COLORACION" />
-                  NO
-                </div>
+          <div className={styles.Grid__item}>
+            <label htmlFor="">¿Su coloracion fue normal?</label>
+            <div className={styles.ContainerRadio}>
+              <div className={styles.ContainerRadio__Radio}>
+                <input 
+                  required value="SI" 
+                  disabled={isPerinatal} 
+                  onChange={saveDataTemporalyPerinatal} 
+                  type="radio" 
+                  name="COLORACION" />
+                SI
+              </div>
+              <div className={styles.ContainerRadio__Radio}>
+                <input 
+                  required value="NO" 
+                  disabled={isPerinatal} 
+                  onChange={saveDataTemporalyPerinatal} 
+                  type="radio" 
+                  name="COLORACION" />
+                NO
               </div>
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
-            <div className="Beneficiario-Container-Radio">
-              <label htmlFor="">¿Estuvo en incubadora?</label>
-              <div className="Beneficiario-Container-Radio__Radio">
-                <div className="InputRadio">
-                  <input required value="SI" disabled={isPerinatal} onChange={saveDataTemporalyPerinatal} className="" type="radio" name="INCUBADORA" />
-                  SI
-                </div>
-                <div className="InputRadio">
-                  <input required value="NO" disabled={isPerinatal} onChange={saveDataTemporalyPerinatal} className="" type="radio" name="INCUBADORA" />
-                  NO
-                </div>
+          <div className={styles.Grid__item}>
+
+            <label htmlFor="">¿Estuvo en incubadora?</label>
+            <div className={styles.ContainerRadio}>
+              <div className={styles.ContainerRadio__Radio}>
+                <input 
+                  required value="SI" 
+                  disabled={isPerinatal} 
+                  onChange={saveDataTemporalyPerinatal}
+                  type="radio" 
+                  name="INCUBADORA" />
+                SI
+              </div>
+              <div className={styles.ContainerRadio__Radio}>
+                <input 
+                  required value="NO" 
+                  disabled={isPerinatal} 
+                  onChange={saveDataTemporalyPerinatal}
+                  type="radio" 
+                  name="INCUBADORA" />
+                NO
               </div>
             </div>
           </div>
+
         </div>
 
-        <div className="Container-Beneficiario__item TextArea">
-          <div className="Beneficiario-Container-Input">
+        <div className={styles.Form__item}>
+          <div className={styles.ContainerInput}>
             <textarea
               required
               name="COLOR"
               onChange={saveDataTemporalyPerinatal} 
               disabled={isPerinatal}
-              className="Beneficiario-Container-Input__Input"
-              placeholder=" "
-            ></textarea>
-            <span className="Beneficiario-Container-Input__Span">
+              className={styles.ContainerInput__Input}
+              placeholder=" ">
+            </textarea>
+            <span className={styles.ContainerInput__Span}>
               ¿Nacio amarillo o morado?:
             </span>
           </div>
@@ -147,8 +161,6 @@ const FormPerinatales = ({idBen}) => {
           </button>
         </div>
             ) : null}
-
-
       </form>
     </div>
   );

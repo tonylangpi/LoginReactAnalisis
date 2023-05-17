@@ -84,8 +84,8 @@ function FormEncargado({idBene }) {
         <h1>Datos del Encargado</h1>
       </div>
       
-      <form onSubmit={dataSend} className="Container-Beneficiario__Grid">
-          <div className="Container-Beneficiario__Grid-item">
+      <form onSubmit={dataSend} className="Grid">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <input
                 required
@@ -101,7 +101,7 @@ function FormEncargado({idBene }) {
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <input
                 required
@@ -117,7 +117,7 @@ function FormEncargado({idBene }) {
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <input
                 required
@@ -133,7 +133,7 @@ function FormEncargado({idBene }) {
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <input
                 required
@@ -149,7 +149,7 @@ function FormEncargado({idBene }) {
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <input
                 required
@@ -165,7 +165,7 @@ function FormEncargado({idBene }) {
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <input
                 required
@@ -181,7 +181,7 @@ function FormEncargado({idBene }) {
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <select
                 required
@@ -190,6 +190,7 @@ function FormEncargado({idBene }) {
                 onChange={saveDataTemporalyEncargado}
                 id=""
               >
+                <option value=""></option>
                 <option value="NO APLICA">-------NO-APLICA--------</option>
                 <option value="MADRE">Mamá</option>
                 <option value="PADRE">Papá</option>
@@ -200,7 +201,7 @@ function FormEncargado({idBene }) {
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <select
                 required
@@ -209,6 +210,7 @@ function FormEncargado({idBene }) {
                 onChange={saveDataTemporalyEncargado}
                 id=""
               >
+                <option value=""></option>
                 <option value="Primaria">Primaria</option>
                 <option value="Basico">Basico</option>
                 <option value="Diversificado">Diversificado</option>
@@ -220,7 +222,7 @@ function FormEncargado({idBene }) {
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <input
                 required
@@ -236,7 +238,7 @@ function FormEncargado({idBene }) {
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid-item">
+          <div className="Grid__item">
             <div className="Beneficiario-Container-Input">
               <input
                 required

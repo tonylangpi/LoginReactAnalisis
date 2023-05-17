@@ -132,10 +132,10 @@ if(!visible) return null
               <label htmlFor="">¿Tipo de Sessión?</label>
               <div className='Citas-Container-Radio__Radio'>
                 <div className='InputRadio'>
-                  <input onChange={saveDataTemporaly} class="" type="radio" value={"Normal"} name="tipo_sesion" />Normal
+                  <input onChange={saveDataTemporaly} className="" type="radio" value={"Normal"} name="tipo_sesion" />Normal
                 </div>
                 <div className='InputRadio'>
-                  <input onChange={saveDataTemporaly} class="" type="radio" value={"Inicial"} name="tipo_sesion" />Incial
+                  <input onChange={saveDataTemporaly} className="" type="radio" value={"Inicial"} name="tipo_sesion" />Incial
                 </div>
               </div>
             </div>

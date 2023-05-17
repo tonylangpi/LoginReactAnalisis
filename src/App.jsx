@@ -8,6 +8,10 @@ import RolesForm from "./Components/Forms/FomRoles"
 import ReporteBeneficiario from './Components/Forms/FormReporteBeneficiario';
 import ReporteArea from './Components/Forms/FormReporteArea';
 import ListadoCitas from './Components/Forms/FormListarCitas';
+import Usuarios from './Components/Forms/FormUsuarios';
+import Areas from './Components/Forms/FormAreas';
+import Servicios from './Components/Forms/FormServicios';
+
 import axios from 'axios';
 import {
   BrowserRouter as Router,
@@ -57,6 +61,9 @@ function App() {
               <Route path='/FormReporteBeneficiario' element={<ReporteBeneficiario/>} />
               <Route path='/FormReporteArea' element={<ReporteArea />} />
               <Route path='/FormListarCitas' element={<ListadoCitas />} />
+              <Route path='/FormUsuarios' element={<Usuarios />} />
+              <Route path='/FormAreas' element={<Areas />} />
+              <Route path='/FormServicios' element={<Servicios />} />
               
               <Route path='*' element={<Navigate to='/' />} />
             </Routes>

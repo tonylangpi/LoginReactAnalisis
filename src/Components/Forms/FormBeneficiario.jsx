@@ -137,7 +137,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <input
                     required
@@ -154,7 +154,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <input
                     disabled={isBeneficiary}
@@ -170,7 +170,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <input
                     required
@@ -187,7 +187,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <input
                     disabled={isBeneficiary}
@@ -203,7 +203,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <select
                     required
@@ -213,6 +213,7 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     id=""
                   >
+                    <option value=""></option>
                     <option value="Primaria">Primaria</option>
                     <option value="Basico">Basico</option>
                     <option value="Diversificado">Diversificado</option>
@@ -224,7 +225,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <select
                     required
@@ -234,6 +235,7 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     id=""
                   >
+                    <option value=""></option>
                     <option value="M">MASCULINO</option>
                     <option value="F">FEMENINO</option>
                   </select>
@@ -243,7 +245,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <input
                     required
@@ -260,7 +262,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <input
                     disabled={isBeneficiary}
@@ -276,7 +278,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <select
                     required
@@ -286,6 +288,7 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     id=""
                   >
+                    <option value=""></option>
                     <option value="NO APLICA">----NO APLICA ------</option>
                     <option value="CENTRO DE SALUD">CENTRO DE SALUD</option>
                   </select>
@@ -295,7 +298,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <input
                     required
@@ -312,7 +315,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Beneficiario-Container-Input">
                   <input
                     required
@@ -329,7 +332,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-item">
+              <div className="Grid__item">
                 <div className="Container-Input-file">
                   <span className="Container-Input-file__Span">
                     Referencia de Centro Medico
@@ -348,10 +351,7 @@ const FormBeneficiario = () => {
               </div>
 
               <div className="Container-Beneficiario__Grid-button">
-                <button
-                  id="button-beneficiario"
-                  className="Button Button--Guardar"
-                >
+                <button id="button-beneficiario" className="Button Button--Guardar">
                   <div className="Button__Icono">
                     <FontAwesomeIcon icon="fa-solid fa-file-export" />
                   </div>

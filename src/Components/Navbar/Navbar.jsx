@@ -2,17 +2,35 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/Logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./Navbar.scss";
+import styles from "./Navbar.module.scss";
 
 const Navbar = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [dropdownClose, setIsDropdownClose] = useState(true);
+  const [Dropdown, setDropdown] = React.useState({
+    drop1: false,
+    drop2: false,
+    drop3: false
+  })
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // const [dropdownClose, setIsDropdownClose] = useState(true);
 
-  const Cerrar = () => {
-    setIsDropdownClose(!isDropdownClose);
+  const openDropdown = (num) => {
+    if (num == 1) {
+      setDropdown({drop1: !Dropdown.drop1});
+    } else if (num == 2) {
+      setDropdown({drop2: !Dropdown.drop2});
+    } else if (num == 3) {
+      setDropdown({drop3: !Dropdown.drop3});
+    }
   };
-  const Abrir = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+
+  const closeDropdown = (num) => {
+    if (num == 1) {
+      setDropdown({drop1 : false})
+    } else if (num == 2) {
+      setDropdown({drop1 : false})
+    } else if (num == 3) {
+      setDropdown({drop3 : false})
+    }
   };
 
   const menus = [
@@ -24,55 +42,81 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="Navbar">
-        <div className="Navbar__Buttons">
-          {menus.map((x, index) => (
+      <div className={styles.Navbar}>
+        <div className={styles.Navbar__Buttons}>
+          {/* {menus.map((x, index) => (
             <li hidden={!x.permiso} key={index}>
               <Link className="Button" to={x.path}>
                 {x.title}
               </Link>
             </li>
-          ))}
-          
-         <div className="Dropdown">
-            <button className="Button" onClick={Abrir}>
-              Reportes 
+          ))} */}
+
+          <div className={styles.Dropdown}>
+            <button className={styles.Button} onClick={() => openDropdown(1)}>
+              Beneficiario
             </button>
-            <div
-              className={`Dropdown__Options ${
-                isDropdownOpen ? "Dropdown__Options--open" : ""
-              }`}
-            >
-              <Link className="Dropdown__Option" onClick={Cerrar} to="/FormReporteArea" >
-                Reporte de Areas
+            <div className={`${styles.Dropdown__Options} ${Dropdown.drop1 ? styles.Dropdown__Options_open : ""}`}>
+              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(1)} to="/formBene" >
+                Ficha de Ingreso
               </Link>
-              <Link className="Dropdown__Option" onClick={Cerrar} to="/FormReporteBeneficiario">
-                Reporte de Beneficiarios
+              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(1)} to="/formRoles">
+                Listado de Beneficiarios
               </Link>
-              <Link className="Dropdown__Option" onClick={Cerrar} to="/FormListarCitas">
-                Reporte de Citas
+              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(1)} to="/FormServicios">
+                Servicios
               </Link>
             </div>
+          </div>
+          
+         <div className={styles.Dropdown}>
+            <button className={styles.Button} onClick={()=>openDropdown(2)}>
+              Reportes
+            </button>
+            <div className={`${styles.Dropdown__Options} ${Dropdown.drop2 ? styles.Dropdown__Options_open : ""}`}>
+              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(2)} to="/FormReporteArea" >
+                Reporte de Areas
+              </Link>
+              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(2)} to="/FormReporteBeneficiario">
+                Reporte de Beneficiarios
+              </Link>
+              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(2)} to="/FormListarCitas">
+                Reporte de Citas
+              </Link>
+            </div> 
+          </div>
 
-            
+          <div className={styles.Dropdown}>
+            <button className={styles.Button} onClick={() => openDropdown(3)}>
+              Seguridad
+            </button>
+            <div className={`${styles.Dropdown__Options} ${Dropdown.drop3 ? styles.Dropdown__Options_open : ""}`}>
+              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(3)} to="/FormAreas" >
+                Areas
+              </Link>
+              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(3)} to="/FormUsuarios">
+                Usuarios
+              </Link>
+            </div>
           </div>
           
           <button
-            className="Button"
+            className={styles.Button}
             onClick={() => {
               localStorage.clear();
-              location.reload();
-            }}
-          >
+              location.reload();}}>
             Cerrar sesion
           </button>
 
          
         </div>
 
-        <div className="Navbar__User">
-          <label htmlFor="">Echeveria</label>
-          <div className="Navbar__User__Imagen">
+        <div className={styles.Navbar__User}>
+          <div className={styles.User__Data}>
+            <label>{localStorage.getItem('nombreUsuario')}</label>
+            <label>{localStorage.getItem('nombreRol')}</label>
+          </div>
+          <div className={styles.Navbar__User__Imagen}>
             <Link to={"/"}>
               <img src={logo} alt="logo" />
             </Link>

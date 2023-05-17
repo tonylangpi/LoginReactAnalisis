@@ -29,10 +29,6 @@
         }
     }
 
-    .TextArea {
-        margin: 25px 0;
-    }
-
     &__Grid {
         margin: 25px 0;
         width: 80%;
@@ -92,13 +88,6 @@
     width: 100% ;
     letter-spacing: 2px;
     font-family: $font-family;
-    
-
-    textarea {
-        width: 98%;
-        height: 100px;
-        resize: vertical;
-    }
 
     select {
         height: 50px;
@@ -158,36 +147,6 @@
         @media only screen and (max-width: 360px) {
             & {
                 font-size: 0.6em;
-            }
-        }
-    }
-}
-
-.Beneficiario-Container-Radio {
-    @include FlexBox(center, center, column);
-
-    label {
-        font-family: $font-rubik;
-        letter-spacing: 2px;
-        text-align: center;
-
-        // @media only screen and (max-width: 550px) {
-        //     & {
-        //         text-align: center;
-        //     }
-        // }
-    }
-
-    &__Radio {
-        @include FlexBox(center, center, row);
-        font-size: 1.2rem;
-
-        .InputRadio {
-            @include FlexBox(center, center, row);
-            margin: 10px 15px;
-
-            input {
-                margin: 0 5px;
             }
         }
     }

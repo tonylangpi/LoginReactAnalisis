@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
+import styles from './HistorialClinico.module.scss';
 
 const formHistorialClinico = ({ idBenefi = 0 }) => {
   const [isHisto, setHisto] = useState(false);
@@ -54,17 +55,16 @@ const formHistorialClinico = ({ idBenefi = 0 }) => {
 
   return (
     <>
-
-      <div id="FormHistorialClinico" className="Container-Beneficiario Historial-Clinico">
+      <div id="FormHistorialClinico" className={styles.Container}>
         
-        <div className="Container-Beneficiario__item Titulo">
+        <div className={styles.Titulo}>
           <h1>Historial Clinico</h1>
         </div>
 
-        <form onSubmit={saveHistorial} className="Container-Beneficiario">
-          <div className="Container-Beneficiario__item TextArea">
-            {/* <div className="Container-Beneficiario__Grid-item">
-            <div className="Beneficiario-Container-Input">
+        <form onSubmit={saveHistorial} className={styles.Form}>
+          <div className={styles.Form__item}>
+            {/* <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
               <input
                 required
                 hidden={true}
@@ -73,251 +73,230 @@ const formHistorialClinico = ({ idBenefi = 0 }) => {
                 onChange={saveDataTemporalyHistorial}
                 placeholder=" "
                 type="text"
-                className="Beneficiario-Container-Input__Input"
+                className={styles.ContainerInput__Input}
               />
             </div>
           </div> */}
 
-            <div className="Beneficiario-Container-Input">
+            <div className={styles.ContainerInput}>
               <textarea
                 required
                 name="ENFERMEDAD_PADECE"
                 onChange={saveDataTemporalyHistorial}
                 disabled={isHisto}
-                className="Beneficiario-Container-Input__Input"
+                className={styles.ContainerInput__Input}
                 placeholder=" "
               ></textarea>
-              <span className="Beneficiario-Container-Input__Span">
+              <span className={styles.ContainerInput__Span}>
                 Enfermedades que padece:
               </span>
             </div>
           </div>
 
-          <div className="Container-Beneficiario__item TextArea">
-            <div className="Beneficiario-Container-Input">
+          <div className={styles.Form__item}>
+            <div className={styles.ContainerInput}>
               <textarea
                 required
                 name="MEDICAMENTOS_INGIERE"
                 disabled={isHisto}
                 onChange={saveDataTemporalyHistorial}
-                className="Beneficiario-Container-Input__Input"
+                className={styles.ContainerInput__Input}
                 placeholder=" "
               ></textarea>
-              <span className="Beneficiario-Container-Input__Span">
+              <span className={styles.ContainerInput__Span}>
                 Medicamentos que ingiere:
               </span>
             </div>
           </div>
 
-          <div className="Container-Beneficiario__Grid">
-            <div className="Container-Beneficiario__Grid-item">
-              <div className="Beneficiario-Container-Radio">
-                <label htmlFor="">¿Esquema Completo de Vacunas?</label>
-                <div className="Beneficiario-Container-Radio__Radio">
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="SI"
-                      type="radio"
-                      name="VACUNAS"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    SI
-                  </div>
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="NO"
-                      type="radio"
-                      name="VACUNAS"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    NO
-                  </div>
+          <div className={styles.Grid}>
+
+            <div className={styles.Grid__item}>
+              <label htmlFor="">¿Esquema Completo de Vacunas?</label>
+              <div className={styles.ContainerRadio}>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required
+                    disabled={isHisto}
+                    value="SI"
+                    type="radio"
+                    name="VACUNAS"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  SI
+                </div>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required
+                    disabled={isHisto}
+                    value="NO"
+                    type="radio"
+                    name="VACUNAS"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  NO
                 </div>
               </div>
             </div>
 
-            <div className="Container-Beneficiario__Grid-item">
-              <div className="Beneficiario-Container-Radio">
-                <label htmlFor="">¿Tiene Examenes Auditivos?</label>
-                <div className="Beneficiario-Container-Radio__Radio">
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="SI"
-                      type="radio"
-                      name="AUDICION"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    SI
-                  </div>
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="NO"
-                      type="radio"
-                      name="AUDICION"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    NO
-                  </div>
+            <div className={styles.Grid__item}>
+              <label htmlFor="">¿Tiene Examenes Auditivos?</label>
+              <div className={styles.ContainerRadio}>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required
+                    disabled={isHisto}
+                    value="SI"
+                    type="radio"
+                    name="AUDICION"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  SI
+                </div>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required
+                    disabled={isHisto}
+                    value="NO"
+                    type="radio"
+                    name="AUDICION"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  NO
                 </div>
               </div>
             </div>
 
-            <div className="Container-Beneficiario__Grid-item">
-              <div className="Beneficiario-Container-Radio">
-                <label htmlFor="">¿Tiene Pruebas Oftamologicas?</label>
-                <div className="Beneficiario-Container-Radio__Radio">
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="SI"
-                      type="radio"
-                      name="ORFTAMOLOGICAS"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    SI
-                  </div>
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="NO"
-                      type="radio"
-                      name="ORFTAMOLOGICAS"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    NO
-                  </div>
+            <div className={styles.Grid__item}>
+              <label htmlFor="">¿Tiene Pruebas Oftamologicas?</label>
+              <div className={styles.ContainerRadio}>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required
+                    disabled={isHisto}
+                    value="SI"
+                    type="radio"
+                    name="ORFTAMOLOGICAS"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  SI
+                </div>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required
+                    disabled={isHisto}
+                    value="NO"
+                    type="radio"
+                    name="ORFTAMOLOGICAS"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  NO
+                </div>
+              </div>
+
+            </div>
+
+            <div className={styles.Grid__item}>
+              <label htmlFor="">¿Usa Aparatos Auditivos?</label>
+              <div className={styles.ContainerRadio}>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required
+                    disabled={isHisto}
+                    value="SI"
+                    type="radio"
+                    name="APARATO_AUDITIVO"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  SI
+                </div>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required
+                    disabled={isHisto}
+                    value="NO"
+                    type="radio"
+                    name="APARATO_AUDITIVO"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  NO
                 </div>
               </div>
             </div>
 
-            <div className="Container-Beneficiario__Grid-item">
-              <div className="Beneficiario-Container-Radio">
-                <label htmlFor="">¿Usa Aparatos Auditivos?</label>
-                <div className="Beneficiario-Container-Radio__Radio">
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="SI"
-                      type="radio"
-                      name="APARATO_AUDITIVO"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    SI
-                  </div>
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="NO"
-                      type="radio"
-                      name="APARATO_AUDITIVO"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    NO
-                  </div>
+            <div className={styles.Grid__item}>
+              <label htmlFor="">¿lentes?</label>
+              <div className={styles.ContainerRadio}>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required                  
+                    disabled={isHisto}
+                    value="SI"
+                    type="radio"
+                    name="LENTES"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  SI
+                </div>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required                    
+                    disabled={isHisto}
+                    value="NO"
+                    type="radio"
+                    name="LENTES"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  NO
                 </div>
               </div>
             </div>
 
-            <div className="Container-Beneficiario__Grid-item">
-              <div className="Beneficiario-Container-Radio">
-                <label htmlFor="">¿lentes?</label>
-                <div className="Beneficiario-Container-Radio__Radio">
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="SI"
-                      type="radio"
-                      name="LENTES"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    SI
-                  </div>
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="NO"
-                      type="radio"
-                      name="LENTES"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    NO
-                  </div>
+            <div className={styles.Grid__item}>
+              <label htmlFor="">¿Ha tenido Cirugias?</label>
+              <div className={styles.ContainerRadio}>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required                    
+                    disabled={isHisto}
+                    value="SI"
+                    type="radio"
+                    name="CIRUJIAS"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  SI
                 </div>
-              </div>
-            </div>
-
-            <div className="Container-Beneficiario__Grid-item">
-              <div className="Beneficiario-Container-Radio">
-                <label htmlFor="">¿Ha tenido Cirugias?</label>
-                <div className="Beneficiario-Container-Radio__Radio">
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="SI"
-                      type="radio"
-                      name="CIRUJIAS"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    SI
-                  </div>
-                  <div className="InputRadio">
-                    <input
-                      required
-                      className=""
-                      disabled={isHisto}
-                      value="NO"
-                      type="radio"
-                      name="CIRUJIAS"
-                      onChange={saveDataTemporalyHistorial}
-                    />
-                    NO
-                  </div>
+                <div className={styles.ContainerRadio__Radio}>
+                  <input
+                    required                   
+                    disabled={isHisto}
+                    value="NO"
+                    type="radio"
+                    name="CIRUJIAS"
+                    onChange={saveDataTemporalyHistorial}
+                  />
+                  NO
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="Container-Beneficiario__item TextArea">
-            <div className="Beneficiario-Container-Input">
+          <div className={styles.Form__item}>
+            <div className={styles.ContainerInput}>
               <textarea
                 required
                 name="OTRAS"
                 disabled={isHisto}
                 onChange={saveDataTemporalyHistorial}
-                className="Beneficiario-Container-Input__Input"
+                className={styles.ContainerInput__Input}
                 placeholder=" "
               ></textarea>
-              <span className="Beneficiario-Container-Input__Span">
+              <span className={styles.ContainerInput__Span}>
                 Otros:
               </span>
             </div>
           </div>
+
           {!isHisto ? (
             <div className="Container-Beneficiario__Grid-button">
               <button id="button-Historial" className="Button Button--Guardar">

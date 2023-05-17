@@ -36,11 +36,9 @@ const FormReporteBeneficiario = () => {
       .get(`http://localhost:4000/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${idEmpresa}/${datos.fecha_desde}/${datos.fecha_hasta}`)
       .then(function (response) {
         setBeneficiario(response.data);
-        console.log(response.data);
       })
       .catch(function (error) {
         alert('No se ha encontrado un registro');
-        console.log(error);
       });
   };
 

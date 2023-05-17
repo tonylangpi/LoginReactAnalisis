@@ -25,11 +25,9 @@ const FormListarCitas = () => {
       .get(`http://localhost:4000/sesiones/AreaSesiones/${idArea}`, Area)
       .then(function (response) {
         setSesiones(response.data);
-        console.log(response.data);
       })
       .catch(function (error) {
         alert('No se ha encontrado un registro');
-        console.log(error);
       });
   };
 

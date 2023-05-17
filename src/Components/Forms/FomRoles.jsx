@@ -49,7 +49,7 @@ const FomRoles = () => {
         <div className="Titulo">
           <h1>Lista de Beneficiarios</h1>
         </div>
-        <table class="Table">
+        <table className="Table">
           <thead>
             <tr>
               <th>ID Beneficiario</th>
@@ -75,8 +75,8 @@ const FomRoles = () => {
                 <td>{row.APELLIDO2}</td>
                 <td>{row.SEXO}</td>
                 <td>{row.DIRECCION}</td>
-                <td className='actionsBeneficiary'><div className='tooltip'><span class="tooltiptext">Agregar cita</span>
-                  <button onClick={() => { setshowMyModal(true), underSelect(row) }}><span class="material-symbols-sharp">
+                <td className='actionsBeneficiary'><div className='tooltip'><span className="tooltiptext">Agregar cita</span>
+                  <button onClick={() => { setshowMyModal(true), underSelect(row) }}><span className="material-symbols-sharp">
                     group_add
                   </span></button>
                 </div></td>
