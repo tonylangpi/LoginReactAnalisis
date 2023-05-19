@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
+
 
 function FormAgregarArea() {
   const [area, setArea] = React.useState({
     NOMBRE: "",
     ID_AREA: ""
   });
+  const [areas, setAreas] = useState([]);
+
+  const Listar = () => {
+    axios.get(`http://localhost:4000/servicios/`)
+      .then(function (response) {
+        setAreas(response.data);
+      })
+      .catch(function (error) {
+        alert('No se ha encontrado un registro');
+      });
+  };
+
+  useEffect(() => {
+    Listar();
+  }, []);
 
   const guardarArea = () => {
     axios
@@ -80,23 +96,42 @@ function FormAgregarArea() {
           </div>
         </div>
 
-        <div className="Grid__item">
-          <div className="Beneficiario-Container-Input">
-            <input
-              required
-              name="ID_AREA"
-              placeholder=" "
-              type="text"
-              className="Beneficiario-Container-Input__Input"
-              value={area.ID_AREA}
-              onChange={handleChange}
-            />
 
+        <div className="Grid__item">
+        <div className="Beneficiario-Container-Input">
+            <select
+              required
+              className="Beneficiario-Container-Input__Input"
+              name="ID_AREA"
+              onChange={handleChange}>
+              <option value=""></option>
+              {areas.map((row, index) => (
+                  <option key={index} value={row.ID_AREA}>{row.NOMBRE}</option>
+              ))}
+            </select>
             <span className="Beneficiario-Container-Input__Span">
-              ID Area
+              ID Areas
             </span>
           </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       </form>
 
       <div className="Container-Beneficiario__Grid-button">
