@@ -8,9 +8,11 @@ import RolesForm from "./Components/Forms/FomRoles"
 import ReporteBeneficiario from './Components/Forms/FormReporteBeneficiario';
 import ReporteArea from './Components/Forms/FormReporteArea';
 import ListadoCitas from './Components/Forms/FormListarCitas';
-import Usuarios from './Components/Forms/FormUsuarios';
-import Areas from './Components/Forms/FormAreas';
+import Usuarios from './Components/Forms/Users/FormUsuarios';
+import AgregarArea from './Components/Forms/FormAgregarArea';
 import Servicios from './Components/Forms/FormServicios';
+import Area from './Components/Forms/FormArea';
+import AddUser from './Components/Forms/Users/FormAgregarUsuario'
 
 import axios from 'axios';
 import {
@@ -62,8 +64,10 @@ function App() {
               <Route path='/FormReporteArea' element={<ReporteArea />} />
               <Route path='/FormListarCitas' element={<ListadoCitas />} />
               <Route path='/FormUsuarios' element={<Usuarios />} />
-              <Route path='/FormAreas' element={<Areas />} />
-              <Route path='/FormServicios' element={<Servicios />} />
+              <Route path='/FormAgregarUsuario' element={<AddUser />} />
+              <Route path='/FormAgregarArea' element={<AgregarArea />} />
+              <Route path='/FormArea' element={<Area />} />
+              <Route path='/FormServicios' element={<Servicios />} /> 
               
               <Route path='*' element={<Navigate to='/' />} />
             </Routes>
