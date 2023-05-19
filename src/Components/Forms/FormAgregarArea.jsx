@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
+import { Link } from "react-router-dom";
+import '../assets/scss/form.scss';
+import styles from './ListaCitas.module.scss';
+
+
 
 
 function FormAgregarArea() {
@@ -53,17 +58,6 @@ function FormAgregarArea() {
       });
   };
 
-   const eliminarArea = () => {
-    axios
-      .delete(`http://localhost:4000/servicios/deleteServicios/${area.ID_AREA}`)
-      .then(function (response) {
-        const respuesta = response?.data.message;
-        alert("Eliminado Exitoso");
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
   const handleChange = (e) => {
     setArea({
       ...area,
@@ -115,58 +109,26 @@ function FormAgregarArea() {
           </div>
         </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </form>
 
       <div className="Container-Beneficiario__Grid-button">
-        <button
-          id="button-beneficiario"
-          className="Button Button--Guardar"
-          onClick={guardarArea}
-        >
+
+        <button id="button-beneficiario" className="Button Button--Guardar"
+          onClick={guardarArea}>
           <div className="Button__Icono">
             <FontAwesomeIcon icon="fa-solid fa-file-export" />
           </div>
           <span className="Button__Span Iniciar">Guardar</span>
         </button>
 
-        <button
-          id="button-actualizar"
-          className="Button Button--Actualizar"
-          onClick={actualizarArea}
-        >
-          <div className="Button__Icono">
-            <FontAwesomeIcon icon="fa-solid fa-sync" />
-          </div>
-          <span className="Button__Span Iniciar">Actualizar</span>
-        </button>
+        <div className={styles.ContainerSearch}>
+        
+        <Link to="/FormArea">
+          <button className='Button' to="/FormAgregarArea" >Regresar</button>
+        
+          </Link>
+        </div>
 
-        <button
-          id="button-eliminar"
-          className="Button Button--Eliminar"
-          onClick={eliminarArea}
-        >
-          <div className="Button__Icono">
-            <FontAwesomeIcon icon="fa-solid fa-sync" />
-          </div>
-          <span className="Button__Span Iniciar">Eliminar</span>
-        </button>
       </div>
     </div>
   );

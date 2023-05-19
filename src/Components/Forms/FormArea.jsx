@@ -4,6 +4,7 @@ import Pagination from '../utils/pagination';
 import '../assets/scss/form.scss'
 import styles from './ListaCitas.module.scss';
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function FormArea() {
     const [search, setSearch] = useState('');
@@ -18,6 +19,8 @@ function FormArea() {
     const [name, setName] = React.useState({
       nombre: ''
     });
+
+   
   
     const idArea = parseInt(localStorage.getItem('idArea'));
   
@@ -44,6 +47,22 @@ function FormArea() {
     useEffect(() => {
       ListarUsuarios();
     }, []);
+
+
+    const eliminarArea = (idArea) => {
+      axios
+        .delete(`http://localhost:4000/servicios/deleteServicios/${idArea}`)
+        .then(function (response) {
+          const respuesta = response?.data.message;
+          alert("Eliminado Exitoso");
+          window.location.reload()
+        })
+        .catch(function (error) {
+          console.log(error);
+        }); 
+        };
+
+         
   
     return (
       <div className={styles.Container}>
@@ -61,27 +80,59 @@ function FormArea() {
           <span className="Beneficiario-Container-Input__Span">
             Nombre del Area
           </span>
+
+          <div className={styles.ContainerSearch}>
+        <Link to="/FormAgregarArea">
+          <button className='Button' to="/FormAgregarArea" >Agregar Areas</button>
+          </Link>
         </div>
-        <button><Link to="/FormAgregarArea">Agregar Area</Link></button>
+        </div>
+
         <table className='Table'>
           <thead>
             <tr>
               <th>ID Area</th>
               <th>Nombre del Area</th>
+              <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {currentSessions.filter((item) => {
-              return search.toLowerCase() === '' ? item
-                : item.NOMBRE_USUARIO.toLowerCase().includes(search) || item.NOMBRE_USUARIO.toLowerCase().includes(search)
-            }).map((row, index) => (
-              <tr key={index}>
-                <td>{row.ID_AREA}</td>
-                <td>{row.NOMBRE}</td>
-              </tr>
-            ))}
+            {currentSessions
+              .filter((item) => {
+                return (
+                  search.toLowerCase() === '' ||
+                  item.NOMBRE_USUARIO.toLowerCase().includes(search) ||
+                  item.NOMBRE_USUARIO.toLowerCase().includes(search)
+                );
+              })
+              .map((row, index) => (
+                <tr key={index}>
+                  <td>{row.ID_AREA}</td>
+                  <td>{row.NOMBRE}</td>
+                  <td>
+                    <button
+                      onClick={() => eliminarArea(row.ID_AREA)}
+                      className="Button Button--Eliminar"
+                    >
+                      <div className="Button__Icono">
+                        <FontAwesomeIcon icon="fa-solid fa-sync" />
+                      </div>
+                      <span className="Button__Span Iniciar">Eliminar</span>
+                    </button>
+
+                    <div className={styles.ContainerSearch}>
+                      <Link to="/FormAgregarArea">
+                        <button className='Button' to="/FormAgregarArea" >Actualizar</button>
+
+                      </Link>
+                    </div>
+       
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
+
         <Pagination
           beneficiaryPerPage={sessionsPerPage}
           allbeneficiary={sesiones.length}
