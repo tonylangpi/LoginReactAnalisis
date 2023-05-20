@@ -9,9 +9,10 @@ import ReporteBeneficiario from './Components/Forms/FormReporteBeneficiario';
 import ReporteArea from './Components/Forms/FormReporteArea';
 import ListadoCitas from './Components/Forms/FormListarCitas';
 import Usuarios from './Components/Forms/Users/FormUsuarios';
-import AgregarArea from './Components/Forms/FormAgregarArea';
+import AreaActualizar from './Components/Forms/Areas/AreaActualizar';
 import Servicios from './Components/Forms/FormServicios';
-import Area from './Components/Forms/FormArea';
+import Areas from './Components/Forms/Areas/FormAreas';
+import AreaCrear from './Components/Forms/Areas/AreaCrear';
 import AddUser from './Components/Forms/Users/FormAgregarUsuario'
 
 import axios from 'axios';
@@ -65,8 +66,9 @@ function App() {
               <Route path='/FormListarCitas' element={<ListadoCitas />} />
               <Route path='/FormUsuarios' element={<Usuarios />} />
               <Route path='/FormAgregarUsuario' element={<AddUser />} />
-              <Route path='/FormAgregarArea' element={<AgregarArea />} />
-              <Route path='/FormArea' element={<Area />} />
+              <Route path='/AreaActualizar' element={<AreaActualizar />} />
+              <Route path='/FormAreas' element={<Areas/>} />
+              <Route path='/AreaCrear' element={<AreaCrear/>} />
               <Route path='/FormServicios' element={<Servicios />} /> 
               
               <Route path='*' element={<Navigate to='/' />} />

@@ -17,6 +17,7 @@
 @import './Components/Forms/Beneficiario';
 @import './Components/Forms/FormAreas';
 
+
 .Container-Home {
     @include FlexBox(center, center, column);
     width: 100%;

@@ -91,7 +91,7 @@ const Navbar = () => {
               Seguridad
             </button>
             <div className={`${styles.Dropdown__Options} ${Dropdown.drop3 ? styles.Dropdown__Options_open : ""}`}>
-              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(3)} to="/FormArea" >
+              <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(3)} to="/FormAreas" >
                 Area
               </Link>
               <Link className={styles.Dropdown__Option} onClick={()=>closeDropdown(3)} to="/FormUsuarios">
