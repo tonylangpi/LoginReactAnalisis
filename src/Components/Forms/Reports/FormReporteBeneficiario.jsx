@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Pagination from '../utils/pagination';
-import '../assets/scss/form.scss'
+import Pagination from '../../utils/pagination';
 import styles from './Reporte.module.scss';
 
 const FormReporteBeneficiario = () => {
@@ -36,6 +35,7 @@ const FormReporteBeneficiario = () => {
       .get(`http://localhost:4000/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${idEmpresa}/${datos.fecha_desde}/${datos.fecha_hasta}`)
       .then(function (response) {
         setBeneficiario(response.data);
+        console.log(response)
       })
       .catch(function (error) {
         alert('No se ha encontrado un registro');
@@ -50,51 +50,59 @@ const FormReporteBeneficiario = () => {
     <>
       <div className={styles.Container}>
         {/* search */}
-        <div className={styles.ContainerSearch}>
-          <div className={styles.ContainerInput}>
-            <input
-              onChange={saveDataTemporaly}
-              name="fecha_desde"
-              placeholder=' '
-              type='date'
-              className={styles.ContainerInput__Input}
-            />
-            <span className={styles.ContainerInput__Span}>
-              Fecha Inicio
-            </span>
+        <div className={styles.Grid}>
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <input
+                onChange={saveDataTemporaly}
+                name="fecha_desde"
+                placeholder=' '
+                type='date'
+                className={styles.ContainerInput__Input}
+              />
+              <span className={styles.ContainerInput__Span}>
+                Fecha Inicio
+              </span>
+            </div>
           </div>
 
-          <div className={styles.ContainerInput}>
-            <input
-              onChange={saveDataTemporaly}
-              name="fecha_hasta"
-              placeholder=' '
-              type='date'
-              className={styles.ContainerInput__Input}
-            />
-            <span className={styles.ContainerInput__Span}>
-              Fecha Final
-            </span>
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <input
+                onChange={saveDataTemporaly}
+                name="fecha_hasta"
+                placeholder=' '
+                type='date'
+                className={styles.ContainerInput__Input}
+              />
+              <span className={styles.ContainerInput__Span}>
+                Fecha Final
+              </span>
+            </div>
           </div>
 
-          <div className={styles.ContainerInput}>
-            <input
-              onChange={saveDataTemporaly}
-              name="idBeneficiario"
-              placeholder=' '
-              type='number'
-              className={styles.ContainerInput__Input}
-            />
-            <span className={styles.ContainerInput__Span}>
-              ID Beneficiario
-            </span>
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <input
+                onChange={saveDataTemporaly}
+                name="idBeneficiario"
+                placeholder=' '
+                type='number'
+                className={styles.ContainerInput__Input}
+              />
+              <span className={styles.ContainerInput__Span}>
+                ID Beneficiario
+              </span>
+            </div>
           </div>
 
-          <button className='Button' onClick={ListarSesionesPorArea}>Buscar Reporte</button>
+          <div className={styles.Grid__button}>
+            <button className='Button' onClick={ListarSesionesPorArea}>Buscar Reporte</button>
+          </div>
         </div>
 
         <h1 className={styles.Titulo}>Lista de Sesiones por Beneficiario</h1>
-        <table className='Table'>
+        <table className={styles.Table}>
           <thead>
             <tr>
               <th>Area Atendido</th>

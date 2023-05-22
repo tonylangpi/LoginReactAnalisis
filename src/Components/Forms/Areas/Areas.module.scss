@@ -13,7 +13,7 @@
 
 .ContainerInput {
     position: relative ;
-    width: 100% ;
+    width: 50% ;
     letter-spacing: 2px;
     font-family: $font-family;
 
@@ -73,11 +73,33 @@
     }
 }
 
+.Titulo {
+    @include FlexBox(center, center, row);
+    margin: 5px 0 10px 0;
+    font-family: $font-rubik;
+    letter-spacing: 2px;
+    color: #140172;
+    font-family: $font-family;
+
+    @media only screen and (max-width: 600px) {
+        & {
+            font-size: 0.8rem;
+        }
+    }
+
+    @media only screen and (max-width: 500px) {
+        & {
+            text-align: center;
+        }
+    }
+}
+
 .Button {
+    margin: 0 10px;
     display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	width: 350px;
+	width: 250px;
 	height: 50px;
 	background: $color-button;
 	color: #fff;
@@ -120,27 +142,6 @@
 
     &:hover &__Span {
         left: 15px;
-    }
-}
-
-.Titulo {
-    @include FlexBox(center, center, row);
-    margin: 5px 0 10px 0;
-    font-family: $font-rubik;
-    letter-spacing: 2px;
-    color: #140172;
-    font-family: $font-family;
-
-    @media only screen and (max-width: 600px) {
-        & {
-            font-size: 0.8rem;
-        }
-    }
-
-    @media only screen and (max-width: 500px) {
-        & {
-            text-align: center;
-        }
     }
 }
 
@@ -209,8 +210,8 @@
         background-color: transparent;
         color: #fff;
         border: none;
-        height: 15px;
-        width: 15px;
+        height: 20px;
+        width: 20px;
 
         svg {
             height: 100%;

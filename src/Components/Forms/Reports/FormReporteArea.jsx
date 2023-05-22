@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Pagination from '../utils/pagination';
-import '../assets/scss/form.scss'
+import Pagination from '../../utils/pagination';
 import styles from './Reporte.module.scss';
 
 const FormReporteArea = () => {
@@ -51,60 +50,66 @@ const FormReporteArea = () => {
     <>
       <div className={styles.Container}>
         {/* search */}
-        <div className={styles.ContainerSearch}>
-          <div className={styles.ContainerInput}>
-            <input
-              onChange={saveDataTemporaly}
-              name="fecha_desde"
-              placeholder=' '
-              type='date'
-              className={styles.ContainerInput__Input}
-            />
-            <span className={styles.ContainerInput__Span}>
-              Fecha Inicio
-            </span>
+        <div className={styles.Grid}>
+
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <input
+                onChange={saveDataTemporaly}
+                name="fecha_desde"
+                placeholder=' '
+                type='date'
+                className={styles.ContainerInput__Input}
+              />
+              <span className={styles.ContainerInput__Span}>
+                Fecha Inicio
+              </span>
+            </div>
           </div>
 
-          <div className={styles.ContainerInput}>
-            <input
-              onChange={saveDataTemporaly}
-              name="fecha_hasta"
-              placeholder=' '
-              type='date'
-              className={styles.ContainerInput__Input}
-            />
-            <span className={styles.ContainerInput__Span}>
-              Fecha Final
-            </span>
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <input
+                onChange={saveDataTemporaly}
+                name="fecha_hasta"
+                placeholder=' '
+                type='date'
+                className={styles.ContainerInput__Input}
+              />
+              <span className={styles.ContainerInput__Span}>
+                Fecha Final
+              </span>
+            </div>
           </div>
 
-          <button className='Button' onClick={ListarSesionesPorArea}>Buscar Reporte</button>
+          <div className={styles.Grid__button}>
+            <button className='Button' onClick={ListarSesionesPorArea}>Buscar Reporte</button>
+          </div>      
         </div>
 
         <h1 className={styles.Titulo}>Lista de sesiones por área</h1>
-        <table className='Table'>
+        <table className={styles.Table}>
           <thead>
             <tr>
               <th>Area</th>
               <th>Beneficiario</th>
               <th>Sesiones</th>
               <th>Fecha</th>
-              <th>Hora Egreso</th>
               <th>Hora Ingreso</th>
+              <th>Hora Egreso</th>
             </tr>
           </thead>
           <tbody>
             {currentSessions.filter((item) => {
-              return search.toLowerCase() === '' ? item
-                : item.BENEFICIARIO.toLowerCase().includes(search) || item.BENEFICIARIO.toLowerCase().includes(search)
+              return item
             }).map((row, index) => (
               <tr key={index}>
                 <td>{row.AREA}</td>
                 <td>{row.BENEFICIARIO}</td>
                 <td>{row.SESIONES}</td>
                 <td>{row.FECHA.slice(0, 10)}</td>
-                <td>{row.HORA_EGRESO}</td>
                 <td>{row.HORA_INGRESO}</td>
+                <td>{row.HORA_EGRESO}</td>
               </tr>
             ))}
           </tbody>

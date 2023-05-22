@@ -10,14 +10,6 @@
 @import './Components/Validar/Validar';
 @import './Components/Home/Home.scss';
 
-// @import './Components/Navbar/Navbar.scss';
-@import './Components/Forms/Beneficiario.scss';
-@import './Components/Forms/Citas.scss';
-@import './Components//Forms/Roles';
-@import './Components/Forms/Beneficiario';
-@import './Components/Forms/FormAreas';
-
-
 .Container-Home {
     @include FlexBox(center, center, column);
     width: 100%;

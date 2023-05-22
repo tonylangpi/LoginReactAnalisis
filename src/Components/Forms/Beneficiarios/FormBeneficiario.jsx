@@ -6,6 +6,8 @@ import FormPrenatales from "./FormPrenatales";
 import FormPerinatales from "./FormPerinatales";
 import axios from "axios";
 import FormPostNatal from "./FormPostNatal";
+import styles from './Beneficiario.module.scss';
+
 
 const FormBeneficiario = () => {
   const [archivo, setArchivo] = useState(null);
@@ -104,24 +106,17 @@ const FormBeneficiario = () => {
 
   return (
     <>
-      <div className="Container-Beneficiario">
+      <div className={styles.Container}>
         {/* DATOS DEL BENEFICIARIO */}
         {!isBeneficiary ? (
-          <div
-            id="FormBeneficiario"
-            className="Container-Beneficiario Datos-Beneficiario"
-          >
-            <div className="Container-Beneficiario__item Titulo">
+          <div id="FormBeneficiario" className={styles.Container}>
+            <div className={styles.Titulo}>
               <h1>Datos del Beneficiarios</h1>
             </div>
 
-            <form
-              onSubmit={fileSubmit}
-              className="Grid"
-              // className="Container-Beneficiario__Grid"
-            >
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+            <form onSubmit={fileSubmit} className={styles.Grid}>
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <input
                     required
                     disabled={isBeneficiary}
@@ -129,16 +124,16 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="text"
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                   />
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Primer Nombre
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <input
                     required
                     disabled={isBeneficiary}
@@ -146,32 +141,32 @@ const FormBeneficiario = () => {
                     name="NOMBRE2"
                     onChange={saveDataTemporaly}
                     type="text"
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                   />
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Segundo Nombre
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <input
                     disabled={isBeneficiary}
                     placeholder=" "
                     name="NOMBRE3"
                     onChange={saveDataTemporaly}
                     type="text"
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                   />
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Tercer Nombre
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <input
                     required
                     disabled={isBeneficiary}
@@ -179,74 +174,73 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="text"
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                   />
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Primer Apellido
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <input
                     disabled={isBeneficiary}
                     name="APELLIDO2"
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="text"
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                   />
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Segundo Apellido
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <select
                     required
                     disabled={isBeneficiary}
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                     name="ESCOLARIDAD"
-                    onChange={saveDataTemporaly}
-                    id=""
-                  >
+                    onChange={saveDataTemporaly}>
                     <option value=""></option>
+                    <option value="No Tiene">No Tiene</option>
+                    <option value="No Aplica">No Aplica</option>
+                    <option value="PrePrimaria">PrePrimaria</option>
                     <option value="Primaria">Primaria</option>
                     <option value="Basico">Basico</option>
                     <option value="Diversificado">Diversificado</option>
-                    <option value="Universidad">Universidad</option>
+                    <option value="Universitario">Universitario</option>
                   </select>
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Escolaridad
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <select
                     required
                     disabled={isBeneficiary}
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                     name="SEXO"
-                    onChange={saveDataTemporaly}
-                    id=""
-                  >
+                    onChange={saveDataTemporaly}>
                     <option value=""></option>
                     <option value="M">MASCULINO</option>
                     <option value="F">FEMENINO</option>
                   </select>
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     GENERO
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <input
                     required
                     disabled={isBeneficiary}
@@ -254,36 +248,36 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="date"
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                   />
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Fecha de Nacimiento
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <input
                     disabled={isBeneficiary}
                     name="DIRECCION"
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="text"
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                   />
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Direccion
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <select
                     required
                     disabled={isBeneficiary}
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                     name="REFERENCIA"
                     onChange={saveDataTemporaly}
                     id=""
@@ -292,14 +286,14 @@ const FormBeneficiario = () => {
                     <option value="NO APLICA">----NO APLICA ------</option>
                     <option value="CENTRO DE SALUD">CENTRO DE SALUD</option>
                   </select>
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     REFERENCIA
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <input
                     required
                     disabled={isBeneficiary}
@@ -307,16 +301,16 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="number"
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                   />
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Numero de Hermanos
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
-                <div className="Beneficiario-Container-Input">
+              <div className={styles.Grid__item}>
+                <div className={styles.ContainerInput}>
                   <input
                     required
                     disabled={isBeneficiary}
@@ -324,15 +318,15 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="number"
-                    className="Beneficiario-Container-Input__Input"
+                    className={styles.ContainerInput__Input}
                   />
-                  <span className="Beneficiario-Container-Input__Span">
+                  <span className={styles.ContainerInput__Span}>
                     Numero que Ocupa
                   </span>
                 </div>
               </div>
 
-              <div className="Grid__item">
+              <div className={styles.Grid__item}>
                 <div className="Container-Input-file">
                   <span className="Container-Input-file__Span">
                     Referencia de Centro Medico
@@ -350,7 +344,7 @@ const FormBeneficiario = () => {
                 </div>
               </div>
 
-              <div className="Container-Beneficiario__Grid-button">
+              <div className={styles.Grid__button}>
                 <button id="button-beneficiario" className="Button Button--Guardar">
                   <div className="Button__Icono">
                     <FontAwesomeIcon icon="fa-solid fa-file-export" />

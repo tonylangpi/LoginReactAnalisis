@@ -4,8 +4,12 @@ import Pagination from '../../utils/pagination';
 import '../../assets/scss/form.scss'
 import { Link } from "react-router-dom";
 import styles from './Usuarios.module.scss';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Modal from  './Modal'
 
 function FormUsuarios() {
+  const [dataSelect, setDataSelect] = useState([]);
+  const [showMyModal, setshowMyModal] = useState(false)
   const [sesiones, setSesiones] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(5);
@@ -18,7 +22,10 @@ function FormUsuarios() {
     nombre: ''
   });
 
-  const idArea = parseInt(localStorage.getItem('idArea'));
+  const handleOnClose = () => setshowMyModal(false)
+  const underSelect = (item) => {
+    setDataSelect(item)
+  }
 
   const saveDataTemporaly = (e) => {
     e.preventDefault();
@@ -47,21 +54,26 @@ function FormUsuarios() {
   return (
     <div className={styles.Container}>
       <h1 className={styles.Titulo}>Listado de Usuarios</h1>
-      <div className='ContainerInput'>
-        <div className="Beneficiario-Container-Input">
+      <div className={styles.ContainerData}>
+        <div className={styles.ContainerInput}>
           <input
             required
             name="nombre"
             placeholder=" "
             type="text"
-            className="Beneficiario-Container-Input__Input"
+            className={styles.ContainerInput__Input}
             onKeyUp={saveDataTemporaly}
           />
-          <span className="Beneficiario-Container-Input__Span">
+          <span className={styles.ContainerInput__Span}>
             Nombre del Usuario
           </span>
         </div>
-        <button><Link to="/FormAgregarUsuario">Agregar Usuario</Link></button>
+        <Link className={styles.Button} to="/FormAgregarUsuario">
+          <div className={styles.Button__Icono}>
+            <FontAwesomeIcon icon="fa-solid fa-user-plus" />
+          </div>
+          <span className={styles.Button__Span}>Agregar Usuario</span>
+        </Link>
       </div>
       <table className={styles.Table}>
         <thead>
@@ -73,6 +85,7 @@ function FormUsuarios() {
             <th>Area</th>
             <th>Direccion</th>
             <th>Nombre Empresa</th>
+            <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -87,6 +100,11 @@ function FormUsuarios() {
               <td>{row.NOMBRE_AREA}</td>
               <td>{row.DIRECCION_EMPRESA}</td>
               <td>{row.NOMBRE_EMPRESA}</td>
+              <td className={styles.actionsBeneficiary}>
+                <div className={styles.tooltip}><span className={styles.tooltiptext}>Editar Usuario</span>
+                  <button onClick={() => {setshowMyModal(true), underSelect(row) }}><FontAwesomeIcon icon="fa-solid fa-arrows-rotate" /></button>
+                </div>
+              </td>
             </tr>
           ))}
         </tbody>
@@ -96,6 +114,11 @@ function FormUsuarios() {
         allbeneficiary={sesiones.length}
         pagination={pagination}
         currentPage={currentPage}
+      />
+      <Modal
+        dataSelect={dataSelect}
+        onClose={handleOnClose}
+        visible={showMyModal}
       />
     </div>
   )

@@ -1,5 +1,5 @@
-@import '../../Styles/Mixins';
-@import '../../Styles/Variables';
+@import '../../../Styles/Mixins';
+@import '../../../Styles/Variables';
 
 .Container {
     @include FlexBox(center, center, column);
@@ -150,6 +150,24 @@
 
         input {
             margin: 0 5px;
+        }
+    }
+}
+
+.ContainerHistorial {
+    @include FlexBox(center, center, row);
+    flex-wrap: wrap;
+    width: 80%;
+    margin: 20px 0;
+
+    &__item {
+        margin: 15px 0;
+        min-width: 50%;
+
+        @media only screen and (max-width: 800px) {
+            & {
+                min-width: 100%;
+            }
         }
     }
 }

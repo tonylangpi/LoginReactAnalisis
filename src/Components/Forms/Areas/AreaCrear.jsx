@@ -3,8 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import '../../assets/scss/form.scss'
-import styles from '../ListaCitas.module.scss';
-
+import styles from './AddArea.module.scss';
 
 function AreaCrear() {
   const [area, setArea] = React.useState({
@@ -20,7 +19,6 @@ function AreaCrear() {
       .then(function (response) {
         const respuesta = response?.data.message;
         alert("Guardado Exitoso");
-        window.location.reload()
       })
       .catch(function (error) {
         console.log(error);
@@ -35,49 +33,35 @@ function AreaCrear() {
   };
 
   return (
-    <div>
-      <div className="Container-Beneficiario__item Titulo">
+    <div className={styles.Container}>
+      <div className={styles.Titulo}>
         <h1>Crear Área</h1>
       </div>
 
-      <form className="Grid">
-        <div className="Grid__item">
-          <div className="Beneficiario-Container-Input">
-            <input
-              required
-              name="NOMBRE"
-              placeholder=" "
-              type="text"
-              className="Beneficiario-Container-Input__Input"
-              value={area.NOMBRE}
-              onChange={handleChange}
-            />
-            <span className="Beneficiario-Container-Input__Span">
-              Nombre del Area
-            </span>
-          </div>
+      <form className={styles.Container}>
+        <div className={styles.ContainerInput}>
+          <input
+            required
+            name="NOMBRE"
+            placeholder=" "
+            type="text"
+            className={styles.ContainerInput__Input}
+            value={area.NOMBRE}
+            onChange={handleChange}
+          />
+          <span className={styles.ContainerInput__Span}>
+            Nombre del Area
+          </span>
         </div>
       </form>
 
-      <div className="Container-Beneficiario__Grid-button">
-
-        <button id="button-beneficiario" className="Button Button--Guardar"
-          onClick={guardarArea}>
-          <div className="Button__Icono">
-            <FontAwesomeIcon icon="fa-solid fa-file-export" />
-          </div>
-          <span className="Button__Span Iniciar">Guardar</span>
-        </button>
-
-        <div className={styles.ContainerSearch}>
-        
-        <Link to="/FormAreas">
-          <button className='Button' to="/FormAreas" >Regresar</button>
-        
-          </Link>
+      <Link onClick={guardarArea} className={styles.Button} to="/FormAreas">
+        <div className={styles.Button__Icono}>
+          <FontAwesomeIcon icon="fa-solid fa-plus" />
         </div>
+        <span className={styles.Button__Span}>Agregar Area</span>
+      </Link>
 
-      </div>
     </div>
   );
 }

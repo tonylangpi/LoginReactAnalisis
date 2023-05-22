@@ -86,7 +86,7 @@ const FormPrenatales = ({idBen}) => {
       <form onSubmit={savePrenatal} className={styles.Form}>
 
         <div className={styles.Grid__item}>
-          <label>¿Fue un embarazo de termino?</label>
+          <label>¿Fue un embarazo a termino?</label>
           <div className={styles.ContainerRadio}>
             <div className={styles.ContainerRadio__Radio}>
               <input
@@ -114,7 +114,6 @@ const FormPrenatales = ({idBen}) => {
         <div className={styles.Form__item}>
           <div hidden={!textbox.textbox1} className={styles.ContainerInput}>
             <textarea 
-              required
               disabled={isPrenatal}
               onChange={saveDataTemporalyPrenatal} 
               name='EXPLIQUE_EMBARAZO' 
@@ -154,7 +153,6 @@ const FormPrenatales = ({idBen}) => {
         <div className={styles.Form__item}>
           <div hidden={!textbox.textbox2} className={styles.ContainerInput}>
             <textarea 
-              required    
               disabled={isPrenatal} 
               onChange={saveDataTemporalyPrenatal} 
               name='EXPLIQUE_PARTO' 
@@ -194,7 +192,6 @@ const FormPrenatales = ({idBen}) => {
         <div className={styles.Form__item}>
           <div hidden={!textbox.textbox3} className={styles.ContainerInput}>
             <textarea 
-              required    
               disabled={isPrenatal}
               onChange={saveDataTemporalyPrenatal} 
               name='EXPLIQUE_COMPLICACION' 
@@ -217,7 +214,6 @@ const FormPrenatales = ({idBen}) => {
         ) : null}
 
       </form>
-
 
     </div>
   )

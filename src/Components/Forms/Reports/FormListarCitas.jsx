@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Pagination from '../utils/pagination';
-import '../assets/scss/form.scss'
+import Pagination from '../../utils/pagination';
 import styles from './ListaCitas.module.scss';
 
 const FormListarCitas = () => {
@@ -41,7 +40,7 @@ const FormListarCitas = () => {
         {/* search */}
 
         <h1 className={styles.Titulo}>Listado de Sesiones</h1>
-        <table className='Table'>
+        <table className={styles.Table}>
           <thead>
             <tr>
               <th>ID Sesion</th>

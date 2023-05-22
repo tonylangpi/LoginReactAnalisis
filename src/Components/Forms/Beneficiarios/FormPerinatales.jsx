@@ -138,7 +138,6 @@ const FormPerinatales = ({idBen}) => {
         <div className={styles.Form__item}>
           <div className={styles.ContainerInput}>
             <textarea
-              required
               name="COLOR"
               onChange={saveDataTemporalyPerinatal} 
               disabled={isPerinatal}

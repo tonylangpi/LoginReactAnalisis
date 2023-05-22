@@ -32,7 +32,7 @@ function FormAgregarUsuario() {
         alert('No se ha encontrado un registro');
       });
 
-    axios.get(`http://localhost:4000/servicios/`)
+    axios.post(`http://localhost:4000/servicios/`, {NOMBRE: ''})
       .then(function (response) {
         setAreas(response.data);
       })
@@ -81,7 +81,7 @@ function FormAgregarUsuario() {
   }, []);
 
   return (
-    <div id="FormHistorialClinico" className={styles.Container}>
+    <div className={styles.Container}>
 
       <div id="Modal" className={prueba.show ? styles.ModalShow : "Container-Modal"}>
         <div className={`Container-Modal__Modal ${prueba.auth ? 'Valido' : 'Invalido'}`}>
@@ -137,15 +137,15 @@ function FormAgregarUsuario() {
             <select
               required
               className={styles.ContainerInput__Input}
-              name="id_roles"
+              name="id_area"
               onChange={handleChange}>
               <option value=""></option>
-              {roles.map((row, index) => (
-                <option key={index} value={row.id_roles}>{row.nombre_rol}</option>
+              {areas.map((row, index)=>(
+                <option key={index} value={row.ID_AREA}>{row.NOMBRE}</option>
               ))}
             </select>
             <span className={styles.ContainerInput__Span}>
-              Rol del Usuario
+              Area del Usuario
             </span>
           </div>
         </div>
@@ -160,9 +160,11 @@ function FormAgregarUsuario() {
               <option value=""></option>
               <option value="1">Coatepeque</option>
               <option value="2">Pajapita</option>
+              <option value="3">Ayutla</option>
+              <option value="4">RBC</option>
             </select>
             <span className={styles.ContainerInput__Span}>
-              Rol del Usuario
+              Empresa del Usuario
             </span>
           </div>
         </div>
@@ -172,11 +174,11 @@ function FormAgregarUsuario() {
             <select
               required
               className={styles.ContainerInput__Input}
-              name="id_area"
+              name="id_roles"
               onChange={handleChange}>
               <option value=""></option>
-              {areas.map((row, index)=>(
-                <option key={index} value={row.ID_AREA}>{row.NOMBRE}</option>
+              {roles.map((row, index) => (
+                <option key={index} value={row.id_roles}>{row.nombre_rol}</option>
               ))}
             </select>
             <span className={styles.ContainerInput__Span}>

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import styles from '../assets/scss/Modal.module.scss';
+import styles from './Modal.module.scss';
 import axios from 'axios';
 const Modal=({onClose, visible, dataSelect}) => {
   const [archivo, setArchivo] = useState(null)
@@ -85,8 +85,8 @@ const Modal=({onClose, visible, dataSelect}) => {
 }
 if(!visible) return null
   return (
-    <div className={styles.ModalBeneficiary}>
-      <form className={styles.ModalBeneficiary__Content} onSubmit={fileSubmit} action="">
+    <div className={styles.Modal}>
+      <form className={styles.Modal} onSubmit={fileSubmit} action="">
         <div className='Container-Beneficiario__Grid'>
 
           <div className="Container-Beneficiario__Grid-item">
@@ -98,7 +98,7 @@ if(!visible) return null
                 type="text"
                 name='id_beneficiario'
                 className="Citas-Container-Input__Input" />
-              {/* <span className="Citas-Container-Input__Span">Nombre Beneficia</span> */}
+              <span className="Citas-Container-Input__Span">Nombre Beneficia</span>
             </div>
           </div>
 

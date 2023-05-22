@@ -281,21 +281,47 @@ const formHistorialClinico = ({ idBenefi = 0 }) => {
             </div>
           </div>
 
-          <div className={styles.Form__item}>
-            <div className={styles.ContainerInput}>
-              <textarea
-                required
-                name="OTRAS"
-                disabled={isHisto}
-                onChange={saveDataTemporalyHistorial}
-                className={styles.ContainerInput__Input}
-                placeholder=" "
-              ></textarea>
-              <span className={styles.ContainerInput__Span}>
-                Otros:
-              </span>
+          <div className={styles.ContainerHistorial}>
+
+            <div className={styles.ContainerHistorial__item}>
+              <div className={styles.ContainerInput}>
+                <select
+                  required
+                  disabled={isHisto}
+                  className={styles.ContainerInput__Input}
+                  name="TipoDiscapacidad"
+                  onChange={saveDataTemporalyHistorial}>
+                  <option value=""></option>
+                  <option value="Fisica Motora">Fisica Motora</option>
+                  <option value="Visual">Visual</option>
+                  <option value="Auditiva">Auditiva</option>
+                  <option value="Mental">Mental</option>
+                  <option value="Otra">Otra</option>
+                </select>
+                <span className={styles.ContainerInput__Span}>
+                  Tipo de Discapacidad
+                </span>
+              </div>
             </div>
+
+            <div className={styles.ContainerHistorial__item}>
+                <div className={styles.ContainerInput}>
+                  <input
+                    name="OTRAS"
+                    disabled={isHisto}
+                    onChange={saveDataTemporalyHistorial}
+                    className={styles.ContainerInput__Input}
+                    placeholder=" "
+                  />
+                  <span className={styles.ContainerInput__Span}>
+                    Otros:
+                  </span>
+                </div>
+              </div>
+
           </div>
+
+          
 
           {!isHisto ? (
             <div className="Container-Beneficiario__Grid-button">

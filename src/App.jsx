@@ -2,12 +2,12 @@ import './App.scss'; // Importar estilos
 import Login from "./Components/Login/Login";
 import React, { useEffect } from "react";
 import Register from './Components/Register/Register';
-import FormBeneficiario from './Components/Forms/FormBeneficiario';
+import FormBeneficiario from './Components/Forms/Beneficiarios/FormBeneficiario';
 import Navbar  from "./Components/Navbar/Navbar";
-import RolesForm from "./Components/Forms/FomRoles"
-import ReporteBeneficiario from './Components/Forms/FormReporteBeneficiario';
-import ReporteArea from './Components/Forms/FormReporteArea';
-import ListadoCitas from './Components/Forms/FormListarCitas';
+import ListarBeneficiarios from "./Components/Forms/Beneficiarios/FomListarBeneficiarios"
+import ReporteBeneficiario from './Components/Forms/Reports/FormReporteBeneficiario';
+import ReporteArea from './Components/Forms/Reports/FormReporteArea';
+import ListadoCitas from './Components/Forms/Reports/FormListarCitas';
 import Usuarios from './Components/Forms/Users/FormUsuarios';
 import AreaActualizar from './Components/Forms/Areas/AreaActualizar';
 import Servicios from './Components/Forms/FormServicios';
@@ -26,10 +26,10 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Home from "./Components/Home/Home";
 import ValidarToken from './Components/Validar/validarToken'; 
+
 function App() {
 
   library.add(fas);
-
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const validateAuth =  () => {
      
@@ -60,7 +60,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/formBene' element={<FormBeneficiario />} />
               <Route path='/form' />
-              <Route path='/formRoles' element={<RolesForm />} />
+              <Route path='/FormListarBeneficiarios' element={<ListarBeneficiarios />} />
               <Route path='/FormReporteBeneficiario' element={<ReporteBeneficiario/>} />
               <Route path='/FormReporteArea' element={<ReporteArea />} />
               <Route path='/FormListarCitas' element={<ListadoCitas />} />

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import '../../assets/scss/form.scss';
-import styles from '../ListaCitas.module.scss';
+import styles from './Update.module.scss';
 
 function AreaActualizar() {
   const [area, setArea] = React.useState({
@@ -64,54 +64,54 @@ function AreaActualizar() {
   };
 
   return (
-    <div>
-      <div className="Container-Beneficiario__item Titulo">
-        <h1>Actualización</h1>
+    <div className={styles.Container}>
+      <div className={styles.Titulo}>
+        <h1>Actualizar Area</h1>
       </div>
 
-      <form className="Grid">
-       
-      <div className="Grid__item">
-        <div className="Beneficiario-Container-Input">
-            <select
-              required
-              className="Beneficiario-Container-Input__Input"
-              name="ID_AREA"
-              onChange={handleSelectChange}>
-              <option value=""></option>
-              {areas.map((row, index) => (
-                  <option key={index} value={row.ID_AREA}>{row.NOMBRE}</option>
-              ))}
-            </select>
-            <span className="Beneficiario-Container-Input__Span">
-              seleccione El Area:
-            </span>
-          </div>
+      <form className={styles.Container}>
+
+        <div className={styles.ContainerInput}>
+          <select
+            required
+            className={styles.ContainerInput__Input}
+            name="ID_AREA"
+            onChange={handleSelectChange}>
+            <option value=""></option>
+            {areas.map((row, index) => (
+              <option key={index} value={row.ID_AREA}>{row.NOMBRE}</option>
+            ))}
+          </select>
+          <span className={styles.ContainerInput__Span}>
+            seleccione El Area:
+          </span>
         </div>
 
-
-        <div className="Grid__item">
-          <div className="Beneficiario-Container-Input">
-            <input
-              required
-              name="NOMBRE"
-              placeholder=" "
-              type="text"
-              className="Beneficiario-Container-Input__Input"
-              value={area.NOMBRE}
-              onChange={handleChange}
-            />
-            <span className="Beneficiario-Container-Input__Span">
-              Nuevo Nombre:
-            </span>
-          </div>
+        <div className={styles.ContainerInput}>
+          <input
+            required
+            name="NOMBRE"
+            placeholder=" "
+            type="text"
+            className={styles.ContainerInput__Input}
+            value={area.NOMBRE}
+            onChange={handleChange}
+          />
+          <span className={styles.ContainerInput__Span}>
+            Nuevo Nombre:
+          </span>
         </div>
-
-
-      
+        
       </form>
 
-      <div className="Container-Beneficiario__Grid-button">
+      <Link onClick={actualizarArea} className={styles.Button} to="/FormAreas">
+        <div className={styles.Button__Icono}>
+          <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
+        </div>
+        <span className={styles.Button__Span}>Actualizar</span>
+      </Link>
+
+      {/* <div className="Container-Beneficiario__Grid-button">
 
         <button id="button-beneficiario" className="Button Button--Guardar"
           onClick={actualizarArea}>
@@ -120,14 +120,14 @@ function AreaActualizar() {
           </div>
           <span className="Button__Span Iniciar">Guardar</span>
         </button>
-        <div className={styles.ContainerSearch}> 
-        <Link to="/FormAreas">
-          <button className='Button' to="/FormAreas" >Regresar</button>
-        
+        <div className={styles.ContainerSearch}>
+          <Link to="/FormAreas">
+            <button className='Button' to="/FormAreas" >Regresar</button>
+
           </Link>
         </div>
 
-      </div>
+      </div> */}
     </div>
   );
 }

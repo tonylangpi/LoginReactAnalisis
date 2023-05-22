@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
 import styles from './Antecedentes.module.scss';
+import { Link } from "react-router-dom";
 
 const FormPostNatal = ({ idBen }) => {
   const [isPostnatal, setPostnatal] = useState(false);
@@ -52,11 +53,15 @@ const FormPostNatal = ({ idBen }) => {
     }
   };
 
+  const Reload = ()=>{
+    location.reload();
+  }
+
   return (
 
-    <div id="FormPostNatales" className={styles.Container}>
+    <div className={styles.Container}>
 
-      <div className="Container-Beneficiario__item Titulo">
+      <div className={styles.Titulo}>
         <h1>Antecedentes Post-Natales</h1>
       </div>
 
@@ -233,7 +238,6 @@ const FormPostNatal = ({ idBen }) => {
         <div className={styles.Form__item}>
           <div className={styles.ContainerInput}>
             <textarea
-              required
               name="OBSERVACIONES"
               onChange={saveDataTemporalyPostnatal}
               className={styles.ContainerInput__Input}
@@ -246,6 +250,14 @@ const FormPostNatal = ({ idBen }) => {
         </div>
 
         {!isPostnatal ? (
+
+          // <Link onClick={actualizarArea} className={styles.Button} to="/FormAreas">
+          //   <div className={styles.Button__Icono}>
+          //     <FontAwesomeIcon icon="fa-solid fa-file-export" />
+          //   </div>
+          //   <span className={styles.Button__Span}>Actualizar</span>
+          // </Link>
+          
           <div className="Container-Beneficiario__Grid-button">
             <button id="Postnatales" className="Button Button--Guardar">
               <div className="Button__Icono">
@@ -256,14 +268,12 @@ const FormPostNatal = ({ idBen }) => {
           </div>
         ) : null}
 
-        <div className="Container-Beneficiario__Grid-button">
-          <button onClick={() => window.location.reload()} id="Postnatales" className="Button Button--Guardar">
-            <div className="Button__Icono">
-              <FontAwesomeIcon icon="fa-solid fa-file-export" />
-            </div>
-            <span className="Button__Span Iniciar">Nuevo</span>
-          </button>
-        </div>
+        <Link className={styles.Button} to="/FormRoles">
+          <div className={styles.Button__Icono}>
+            <FontAwesomeIcon icon="fa-solid fa-file-export" />
+          </div>
+          <span className={styles.Button__Span}>Actualizar</span>
+        </Link>
       </form>
     </div>
   );

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Pagination from '../../utils/pagination';
 import '../../assets/scss/form.scss'
-import styles from '../ListaCitas.module.scss';
+import styles from './Areas.module.scss';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -36,7 +36,6 @@ function FormAreas() {
         .post(`http://localhost:4000/servicios/`, {NOMBRE: name.NOMBRE})
         .then(function (response) {
           setSesiones(response.data);
-          console.log(response);
         })
         .catch(function (error) {
           alert('No se ha encontrado un registro');
@@ -48,53 +47,53 @@ function FormAreas() {
     }, []);
 
 
-    const eliminarArea = (idArea) => {
-      axios
-        .delete(`http://localhost:4000/servicios/deleteServicios/${idArea}`)
-        .then(function (response) {
-          const respuesta = response?.data.message;
-          alert("Eliminado Exitoso");
-          window.location.reload()
-        })
-        .catch(function (error) {
-          console.log(error);
-        }); 
-        };
+  const eliminarArea = (idArea) => {
+    axios
+      .delete(`http://localhost:4000/servicios/deleteServicios/${idArea}`)
+      .then(function (response) {
+        const respuesta = response?.data.message;
+        alert("Eliminado Exitoso");
+        ListarUsuarios();
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
     return (
       <div className={styles.Container}>
         {/* search */}
         <h1 className={styles.Titulo}>Listado de Areas</h1>
-        
-        <div className="Beneficiario-Container-Input">
-          <input
-            required
-            name="NOMBRE"
-            placeholder=" "
-            type="text"
-            className="Beneficiario-Container-Input__Input"
-            onKeyUp={saveDataTemporaly}
-          />
-          <span className="Beneficiario-Container-Input__Span">
+
+        <div className={styles.ContainerData}>
+          <div className={styles.ContainerInput}>
+            <input
+              required
+              name="NOMBRE"
+              placeholder=" "
+              type="text"
+              className={styles.ContainerInput__Input}
+              onKeyUp={saveDataTemporaly}
+            />
+            <span className={styles.ContainerInput__Span}>
             Nombre del Area
-          </span>
-        </div>
-        
-          <div className={styles.ContainerSearch}>
-        <Link to="/AreaCrear">
-          <button className='Button' to="/AreaCrear" >Agregar Areas</button>
+            </span>
+          </div>
+          <Link className={styles.Button} to="/AreaCrear">
+            <div className={styles.Button__Icono}>
+              <FontAwesomeIcon icon="fa-solid fa-plus" />
+            </div>
+            <span className={styles.Button__Span}>Agregar Area</span>
           </Link>
-       
-        </div>
-        
-        <div className={styles.ContainerSearch}>
-          <Link to="/AreaActualizar">
-            <button className='Button' to="/AreaActualizar">Actualizar</button>
-
+          <Link className={styles.Button} to="/AreaActualizar">
+            <div className={styles.Button__Icono}>
+              <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
+            </div>
+            <span className={styles.Button__Span}>Actualizar Area</span>
           </Link>
         </div>
 
-        <table className='Table'>
+        <table className={styles.Table}>
           <thead>
             <tr>
               <th>ID Area</th>
@@ -105,17 +104,18 @@ function FormAreas() {
           <tbody>
             {currentSessions
               .filter((item) => {
-                return (
-                  search.toLowerCase() === '' ||
-                  item.NOMBRE_USUARIO.toLowerCase().includes(search) ||
-                  item.NOMBRE_USUARIO.toLowerCase().includes(search)
-                );
+                return item
               })
               .map((row, index) => (
                 <tr key={index}>
                   <td>{row.ID_AREA}</td>
                   <td>{row.NOMBRE}</td>
-                  <td>
+                  <td className={styles.actionsBeneficiary}>
+                    <div className={styles.tooltip}><span className={styles.tooltiptext}>Eliminar Area</span>
+                      <button onClick={() => eliminarArea(row.ID_AREA)}><FontAwesomeIcon icon="fa-solid fa-trash" /></button>
+                    </div>
+                  </td>
+                  {/* <td>
                     <button
                       onClick={() => eliminarArea(row.ID_AREA)}
                       className="Button Button--Eliminar"
@@ -125,9 +125,7 @@ function FormAreas() {
                       </div>
                       <span className="Button__Span Iniciar">Eliminar</span>
                     </button>
-
-       
-                  </td>
+                  </td> */}
                 </tr>
               ))}
           </tbody>
