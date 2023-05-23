@@ -8,7 +8,7 @@ const Modal=({onClose, visible, dataSelect}) => {
     try {
       const formData = new FormData();
       formData.append('id_beneficiario', dataSelect.ID_BENEFICIARIO)
-      formData.append('id_usuario', 1)
+      formData.append('token', localStorage.getItem('Auth'))
       formData.append('id_sesion', citas.id_sesion)
       formData.append('tipo_sesion', citas.tipo_sesion)
       formData.append('observacion', citas.observacion)

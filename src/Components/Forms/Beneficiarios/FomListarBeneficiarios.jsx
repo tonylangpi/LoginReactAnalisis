@@ -37,7 +37,7 @@ const FomRoles = () => {
 
   const ListarBeneficiarios = () => {
     axios
-      .post(`http://localhost:4000/beneficiarios/all`, {nombre: name.nombre})
+      .post(`http://localhost:4000/beneficiarios/allByName`, {nombre: name.nombre})
       .then(function (response) {
         setBeneficiarios(response.data);
       })

@@ -34,10 +34,12 @@ function App() {
   const validateAuth =  () => {
      
      axios.post('http://localhost:4000/auth/verifyToken', {
-        token : localStorage.getItem('Auth')
+      token : localStorage.getItem('Auth'),
+      nivel : localStorage.getItem('nivel')
+
     })
     .then(({data}) => {
-      if(!data.auth){
+      if(data.auth){
         setIsLoggedIn(data.auth);
       }else{
         setIsLoggedIn(data.auth); 

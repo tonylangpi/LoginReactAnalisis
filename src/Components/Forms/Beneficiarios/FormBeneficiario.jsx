@@ -31,7 +31,7 @@ const FormBeneficiario = () => {
   };
 
   const [beneficiario, setBeneficiario] = React.useState({
-    ID_EMPRESA: 1,
+    TOKEN: localStorage.getItem("Auth"),
     NOMBRE1: "",
     NOMBRE2: "",
     NOMBRE3: "",
@@ -62,7 +62,7 @@ const FormBeneficiario = () => {
       e.preventDefault();
       try {
         const data = new FormData();
-        data.append("ID_EMPRESA", beneficiario.ID_EMPRESA);
+        data.append("TOKEN", beneficiario.TOKEN);
         data.append("NOMBRE1", beneficiario.NOMBRE1);
         data.append("NOMBRE2", beneficiario.NOMBRE2);
         data.append("NOMBRE3", beneficiario.NOMBRE3);

@@ -17,11 +17,11 @@ const FormListarCitas = () => {
     "idArea": parseInt(localStorage.getItem('idArea'))
   });
 
-  const idArea = parseInt(localStorage.getItem('idArea'));
+  const token = localStorage.getItem('Auth');
 
   const ListarSesionesPorArea = () => {
     axios
-      .get(`http://localhost:4000/sesiones/AreaSesiones/${idArea}`, Area)
+      .get(`http://localhost:4000/sesiones/AreaSesiones/${token}`, Area)
       .then(function (response) {
         setSesiones(response.data);
       })

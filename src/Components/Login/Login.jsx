@@ -34,15 +34,11 @@ function Login() {
         .post("http://localhost:4000/auth/login", usuario) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
+           
             localStorage.setItem("Auth", data.token);
-            localStorage.setItem("idUsuario",data.id);
             localStorage.setItem("nombreUsuario",data.nombre);
-            localStorage.setItem("idRol",data.id_roles);
             localStorage.setItem("nombreRol",data.nombre_rol);
-            localStorage.setItem("idArea",data.id_area);
-            localStorage.setItem("nombreArea",data.nombre_area);
-            localStorage.setItem("idEmpresa",data.id_empresa);
-            localStorage.setItem("direccion",data.direccion);
+            localStorage.setItem("nivel",data.nivel);
             //aqui se redirige al usuario a la pagina home
             navigate(0);
           } else {

@@ -29,10 +29,10 @@ const FormReporteBeneficiario = () => {
 
   const ListarSesionesPorArea = () => {
     const idUsuario = localStorage.getItem('idUsuario');
-    const idEmpresa = localStorage.getItem('idEmpresa');
+    const token = localStorage.getItem('Auth');
 
     axios
-      .get(`http://localhost:4000/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${idEmpresa}/${datos.fecha_desde}/${datos.fecha_hasta}`)
+      .get(`http://localhost:4000/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`)
       .then(function (response) {
         setBeneficiario(response.data);
         console.log(response)

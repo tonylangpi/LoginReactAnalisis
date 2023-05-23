@@ -27,11 +27,11 @@ const FormReporteArea = () => {
   };
 
   const ListarSesionesPorArea = () => {
-    const idUsuario = localStorage.getItem('idUsuario');
+    const token = localStorage.getItem('Auth');
     const idEmpresa = localStorage.getItem('idEmpresa');  
 
     axios
-      .get(`http://localhost:4000/reportes/sesionesPorArea/${1}/${idEmpresa}/${datos.fecha_desde}/${datos.fecha_hasta}`, datos)
+      .get(`http://localhost:4000/reportes/sesionesPorArea/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`, datos)
       .then(function (response) {
         setSesiones(response.data);
         console.log(response);
