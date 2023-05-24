@@ -1,6 +1,5 @@
 import React from "react";
 import Logo from "../../assets/images/logoUniversidad.png";
-import "./Validar.css";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const validarToken = () => {
@@ -12,37 +11,37 @@ const validarToken = () => {
 
   return (
     <div className="Container">
-      <div className="Container_Form3">
-        <form className="Form3" onSubmit={(e) => apiToken(e)}>
-
-          <div className="Container_Titulo">
-            <h2 className="Title">Ingresa el TOKEN que fue enviado a tu correo registrado</h2>
+      <div className="Container-Form">
+        <form className="Container-Form__Form" onSubmit={(e) => apiToken(e)}>
+          <div className="Container-Form__Form-item">
+            <h3 className="titulo">Ingresa el TOKEN que fue enviado a tu correo registrado</h3>
           </div>
 
-          <div className="Container_Email">
-            <div className="Email-Content">
+          <div className="Container-Form__Form-item">
+            <div className="Container-Input">
               <input
                 placeholder=" "
                 type="text"
-                className="form-control"
+                className="Container-Input__Input"
                 name="user"
               />
-              <span>Token</span>
+              <span className="Container-Input__Span">Token</span>
             </div>
           </div>
 
-          <button type="submit" className="container-button container-button-registrar">
-            <div className="container-button__icono">
-              <FontAwesomeIcon icon="fa-solid fa-user-check" />
-            </div>
-            <span className="container-button__span">Registrar</span>
-          </button>
-
-          <div className="Container__text">
-            <span className="text">¿No te a llegado el TOKEN? </span>
-            <Link className="link_2register" to={"/"}>Reenviar Token</Link>
+          <div className="Container-Form__Form-item">
+            <button type="submit" className="Button">
+              <div className="Button__Icono">
+                <FontAwesomeIcon icon="fa-solid fa-user-check" />
+              </div>
+              <span className="Button__Span Iniciar">Registrar</span>
+            </button>
           </div>
 
+          <div className="Container-Form__Form-item">
+            <span className="Message">¿No te a llegado el TOKEN? </span>
+            <Link className="Link" to={"/"}>Reenviar Token</Link>
+          </div>
         </form>
       </div>
     </div>
