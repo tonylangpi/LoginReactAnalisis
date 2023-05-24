@@ -43,7 +43,7 @@ function FormAgregarUsuario() {
 
   const fileSubmit = (e)=>{
     e.preventDefault();
-    axios.post(`http://localhost:4000/usuarios/create`, usuario)
+    axios.post(`https://amordownapi-production.up.railway.app/usuarios/create`, usuario)
       .then(function (response) {
         if (!response.data.auth) {
           setPrueba({

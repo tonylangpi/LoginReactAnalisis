@@ -38,7 +38,7 @@ function FormUsuarios() {
 
   const ListarUsuarios = () => {
     axios
-      .post(`http://localhost:4000/usuarios/userName`, {nombre: name.nombre})
+      .post(`https://amordownapi-production.up.railway.app/usuarios/userName`, {nombre: name.nombre})
       .then(function (response) {
         setSesiones(response.data);
       })

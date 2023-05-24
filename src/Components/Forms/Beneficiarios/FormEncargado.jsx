@@ -32,7 +32,7 @@ function FormEncargado({idBene }) {
     try {
       if(idBene != null){
         axios
-        .post(`http://localhost:4000/beneficiarios/createEncargados/${idBene}`, Encargado)
+        .post(`https://amordownapi-production.up.railway.app/beneficiarios/createEncargados/${idBene}`, Encargado)
         .then(function (response) {
           const mensaje =
             response?.data?.message;

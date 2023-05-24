@@ -65,7 +65,7 @@ const Register = () => {
     e.preventDefault();
     try {
       axios
-        .post("https://analisisapi.netlify.app/register", user) //peticion a la api para loguearse
+        .post("https://amordownapi-production.up.railway.app/register", user) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
             setPrueba({

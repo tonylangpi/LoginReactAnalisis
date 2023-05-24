@@ -21,7 +21,7 @@ const FormListarCitas = () => {
 
   const ListarSesionesPorArea = () => {
     axios
-      .get(`http://localhost:4000/sesiones/AreaSesiones/${token}`, Area)
+      .get(`https://amordownapi-production.up.railway.app/sesiones/AreaSesiones/${token}`, Area)
       .then(function (response) {
         setSesiones(response.data);
       })

@@ -31,7 +31,7 @@ const FormReporteArea = () => {
     const idEmpresa = localStorage.getItem('idEmpresa');  
 
     axios
-      .get(`http://localhost:4000/reportes/sesionesPorArea/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`, datos)
+      .get(`https://amordownapi-production.up.railway.app/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`, datos)
       .then(function (response) {
         setSesiones(response.data);
         console.log(response);

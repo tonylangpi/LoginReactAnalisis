@@ -31,7 +31,7 @@ function Login() {
     e.preventDefault();
     try {
       axios
-        .post("http://localhost:4000/auth/login", usuario) //peticion a la api para loguearse
+        .post("https://amordownapi-production.up.railway.app/auth/login", usuario) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
            

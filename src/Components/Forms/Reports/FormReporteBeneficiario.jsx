@@ -32,7 +32,7 @@ const FormReporteBeneficiario = () => {
     const token = localStorage.getItem('Auth');
 
     axios
-      .get(`http://localhost:4000/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`)
+      .get(`https://amordownapi-production.up.railway.app/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`)
       .then(function (response) {
         setBeneficiario(response.data);
         console.log(response)

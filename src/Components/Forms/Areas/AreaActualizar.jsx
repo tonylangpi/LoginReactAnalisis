@@ -27,7 +27,7 @@ function AreaActualizar() {
   const [areas, setAreas] = useState([]);
 
   const Listar = () => {
-    axios.post(`http://localhost:4000/servicios/`, {NOMBRE: name.NOMBRE})
+    axios.post(`https://amordownapi-production.up.railway.app/servicios/`, {NOMBRE: name.NOMBRE})
       .then(function (response) {
         setAreas(response.data);
       })

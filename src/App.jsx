@@ -33,7 +33,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const validateAuth =  () => {
      
-     axios.post('http://localhost:4000/auth/verifyToken', {
+     axios.post('https://amordownapi-production.up.railway.app/auth/verifyToken', {
       token : localStorage.getItem('Auth'),
       nivel : localStorage.getItem('nivel')
 

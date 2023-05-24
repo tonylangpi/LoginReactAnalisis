@@ -55,7 +55,7 @@ const FormPrenatales = ({idBen}) => {
     try {
         if(idBen != null){
             axios
-            .post(`http://localhost:4000/beneficiarios/createPrenatales/${idBen}`, Prenatales)
+            .post(`https://amordownapi-production.up.railway.app/beneficiarios/createPrenatales/${idBen}`, Prenatales)
             .then(function (response) {
               const mensaje =
                 response?.data?.message;

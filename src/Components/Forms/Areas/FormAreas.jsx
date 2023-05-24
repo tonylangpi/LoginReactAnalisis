@@ -33,7 +33,7 @@ function FormAreas() {
     
     const ListarUsuarios = () => {
       axios
-        .post(`http://localhost:4000/servicios/`, {NOMBRE: name.NOMBRE})
+        .post(`https://amordownapi-production.up.railway.app/servicios/`, {NOMBRE: name.NOMBRE})
         .then(function (response) {
           setSesiones(response.data);
         })

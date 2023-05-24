@@ -18,7 +18,7 @@ const Modal=({onClose, visible, dataSelect}) => {
       }
       axios({
         method: "POST",
-        url: "http://localhost:4000/sesiones/createSesion",
+        url: "https://amordownapi-production.up.railway.app/sesiones/createSesion",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })

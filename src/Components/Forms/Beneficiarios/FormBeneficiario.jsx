@@ -82,7 +82,7 @@ const FormBeneficiario = () => {
 
         axios({
           method: "post",
-          url: "http://localhost:4000/beneficiarios/create",
+          url: "https://amordownapi-production.up.railway.app/beneficiarios/create",
           data: data,
           headers: { "Content-Type": "multipart/form-data" },
         })
