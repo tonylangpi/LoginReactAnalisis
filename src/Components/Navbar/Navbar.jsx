@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import logo from '../../assets/images/LogoLetras.png';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,9 +12,7 @@ const Navbar = () => {
     drop3: false,
     drop4: false
   })
-  const [menu, setMenu] = React.useState({
-    DropMenu: false,
-  })
+  const [menu, setMenu] = React.useState(false)
 
   const openDropdown = (num) => {
     if (num == 1) {
@@ -30,24 +28,50 @@ const Navbar = () => {
 
   const closeDropdown = (num) => {
     if (num == 1) {
-      setDropdown({drop1 : false})
+      setDropdown({drop1 : false});
+      setMenu(false);
     } else if (num == 2) {
       setDropdown({drop2 : false})
+      setMenu(false);
     } else if (num == 3) {
       setDropdown({drop3 : false})
+      setMenu(false);
     } else if (num == 4) {
       setDropdown({drop4 : false})
+      setMenu(false);
     }
   };
 
   const ShowMenu = ()=>{
-    setMenu({DropMenu: !menu.DropMenu})
+    setMenu(!menu)
   }
 
+  const menuResponsive = useRef();
+  const buttonResponsive = useRef();
+  const menuRef1 = useRef();
+  const menuRef2 = useRef();
+  const menuRef3 = useRef();
+  const menuRef4 = useRef();
+
+  useEffect(()=>{
+    let DropDown = (e) => {
+      if (!menuRef1.current.contains(e.target) && !menuRef2.current.contains(e.target) && !menuRef3.current.contains(e.target) && !menuRef4.current.contains(e.target) && !menuResponsive.current.contains(e.target) && !buttonResponsive.current.contains(e.target)) {
+        setDropdown({ drop1: false });
+        setMenu(false);
+      }
+    }
+
+    document.addEventListener('mousedown', DropDown);
+
+    return () => {
+      document.removeEventListener('mousedown', DropDown);
+    }
+  })
+
   const Menus = [
-    { title: "BENEFICIARIO", drop: Dropdown.drop1, permiso: true },
-    { title: "REPORTES", drop: Dropdown.drop2, permiso: true },
-    { title: "SEGURIDAD", drop: Dropdown.drop3, permiso: true },
+    { title: "BENEFICIARIO", ref1: menuRef1, drop: Dropdown.drop1, permiso: true },
+    { title: "REPORTES", ref1: menuRef2, drop: Dropdown.drop2, permiso: true },
+    { title: "SEGURIDAD", ref1: menuRef3, drop: Dropdown.drop3, permiso: true },
   ];
 
   const subMenuBeneficiario = [
@@ -82,7 +106,7 @@ const Navbar = () => {
           <div className={styles.Navbar__Buttons}>
 
             {Menus.map((row, index) => (
-              <div key={index} className={styles.Dropdown}>
+              <div ref={row.ref1} key={index}  className={styles.Dropdown}>
                 <button className={styles.Button} onClick={() => openDropdown(index+1)}>
                   <span className={styles.Button__Span}>{row.title}</span>
                   <div className={row.drop ? styles.Button__IconoUp : styles.Button__Icono}>
@@ -109,57 +133,9 @@ const Navbar = () => {
                 </div>
               </div>
             ))}
-
-            {/* <div className={styles.Dropdown}>
-              <button className={styles.Button} onClick={() => openDropdown(1)}>
-                <span className={styles.Button__Span}>Beneficiario</span>
-                <div className={Dropdown.drop1 ? styles.Button__IconoUp : styles.Button__Icono}>
-                  <FontAwesomeIcon icon="fa-solid fa-caret-down" />
-                </div>
-              </button>
-              <div className={`${styles.Dropdown__Options} ${Dropdown.drop1 ? styles.Dropdown__Options_open : ""}`}>
-                {subMenuBeneficiario.map((row, index) => (
-                  <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(1)} to={row.path} >
-                    {row.title}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className={styles.Dropdown}>
-              <button className={styles.Button} onClick={() => openDropdown(2)}>
-                <span className={styles.Button__Span}>Reportes</span>
-                <div className={Dropdown.drop2 ? styles.Button__IconoUp : styles.Button__Icono}>
-                  <FontAwesomeIcon icon="fa-solid fa-caret-down" />
-                </div>
-              </button>
-              <div className={`${styles.Dropdown__Options} ${Dropdown.drop2 ? styles.Dropdown__Options_open : ""}`}>
-                {subMenuReportes.map((row, index) => (
-                  <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(2)} to={row.path} >
-                    {row.title}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div className={`${styles.Dropdown} ${styles.Profile}`}>
-              <button className={styles.Button} onClick={() => openDropdown(3)}>
-                <span className={styles.Button__Span}>Seguridad</span>
-                <div className={Dropdown.drop3 ? styles.Button__IconoUp : styles.Button__Icono}>
-                  <FontAwesomeIcon icon="fa-solid fa-caret-down" />
-                </div>
-              </button>
-              <div className={`${styles.Dropdown__Options} ${Dropdown.drop3 ? styles.Dropdown__Options_open : ""}`}>
-                {subMenuSeguridad.map((row, index) => (
-                  <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(3)} to={row.path} >
-                    {row.title}
-                  </Link>
-                ))}
-              </div>
-            </div> */}
           </div>
 
-          <div className={styles.Dropdown}>
+          <div ref={menuRef4} className={styles.Dropdown}>
             <button className={styles.Button} onClick={() => openDropdown(4)}>
               <div className={styles.Button__Icono}>
                 <FontAwesomeIcon icon="fa-solid fa-user" />
@@ -179,7 +155,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          <button onClick={ShowMenu} className={styles.ButtonIcon}>
+          <button ref={buttonResponsive} onClick={ShowMenu} className={styles.ButtonIcon}>
             <div className={styles.ButtonIcon__Icono}>
               <FontAwesomeIcon icon="fa-solid fa-bars" />
             </div>
@@ -187,7 +163,7 @@ const Navbar = () => {
 
         </div>
 
-        <div hidden={!menu.DropMenu} className={styles.Dropdown_Menu}>
+        <div ref={menuResponsive} hidden={!menu} className={styles.Dropdown_Menu}>
 
           {Menus.map((row, index) => (
             <div key={index} className={styles.Dropdown}>
@@ -217,54 +193,6 @@ const Navbar = () => {
               </div>
             </div>
           ))}
-
-          {/* <div className={styles.Dropdown}>
-            <button className={styles.Button} onClick={() => openDropdown(1)}>
-              <span className={styles.Button__Span}>Beneficiario</span>
-              <div className={Dropdown.drop1 ? styles.Button__IconoUp : styles.Button__Icono}>
-                <FontAwesomeIcon icon="fa-solid fa-caret-down" />
-              </div>
-            </button>
-            <div className={`${styles.Dropdown__Options} ${Dropdown.drop1 ? styles.Dropdown__Options_open : ""}`}>
-              {subMenuBeneficiario.map((row, index) => (
-                <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(1)} to={row.path} >
-                  {row.title}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div className={styles.Dropdown}>
-            <button className={styles.Button} onClick={() => openDropdown(2)}>
-              <span className={styles.Button__Span}>Reportes</span>
-              <div className={Dropdown.drop2 ? styles.Button__IconoUp : styles.Button__Icono}>
-                <FontAwesomeIcon icon="fa-solid fa-caret-down" />
-              </div>
-            </button>
-            <div className={`${styles.Dropdown__Options} ${Dropdown.drop2 ? styles.Dropdown__Options_open : ""}`}>
-              {subMenuReportes.map((row, index) => (
-                <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(1)} to={row.path} >
-                  {row.title}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div className={`${styles.Dropdown} ${styles.Profile}`}>
-            <button className={styles.Button} onClick={() => openDropdown(3)}>
-              <span className={styles.Button__Span}>Seguridad</span>
-              <div className={Dropdown.drop3 ? styles.Button__IconoUp : styles.Button__Icono}>
-                <FontAwesomeIcon icon="fa-solid fa-caret-down" />
-              </div>
-            </button>
-            <div className={`${styles.Dropdown__Options} ${Dropdown.drop3 ? styles.Dropdown__Options_open : ""}`}>
-              {subMenuSeguridad.map((row, index) => (
-                <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(3)} to={row.path} >
-                  {row.title}
-                </Link>
-              ))}
-            </div>
-          </div> */}
 
           <div className={styles.Dropdown}>
             <button className={styles.Button} onClick={() => openDropdown(4)}>
