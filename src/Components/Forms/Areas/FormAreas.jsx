@@ -49,7 +49,7 @@ function FormAreas() {
 
   const eliminarArea = (idArea) => {
     axios
-      .delete(`http://localhost:4000/servicios/deleteServicios/${idArea}`)
+      .delete(`http://amordownapi-production.up.railway.app/servicios/deleteServicios/${idArea}`)
       .then(function (response) {
         const respuesta = response?.data.message;
         alert("Eliminado Exitoso");
