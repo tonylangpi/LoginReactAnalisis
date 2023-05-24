@@ -117,12 +117,12 @@ const FomRoles = () => {
                   </div>
                   <div className={styles.tooltip}><span className={styles.tooltiptext}>Ver Archivo 1</span>
                     <button>
-                        <a href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH1}`} target="_blank" ><FontAwesomeIcon icon="fa-solid fa-file" /></a>
+                        <a href={`https://amordownapi-production.up.railway.app/beneficiarios/${row.RUTA_ARCH1}`} target="_blank" ><FontAwesomeIcon icon="fa-solid fa-file" /></a>
                     </button>
                   </div>
                   <div className={styles.tooltip}><span className={styles.tooltiptext}>Ver Archivo 2</span>
                     <button>
-                        <a href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH2}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon="fa-solid fa-file" /></a>
+                        <a href={`https://amordownapi-production.up.railway.app/${row.RUTA_ARCH2}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon="fa-solid fa-file" /></a>
                     </button>
                   </div>
                 </td>
