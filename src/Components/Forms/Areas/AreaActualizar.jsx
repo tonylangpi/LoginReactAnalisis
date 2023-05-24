@@ -42,7 +42,7 @@ function AreaActualizar() {
 
   const actualizarArea = () => {
     axios
-      .put(`https://amordownapi-production.up.railway.app/updateServicios/${area.ID_AREA}`, {
+      .put(`https://amordownapi-production.up.railway.app/servicios/updateServicios/${area.ID_AREA}`, { 
         NOMBRE: area.NOMBRE,
         ID_AREA: area.ID_AREA
       })
