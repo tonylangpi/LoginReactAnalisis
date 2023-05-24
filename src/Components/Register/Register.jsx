@@ -94,12 +94,15 @@ const Register = () => {
   return (
     <div className="Container" >
 
+
         <div id="Modal" className="Container-Modal">
           <div className={`Container-Modal__Modal ${prueba.auth ? 'Valido' : 'Invalido'}`}>
             <FontAwesomeIcon className="Container-Modal__Modal-Icono Modal-Item" icon={`fa-solid ${prueba.auth ? 'fa-circle-check' : 'fa-triangle-exclamation'} `} />
             <div className="Container-Modal__Modal-Message Modal-Item">
               <p id="Titulo" className="Titulo">{prueba.auth ? 'USUARIO REGISTRADO 🙂' : 'ERROR 🙁'}</p>
               <p className="Message">{prueba.message}</p>
+=
+
             </div>
             <FontAwesomeIcon className="Container-Modal__Modal-Icono-Cerrar Modal-Item" onClick={Desaparecer} icon="fa-solid fa-xmark" />
           </div>
