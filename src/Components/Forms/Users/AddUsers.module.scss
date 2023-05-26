@@ -139,6 +139,13 @@
             text-align: center;
         }
     }
+
+    &__button {
+        position: relative;
+        align-self: center;
+        justify-self: center;
+        left: 10px;
+    }
 }
 
 @keyframes Aparecer {
@@ -157,4 +164,62 @@
     height: 100vh;
     backdrop-filter: blur(5px);
     animation: Aparecer ease-in 0.2s;
+}
+
+.Button {
+    margin: 0 10px;
+    display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 250px;
+	height: 50px;
+	background: $color-button;
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	font-weight: 100;
+	border: none;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: .3s ease all;
+	border-radius: 5px;
+	position: relative;
+	overflow: hidden;
+
+    &__Span {
+        transition: .4s ease-in-out all;
+	    position: absolute;
+	    left: 17%;
+        color: #FFF;
+    }
+
+    &__Icono {
+        display: flex;
+	    align-items: center;
+	    position: absolute;
+	    z-index: 2;
+	    left: -40px;
+	    transition: .3s ease-in-out all;
+	    opacity: 0;
+    }
+
+    &:hover {
+        background: $color-button-active;
+    }
+
+    &:hover &__Icono {
+        left: calc(100% - 30px);
+        opacity: 1;
+    }
+
+    &:hover &__Span {
+        left: 10px;
+    }
+
+    @media only screen and (max-width: 500px) {
+        & {
+            width: 200px;
+            font-size: 14px;
+        }
+    }
 }

@@ -6,14 +6,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function FormAgregarUsuario() {
 
   const [roles, setRoles] = useState([]);
-  const [showMyModal, setshowMyModal] = useState(false);
   const [areas, setAreas] = useState([]);
+  const [level, setLevels] = useState([]);
+  const [company, setCompany] = useState([]);
   const [usuario, setUsuarios] = React.useState({
     email: '',
     nombre: '',
-    id_roles: 0,
+    id_nivel: 0,
+    id_rol: 0,
     id_empresa: 0,
-    id_area: 0
+    id_area: 0,
+    telefono: ''
   });
   const [prueba, setPrueba] = React.useState({
     auth: false,
@@ -24,7 +27,8 @@ function FormAgregarUsuario() {
   const handleOnClose = () => setshowMyModal(false)
 
   const Listar = () => {
-    axios.get(`http://localhost:4000/roles/`)
+    
+    axios.get(`https://amordownapi-production.up.railway.app/roles/`)
       .then(function (response) {
         setRoles(response.data);
       })
@@ -32,9 +36,25 @@ function FormAgregarUsuario() {
         alert('No se ha encontrado un registro');
       });
 
-    axios.post(`http://localhost:4000/servicios/`, {NOMBRE: ''})
+    axios.post(`https://amordownapi-production.up.railway.app/servicios/`, {NOMBRE: ''})
       .then(function (response) {
         setAreas(response.data);
+      })
+      .catch(function (error) {
+        alert('No se ha encontrado un registro');
+      });
+
+    axios.get(`https://amordownapi-production.up.railway.app/usuarios/getLevels`)
+      .then(function (response) {
+        setLevels(response.data);
+      })
+      .catch(function (error) {
+        alert('No se ha encontrado un registro');
+      });
+
+    axios.get(`https://amordownapi-production.up.railway.app/usuarios/getCompany`)
+      .then(function (response) {
+        setCompany(response.data);
       })
       .catch(function (error) {
         alert('No se ha encontrado un registro');
@@ -103,6 +123,7 @@ function FormAgregarUsuario() {
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <input
+              autoComplete='off'
               name="email"
               placeholder=" "
               type="email"
@@ -119,6 +140,7 @@ function FormAgregarUsuario() {
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <input
+              autoComplete='off'
               name="nombre"
               placeholder=" "
               type="text"
@@ -128,6 +150,60 @@ function FormAgregarUsuario() {
             />
             <span className={styles.ContainerInput__Span}>
               Nombre de Usuario
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.Grid__item}>
+          <div className={styles.ContainerInput}>
+            <select
+              required
+              className={styles.ContainerInput__Input}
+              name="id_nivel"
+              onChange={handleChange}>
+              <option value=""></option>
+              {level.map((row, index) => (
+                <option key={index} value={row.ID_NIVEL}>{row.NIVEL}</option>
+              ))}
+            </select>
+            <span className={styles.ContainerInput__Span}>
+              Nivel del Usuario
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.Grid__item}>
+          <div className={styles.ContainerInput}>
+            <select
+              required
+              className={styles.ContainerInput__Input}
+              name="id_rol"
+              onChange={handleChange}>
+              <option value=""></option>
+              {roles.map((row, index) => (
+                <option key={index} value={row.id_roles}>{row.nombre_rol}</option>
+              ))}
+            </select>
+            <span className={styles.ContainerInput__Span}>
+              Rol del Usuario
+            </span>
+          </div>
+        </div>
+
+        <div className={styles.Grid__item}>
+          <div className={styles.ContainerInput}>
+            <select
+              required
+              className={styles.ContainerInput__Input}
+              name="id_empresa"
+              onChange={handleChange}>
+              <option value=""></option>
+              {company.map((row, index) => (
+                <option key={index} value={row.id_empresa}>{row.nombre}</option>
+              ))}
+            </select>
+            <span className={styles.ContainerInput__Span}>
+              Empresa del Usuario
             </span>
           </div>
         </div>
@@ -152,47 +228,27 @@ function FormAgregarUsuario() {
 
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
-            <select
-              required
+            <input
+              autoComplete='off'
+              name="telefono"
+              placeholder=" "
+              type="text"
+              required="required"
+              onChange={handleChange}
               className={styles.ContainerInput__Input}
-              name="id_empresa"
-              onChange={handleChange}>
-              <option value=""></option>
-              <option value="1">Coatepeque</option>
-              <option value="2">Pajapita</option>
-              <option value="3">Ayutla</option>
-              <option value="4">RBC</option>
-            </select>
+            />
             <span className={styles.ContainerInput__Span}>
-              Empresa del Usuario
+              Telefono del Usuario
             </span>
           </div>
         </div>
 
-        <div className={styles.Grid__item}>
-          <div className={styles.ContainerInput}>
-            <select
-              required
-              className={styles.ContainerInput__Input}
-              name="id_roles"
-              onChange={handleChange}>
-              <option value=""></option>
-              {roles.map((row, index) => (
-                <option key={index} value={row.id_roles}>{row.nombre_rol}</option>
-              ))}
-            </select>
-            <span className={styles.ContainerInput__Span}>
-              Rol del Usuario
-            </span>
-          </div>
-        </div>
-
-        <div className="Container-Beneficiario__Grid-button">
-          <button onClick={()=>setshowMyModal(true)} id="button-Historial" className="Button Button--Guardar">
-            <div className="Button__Icono">
-              <FontAwesomeIcon icon="fa-solid fa-file-export" />
+        <div className={styles.Grid__button}>
+          <button id="button-Historial" className={styles.Button}>
+            <div className={styles.Button__Icono}>
+              <FontAwesomeIcon icon="fa-solid fa-user-plus" />
             </div>
-            <span className="Button__Span Iniciar">Guardar</span>
+            <span className={styles.Button__Span}>Guardar Usuario</span>
           </button>
         </div>
       </form>

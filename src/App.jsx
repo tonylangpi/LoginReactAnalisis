@@ -1,7 +1,6 @@
 import './App.scss'; // Importar estilos
 import Login from "./Components/Login/Login";
 import React, { useEffect } from "react";
-import Register from './Components/Register/Register';
 import FormBeneficiario from './Components/Forms/Beneficiarios/FormBeneficiario';
 import Navbar  from "./Components/Navbar/Navbar";
 import ListarBeneficiarios from "./Components/Forms/Beneficiarios/FomListarBeneficiarios"
@@ -25,7 +24,6 @@ import {
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Home from "./Components/Home/Home";
-import ValidarToken from './Components/Validar/validarToken'; 
 
 function App() {
 
@@ -78,9 +76,7 @@ function App() {
           </div>
         </> : <>
           <Routes>
-            <Route path='/registrar' element={<Register />} />
             <Route path='/' element={<Login />} />
-            <Route path='/validarToken' element={<ValidarToken />} />
             <Route path='*' element={<Navigate to='/' />} />
           </Routes>
         </>

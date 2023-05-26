@@ -1,10 +1,12 @@
+@import '../../Styles/Mixins';
+@import '../../Styles/Variables';
+
 .Container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    
 }
 
 .Background {
@@ -15,4 +17,17 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.ModalShow {
+    @include FlexBox(center, center, column);
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.2);
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+    animation: Aparecer ease-in 0.2s;
 }

@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormEncargado from "./FormEncargado";
-import FormHistorialClinico from "./formHistorialClinico";
-import FormPrenatales from "./FormPrenatales";
-import FormPerinatales from "./FormPerinatales";
+// import FormHistorialClinico from "./formHistorialClinico";
+// import FormPrenatales from "./FormPrenatales";
+// import FormPerinatales from "./FormPerinatales";
+// import FormPostNatal from "./FormPostNatal";
 import axios from "axios";
-import FormPostNatal from "./FormPostNatal";
+
 import styles from './Beneficiario.module.scss';
 
 
 const FormBeneficiario = () => {
+  const [show, setShow] = useState(true);
   const [archivo, setArchivo] = useState(null);
   const [idBeneficiary, setIdBeneficiary] = useState(null);
   const [isBeneficiary, setisBeneficiary] = useState(false);
@@ -92,7 +94,8 @@ const FormBeneficiario = () => {
             !idBeneficiaryCurrent
               ? alert("no existe beneficiario")
               : setIdBeneficiary(idBeneficiaryCurrent);
-            setisBeneficiary(true);
+              setShow(false);
+              setisBeneficiary(true);
           })
           .catch(function (response) {
             alert("No se ha encontrado un registro");
@@ -103,6 +106,11 @@ const FormBeneficiario = () => {
       }
     }
   };
+
+  const showOtherComponent = ()=>{
+    // setShow(false);
+    // setisBeneficiary(true);
+  }
 
   return (
     <>
@@ -345,7 +353,7 @@ const FormBeneficiario = () => {
               </div>
 
               <div className={styles.Grid__button}>
-                <button id="button-beneficiario" className="Button Button--Guardar">
+                <button onClick={showOtherComponent} id="button-beneficiario" className="Button Button--Guardar">
                   <div className="Button__Icono">
                     <FontAwesomeIcon icon="fa-solid fa-file-export" />
                   </div>
@@ -357,15 +365,15 @@ const FormBeneficiario = () => {
         ) : null}
 
         {/* DATOS DEL ENCARGADO */}
-        <FormEncargado idBene={idBeneficiary} />
+        <FormEncargado showComponent={show} idBene={idBeneficiary} />
         {/* HISTORIAL */}
-        <FormHistorialClinico idBenefi={idBeneficiary} />
+        {/* <FormHistorialClinico showComponent={show} idBenefi={idBeneficiary} /> */}
         {/* PRE-NATALES */}
-        <FormPrenatales idBen={idBeneficiary} />
+        {/* <FormPrenatales idBen={idBeneficiary} /> */}
         {/* PERINATALES    */}
-        <FormPerinatales idBen={idBeneficiary} />
+        {/* <FormPerinatales idBen={idBeneficiary} /> */}
         {/* POSTNATALES */}
-        <FormPostNatal idBen={idBeneficiary} />
+        {/* <FormPostNatal idBen={idBeneficiary} /> */}
       </div>
     </>
   );

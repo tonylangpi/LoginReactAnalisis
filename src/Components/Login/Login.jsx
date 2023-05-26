@@ -15,10 +15,12 @@ function Login() {
     email: "",
     password: "",
   });
-  const [prueba, setPrueba] = React.useState({
+  const [modal, setModal] = React.useState({
     auth: false,
     message: "",
+    show: false
   });
+
   const saveDataTemporaly = (e) => {
     e.preventDefault();
     setUser({
@@ -42,11 +44,11 @@ function Login() {
             //aqui se redirige al usuario a la pagina home
             navigate(0);
           } else {
-            setPrueba({
+            setModal({
               auth: data.auth,
-              message: data.message
+              message: data.message,
+              show : true
             });
-            document.getElementById('Modal').style.display = "flex";
           }
         })
         .catch((error) => console.log(error));
@@ -68,18 +70,18 @@ function Login() {
   };
 
   function Desaparecer() {
-    document.getElementById('Modal').style.display = "none";
+    setModal({show: false});
   }
 
   return (
     <div className={styles.Container}>
       
-      <div id="Modal" className="Container-Modal">
+      <div className={modal.show ? styles.ModalShow : "Container-Modal"}>
         <div className="Container-Modal__Modal">
           <FontAwesomeIcon className="Container-Modal__Modal-Icono Modal-Item" icon="fa-solid fa-triangle-exclamation" />
           <div className="Container-Modal__Modal-Message Modal-Item">
             <p className="Titulo">ERROR 🙁</p>
-            <p className="Message">{prueba.message}</p>
+            <p className="Message">{modal.message}</p>
           </div>
           <FontAwesomeIcon className="Container-Modal__Modal-Icono-Cerrar Modal-Item" onClick={Desaparecer} icon="fa-solid fa-xmark" />
         </div>
@@ -99,6 +101,7 @@ function Login() {
           <div className="Container-Form__Form-item">
             <div className="Container-Input">
               <input
+                autoComplete="off"
                 placeholder=" "
                 type="email"
                 className="Container-Input__Input"
@@ -112,6 +115,7 @@ function Login() {
           <div className="Container-Form__Form-item">
             <div className="Container-Input">
               <input
+                autoComplete="off"
                 type={showpass ? "text" : "password"}
                 className="Container-Input__Input"
                 name="password"
@@ -133,12 +137,6 @@ function Login() {
               <span className="Button__Span Iniciar">Iniciar Sesion</span>
             </button>
           </div>
-
-          {/* <div className="Container-Form__Form-item">
-            <span className="Message">¿No tienes una cuenta? </span>
-            <Link className="Link" to={"/registrar"}>Registrate</Link>
-          </div> */}
-
         </form>
       </div>
     </div>
