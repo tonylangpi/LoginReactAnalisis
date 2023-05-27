@@ -2,26 +2,28 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ModalPeri({ beneficiary, onClose }) {
-  const [informacion, setInformacion] = useState({});
+  const [peri, setPeri] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchInformacion = async () => {
+    const fetchPeri = async () => {
       try {
         const response = await axios.get(`https://amordownapi-production.up.railway.app/beneficiarios/buscarPerinatalesBene/${beneficiary.ID_BENEFICIARIO}`);
-        setInformacion(response.data[0]); 
+        setPeri(response.data[0]); 
         setIsLoading(false);
       } catch (error) {
         alert('Error al obtener la información:', error);
       }
     };
 
-    fetchInformacion();
+    
+
+    fetchPeri();
   }, [beneficiary.ID_BENEFICIARIO]);
 
-  const actualizarInformacion = async () => {
+  const actualizarPeri = async () => {
     try {
-      await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePerinatales/${beneficiary.ID_BENEFICIARIO}`, informacion);
+      await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePerinatales/${beneficiary.ID_BENEFICIARIO}`, peri);
       alert('Información actualizada correctamente');
     } catch (error) {
       alert('Error al actualizar la información:', error);
@@ -40,21 +42,21 @@ function ModalPeri({ beneficiary, onClose }) {
       <h2>Editar Informacion PeriNatal</h2>
       <div>
         <label>Lloro inmediatamente al nacer:</label>
-        <input type="text" value={informacion.LLORO_INMEDIATAMENTE} onChange={(e) => setInformacion({ ...informacion, LLORO_INMEDIATAMENTE: e.target.value })} />
+        <input type="text" value={peri.LLORO_INMEDIATAMENTE} onChange={(e) => setPeri({ ...peri, LLORO_INMEDIATAMENTE: e.target.value })} />
       </div>
       <div>
         <label>Coloración:</label>
-        <input type="text" value={informacion.COLORACION} onChange={(e) => setInformacion({ ...informacion, COLORACION: e.target.value })} />
+        <input type="text" value={peri.COLORACION} onChange={(e) => setPeri({ ...peri, COLORACION: e.target.value })} />
       </div>
       <div>
         <label>Incubadora:</label>
-        <input type="text" value={informacion.INCUBADORA} onChange={(e) => setInformacion({ ...informacion, INCUBADORA: e.target.value })} />
+        <input type="text" value={peri.INCUBADORA} onChange={(e) => setPeri({ ...peri, INCUBADORA: e.target.value })} />
       </div>
       <div>
         <label>Color:</label>
-        <input type="text" value={informacion.COLOR} onChange={(e) => setInformacion({ ...informacion, COLOR: e.target.value })} />
+        <input type="text" value={peri.COLOR} onChange={(e) => setPeri({ ...peri, COLOR: e.target.value })} />
       </div>
-      <button onClick={actualizarInformacion}>Actualizar</button>
+      <button onClick={actualizarPeri}>Actualizar</button>
      
     </div>
   );

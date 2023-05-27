@@ -22,6 +22,8 @@ const FomRoles = () => {
 
   const [showEditModal, setShowEditModal] = useState(false);
   const [historialC, setHistorialC] = useState(false);
+  const [peri, setPeri] = useState(false);
+  const [prenatal, setPrenatal] = useState(false);
 
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(false);
  
@@ -35,6 +37,16 @@ const FomRoles = () => {
     setSelectedBeneficiary(beneficiary);
     setHistorialC(true);
     };
+
+    const handleEditClick3 = (beneficiary) => {
+      setSelectedBeneficiary(beneficiary);
+      setPeri(true);
+      };
+
+      const handleEditClick4 = (beneficiary) => {
+        setSelectedBeneficiary(beneficiary);
+        setPrenatal(true);
+        };
 
   // const handleEditClick = () => {
   //   setDropdown(true);
@@ -197,7 +209,7 @@ const FomRoles = () => {
                     {Dropdown && (
                       <div className={styles.dropdownContent}>
                         <div className={styles.tooltip}>
-                          <button onClick={() => setSelectedOption('option1')}>
+                          <button onClick={() => { handleEditClick3(row) }}>
                             <span className={styles.tooltiptext}>Editar PeriNatal</span>
                             <FontAwesomeIcon icon="fa-sharp fa-light fa-baby-carriage" />
                           </button>
@@ -221,7 +233,7 @@ const FomRoles = () => {
                     {Dropdown && (
                       <div className={styles.dropdownContent}>
                         <div className={styles.tooltip}>
-                          <button onClick={() => setSelectedOption('option5')}>
+                          <button onClick={() => { handleEditClick4(row) }}>
                             <span className={styles.tooltiptext}>Editar PreNatal</span>
                             <FontAwesomeIcon icon="fa-solid fa-person-pregnant" />
                           </button>
@@ -249,12 +261,12 @@ const FomRoles = () => {
         {showEditModal && selectedBeneficiary && (
           <EditModal beneficiary={selectedBeneficiary} onClose={() => setShowEditModal(false)} />
         )}
-        {selectedOption === 'option1' && (
-          <ModalPeri beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(null)} />
+        {peri && selectedBeneficiary && (
+          <ModalPeri beneficiary={selectedBeneficiary} onClose={() => setPeri(false)} />
         )}
 
         {selectedOption === 'option2' && (
-          <ModalEncargado beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(null)} />
+          <ModalEncargado beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(false)} />
         )}
 
         {historialC && selectedBeneficiary && (
@@ -262,10 +274,10 @@ const FomRoles = () => {
         )}
 
         {selectedOption === 'option4' && (
-          <ModalPostNatal beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(null)} />
+          <ModalPostNatal beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(false)} />
         )}
-        {selectedOption === 'option5' && (
-          <ModalPreNatal beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(null)} />
+        {prenatal&& selectedBeneficiary && (
+          <ModalPreNatal beneficiary={selectedBeneficiary} onClose={() => setPrenatal(false)} />
         )}
 
 

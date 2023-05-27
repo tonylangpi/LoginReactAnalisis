@@ -10,7 +10,7 @@ function ModalPostNatal({ beneficiary, onClose }) {
       try {
         const response = await axios.get(`https://amordownapi-production.up.railway.app/beneficiarios/buscarPostNatalesBene/${beneficiary.ID_BENEFICIARIO}`);
         setPostNatalInfo(response.data[0]); 
-        setIsLoading(false);
+console.log(response);
       } catch (error) {
         alert('Error al obtener la información:', error);
       }

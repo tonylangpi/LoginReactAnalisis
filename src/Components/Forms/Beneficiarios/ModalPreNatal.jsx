@@ -2,25 +2,27 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ModalPreNatal({ beneficiary, onClose }) {
-  const [preNatalInfo, setPreNatalInfo] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
+  const [prenatal, setPrenatal] = useState({});
   useEffect(() => {
-    const fetchPreNatalInfo = async () => {
+    const fetchPrenatal = async () => {
+
+      console.log(beneficiary.ID_BENEFICIARIO);
       try {
         const response = await axios.get(`https://amordownapi-production.up.railway.app/beneficiarios/buscarPrenatalesBene/${beneficiary.ID_BENEFICIARIO}`);
-        setPreNatalInfo(response.data[0]);
+        setPrenatal(response.data[0]);
+       setIsLoading(false);
       } catch (error) {
         alert('Error al obtener la información:', error);
       }
     };
 
-    fetchPreNatalInfo();
+    fetchPrenatal();
   }, [beneficiary.ID_BENEFICIARIO]);
 
-  const actualizarPreNatalInfo = async () => {
+  const actualizarPrenatal= async () => {
     try {
-      await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePrenatales/${beneficiary.ID_BENEFICIARIO}`, preNatalInfo);
+      await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePrenatales/${beneficiary.ID_BENEFICIARIO}`, prenatal);
       alert('Información actualizada correctamente');
     } catch (error) {
       alert('Error al actualizar la información:', error);
@@ -39,30 +41,30 @@ function ModalPreNatal({ beneficiary, onClose }) {
       <h2>Información Prenatal</h2>
       <div>
         <label>Embarazo a término:</label>
-        <input type="text" value={preNatalInfo.EMBARAZO_TERMINO} onChange={(e) => setPreNatalInfo({ ...preNatalInfo, EMBARAZO_TERMINO: e.target.value })} />
+        <input type="text" value={prenatal.EMBARAZO_TERMINO} onChange={(e) => setPrenatal({ ...prenatal, EMBARAZO_TERMINO: e.target.value })} />
       </div>
       <div>
         <label>Explique el embarazo:</label>
-        <input type="text" value={preNatalInfo.EXPLIQUE_EMBARAZO} onChange={(e) => setPreNatalInfo({ ...preNatalInfo, EXPLIQUE_EMBARAZO: e.target.value })} />
+        <input type="text" value={prenatal.EXPLIQUE_EMBARAZO} onChange={(e) => setPrenatal({ ...prenatal, EXPLIQUE_EMBARAZO: e.target.value })} />
       </div>
       <div>
         <label>Parto normal:</label>
-        <input type="text" value={preNatalInfo.PARTO_NORMAL} onChange={(e) => setPreNatalInfo({ ...preNatalInfo, PARTO_NORMAL: e.target.value })} />
+        <input type="text" value={prenatal.PARTO_NORMAL} onChange={(e) => setPrenatal({ ...prenatal, PARTO_NORMAL: e.target.value })} />
       </div>
       <div>
         <label>Explique el parto:</label>
-        <input type="text" value={preNatalInfo.EXPLIQUE_PARTO} onChange={(e) => setPreNatalInfo({ ...preNatalInfo, EXPLIQUE_PARTO: e.target.value })} />
+        <input type="text" value={prenatal.EXPLIQUE_PARTO} onChange={(e) => setPrenatal({ ...prenatal, EXPLIQUE_PARTO: e.target.value })} />
       </div>
       <div>
         <label>Complicaciones:</label>
-        <input type="text" value={preNatalInfo.COMPLICACIONES} onChange={(e) => setPreNatalInfo({ ...preNatalInfo, COMPLICACIONES: e.target.value })} />
+        <input type="text" value={prenatal.COMPLICACIONES} onChange={(e) => setPrenatal({ ...prenatal, COMPLICACIONES: e.target.value })} />
       </div>
       <div>
         <label>Explique la complicación:</label>
-        <input type="text" value={preNatalInfo.EXPLIQUE_COMPLICACION} onChange={(e) => setPreNatalInfo({ ...preNatalInfo, EXPLIQUE_COMPLICACION: e.target.value })} />
+        <input type="text" value={prenatal.EXPLIQUE_COMPLICACION} onChange={(e) => setPrenatal({ ...prenatal, EXPLIQUE_COMPLICACION: e.target.value })} />
       </div>
-      <button onClick={actualizarPreNatalInfo}>Actualizar</button>
-      <button onClick={closeModal}>Cerrar</button>
+      <button onClick={actualizarPrenatal}>Actualizar</button>
+  
     </div>
   );
 }
