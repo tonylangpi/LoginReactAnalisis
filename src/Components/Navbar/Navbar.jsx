@@ -6,6 +6,24 @@ import styles from "./Navbar.module.scss";
 
 const Navbar = () => {
 
+  const [menuBeneficiario, setMenuBeneficiario] = React.useState([
+    { title: "Ficha de Ingreso", path: "/formBene", icon: "", permiso: true },
+    { title: "Listado de Beneficiarios", path: "/FormListarBeneficiarios", icon: "", permiso: true },
+    { title: "Servicios", path: "/FormServicios", icon: "", permiso: true }
+  ])
+
+  const [menuReportes, setMenuReportes] = React.useState([
+    { title: "Reporte de Areas", path: "/FormReporteArea", icon: "", permiso: true },
+    { title: "Reporte de Beneficiarios", path: "/FormReporteBeneficiario", icon: "", permiso: true },
+    { title: "Reporte de Citas", path: "/FormListarCitas", icon: "", permiso: true }
+  ])
+
+  const [menuSeguridad, setMenuSeguridad] = React.useState([
+    { title: "Areas", path: "/FormAreas", icon: "", permiso: true },
+    { title: "Usuarios", path: "/FormUsuarios", icon: "", permiso: true },
+  ])
+
+
   const [Dropdown, setDropdown] = React.useState({
     drop1: false,
     drop2: false,
@@ -53,6 +71,21 @@ const Navbar = () => {
   const menuRef3 = useRef();
   const menuRef4 = useRef();
 
+  const ModifySubMenus = ()=>{
+    if (localStorage.getItem('nivel') == 2) {
+      menuSeguridad[1].permiso =false ;
+    } else if (localStorage.getItem('nivel') == 3) {
+
+      menuBeneficiario[0].permiso = false;
+
+      menuReportes[0].permiso = false;
+      menuReportes[1].permiso = false;
+
+      menuSeguridad[0].permiso = false ;
+      menuSeguridad[1].permiso = false ;
+    }
+  }
+
   useEffect(()=>{
     let DropDown = (e) => {
       if (!menuRef1.current.contains(e.target) && !menuRef2.current.contains(e.target) && !menuRef3.current.contains(e.target) && !menuRef4.current.contains(e.target) && !menuResponsive.current.contains(e.target) && !buttonResponsive.current.contains(e.target)) {
@@ -63,33 +96,39 @@ const Navbar = () => {
 
     document.addEventListener('mousedown', DropDown);
 
+    ModifySubMenus();
+
     return () => {
       document.removeEventListener('mousedown', DropDown);
     }
   })
 
+  useEffect(()=>{
+    ModifySubMenus();
+  })
+
   const Menus = [
     { title: "BENEFICIARIO", ref1: menuRef1, drop: Dropdown.drop1, permiso: true },
     { title: "REPORTES", ref1: menuRef2, drop: Dropdown.drop2, permiso: true },
-    { title: "SEGURIDAD", ref1: menuRef3, drop: Dropdown.drop3, permiso: true },
+    { title: "SEGURIDAD", ref1: menuRef3, drop: Dropdown.drop3, permiso: false },
   ];
 
-  const subMenuBeneficiario = [
-    { title: "Ficha de Ingreso", path: "/formBene", icon: "", permiso: true },
-    { title: "Listado de Beneficiarios", path: "/FormListarBeneficiarios", icon: "", permiso: true },
-    { title: "Servicios", path: "/FormServicios", icon: "", permiso: true }
-  ]
+  // const subMenuBeneficiario = [
+  //   { title: "Ficha de Ingreso", path: "/formBene", icon: "", permiso: true },
+  //   { title: "Listado de Beneficiarios", path: "/FormListarBeneficiarios", icon: "", permiso: true },
+  //   { title: "Servicios", path: "/FormServicios", icon: "", permiso: true }
+  // ]
 
-  const subMenuReportes = [
-    { title: "Reporte de Areas", path: "/FormReporteArea", icon: "", permiso: true },
-    { title: "Reporte de Beneficiarios", path: "/FormReporteBeneficiario", icon: "", permiso: true },
-    { title: "Reporte de Citas", path: "/FormListarCitas", icon: "", permiso: true }
-  ]
+  // const subMenuReportes = [
+  //   { title: "Reporte de Areas", path: "/FormReporteArea", icon: "", permiso: true },
+  //   { title: "Reporte de Beneficiarios", path: "/FormReporteBeneficiario", icon: "", permiso: true },
+  //   { title: "Reporte de Citas", path: "/FormListarCitas", icon: "", permiso: true }
+  // ]
 
-  const subMenuSeguridad = [
-    { title: "Areas", path: "/FormAreas", icon: "", permiso: true },
-    { title: "Usuarios", path: "/FormUsuarios", icon: "", permiso: true },
-  ]
+  // const subMenuSeguridad = [
+  //   { title: "Areas", path: "/FormAreas", icon: "", permiso: true },
+  //   { title: "Usuarios", path: "/FormUsuarios", icon: "", permiso: true },
+  // ]
 
   return (
     <>
@@ -106,7 +145,7 @@ const Navbar = () => {
           <div className={styles.Navbar__Buttons}>
 
             {Menus.map((row, index) => (
-              <div ref={row.ref1} key={index}  className={styles.Dropdown}>
+              <div ref={row.ref1} key={index} className={styles.Dropdown}>
                 <button className={styles.Button} onClick={() => openDropdown(index+1)}>
                   <span className={styles.Button__Span}>{row.title}</span>
                   <div className={row.drop ? styles.Button__IconoUp : styles.Button__Icono}>
@@ -116,18 +155,21 @@ const Navbar = () => {
                 <div className={`${styles.Dropdown__Options} ${row.drop ? styles.Dropdown__Options_open : ""}`}>
                   {
                   row.title == 'BENEFICIARIO' ?
-                    subMenuBeneficiario.map((row, index) => (
+                    menuBeneficiario.map((row, index) => (
+                    row.permiso ?
                     <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(1)} to={row.path} >
                       {row.title}
-                    </Link>
-                  )) : row.title == 'REPORTES' ? subMenuReportes.map((row, index) => (
+                    </Link> : null
+                  )) : row.title == 'REPORTES' ? menuReportes.map((row, index) => (
+                    row.permiso ? 
                     <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(2)} to={row.path} >
                       {row.title}
-                    </Link>
-                  )) : row.title == 'SEGURIDAD' ? subMenuSeguridad.map((row, index) => (
-                    <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(3)} to={row.path} >
-                      {row.title}
-                    </Link>
+                    </Link> : null
+                  )) : row.title == 'SEGURIDAD' ? menuSeguridad.map((row, index) => (
+                    row.permiso ? (
+                      <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(3)} to={row.path} >
+                        {row.title}
+                      </Link>) : null
                   )) : null
                 }
                 </div>
@@ -146,7 +188,7 @@ const Navbar = () => {
               </div>
             </button>
             <div className={`${styles.Dropdown__Options} ${Dropdown.drop4 ? styles.Dropdown__Options_open : ""}`}>
-              <Link className={styles.Dropdown__Option} onClick={() => closeDropdown(4)} to="/FormAreas" >
+              <Link className={styles.Dropdown__Option} onClick={() => closeDropdown(4)} to="/MiCuenta" >
                 Mi Cuenta
               </Link>
               <Link className={styles.Dropdown__Option} onClick={() => { localStorage.clear(); location.reload(); }}>
@@ -176,18 +218,21 @@ const Navbar = () => {
               <div className={`${styles.Dropdown__Options} ${row.drop ? styles.Dropdown__Options_open : ""}`}>
                 {
                   row.title == 'BENEFICIARIO' ?
-                    subMenuBeneficiario.map((row, index) => (
+                    menuBeneficiario.map((row, index) => (
+                      row.permiso ?
                       <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(1)} to={row.path} >
                         {row.title}
-                      </Link>
-                    )) : row.title == 'REPORTES' ? subMenuReportes.map((row, index) => (
+                      </Link> : null
+                    )) : row.title == 'REPORTES' ? menuReportes.map((row, index) => (
+                      row.permiso ?
                       <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(2)} to={row.path} >
                         {row.title}
-                      </Link>
-                    )) : row.title == 'SEGURIDAD' ? subMenuSeguridad.map((row, index) => (
+                      </Link> : null
+                    )) : row.title == 'SEGURIDAD' ? menuSeguridad.map((row, index) => (
+                      row.permiso ?
                       <Link key={index} className={styles.Dropdown__Option} onClick={() => closeDropdown(3)} to={row.path} >
                         {row.title}
-                      </Link>
+                      </Link> : null
                     )) : null
                 }
               </div>
@@ -205,7 +250,7 @@ const Navbar = () => {
               </div>
             </button>
             <div className={`${styles.Dropdown__Options} ${Dropdown.drop4 ? styles.Dropdown__Options_open : ""}`}>
-              <Link className={styles.Dropdown__Option} onClick={`${() => closeDropdown(4)} ${ShowMenu}`} to="/FormAreas" >
+              <Link className={styles.Dropdown__Option} onClick={`${() => closeDropdown(4)} ${ShowMenu}`} to="/MiCuenta" >
                 Mi Cuenta
               </Link>
               <Link className={styles.Dropdown__Option} onClick={() => { localStorage.clear(); location.reload(); }}>

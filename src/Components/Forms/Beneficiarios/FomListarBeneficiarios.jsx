@@ -16,7 +16,7 @@ import ModalPreNatal from './ModalPreNatal';
 import { Link } from 'react-router-dom';
 
 
-const FomRoles = () => {
+const FormListarBeneficiario = () => {
 
   const [selectedOption, setSelectedOption] = useState(false);
 
@@ -30,24 +30,24 @@ const FomRoles = () => {
  
   
   const handleEditClick1 = (beneficiary) => {
-   setSelectedBeneficiary(beneficiary);
-   setShowEditModal(true);
-   };
+    setSelectedBeneficiary(beneficiary);
+    setShowEditModal(true);
+  };
 
-   const handleEditClick2 = (beneficiary) => {
+  const handleEditClick2 = (beneficiary) => {
     setSelectedBeneficiary(beneficiary);
     setHistorialC(true);
-    };
+  };
 
-    const handleEditClick3 = (beneficiary) => {
-      setSelectedBeneficiary(beneficiary);
-      setPeri(true);
-      };
+  const handleEditClick3 = (beneficiary) => {
+    setSelectedBeneficiary(beneficiary);
+    setPeri(true);
+  };
 
-      const handleEditClick4 = (beneficiary) => {
-        setSelectedBeneficiary(beneficiary);
-        setPrenatal(true);
-        };
+  const handleEditClick4 = (beneficiary) => {
+    setSelectedBeneficiary(beneficiary);
+    setPrenatal(true);
+  };
 
         const handleEditClick5 = (beneficiary) => {
           setSelectedBeneficiary(beneficiary);
@@ -88,7 +88,7 @@ const FomRoles = () => {
 
   const ListarBeneficiarios = () => {
     axios
-      .post(`http://localhost:4000/beneficiarios/allByName`, { nombre: name.nombre })
+      .post(`https://amordownapi-production.up.railway.app/beneficiarios/allByName`, { nombre: name.nombre })
       .then(function (response) {
         setBeneficiarios(response.data);
       })
@@ -136,7 +136,9 @@ const FomRoles = () => {
               <th>Genero</th>
               <th>Direccion</th>
               <th>Acciones</th>
-              <th>Editar</th>
+              {localStorage.getItem('nivel') == 3 ? null : (
+                <th>Editar</th>
+              )}
             </tr>
           </thead>
           <tbody>
@@ -152,9 +154,11 @@ const FomRoles = () => {
                 <td>{row.SEXO}</td>
                 <td>{row.DIRECCION}</td>
                 <td className={styles.actionsBeneficiary}>
-                  <div className={styles.tooltip}><span className={styles.tooltiptext}>Agregar Cita</span>
-                    <button onClick={() => { setshowMyModal(true), underSelect(row) }}><FontAwesomeIcon icon="fa-solid fa-calendar-check" /></button>
-                  </div>
+                  {localStorage.getItem('nivel') == 3 ? null : (
+                    <div className={styles.tooltip}><span className={styles.tooltiptext}>Agregar Cita</span>
+                      <button onClick={() => { setshowMyModal(true), underSelect(row) }}><FontAwesomeIcon icon="fa-solid fa-calendar-check" /></button>
+                    </div>
+                  )}
                   <div className={styles.tooltip}><span className={styles.tooltiptext}>Ver Archivo 1</span>
                     <button>
                       <a href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH1}`} target="_blank" ><FontAwesomeIcon icon="fa-solid fa-file" /></a>
@@ -165,61 +169,60 @@ const FomRoles = () => {
                       <a href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH2}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon="fa-solid fa-file" /></a>
                     </button>
                   </div>
-                   {/* <button onClick={() => handleEditClick1(row)}>
-                      <FontAwesomeIcon icon="fa-solid fa-newspaper" />
-                      <span className={styles.Button__Span}>Actualizar</span>
-                    </button>  
-                     */}
                 </td>
-                <td className={styles.actionsBeneficiary}>
+                {localStorage.getItem('nivel') == 3 ? null : (
+                  <td className={styles.actionsBeneficiary}>
 
-                <div className={styles.tooltip}><span className={styles.tooltiptext}>Agregar Cita</span>
-                {Dropdown && (
-                      <div className={styles.dropdownContent}>
-                        <div className={styles.tooltip}>
-                          <button onClick={() => { handleEditClick1(row) }} >
-                            <span className={styles.tooltiptext}>Datos</span>
-                            <FontAwesomeIcon icon="fa-solid fa-user" />
-                          </button>
+                    <div className={styles.tooltip}><span className={styles.tooltiptext}>Agregar Cita</span>
+                      {Dropdown && (
+                        <div className={styles.dropdownContent}>
+                          <div className={styles.tooltip}>
+                            <button onClick={() => { handleEditClick1(row) }} >
+                              <span className={styles.tooltiptext}>Datos</span>
+                              <FontAwesomeIcon icon="fa-solid fa-user" />
+                            </button>
+                          </div>
                         </div>
+                      )}
                     </div>
-                  )}
-                  </div>
-                  <div className={styles.tooltip}><span className={styles.tooltiptext}></span>
-                  {Dropdown && (
-                      <div className={styles.dropdownContent}>
-                            <div className={styles.tooltip}>
-                          <button onClick={() => handleEditClick2(row)}>
-                            <span className={styles.tooltiptext}>Encargado</span>
-                            <FontAwesomeIcon icon="fa-solid fa-person" />
-                          </button>
+                    
+                    <div className={styles.tooltip}><span className={styles.tooltiptext}></span>
+                      {Dropdown && (
+                        <div className={styles.dropdownContent}>
+                          <div className={styles.tooltip}>
+                            <button onClick={() => handleEditClick2(row)}>
+                              <span className={styles.tooltiptext}>Encargado</span>
+                              <FontAwesomeIcon icon="fa-solid fa-person" />
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
+                      )}
+                    </div>
 
-                <div className={styles.tooltip}>
-                    {Dropdown && (
-                      <div className={styles.dropdownContent}>
-                        <div className={styles.tooltip}>
-                          <button onClick={() => { handleEditClick2(row) }}>
-                            <span className={styles.tooltiptext}>Historial Clinico</span>
-                            <FontAwesomeIcon icon="fa-sharp fa-light fa-clipboard" />
-                          </button>
+                    <div className={styles.tooltip}>
+                      {Dropdown && (
+                        <div className={styles.dropdownContent}>
+                          <div className={styles.tooltip}>
+                            <button onClick={() => { handleEditClick2(row) }}>
+                              <span className={styles.tooltiptext}>Historial Clinico</span>
+                              <FontAwesomeIcon icon="fa-sharp fa-light fa-clipboard" />
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
+                    </div>
 
-                  </div>
-                  <div className={styles.tooltip}>
-                    {Dropdown && (
-                      <div className={styles.dropdownContent}>
-                        <div className={styles.tooltip}>
-                          <button onClick={() => { handleEditClick3(row) }}>
-                            <span className={styles.tooltiptext}>Editar PeriNatal</span>
-                            <FontAwesomeIcon icon="fa-sharp fa-light fa-baby-carriage" />
-                          </button>
+                    <div className={styles.tooltip}>
+                      {Dropdown && (
+                        <div className={styles.dropdownContent}>
+                          <div className={styles.tooltip}>
+                            <button onClick={() => { handleEditClick3(row) }}>
+                              <span className={styles.tooltiptext}>Editar PeriNatal</span>
+                              <FontAwesomeIcon icon="fa-sharp fa-light fa-baby-carriage" />
+                            </button>
+                          </div>
                         </div>
+<<<<<<< HEAD
                       </div>
                     )}
                   </div>
@@ -231,27 +234,44 @@ const FomRoles = () => {
                             <span className={styles.tooltiptext}>Editar PostNatal</span>
                             <FontAwesomeIcon icon="fa-solid fa-notes-medical" />
                           </button>
+=======
+                      )}
+                    </div>
+
+                    <div className={styles.tooltip}>
+                      {Dropdown && (
+                        <div className={styles.dropdownContent}>
+                          <div className={styles.tooltip}>
+                            <button onClick={() => setSelectedOption('option4')}>
+                              <span className={styles.tooltiptext}>Editar PostNatal</span>
+                              <FontAwesomeIcon icon="fa-solid fa-notes-medical" />
+                            </button>
+                          </div>
+>>>>>>> 99ec3a414f20ef522dd700a02fd3bfefe34b4725
                         </div>
-                      </div>
-                    )}
-                  </div>
-                  <div className={styles.tooltip}>
-                    {Dropdown && (
-                      <div className={styles.dropdownContent}>
-                        <div className={styles.tooltip}>
-                          <button onClick={() => { handleEditClick4(row) }}>
-                            <span className={styles.tooltiptext}>Editar PreNatal</span>
-                            <FontAwesomeIcon icon="fa-solid fa-person-pregnant" />
-                          </button>
+                      )}
+                    </div>
+
+                    <div className={styles.tooltip}>
+                      {Dropdown && (
+                        <div className={styles.dropdownContent}>
+                          <div className={styles.tooltip}>
+                            <button onClick={() => { handleEditClick4(row) }}>
+                              <span className={styles.tooltiptext}>Editar PreNatal</span>
+                              <FontAwesomeIcon icon="fa-solid fa-person-pregnant" />
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                </td>
+                      )}
+                    </div>
+
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
         </table>
+
         <Pagination
           beneficiaryPerPage={beneficiaryPerPage}
           allbeneficiary={beneficiarios.length}
@@ -291,5 +311,5 @@ const FomRoles = () => {
     </>
   )
 }
-export default FomRoles
+export default FormListarBeneficiario
 
