@@ -175,3 +175,57 @@
         }
     }
 }
+
+.Dropdown {
+    position: relative;
+    margin: 0 10px;
+
+    &__Options {
+        position: absolute;
+        top: 100%;
+        left: 1;
+        z-index: 10;
+        display: none;
+        min-width: 120px;
+        padding: 8px 0;
+        margin: 4px 0 0;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    @keyframes aparecer {
+        0% {
+            opacity: 0;
+            display: none;
+        }
+
+        100% {
+            opacity: 1;
+            display: block;
+        }
+    }
+
+    &__Options_open {
+        display: block;
+        width: 100%;
+        animation: aparecer 0.4s forwards;
+    }
+
+    &__Option {
+        display: block;
+        padding: 8px 12px;
+        font-size: 1rem;
+        font-family: $font-family;
+        color: #333;
+        text-decoration: none;
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
+    }
+}

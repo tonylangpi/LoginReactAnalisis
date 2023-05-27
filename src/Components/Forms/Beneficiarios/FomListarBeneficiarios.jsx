@@ -5,7 +5,42 @@ import styles from './ListBeneficiarios.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from './Modal';
 
+import EditModal from './EditModal';
+import Dropdown from 'react-dropdown-select';
+import ModalPeri from './ModalPeri';
+import ModalEncargado from './ModalEncargado';
+import ModalHistorial from './ModalHistorial';
+
+import ModalPostNatal from './ModalPostNatal';
+import ModalPreNatal from './ModalPreNatal';
+import { Link } from 'react-router-dom';
+
+
 const FomRoles = () => {
+
+  const [selectedOption, setSelectedOption] = useState(false);
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [historialC, setHistorialC] = useState(false);
+
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState(false);
+ 
+  
+  const handleEditClick1 = (beneficiary) => {
+   setSelectedBeneficiary(beneficiary);
+   setShowEditModal(true);
+   };
+
+   const handleEditClick2 = (beneficiary) => {
+    setSelectedBeneficiary(beneficiary);
+    setHistorialC(true);
+    };
+
+  // const handleEditClick = () => {
+  //   setDropdown(true);
+  //   setSelectedOption(null);
+  // };
+
   const [search, setSearch] = useState('')
   const [beneficiarios, setBeneficiarios] = useState([]);
   const [dataSelect, setDataSelect] = useState([]);
@@ -16,16 +51,14 @@ const FomRoles = () => {
   const indexOfFirstBeneficiary = indexOfLastBeneficiary - beneficiaryPerPage;
   const currentBeneficiary = beneficiarios?.slice(indexOfFirstBeneficiary, indexOfLastBeneficiary);
   const pagination = (pageNumber) => { setCurrentPage(pageNumber) };
-  
   const [name, setName] = React.useState({
     nombre: ''
   });
-
   const handleOnClose = () => setshowMyModal(false)
   const underSelect = (item) => {
     setDataSelect(item)
   }
-
+  
   const saveDataTemporaly = (e) => {
     e.preventDefault();
     setName({
@@ -37,7 +70,7 @@ const FomRoles = () => {
 
   const ListarBeneficiarios = () => {
     axios
-      .post(`https://amordownapi-production.up.railway.app/beneficiarios/allByName`, {nombre: name.nombre})
+      .post(`http://localhost:4000/beneficiarios/allByName`, { nombre: name.nombre })
       .then(function (response) {
         setBeneficiarios(response.data);
       })
@@ -45,19 +78,7 @@ const FomRoles = () => {
         alert('No se ha encontrado un registro');
       });
 
-    // axios({
-    //   method: "post",
-    //   url: "http://localhost:4000/beneficiarios/all",
-    // })
-    //   .then(function (response) {
-    //     setBeneficiarios(response.data.data);
-    //   })
-    //   .catch(function (response) {
-    //     alert("no se ha encontrado un registro")
-    //     console.log(response);
-    //   });
   }
-
   useEffect(() => {
     ListarBeneficiarios()
   }, [])
@@ -67,7 +88,7 @@ const FomRoles = () => {
       <div className={styles.Container}>
 
         {/* search */}
-        
+
         <div className={styles.Titulo}>
           <h1>Lista de Beneficiarios</h1>
         </div>
@@ -97,11 +118,12 @@ const FomRoles = () => {
               <th>Genero</th>
               <th>Direccion</th>
               <th>Acciones</th>
+              <th>Editar</th>
             </tr>
           </thead>
           <tbody>
             {currentBeneficiary.filter((item) => {
-               return item
+              return item
             }).map((row, index) => (
               <tr key={index}>
                 <td>{row.ID_BENEFICIARIO}</td>
@@ -117,18 +139,97 @@ const FomRoles = () => {
                   </div>
                   <div className={styles.tooltip}><span className={styles.tooltiptext}>Ver Archivo 1</span>
                     <button>
-                        <a href={`https://amordownapi-production.up.railway.app/beneficiarios/${row.RUTA_ARCH1}`} target="_blank" ><FontAwesomeIcon icon="fa-solid fa-file" /></a>
+                      <a href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH1}`} target="_blank" ><FontAwesomeIcon icon="fa-solid fa-file" /></a>
                     </button>
                   </div>
                   <div className={styles.tooltip}><span className={styles.tooltiptext}>Ver Archivo 2</span>
                     <button>
-                        <a href={`https://amordownapi-production.up.railway.app/beneficiarios/${row.RUTA_ARCH2}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon="fa-solid fa-file" /></a>
+                      <a href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH2}`} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon="fa-solid fa-file" /></a>
                     </button>
                   </div>
+                   {/* <button onClick={() => handleEditClick1(row)}>
+                      <FontAwesomeIcon icon="fa-solid fa-newspaper" />
+                      <span className={styles.Button__Span}>Actualizar</span>
+                    </button>  
+                     */}
                 </td>
-                {/* <td className='actionsBeneficiary'>
-                  
-                </td> */}
+                <td className={styles.actionsBeneficiary}>
+
+                <div className={styles.tooltip}><span className={styles.tooltiptext}>Agregar Cita</span>
+                {Dropdown && (
+                      <div className={styles.dropdownContent}>
+                        <div className={styles.tooltip}>
+                          <button onClick={() => { handleEditClick1(row) }} >
+                            <span className={styles.tooltiptext}>Datos</span>
+                            <FontAwesomeIcon icon="fa-solid fa-user" />
+                          </button>
+                        </div>
+                    </div>
+                  )}
+                  </div>
+                  <div className={styles.tooltip}><span className={styles.tooltiptext}></span>
+                  {Dropdown && (
+                      <div className={styles.dropdownContent}>
+                            <div className={styles.tooltip}>
+                          <button onClick={() => handleEditClick2(row)}>
+                            <span className={styles.tooltiptext}>Encargado</span>
+                            <FontAwesomeIcon icon="fa-solid fa-person" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                <div className={styles.tooltip}>
+                    {Dropdown && (
+                      <div className={styles.dropdownContent}>
+                        <div className={styles.tooltip}>
+                          <button onClick={() => { handleEditClick2(row) }}>
+                            <span className={styles.tooltiptext}>Historial Clinico</span>
+                            <FontAwesomeIcon icon="fa-sharp fa-light fa-clipboard" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                  </div>
+                  <div className={styles.tooltip}>
+                    {Dropdown && (
+                      <div className={styles.dropdownContent}>
+                        <div className={styles.tooltip}>
+                          <button onClick={() => setSelectedOption('option1')}>
+                            <span className={styles.tooltiptext}>Editar PeriNatal</span>
+                            <FontAwesomeIcon icon="fa-sharp fa-light fa-baby-carriage" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div className={styles.tooltip}>
+                    {Dropdown && (
+                      <div className={styles.dropdownContent}>
+                        <div className={styles.tooltip}>
+                          <button onClick={() => setSelectedOption('option4')}>
+                            <span className={styles.tooltiptext}>Editar PostNatal</span>
+                            <FontAwesomeIcon icon="fa-solid fa-notes-medical" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                  <div className={styles.tooltip}>
+                    {Dropdown && (
+                      <div className={styles.dropdownContent}>
+                        <div className={styles.tooltip}>
+                          <button onClick={() => setSelectedOption('option5')}>
+                            <span className={styles.tooltiptext}>Editar PreNatal</span>
+                            <FontAwesomeIcon icon="fa-solid fa-person-pregnant" />
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </td>
               </tr>
             ))}
           </tbody>
@@ -144,9 +245,33 @@ const FomRoles = () => {
           onClose={handleOnClose}
           visible={showMyModal}
         />
+
+        {showEditModal && selectedBeneficiary && (
+          <EditModal beneficiary={selectedBeneficiary} onClose={() => setShowEditModal(false)} />
+        )}
+        {selectedOption === 'option1' && (
+          <ModalPeri beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(null)} />
+        )}
+
+        {selectedOption === 'option2' && (
+          <ModalEncargado beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(null)} />
+        )}
+
+        {historialC && selectedBeneficiary && (
+          <ModalHistorial beneficiary={selectedBeneficiary} onClose={() => setHistorialC(false)} />
+        )}
+
+        {selectedOption === 'option4' && (
+          <ModalPostNatal beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(null)} />
+        )}
+        {selectedOption === 'option5' && (
+          <ModalPreNatal beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(null)} />
+        )}
+
+
       </div>
     </>
   )
 }
-
 export default FomRoles
+
