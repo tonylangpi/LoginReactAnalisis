@@ -7,7 +7,7 @@ const EditModal = ({ beneficiary, onClose }) => {
     NOMBRE2: beneficiary.NOMBRE2,
     APELLIDO1: beneficiary.APELLIDO1,
     APELLIDO2: beneficiary.APELLIDO2,
-    ESCOLARIDAD: beneficiary.ESCOLARIDAD,
+    ESCOLARIDAD: beneficiary.ESCOLARIDAD, // Asignar el valor actual de ESCOLARIDAD del beneficiario
     SEXO: beneficiary.SEXO,
     FECHA_NACIMIENTO: beneficiary.FECHA_NACIMIENTO.slice(0, 10),
     DIRECCION: beneficiary.DIRECCION,
@@ -87,15 +87,24 @@ const EditModal = ({ beneficiary, onClose }) => {
               onChange={handleInputChange}
             />
           </div>
+
           <div>
             <label>ESCOLARIDAD:</label>
-            <input
-              type="text"
+            <select
               name="ESCOLARIDAD"
               value={updatedData.ESCOLARIDAD}
               onChange={handleInputChange}
-            />
+            >
+              <option></option>
+              <option value="No Aplica" selected={updatedData.ESCOLARIDAD === "No Aplica"}>No Aplica</option>
+              <option value="PrePrimaria" selected={updatedData.ESCOLARIDAD === "PrePrimaria"}>PrePrimaria</option>
+              <option value="Primaria" selected={updatedData.ESCOLARIDAD === "Primaria"}>Primaria</option>
+              <option value="Basico" selected={updatedData.ESCOLARIDAD === "Basico"}>Basico</option>
+              <option value="Diversificado" selected={updatedData.ESCOLARIDAD === "Diversificado"}>Diversificado</option>
+              <option value="Universitario" selected={updatedData.ESCOLARIDAD === "Universitario"}>Universitario</option>
+            </select>
           </div>
+
           <div>
             <label>SEXO:</label>
             <input

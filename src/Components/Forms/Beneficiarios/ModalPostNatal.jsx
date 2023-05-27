@@ -2,26 +2,26 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function ModalPostNatal({ beneficiary, onClose }) {
-  const [postNatalInfo, setPostNatalInfo] = useState({});
+  const [postnatal, setPostnatal] = useState({});
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchPostNatalInfo = async () => {
+    const fetchPostnatal = async () => {
       try {
         const response = await axios.get(`https://amordownapi-production.up.railway.app/beneficiarios/buscarPostNatalesBene/${beneficiary.ID_BENEFICIARIO}`);
-        setPostNatalInfo(response.data[0]); 
-console.log(response);
+        setPostnatal(response.data[0]); 
+        setIsLoading(false);
       } catch (error) {
         alert('Error al obtener la información:', error);
       }
     };
 
-    fetchPostNatalInfo();
+    fetchPostnatal();
   }, [beneficiary.ID_BENEFICIARIO]);
 
-  const actualizarPostNatalInfo = async () => {
+  const actualizarPostnatal = async () => {
     try {
-      await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePostnatales/${beneficiary.ID_BENEFICIARIO}`, postNatalInfo);
+      await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePostnatales/${beneficiary.ID_BENEFICIARIO}`, postnatal);
       alert('Información actualizada correctamente');
     } catch (error) {
       alert('Error al actualizar la información:', error);
@@ -40,33 +40,33 @@ console.log(response);
       <h2>Información Postnatal</h2>
       <div>
         <label>Tratamiento:</label>
-        <input type="text" value={postNatalInfo.TRATAMIENTO} onChange={(e) => setPostNatalInfo({ ...postNatalInfo, TRATAMIENTO: e.target.value })} />
+        <input type="text" value={postnatal.TRATAMIENTO} onChange={(e) => setPostnatal({ ...postnatal, TRATAMIENTO: e.target.value })} />
       </div>
       <div>
         <label>Infecciones:</label>
-        <input type="text" value={postNatalInfo.INFECCIONES} onChange={(e) => setPostNatalInfo({ ...postNatalInfo, INFECCIONES: e.target.value })} />
+        <input type="text" value={postnatal.INFECCIONES} onChange={(e) => setPostnatal({ ...postnatal, INFECCIONES: e.target.value })} />
       </div>
       <div>
         <label>Fiebre:</label>
-        <input type="text" value={postNatalInfo.FIEBRE} onChange={(e) => setPostNatalInfo({ ...postNatalInfo, FIEBRE: e.target.value })} />
+        <input type="text" value={postnatal.FIEBRE} onChange={(e) => setPostnatal({ ...postnatal, FIEBRE: e.target.value })} />
       </div>
       <div>
         <label>Convulsiones:</label>
-        <input type="text" value={postNatalInfo.CONVULCIONES} onChange={(e) => setPostNatalInfo({ ...postNatalInfo, CONVULCIONES: e.target.value })} />
+        <input type="text" value={postnatal.CONVULCIONES} onChange={(e) => setPostnatal({ ...postnatal, CONVULCIONES: e.target.value })} />
       </div>
       <div>
         <label>Lenguaje:</label>
-        <input type="text" value={postNatalInfo.LENGUAJE} onChange={(e) => setPostNatalInfo({ ...postNatalInfo, LENGUAJE: e.target.value })} />
+        <input type="text" value={postnatal.LENGUAJE} onChange={(e) => setPostnatal({ ...postnatal, LENGUAJE: e.target.value })} />
       </div>
       <div>
         <label>Camina:</label>
-        <input type="text" value={postNatalInfo.CAMINA} onChange={(e) => setPostNatalInfo({ ...postNatalInfo, CAMINA: e.target.value })} />
+        <input type="text" value={postnatal.CAMINA} onChange={(e) => setPostnatal({ ...postnatal, CAMINA: e.target.value })} />
       </div>
       <div>
         <label>Observaciones:</label>
-        <input type="text" value={postNatalInfo.OBSERVACIONES} onChange={(e) => setPostNatalInfo({ ...postNatalInfo, OBSERVACIONES: e.target.value })} />
+        <input type="text" value={postnatal.OBSERVACIONES} onChange={(e) => setPostnatal({ ...postnatal, OBSERVACIONES: e.target.value })} />
       </div>
-      <button onClick={actualizarPostNatalInfo}>Actualizar</button>
+      <button onClick={actualizarPostnatal}>Actualizar</button>
      
     </div>
   );

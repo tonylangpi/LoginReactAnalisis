@@ -24,6 +24,7 @@ const FomRoles = () => {
   const [historialC, setHistorialC] = useState(false);
   const [peri, setPeri] = useState(false);
   const [prenatal, setPrenatal] = useState(false);
+  const [postnatal, SetPostnatal] = useState(false);
 
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(false);
  
@@ -47,6 +48,11 @@ const FomRoles = () => {
         setSelectedBeneficiary(beneficiary);
         setPrenatal(true);
         };
+
+        const handleEditClick5 = (beneficiary) => {
+          setSelectedBeneficiary(beneficiary);
+          SetPostnatal(true);
+          };
 
   // const handleEditClick = () => {
   //   setDropdown(true);
@@ -221,7 +227,7 @@ const FomRoles = () => {
                     {Dropdown && (
                       <div className={styles.dropdownContent}>
                         <div className={styles.tooltip}>
-                          <button onClick={() => setSelectedOption('option4')}>
+                        <button onClick={() => { handleEditClick5(row) }}>
                             <span className={styles.tooltiptext}>Editar PostNatal</span>
                             <FontAwesomeIcon icon="fa-solid fa-notes-medical" />
                           </button>
@@ -273,8 +279,8 @@ const FomRoles = () => {
           <ModalHistorial beneficiary={selectedBeneficiary} onClose={() => setHistorialC(false)} />
         )}
 
-        {selectedOption === 'option4' && (
-          <ModalPostNatal beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(false)} />
+        {postnatal && selectedBeneficiary && (
+          <ModalPostNatal beneficiary={selectedBeneficiary} onClose={() => SetPostnatal(false)} />
         )}
         {prenatal&& selectedBeneficiary && (
           <ModalPreNatal beneficiary={selectedBeneficiary} onClose={() => setPrenatal(false)} />
