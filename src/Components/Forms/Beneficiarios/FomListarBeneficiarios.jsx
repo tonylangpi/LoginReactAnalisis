@@ -222,19 +222,6 @@ const FormListarBeneficiario = () => {
                             </button>
                           </div>
                         </div>
-<<<<<<< HEAD
-                      </div>
-                    )}
-                  </div>
-                  <div className={styles.tooltip}>
-                    {Dropdown && (
-                      <div className={styles.dropdownContent}>
-                        <div className={styles.tooltip}>
-                        <button onClick={() => { handleEditClick5(row) }}>
-                            <span className={styles.tooltiptext}>Editar PostNatal</span>
-                            <FontAwesomeIcon icon="fa-solid fa-notes-medical" />
-                          </button>
-=======
                       )}
                     </div>
 
@@ -247,7 +234,6 @@ const FormListarBeneficiario = () => {
                               <FontAwesomeIcon icon="fa-solid fa-notes-medical" />
                             </button>
                           </div>
->>>>>>> 99ec3a414f20ef522dd700a02fd3bfefe34b4725
                         </div>
                       )}
                     </div>
