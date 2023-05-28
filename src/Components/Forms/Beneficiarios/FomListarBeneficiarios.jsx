@@ -4,13 +4,11 @@ import Pagination from '../../utils/pagination';
 import styles from './ListBeneficiarios.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from './Modal';
-
 import EditModal from './EditModal';
 import Dropdown from 'react-dropdown-select';
 import ModalPeri from './ModalPeri';
 import ModalEncargado from './ModalEncargado';
 import ModalHistorial from './ModalHistorial';
-
 import ModalPostNatal from './ModalPostNatal';
 import ModalPreNatal from './ModalPreNatal';
 import { Link } from 'react-router-dom';
@@ -19,16 +17,15 @@ import { Link } from 'react-router-dom';
 const FormListarBeneficiario = () => {
 
   const [selectedOption, setSelectedOption] = useState(false);
-
   const [showEditModal, setShowEditModal] = useState(false);
   const [historialC, setHistorialC] = useState(false);
   const [peri, setPeri] = useState(false);
   const [prenatal, setPrenatal] = useState(false);
   const [postnatal, SetPostnatal] = useState(false);
-
+  const [encargado, SetEncargado] = useState(false);
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(false);
- 
-  
+
+
   const handleEditClick1 = (beneficiary) => {
     setSelectedBeneficiary(beneficiary);
     setShowEditModal(true);
@@ -49,16 +46,17 @@ const FormListarBeneficiario = () => {
     setPrenatal(true);
   };
 
-        const handleEditClick5 = (beneficiary) => {
-          setSelectedBeneficiary(beneficiary);
-          SetPostnatal(true);
-          };
+  const handleEditClick5 = (beneficiary) => {
+    setSelectedBeneficiary(beneficiary);
+    SetPostnatal(true);
+  };
 
-  // const handleEditClick = () => {
-  //   setDropdown(true);
-  //   setSelectedOption(null);
-  // };
+  const handleEditClick6 = (beneficiary) => {
+    setSelectedBeneficiary(beneficiary);
+    SetEncargado(true);
+  };
 
+  
   const [search, setSearch] = useState('')
   const [beneficiarios, setBeneficiarios] = useState([]);
   const [dataSelect, setDataSelect] = useState([]);
@@ -190,7 +188,7 @@ const FormListarBeneficiario = () => {
                       {Dropdown && (
                         <div className={styles.dropdownContent}>
                           <div className={styles.tooltip}>
-                            <button onClick={() => handleEditClick2(row)}>
+                            <button onClick={() => handleEditClick6(row)}>
                               <span className={styles.tooltiptext}>Encargado</span>
                               <FontAwesomeIcon icon="fa-solid fa-person" />
                             </button>
@@ -277,8 +275,8 @@ const FormListarBeneficiario = () => {
           <ModalPeri beneficiary={selectedBeneficiary} onClose={() => setPeri(false)} />
         )}
 
-        {selectedOption === 'option2' && (
-          <ModalEncargado beneficiary={selectedBeneficiary} onClose={() => setSelectedOption(false)} />
+        {encargado && selectedBeneficiary && (
+          <ModalEncargado beneficiary={selectedBeneficiary} onClose={() => SetEncargado(false)} />
         )}
 
         {historialC && selectedBeneficiary && (
