@@ -22,9 +22,7 @@ function ModalEncargados({ beneficiary, onClose }) {
   const actualizarEncargado = async (idEncargado, encargadoActualizado) => {
     console.log(encargadoActualizado);
     try {
-      // ...
-      
-      const response = await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateEncargadosBene/${idEncargado}`, encargadoActualizado);
+    await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateEncargadosBene/${idEncargado}`, encargadoActualizado);
       alert('Información actualizada correctamente');
     } catch (error) {
       alert('Error al actualizar la información:', error);
@@ -163,6 +161,7 @@ function ModalEncargados({ beneficiary, onClose }) {
           <div>
             <label>Fecha de nacimiento:</label>
             <input
+              required
               type="date"
               value={encargado.FECHA_NACIMIENTO.slice(0, 10)}
               onChange={(e) => {
