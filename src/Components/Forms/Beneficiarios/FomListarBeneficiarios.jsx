@@ -16,7 +16,6 @@ import { Link } from 'react-router-dom';
 
 const FormListarBeneficiario = () => {
 
-  const [selectedOption, setSelectedOption] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [historialC, setHistorialC] = useState(false);
   const [peri, setPeri] = useState(false);
@@ -25,6 +24,28 @@ const FormListarBeneficiario = () => {
   const [encargado, SetEncargado] = useState(false);
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(false);
 
+  const handleEditClick = (e) => {
+    console.log(e.target.value)
+    if (e.target.value == 1) {
+      setSelectedBeneficiary(e);
+      setShowEditModal(true);
+    } else if (e.target.value == 2) {
+      // setSelectedBeneficiary(beneficiary);
+      setHistorialC(true);
+    } else if (e.target.value == 3) {
+      // setSelectedBeneficiary(beneficiary);
+      setPeri(true);
+    } else if (e.target.value == 4) {
+      // setSelectedBeneficiary(beneficiary);
+      setPrenatal(true);
+    } else if (e.target.value == 5) {
+      // setSelectedBeneficiary(beneficiary);
+      SetPostnatal(true);
+    } else if (e.target.value == 6) {
+      // setSelectedBeneficiary(beneficiary);
+      SetEncargado(true);
+    }
+  };
 
   const handleEditClick1 = (beneficiary) => {
     setSelectedBeneficiary(beneficiary);
@@ -126,13 +147,14 @@ const FormListarBeneficiario = () => {
         <table className={styles.Table}>
           <thead>
             <tr>
-              <th>ID Beneficiario</th>
+              <th>ID</th>
               <th>Primer Nombre</th>
               <th>Segundo Nombre</th>
               <th>Primer Apellido</th>
               <th>Segundo Apellido</th>
               <th>Genero</th>
               <th>Direccion</th>
+              <th>Fecha de Nacimiento</th>
               <th>Acciones</th>
               {localStorage.getItem('nivel') == 3 ? null : (
                 <th>Editar</th>
@@ -151,6 +173,7 @@ const FormListarBeneficiario = () => {
                 <td>{row.APELLIDO2}</td>
                 <td>{row.SEXO}</td>
                 <td>{row.DIRECCION}</td>
+                <td>{row.FECHA_NACIMIENTO.slice(0, 10)}</td>
                 <td className={styles.actionsBeneficiary}>
                   {localStorage.getItem('nivel') == 3 ? null : (
                     <div className={styles.tooltip}><span className={styles.tooltiptext}>Agregar Cita</span>
@@ -171,6 +194,11 @@ const FormListarBeneficiario = () => {
                 {localStorage.getItem('nivel') == 3 ? null : (
                   <td className={styles.actionsBeneficiary}>
 
+                    {/* <select onChange={handleEditClick}>
+                      <option value={'1'}>Editar Beneficiario</option>
+                      <option value={'2'}>Editar Encargado</option>
+                    </select> */}
+
                     <div className={styles.tooltip}><span className={styles.tooltiptext}>Agregar Cita</span>
                       {Dropdown && (
                         <div className={styles.dropdownContent}>
@@ -183,7 +211,7 @@ const FormListarBeneficiario = () => {
                         </div>
                       )}
                     </div>
-                    
+
                     <div className={styles.tooltip}><span className={styles.tooltiptext}></span>
                       {Dropdown && (
                         <div className={styles.dropdownContent}>
@@ -227,7 +255,7 @@ const FormListarBeneficiario = () => {
                       {Dropdown && (
                         <div className={styles.dropdownContent}>
                           <div className={styles.tooltip}>
-                            <button onClick={() => setSelectedOption('option4')}>
+                            <button onClick={() => { handleEditClick5(row) }}>
                               <span className={styles.tooltiptext}>Editar PostNatal</span>
                               <FontAwesomeIcon icon="fa-solid fa-notes-medical" />
                             </button>

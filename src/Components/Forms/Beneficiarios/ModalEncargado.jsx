@@ -20,13 +20,12 @@ function ModalEncargados({ beneficiary, onClose }) {
   }, [beneficiary.ID_BENEFICIARIO]);
 
   const actualizarEncargado = async (idEncargado, encargadoActualizado) => {
+    console.log(encargadoActualizado);
     try {
       // ...
       
       const response = await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateEncargadosBene/${idEncargado}`, encargadoActualizado);
       alert('Información actualizada correctamente');
-      console.log(response);
-      setEncargados(updatedEncargados);
     } catch (error) {
       alert('Error al actualizar la información:', error);
     }
@@ -41,7 +40,7 @@ function ModalEncargados({ beneficiary, onClose }) {
       &times;
     </span>
     <h2>Editar Información de Encargados</h2>
-    {encargados.map((encargado) => (
+    {encargados.map((encargado, index) => (
       <div key={encargado.ID_ENCARGADO}>
         <h3>Encargado {encargado.ID_ENCARGADO}</h3>
         <div>
@@ -174,7 +173,7 @@ function ModalEncargados({ beneficiary, onClose }) {
               }}
             />
           </div>
-          <button onClick={() => actualizarEncargado(encargado.ID_ENCARGADO, encargado)}>Actualizar</button>
+          <button onClick={() => actualizarEncargado(encargado.ID_ENCARGADO, encargados[index])}>Actualizar</button>
         </div>
       ))}
     </div>
