@@ -15,6 +15,21 @@ const FormBeneficiario = () => {
   const [archivo, setArchivo] = useState(null);
   const [idBeneficiary, setIdBeneficiary] = useState(null);
   const [isBeneficiary, setisBeneficiary] = useState(false);
+  const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [errorFecha, setErrorFecha] = useState('');
+
+  const FechadeNacimiento = (event) => {
+    const selectedDate = new Date(event.target.value);
+    const currentDate = new Date();
+
+    if (selectedDate >= currentDate) {
+      setErrorFecha('La fecha de nacimiento debe ser anterior a la fecha de hoy.');
+    } else {
+      setErrorFecha('');
+    }
+
+    setFechaNacimiento(event.target.value);
+  };
 
   const selectImageList = (e) => {
     const uplodad = e.target.files;
@@ -48,11 +63,11 @@ const FormBeneficiario = () => {
     NUMERO_OCUPA: 0,
   });
 
-  const saveDataTemporaly = (e) => {
-    e.preventDefault();
+  const saveDataTemporaly = (event) => {
+    event.preventDefault();
     setBeneficiario({
       ...beneficiario,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
   };
 
@@ -133,6 +148,7 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="text"
+                    pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                     className={styles.ContainerInput__Input}
                   />
                   <span className={styles.ContainerInput__Span}>
@@ -150,6 +166,7 @@ const FormBeneficiario = () => {
                     name="NOMBRE2"
                     onChange={saveDataTemporaly}
                     type="text"
+                    pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                     className={styles.ContainerInput__Input}
                   />
                   <span className={styles.ContainerInput__Span}>
@@ -166,6 +183,7 @@ const FormBeneficiario = () => {
                     name="NOMBRE3"
                     onChange={saveDataTemporaly}
                     type="text"
+                    pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                     className={styles.ContainerInput__Input}
                   />
                   <span className={styles.ContainerInput__Span}>
@@ -180,6 +198,7 @@ const FormBeneficiario = () => {
                     required
                     disabled={isBeneficiary}
                     name="APELLIDO1"
+                    pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="text"
@@ -196,6 +215,7 @@ const FormBeneficiario = () => {
                   <input
                     disabled={isBeneficiary}
                     name="APELLIDO2"
+                    pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="text"
@@ -254,16 +274,26 @@ const FormBeneficiario = () => {
                     required
                     disabled={isBeneficiary}
                     name="FECHA_NACIMIENTO"
-                    onChange={saveDataTemporaly}
+                    onChange={(event) => {
+                      saveDataTemporaly(event);
+                      FechadeNacimiento(event);
+                    }}
                     placeholder=" "
                     type="date"
+                    value={fechaNacimiento}
+                    pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
                     className={styles.ContainerInput__Input}
                   />
                   <span className={styles.ContainerInput__Span}>
                     Fecha de Nacimiento
                   </span>
+                  {errorFecha && <p className={styles.ErrorMessage}>{errorFecha}</p>}
                 </div>
               </div>
+
+             
+
+
 
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
@@ -310,6 +340,7 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="number"
+                    min="0"
                     className={styles.ContainerInput__Input}
                   />
                   <span className={styles.ContainerInput__Span}>
@@ -327,6 +358,7 @@ const FormBeneficiario = () => {
                     onChange={saveDataTemporaly}
                     placeholder=" "
                     type="number"
+                    min="0"
                     className={styles.ContainerInput__Input}
                   />
                   <span className={styles.ContainerInput__Span}>
@@ -378,6 +410,8 @@ const FormBeneficiario = () => {
       </div>
     </>
   );
+
+  
 };
 
 export default FormBeneficiario;

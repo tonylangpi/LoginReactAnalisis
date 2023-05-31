@@ -11,6 +11,8 @@ function FormEncargado({idBene, showComponent }) {
   const [show, setShow] = useState(true);
   const [isEncargado, setIsEncargado] = useState(true);
   const [IdEncargado, setIdencargado] = useState(null);
+  const [fechaNacimiento, setFechaNacimiento] = useState('');
+  const [errorFecha, setErrorFecha] = useState('');
   const [Encargado, setEncargado] = React.useState({
     NOMBRE1: "",
     NOMBRE2: "",
@@ -23,12 +25,25 @@ function FormEncargado({idBene, showComponent }) {
     OCUPACION: "",
     FECHA_NACIMIENTO: "",
   });
-  const saveDataTemporalyEncargado = (e) => {
-    e.preventDefault();
+  const saveDataTemporalyEncargado = (event) => {
+    event.preventDefault();
     setEncargado({
       ...Encargado,
-      [e.target.name]: e.target.value,
+      [event.target.name]: event.target.value,
     });
+  };
+
+  const FechadeNacimiento = (event) => {
+    const selectedDate = new Date(event.target.value);
+    const currentDate = new Date();
+
+    if (selectedDate >= currentDate) {
+      setErrorFecha('La fecha de nacimiento debe ser anterior a la fecha de hoy.');
+    } else {
+      setErrorFecha('');
+    }
+
+    setFechaNacimiento(event.target.value);
   };
 
   const dataSend = (e) => {
@@ -102,6 +117,7 @@ function FormEncargado({idBene, showComponent }) {
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
+                  pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>
@@ -118,6 +134,7 @@ function FormEncargado({idBene, showComponent }) {
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
+                  pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>
@@ -133,6 +150,7 @@ function FormEncargado({idBene, showComponent }) {
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
+                  pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>
@@ -149,6 +167,7 @@ function FormEncargado({idBene, showComponent }) {
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
+                  pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>
@@ -165,6 +184,7 @@ function FormEncargado({idBene, showComponent }) {
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
+                  pattern="^[a-zA-ZáÁéÉíÍóÓúÚñÑ\s]+$" //validacion de nombres
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>
@@ -181,6 +201,7 @@ function FormEncargado({idBene, showComponent }) {
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
+                  pattern="^\d{8}$"
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>
@@ -247,15 +268,21 @@ function FormEncargado({idBene, showComponent }) {
               <div className={styles.ContainerInput}>
                 <input
                   required
+                  value={fechaNacimiento}
                   name="FECHA_NACIMIENTO"
-                  onChange={saveDataTemporalyEncargado}
+                  onChange={(event) => {
+                    saveDataTemporalyEncargado(event);
+                    FechadeNacimiento(event);
+                  }}
                   placeholder=" "
+                  pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
                   type="date"
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>
                   Fecha de Nacimiento
                 </span>
+                {errorFecha && <p className={styles.ErrorMessage}>{errorFecha}</p>}
               </div>
             </div>
 
