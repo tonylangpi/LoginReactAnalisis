@@ -104,6 +104,8 @@ function Login() {
                 autoComplete="off"
                 placeholder=" "
                 type="email"
+                pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                required
                 className="Container-Input__Input"
                 name="email"
                 onChange={saveDataTemporaly}

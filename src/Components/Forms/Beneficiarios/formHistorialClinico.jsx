@@ -180,7 +180,6 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
                     NO
                   </div>
                 </div>
-
               </div>
 
               <div className={styles.Grid__item}>

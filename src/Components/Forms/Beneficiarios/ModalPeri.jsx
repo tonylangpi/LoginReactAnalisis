@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import styles from './Modal.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function ModalPeri({ beneficiary, onClose }) {
   const [peri, setPeri] = useState({});
@@ -15,8 +17,6 @@ function ModalPeri({ beneficiary, onClose }) {
         alert('Error al obtener la información:', error);
       }
     };
-
-    
 
     fetchPeri();
   }, [beneficiary.ID_BENEFICIARIO]);
@@ -35,29 +35,105 @@ function ModalPeri({ beneficiary, onClose }) {
   }
 
   return (
-    <div>
-      <span className="close" onClick={onClose}>
-          &times;
-        </span>
-      <h2>Editar Informacion PeriNatal</h2>
-      <div>
-        <label>Lloro inmediatamente al nacer:</label>
-        <input type="text" value={peri.LLORO_INMEDIATAMENTE} onChange={(e) => setPeri({ ...peri, LLORO_INMEDIATAMENTE: e.target.value })} />
+    <div className={styles.Container}>
+      <div className={styles.Container__Content}>
+        <h2 className={styles.Titulo}>Editar Informacion PeriNatal</h2>
+
+        <div className={styles.Grid}>
+
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <select
+                value={peri.LLORO_INMEDIATAMENTE} 
+                onChange={(e) => setPeri({ ...peri, LLORO_INMEDIATAMENTE: e.target.value })}
+                className={styles.ContainerInput__Input}>
+                <option value="SI" selected={peri.LLORO_INMEDIATAMENTE === "SI"}>SI</option>
+                <option value="NO" selected={peri.LLORO_INMEDIATAMENTE === "NO"}>NO</option>
+              </select>
+              <span className={styles.ContainerInput__Span}>
+                Lloro inmediatamente al nacer
+              </span>
+            </div>
+          </div>
+
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <select
+                value={peri.COLORACION} 
+                onChange={(e) => setPeri({ ...peri, COLORACION: e.target.value })}
+                className={styles.ContainerInput__Input}>
+                <option value="SI" selected={peri.COLORACION === "SI"}>SI</option>
+                <option value="NO" selected={peri.COLORACION === "NO"}>NO</option>
+              </select>
+              <span className={styles.ContainerInput__Span}>
+                ¿Su coloracion fue normal?
+              </span>
+            </div>
+          </div>
+
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <select
+                value={peri.INCUBADORA} 
+                onChange={(e) => setPeri({ ...peri, INCUBADORA: e.target.value })}
+                className={styles.ContainerInput__Input}>
+                <option value="SI" selected={peri.INCUBADORA === "SI"}>SI</option>
+                <option value="NO" selected={peri.INCUBADORA === "NO"}>NO</option>
+              </select>
+              <span className={styles.ContainerInput__Span}>
+                ¿Estuvo en incubadora?
+              </span>
+            </div>
+          </div>
+
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <select
+                value={peri.INCUBADORA} 
+                onChange={(e) => setPeri({ ...peri, INCUBADORA: e.target.value })}
+                className={styles.ContainerInput__Input}>
+                <option value="SI" selected={peri.INCUBADORA === "SI"}>SI</option>
+                <option value="NO" selected={peri.INCUBADORA === "NO"}>NO</option>
+              </select>
+              <span className={styles.ContainerInput__Span}>
+                ¿Estuvo en incubadora?
+              </span>
+            </div>
+          </div>
+
+          <div className={styles.Grid__item}>
+            <div className={styles.ContainerInput}>
+              <input
+                value={peri.COLOR} 
+                onChange={(e) => setPeri({ ...peri, COLOR: e.target.value })} 
+                type='text'
+                className={styles.ContainerInput__Input}
+                placeholder=" ">
+              </input>
+              <span className={styles.ContainerInput__Span}>
+                ¿Nacio amarillo o morado?
+              </span>
+            </div>
+          </div>
+
+          <div className={styles.Grid__button}>
+            <button className={styles.Button} onClick={actualizarPeri}>
+              <div className={styles.Button__Icono}>
+                <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
+              </div>
+              <span className={styles.Button__Span}>Actualizar</span>
+            </button>
+          </div>
+
+          <div className={styles.Grid__button}>
+            <span className={styles.Close} onClick={onClose}>
+              <FontAwesomeIcon icon="fa-solid fa-circle-xmark" />
+              {/* &times; */}
+            </span>
+          </div>
+
+        </div>
       </div>
-      <div>
-        <label>Coloración:</label>
-        <input type="text" value={peri.COLORACION} onChange={(e) => setPeri({ ...peri, COLORACION: e.target.value })} />
-      </div>
-      <div>
-        <label>Incubadora:</label>
-        <input type="text" value={peri.INCUBADORA} onChange={(e) => setPeri({ ...peri, INCUBADORA: e.target.value })} />
-      </div>
-      <div>
-        <label>Color:</label>
-        <input type="text" value={peri.COLOR} onChange={(e) => setPeri({ ...peri, COLOR: e.target.value })} />
-      </div>
-      <button onClick={actualizarPeri}>Actualizar</button>
-     
     </div>
   );
 }
