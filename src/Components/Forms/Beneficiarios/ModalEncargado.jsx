@@ -25,7 +25,11 @@ function ModalEncargados({ beneficiary, onClose }) {
   const actualizarEncargado = async (idEncargado, encargadoActualizado) => {
     console.log(encargadoActualizado);
     try {
+<<<<<<< HEAD
       const response = await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateEncargadosBene/${idEncargado}`, encargadoActualizado);
+=======
+    await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateEncargadosBene/${idEncargado}`, encargadoActualizado);
+>>>>>>> 3d4dff615ea3a2ea57709d7c5422574f4212553b
       alert('Información actualizada correctamente');
     } catch (error) {
       alert('Error al actualizar la información:', error);
@@ -272,9 +276,133 @@ function ModalEncargados({ beneficiary, onClose }) {
             </div>
             
           </div>
+<<<<<<< HEAD
         ))}
       </div>
 
+=======
+          <div>
+            <label>Segundo nombre:</label>
+            <input
+              type="text"
+              value={encargado.NOMBRE2}
+              onChange={(e) => {
+                const updatedEncargados = encargados.map((enc) =>
+                  enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, NOMBRE2: e.target.value } : enc
+                );
+                setEncargados(updatedEncargados);
+              }}
+            />
+          </div>
+          <div>
+            <label>Tercer nombre:</label>
+            <input
+              type="text"
+              value={encargado.NOMBRE3}
+              onChange={(e) => {
+                const updatedEncargados = encargados.map((enc) =>
+                  enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, NOMBRE3: e.target.value } : enc
+                );
+                setEncargados(updatedEncargados);
+              }}
+            />
+          </div>
+          <div>
+            <label>Primer apellido:</label>
+            <input
+              type="text"
+              value={encargado.APELLIDO1}
+              onChange={(e) => {
+                const updatedEncargados = encargados.map((enc) =>
+                  enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, APELLIDO1: e.target.value } : enc
+                );
+                setEncargados(updatedEncargados);
+              }}
+            />
+          </div>
+          <div>
+            <label>Segundo apellido:</label>
+            <input
+              type="text"
+              value={encargado.APELLIDO2}
+              onChange={(e) => {
+                const updatedEncargados = encargados.map((enc) =>
+                  enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, APELLIDO2: e.target.value } : enc
+                );
+                setEncargados(updatedEncargados);
+              }}
+            />
+          </div>
+          <div>
+            <label>Teléfono:</label>
+            <input
+              type="text"
+              value={encargado.TELEFONO}
+              onChange={(e) => {
+                const updatedEncargados = encargados.map((enc) =>
+                  enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, TELEFONO: e.target.value } : enc
+                );
+                setEncargados(updatedEncargados);
+              }}
+            />
+          </div>
+          <div>
+            <label>Tipo:</label>
+            <input
+              type="text"
+              value={encargado.TIPO}
+              onChange={(e) => {
+                const updatedEncargados = encargados.map((enc) =>
+                  enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, TIPO: e.target.value } : enc
+                );
+                setEncargados(updatedEncargados);
+              }}
+            />
+          </div>
+          <div>
+            <label>Escolaridad:</label>
+            <input
+              type="text"
+              value={encargado.ESCOLARIDAD}
+              onChange={(e) => {
+                const updatedEncargados = encargados.map((enc) =>
+                  enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, ESCOLARIDAD: e.target.value } : enc
+                );
+                setEncargados(updatedEncargados);
+              }}
+            />
+          </div>
+          <div>
+            <label>Ocupación:</label>
+            <input
+              type="text"
+              value={encargado.OCUPACION}
+              onChange={(e) => {
+                const updatedEncargados = encargados.map((enc) =>
+                  enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, OCUPACION: e.target.value } : enc
+                );
+                setEncargados(updatedEncargados);
+              }}
+            />
+          </div>
+          <div>
+            <label>Fecha de nacimiento:</label>
+            <input
+              required
+              type="date"
+              value={encargado.FECHA_NACIMIENTO.slice(0, 10)}
+              onChange={(e) => {
+                const updatedEncargados = encargados.map((enc) =>
+                  enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, FECHA_NACIMIENTO: e.target.value } : enc
+                );
+                setEncargados(updatedEncargados);
+              }}
+            />
+          </div>
+          <button onClick={() => actualizarEncargado(encargado.ID_ENCARGADO, encargados[index])}>Actualizar</button>
+        </div>
+      ))}
+>>>>>>> 3d4dff615ea3a2ea57709d7c5422574f4212553b
     </div>
   );
 }
