@@ -7,6 +7,8 @@ import ListarBeneficiarios from "./Components/Forms/Beneficiarios/FomListarBenef
 import ReporteBeneficiario from './Components/Forms/Reports/FormReporteBeneficiario';
 import ReporteArea from './Components/Forms/Reports/FormReporteArea';
 import ListadoCitas from './Components/Forms/Reports/FormListarCitas';
+import ReporteF9 from './Components/Forms/Reports/FormReporteF9';
+import ReporteCuantitativo from './Components/Forms/Reports/FormReporteCuantitativo';
 import Usuarios from './Components/Forms/Users/FormUsuarios';
 import MiCuenta from './Components/Forms/Users/MiCuenta';
 import AreaActualizar from './Components/Forms/Areas/AreaActualizar';
@@ -72,7 +74,9 @@ function App() {
               <Route path='/FormAreas' element={<Areas/>} />
               <Route path='/AreaCrear' element={<AreaCrear/>} />
               <Route path='/FormServicios' element={<Servicios />} /> 
-              
+              <Route path='/FormReporteF9' element={<ReporteF9 />} /> 
+              <Route path='/FormReporteCuantitativo' element={<ReporteCuantitativo />} /> 
+
               <Route path='*' element={<Navigate to='/' />} />
             </Routes>
           </div>

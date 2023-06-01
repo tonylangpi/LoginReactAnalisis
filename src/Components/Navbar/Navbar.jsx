@@ -15,7 +15,9 @@ const Navbar = () => {
   const [menuReportes, setMenuReportes] = React.useState([
     { title: "Reporte de Areas", path: "/FormReporteArea", icon: "", permiso: true },
     { title: "Reporte de Beneficiarios", path: "/FormReporteBeneficiario", icon: "", permiso: true },
-    { title: "Reporte de Citas", path: "/FormListarCitas", icon: "", permiso: true }
+    { title: "Reporte de Citas", path: "/FormListarCitas", icon: "", permiso: true },
+    { title: "Reporte F9", path: "/FormReporteF9", icon: "", permiso: true },
+    { title: "Reporte Cuantitativo", path: "/FormReporteCuantitativo", icon: "", permiso: true }
   ])
 
   const [menuSeguridad, setMenuSeguridad] = React.useState([
