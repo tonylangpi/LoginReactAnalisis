@@ -7,15 +7,17 @@ function MiCuenta() {
   const [userData, setUserData] = useState([]);
 
   const getUser = async () => {
-    try {
-      let res = await axios.post(
-        `https://amordownapi-production.up.railway.app/usuarios/user`,
-        { id: localStorage.getItem("id") }
-      );
-      setUserData(res.data[0]);
-    } catch (error) {
-      alert(error);
-    }
+    axios
+      .post(`https://amordownapi-production.up.railway.app/usuarios/user`, {
+        id: localStorage.getItem("id"),
+      })
+      .then(function (response) {
+        setUserData(res.data[0]);
+      })
+      .catch(function (error) {
+        alert(error);
+        console.error(error);
+      });
   };
 
   useEffect(() => {
