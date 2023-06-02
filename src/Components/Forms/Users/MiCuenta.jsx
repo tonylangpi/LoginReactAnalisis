@@ -1,8 +1,26 @@
-import React from 'react';
-import styles from './MiCuenta.module.scss';
+import React, { useState, useEffect } from "react";
+import styles from "./MiCuenta.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
 function MiCuenta() {
+  const [userData, setUserData] = useState([]);
+
+  const getUser = async () => {
+    try {
+      let res = await axios.post(
+        `https://amordownapi-production.up.railway.app/usuarios/user`,
+        { id: localStorage.getItem("id") }
+      );
+      setUserData(res.data[0]);
+    } catch (error) {
+      alert(error);
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <div className={styles.Container}>
@@ -16,8 +34,8 @@ function MiCuenta() {
         <div className={styles.Form__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
-              name="email"
+              value={userData.email}
+              disabled={true}
               placeholder=" "
               type="email"
               className={styles.ContainerInput__Input}
@@ -31,89 +49,73 @@ function MiCuenta() {
         <div className={styles.Form__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
-              name="nombre"
               placeholder=" "
               type="text"
               disabled={true}
-              value={localStorage.getItem('nombreUsuario')}
+              value={userData.nombre}
               className={styles.ContainerInput__Input}
             />
-            <span className={styles.ContainerInput__Span}>
-              Nombre
-            </span>
+            <span className={styles.ContainerInput__Span}>Nombre</span>
           </div>
         </div>
 
         <div className={styles.Form__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
-              name="nombre"
               placeholder=" "
               type="text"
               disabled={true}
-              value={localStorage.getItem('nivel')}
+              value={userData.nivel}
               className={styles.ContainerInput__Input}
             />
-            <span className={styles.ContainerInput__Span}>
-              Nivel
-            </span>
+            <span className={styles.ContainerInput__Span}>Nivel</span>
           </div>
         </div>
 
         <div className={styles.Form__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
-              name="nombre"
               placeholder=" "
               type="text"
               disabled={true}
-              value={localStorage.getItem('nombreRol')}
+              value={userData.rol}
               className={styles.ContainerInput__Input}
             />
-            <span className={styles.ContainerInput__Span}>
-              Rol
-            </span>
+            <span className={styles.ContainerInput__Span}>Rol</span>
           </div>
         </div>
 
         <div className={styles.Form__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
-              name="nombre"
+              value={userData.empresa}
+              disabled={true}
               placeholder=" "
               type="text"
               className={styles.ContainerInput__Input}
             />
-            <span className={styles.ContainerInput__Span}>
-              Empresa
-            </span>
+            <span className={styles.ContainerInput__Span}>Empresa</span>
           </div>
         </div>
 
         <div className={styles.Form__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
-              name="nombre"
+              disabled={true}
+              value={userData.area}
               placeholder=" "
               type="text"
               className={styles.ContainerInput__Input}
             />
-            <span className={styles.ContainerInput__Span}>
-              Area
-            </span>
+            <span className={styles.ContainerInput__Span}>Area</span>
           </div>
         </div>
 
         <div className={styles.Form__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
-              name="telefono"
+              disabled={true}
+              value={userData.telefono}
               placeholder=" "
               type="text"
               className={styles.ContainerInput__Input}
@@ -123,18 +125,9 @@ function MiCuenta() {
             </span>
           </div>
         </div>
-
-        <div className={styles.Form__item}>
-          <button id="button-Historial" className={styles.Button}>
-            <div className={styles.Button__Icono}>
-              <FontAwesomeIcon icon="fa-solid fa-user-plus" />
-            </div>
-            <span className={styles.Button__Span}>Guardar Usuario</span>
-          </button>
-        </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default MiCuenta
+export default MiCuenta;
