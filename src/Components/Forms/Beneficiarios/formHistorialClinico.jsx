@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import styles from './HistorialClinico.module.scss';
+import styles from "./HistorialClinico.module.scss";
 import FormPrenatales from "./FormPrenatales";
 
 const formHistorialClinico = ({ idBenefi, showComponent }) => {
-
   const [isHistorial, setIsHistorial] = useState(true);
   const [show, setShow] = useState(true);
   const [Historial, setHistorial] = React.useState({
@@ -17,8 +16,8 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
     APARATO_AUDITIVO: "",
     LENTES: "",
     CIRUJIAS: "",
-    DISCAPACIDAD: '',
-    DIAGNOSTICO: '',
+    DISCAPACIDAD: "",
+    DIAGNOSTICO: "",
     OTRAS: "",
   });
 
@@ -33,38 +32,38 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
   const saveHistorial = (e) => {
     e.preventDefault();
     try {
-        if(idBenefi != null){
-            axios
-            .post(`https://amordownapi-production.up.railway.app/beneficiarios/createHistorialClinico/${idBenefi}`, Historial)
-            .then(function (response) {
-              const mensaje =
-                response?.data?.message;
-              !mensaje
-                ? alert("sucedio un error al registrar el historial clinico")
-                : alert(mensaje)
-              setIsHistorial(false);
-              setShow(false);
-            })
-            .catch(function (response) {
-              alert("No se ha encontrado un registro");
-              console.log(response);
-            });
-        }else{
-            alert("No se encontro el id del beneficiario");
-        }
-      
+      if (idBenefi != null) {
+        axios
+          .post(
+            `https://amordownapi-production.up.railway.app/beneficiarios/createHistorialClinico/${idBenefi}`,
+            Historial
+          )
+          .then(function (response) {
+            const mensaje = response?.data?.message;
+            !mensaje
+              ? alert("sucedio un error al registrar el historial clinico")
+              : alert(mensaje);
+            setIsHistorial(false);
+            setShow(false);
+          })
+          .catch(function (response) {
+            alert("No se ha encontrado un registro");
+            console.log(response);
+          });
+      } else {
+        alert("No se encontro el id del beneficiario");
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const showOtherComponent = ()=>{
-    // setIsHistorial(false);
-    // setShow(false);
-  }
-
   return (
-    <div hidden={showComponent} id="FormHistorialClinico" className={showComponent ? '' : styles.Container}>
+    <div
+      hidden={showComponent}
+      id="FormHistorialClinico"
+      className={showComponent ? "" : styles.Container}
+    >
       {isHistorial ? (
         <div className={styles.Container}>
           <div className={styles.Titulo}>
@@ -76,6 +75,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               <div className={styles.ContainerInput}>
                 <textarea
                   required
+                  pattern="/^[\w\d\s\S]{5,100}$/"
                   name="ENFERMEDAD_PADECE"
                   onChange={saveDataTemporalyHistorial}
                   className={styles.ContainerInput__Input}
@@ -91,6 +91,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               <div className={styles.ContainerInput}>
                 <textarea
                   required
+                  pattern="/^[\w\d\s\S]{5,100}$/"
                   name="MEDICAMENTOS_INGIERE"
                   onChange={saveDataTemporalyHistorial}
                   className={styles.ContainerInput__Input}
@@ -103,9 +104,8 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
             </div>
 
             <div className={styles.Grid}>
-
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Esquema Completo de Vacunas?</label>
+                <label>¿Esquema Completo de Vacunas?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -131,7 +131,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Tiene Examenes Auditivos?</label>
+                <label>¿Tiene Examenes Auditivos?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -157,7 +157,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Tiene Pruebas Oftamologicas?</label>
+                <label>¿Tiene Pruebas Oftamologicas?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -183,7 +183,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Usa Aparatos Auditivos?</label>
+                <label>¿Usa Aparatos Auditivos?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -209,7 +209,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿lentes?</label>
+                <label>¿lentes?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -235,7 +235,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Ha tenido Cirugias?</label>
+                <label>¿Ha tenido Cirugias?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -268,7 +268,8 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
                     required
                     className={styles.ContainerInput__Input}
                     name="DISCAPACIDAD"
-                    onChange={saveDataTemporalyHistorial}>
+                    onChange={saveDataTemporalyHistorial}
+                  >
                     <option value=""></option>
                     <option value="Fisica Motora">Fisica Motora</option>
                     <option value="Visual">Visual</option>
@@ -285,6 +286,8 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               <div className={styles.ContainerHistorial__item}>
                 <div className={styles.ContainerInput}>
                   <input
+                    required
+                    pattern="/^[a-zA-Z]{5,50}$/"
                     name="DIAGNOSTICO"
                     onChange={saveDataTemporalyHistorial}
                     className={styles.ContainerInput__Input}
@@ -299,20 +302,20 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               <div className={styles.ContainerHistorial__item}>
                 <div className={styles.ContainerInput}>
                   <input
+                    required
+                    pattern="/^[a-zA-Z]{5,50}$/"
                     name="OTRAS"
                     onChange={saveDataTemporalyHistorial}
                     className={styles.ContainerInput__Input}
                     placeholder=" "
                   />
-                  <span className={styles.ContainerInput__Span}>
-                    Otros:
-                  </span>
+                  <span className={styles.ContainerInput__Span}>Otros:</span>
                 </div>
               </div>
             </div>
 
             <div className="Container-Beneficiario__Grid-button">
-              <button onClick={showOtherComponent} id="button-Historial" className="Button Button--Guardar">
+              <button className="Button Button--Guardar">
                 <div className="Button__Icono">
                   <FontAwesomeIcon icon="fa-solid fa-file-export" />
                 </div>
@@ -320,10 +323,9 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
               </button>
             </div>
           </form>
-
         </div>
-      ) : null }
-      
+      ) : null}
+
       <FormPrenatales showComponent={show} idBen={idBenefi} />
     </div>
   );

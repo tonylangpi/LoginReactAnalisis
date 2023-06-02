@@ -1,19 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from 'axios';
-import styles from './Antecedentes.module.scss';
-import { text } from '@fortawesome/fontawesome-svg-core';
+import axios from "axios";
+import styles from "./Antecedentes.module.scss";
+import { text } from "@fortawesome/fontawesome-svg-core";
 import FormPerinatales from "./FormPerinatales";
 
-const FormPrenatales = ({idBen, showComponent}) => {
-
+const FormPrenatales = ({ idBen, showComponent }) => {
   const [show, setShow] = useState(true);
   const [isPrenatal, setPrenatal] = useState(true);
-  // const [textbox, setTextBox] = React.useState({
-  //   textbox1: true,
-  //   textbox2: true,
-  //   textbox3: true
-  // });
   const [textbox1, setTextBox1] = useState(false);
   const [textbox2, setTextBox2] = useState(false);
   const [textbox3, setTextBox3] = useState(false);
@@ -35,7 +29,7 @@ const FormPrenatales = ({idBen, showComponent}) => {
     });
   };
 
-  const showTextBox = (num)=>{
+  const showTextBox = (num) => {
     if (num == 1) {
       setTextBox1(true);
     } else if (num == 2) {
@@ -43,9 +37,9 @@ const FormPrenatales = ({idBen, showComponent}) => {
     } else if (num == 3) {
       setTextBox3(true);
     }
-  }
+  };
 
-  const hideTextBox = (num)=>{
+  const hideTextBox = (num) => {
     if (num == 1) {
       setTextBox1(false);
     } else if (num == 2) {
@@ -53,42 +47,43 @@ const FormPrenatales = ({idBen, showComponent}) => {
     } else if (num == 3) {
       setTextBox3(false);
     }
-  }
+  };
 
   const savePrenatal = (e) => {
     e.preventDefault();
     try {
-        if(idBen != null){
-            axios
-            .post(`https://amordownapi-production.up.railway.app/beneficiarios/createPrenatales/${idBen}`, Prenatales)
-            .then(function (response) {
-              const mensaje =
-                response?.data?.message;
-              !mensaje
-                ? alert("sucedio un error al registrar el historial prenatal")
-                : alert(mensaje)
-              setShow(false);
-              setPrenatal(false);
-            })
-            .catch(function (response) {
-              alert("No se ha encontrado un registro");
-              console.log(response);
-            });
-        }else{
-            alert("No se encontro el id del beneficiario");
-        }
+      if (idBen != null) {
+        axios
+          .post(
+            `https://amordownapi-production.up.railway.app/beneficiarios/createPrenatales/${idBen}`,
+            Prenatales
+          )
+          .then(function (response) {
+            const mensaje = response?.data?.message;
+            !mensaje
+              ? alert("sucedio un error al registrar el historial prenatal")
+              : alert(mensaje);
+            setShow(false);
+            setPrenatal(false);
+          })
+          .catch(function (response) {
+            alert("No se ha encontrado un registro");
+            console.log(response);
+          });
+      } else {
+        alert("No se encontro el id del beneficiario");
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
-  const showOtherComponent = () => {
-    // setShow(false);
-    // setPrenatal(false);
-  }
-
   return (
-    <div  hidden={showComponent} id="FormPrenatales" className={showComponent ? '' : styles.Container}>
+    <div
+      hidden={showComponent}
+      id="FormPrenatales"
+      className={showComponent ? "" : styles.Container}
+    >
       {isPrenatal ? (
         <div className={styles.Container}>
           <div className={styles.Titulo}>
@@ -96,7 +91,6 @@ const FormPrenatales = ({idBen, showComponent}) => {
           </div>
 
           <form onSubmit={savePrenatal} className={styles.Form}>
-
             <div className={styles.Grid__item}>
               <label>¿Fue un embarazo a termino?</label>
               <div className={styles.ContainerRadio}>
@@ -107,7 +101,9 @@ const FormPrenatales = ({idBen, showComponent}) => {
                     onClick={() => hideTextBox(1)}
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
-                    name="EMBARAZO_TERMINO" />SI
+                    name="EMBARAZO_TERMINO"
+                  />
+                  SI
                 </div>
                 <div className={styles.ContainerRadio__Radio}>
                   <input
@@ -116,24 +112,27 @@ const FormPrenatales = ({idBen, showComponent}) => {
                     onClick={() => showTextBox(1)}
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
-                    name="EMBARAZO_TERMINO" />NO
+                    name="EMBARAZO_TERMINO"
+                  />
+                  NO
                 </div>
               </div>
             </div>
- 
+
             <div className={styles.Form__item}>
               {textbox1 ? (
                 <div className={styles.ContainerInput}>
                   <textarea
+                    pattern="/^[a-zA-Z]+$/"
                     onChange={saveDataTemporalyPrenatal}
-                    name='EXPLIQUE_EMBARAZO'
+                    name="EXPLIQUE_EMBARAZO"
                     className={styles.ContainerInput__Input}
-                    placeholder=" ">
-                  </textarea>
+                    placeholder=" "
+                  ></textarea>
                   <span className={styles.ContainerInput__Span}>Explique:</span>
                 </div>
               ) : null}
-            </div>  
+            </div>
 
             <div className={styles.Grid__item}>
               <label>¿Fue un embarazo normal?</label>
@@ -145,7 +144,9 @@ const FormPrenatales = ({idBen, showComponent}) => {
                     value="SI"
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
-                    name="PARTO_NORMAL" />SI
+                    name="PARTO_NORMAL"
+                  />
+                  SI
                 </div>
                 <div className={styles.ContainerRadio__Radio}>
                   <input
@@ -154,28 +155,30 @@ const FormPrenatales = ({idBen, showComponent}) => {
                     value="NO"
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
-                    name="PARTO_NORMAL" />NO
+                    name="PARTO_NORMAL"
+                  />
+                  NO
                 </div>
               </div>
             </div>
-            
-            
+
             <div className={styles.Form__item}>
               {textbox2 ? (
                 <div className={styles.ContainerInput}>
                   <textarea
+                    pattern="/^[a-zA-Z]+$/"
                     onChange={saveDataTemporalyPrenatal}
-                    name='EXPLIQUE_PARTO'
+                    name="EXPLIQUE_PARTO"
                     className={styles.ContainerInput__Input}
-                    placeholder=" ">
-                  </textarea>
+                    placeholder=" "
+                  ></textarea>
                   <span className={styles.ContainerInput__Span}>Explique:</span>
                 </div>
               ) : null}
             </div>
 
             <div className={styles.Grid__item}>
-              <label htmlFor="">¿Tuvo complicaciones durante el embarazo?</label>
+              <label>¿Tuvo complicaciones durante el embarazo?</label>
               <div className={styles.ContainerRadio}>
                 <div className={styles.ContainerRadio__Radio}>
                   <input
@@ -184,7 +187,9 @@ const FormPrenatales = ({idBen, showComponent}) => {
                     value="SI"
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
-                    name="COMPLICACIONES" />SI
+                    name="COMPLICACIONES"
+                  />
+                  SI
                 </div>
                 <div className={styles.ContainerRadio__Radio}>
                   <input
@@ -193,7 +198,9 @@ const FormPrenatales = ({idBen, showComponent}) => {
                     value="NO"
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
-                    name="COMPLICACIONES" />NO
+                    name="COMPLICACIONES"
+                  />
+                  NO
                 </div>
               </div>
             </div>
@@ -202,32 +209,32 @@ const FormPrenatales = ({idBen, showComponent}) => {
               {textbox3 ? (
                 <div className={styles.ContainerInput}>
                   <textarea
+                    pattern="/^[a-zA-Z]+$/"
                     onChange={saveDataTemporalyPrenatal}
-                    name='EXPLIQUE_COMPLICACION'
+                    name="EXPLIQUE_COMPLICACION"
                     className={styles.ContainerInput__Input}
-                    placeholder=" ">
-                  </textarea>
+                    placeholder=" "
+                  ></textarea>
                   <span className={styles.ContainerInput__Span}>Explique:</span>
                 </div>
-              ) : null}     
+              ) : null}
             </div>
 
-            <div className='Container-Beneficiario__Grid-button'>
-              <button onClick={showOtherComponent} id="Prenatales" className="Button Button--Guardar">
+            <div className="Container-Beneficiario__Grid-button">
+              <button className="Button Button--Guardar">
                 <div className="Button__Icono">
                   <FontAwesomeIcon icon="fa-solid fa-file-export" />
                 </div>
                 <span className="Button__Span Iniciar">Guardar</span>
               </button>
             </div>
-
           </form>
         </div>
       ) : null}
-      
+
       <FormPerinatales showComponent={show} idBen={idBen} />
     </div>
-  )
-}
+  );
+};
 
-export default FormPrenatales
+export default FormPrenatales;

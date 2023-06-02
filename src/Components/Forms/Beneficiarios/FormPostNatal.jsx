@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from 'axios';
-import styles from './Antecedentes.module.scss';
+import axios from "axios";
+import styles from "./Antecedentes.module.scss";
 import { Link } from "react-router-dom";
 
 const FormPostNatal = ({ idBen, showComponent }) => {
-
   const [isPostnatal, setPostnatal] = useState(true);
   const [Postnatal, setPostnatales] = React.useState({
     TRATAMIENTO: "",
@@ -39,7 +38,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
             !mensaje
               ? alert("sucedio un error al registrar el historial perinatal")
               : alert(mensaje);
-              setPostnatal(false);
+            setPostnatal(false);
           })
           .catch(function (response) {
             alert("No se ha encontrado un registro");
@@ -53,18 +52,11 @@ const FormPostNatal = ({ idBen, showComponent }) => {
     }
   };
 
-  const Reload = ()=>{
-    location.reload();
-  }
-
-  const showOtherComponent = () => {
-    // setPostnatal(false);
-  }
-
   return (
-
-    <div hidden={showComponent} className={showComponent ? '' : styles.Container}>
-
+    <div
+      hidden={showComponent}
+      className={showComponent ? "" : styles.Container}
+    >
       {isPostnatal ? (
         <div className={styles.Container}>
           <div className={styles.Titulo}>
@@ -72,10 +64,9 @@ const FormPostNatal = ({ idBen, showComponent }) => {
           </div>
 
           <form onSubmit={savePostnatal} className={styles.Form}>
-
             <div className={styles.Grid}>
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Tuvo tratamiento despues del parto?</label>
+                <label>¿Tuvo tratamiento despues del parto?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -101,7 +92,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Tuvo infecciones?</label>
+                <label>¿Tuvo infecciones?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -127,7 +118,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Tuvo Fiebre?</label>
+                <label>¿Tuvo Fiebre?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -153,7 +144,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Tuvo convulciones?</label>
+                <label>¿Tuvo convulciones?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -179,7 +170,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Tiene lenguaje?</label>
+                <label>¿Tiene lenguaje?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -205,7 +196,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Camina?</label>
+                <label>¿Camina?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -234,11 +225,13 @@ const FormPostNatal = ({ idBen, showComponent }) => {
             <div className={styles.Form__item}>
               <div className={styles.ContainerInput}>
                 <textarea
+                  required
+                  pattern="/^[a-zA-Z]{5,50}$/"
                   name="OBSERVACIONES"
                   onChange={saveDataTemporalyPostnatal}
                   className={styles.ContainerInput__Input}
-                  placeholder=" ">
-                </textarea>
+                  placeholder=" "
+                ></textarea>
                 <span className={styles.ContainerInput__Span}>
                   Observaciones
                 </span>
@@ -252,16 +245,15 @@ const FormPostNatal = ({ idBen, showComponent }) => {
                 </div>
                 <span className={styles.Button__Span}>Guardar</span>
               </Link>
-
-              // <div className="Container-Beneficiario__Grid-button">
-              //   <button onClick={showOtherComponent} id="Postnatales" className="Button Button--Guardar" >
-              //     <div className="Button__Icono">
-              //       <FontAwesomeIcon icon="fa-solid fa-file-export" />
-              //     </div>
-              //     <span className="Button__Span Iniciar">Guardar</span>
-              //   </button>
-              // </div>
-            ) : null}
+            ) : // <div className="Container-Beneficiario__Grid-button">
+            //   <button onClick={showOtherComponent} id="Postnatales" className="Button Button--Guardar" >
+            //     <div className="Button__Icono">
+            //       <FontAwesomeIcon icon="fa-solid fa-file-export" />
+            //     </div>
+            //     <span className="Button__Span Iniciar">Guardar</span>
+            //   </button>
+            // </div>
+            null}
           </form>
         </div>
       ) : null}

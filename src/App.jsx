@@ -55,7 +55,25 @@ function App() {
 
   useEffect(() => {
     validateAuth();
-  }, [window.location.ListarBeneficiarios]);
+    // Función para verificar cambios en el localStorage
+    const checkLocalStorage = () => {
+      // Comprueba si el valor almacenado en el localStorage ha cambiado
+      const localStorageValue = localStorage.getItem('id'); // Reemplaza 'myKey' con la clave que deseas observar
+      const storedValue = JSON.parse(localStorageValue);
+      // Aquí puedes realizar cualquier lógica adicional en función del cambio en el valor del localStorage
+
+      // Recarga la página si se ha producido un cambio
+      window.location.reload();
+    };
+
+    // Observa los cambios en el localStorage
+    window.addEventListener('storage', checkLocalStorage);
+
+    // Limpia el event listener cuando el componente se desmonta
+    return () => {
+      window.removeEventListener('storage', checkLocalStorage);
+    };
+  }, []);
 
   return (
     <>

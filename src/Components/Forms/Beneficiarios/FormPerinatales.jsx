@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from 'axios';
-import styles from './Antecedentes.module.scss';
+import axios from "axios";
+import styles from "./Antecedentes.module.scss";
 import FormPostNatal from "./FormPostNatal";
 
-const FormPerinatales = ({idBen, showComponent}) => {
-
+const FormPerinatales = ({ idBen, showComponent }) => {
   const [show, setShow] = useState(true);
   const [isPerinatal, setPerinatal] = useState(true);
   const [Perinatal, setPerinatales] = React.useState({
     LLORO_INMEDIATAMENTE: "",
     COLORACION: "",
     INCUBADORA: "",
-    COLOR: ""
+    COLOR: "",
   });
 
   const saveDataTemporalyPerinatal = (e) => {
@@ -26,26 +25,27 @@ const FormPerinatales = ({idBen, showComponent}) => {
   const savePerinatal = (e) => {
     e.preventDefault();
     try {
-        if(idBen != null){
-            axios
-            .post(`https://amordownapi-production.up.railway.app/beneficiarios/createPeriNatales/${idBen}`, Perinatal)
-            .then(function (response) {
-              const mensaje =
-                response?.data?.message;
-              !mensaje
-                ? alert("sucedio un error al registrar el historial perinatal")
-                : alert(mensaje)
-              setShow(false);
-              setPerinatal(false);
-            })
-            .catch(function (response) {
-              alert("No se ha encontrado un registro");
-              console.log(response);
-            });
-        }else{
-            alert("No se encontro el id del beneficiario");
-        }
-      
+      if (idBen != null) {
+        axios
+          .post(
+            `https://amordownapi-production.up.railway.app/beneficiarios/createPeriNatales/${idBen}`,
+            Perinatal
+          )
+          .then(function (response) {
+            const mensaje = response?.data?.message;
+            !mensaje
+              ? alert("sucedio un error al registrar el historial perinatal")
+              : alert(mensaje);
+            setShow(false);
+            setPerinatal(false);
+          })
+          .catch(function (response) {
+            alert("No se ha encontrado un registro");
+            console.log(response);
+          });
+      } else {
+        alert("No se encontro el id del beneficiario");
+      }
     } catch (error) {
       console.error(error);
     }
@@ -54,9 +54,13 @@ const FormPerinatales = ({idBen, showComponent}) => {
   const showOtherComponent = () => {
     // setShow(false);
     // setPerinatal(false);
-  }
+  };
   return (
-    <div hidden={showComponent} id="FormPeriNatales" className={showComponent ? '' : styles.Container}>
+    <div
+      hidden={showComponent}
+      id="FormPeriNatales"
+      className={showComponent ? "" : styles.Container}
+    >
       {isPerinatal ? (
         <div className={styles.Container}>
           <div className={styles.Titulo}>
@@ -64,11 +68,9 @@ const FormPerinatales = ({idBen, showComponent}) => {
           </div>
 
           <form onSubmit={savePerinatal} className={styles.Form}>
-
             <div className={styles.Grid}>
-
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿El niño lloro inmediatamente?</label>
+                <label>¿El niño lloro inmediatamente?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
@@ -94,60 +96,68 @@ const FormPerinatales = ({idBen, showComponent}) => {
               </div>
 
               <div className={styles.Grid__item}>
-                <label htmlFor="">¿Su coloracion fue normal?</label>
+                <label>¿Su coloracion fue normal?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
-                      required value="SI"
+                      required
+                      value="SI"
                       onMouseDown={saveDataTemporalyPerinatal}
                       type="radio"
-                      name="COLORACION" />
+                      name="COLORACION"
+                    />
                     SI
                   </div>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
-                      required value="NO"
+                      required
+                      value="NO"
                       onMouseDown={saveDataTemporalyPerinatal}
                       type="radio"
-                      name="COLORACION" />
+                      name="COLORACION"
+                    />
                     NO
                   </div>
                 </div>
               </div>
 
               <div className={styles.Grid__item}>
-
-                <label htmlFor="">¿Estuvo en incubadora?</label>
+                <label>¿Estuvo en incubadora?</label>
                 <div className={styles.ContainerRadio}>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
-                      required value="SI"
+                      required
+                      value="SI"
                       onMouseDown={saveDataTemporalyPerinatal}
                       type="radio"
-                      name="INCUBADORA" />
+                      name="INCUBADORA"
+                    />
                     SI
                   </div>
                   <div className={styles.ContainerRadio__Radio}>
                     <input
-                      required value="NO"
+                      required
+                      value="NO"
                       onMouseDown={saveDataTemporalyPerinatal}
                       type="radio"
-                      name="INCUBADORA" />
+                      name="INCUBADORA"
+                    />
                     NO
                   </div>
                 </div>
               </div>
-
             </div>
 
             <div className={styles.Form__item}>
               <div className={styles.ContainerInput}>
                 <textarea
                   name="COLOR"
+                  required
+                  pattern="/^[a-zA-Z]{5,20}$/"
                   onChange={saveDataTemporalyPerinatal}
                   className={styles.ContainerInput__Input}
-                  placeholder=" ">
-                </textarea>
+                  placeholder=" "
+                ></textarea>
                 <span className={styles.ContainerInput__Span}>
                   ¿Nacio amarillo o morado?:
                 </span>
@@ -156,7 +166,11 @@ const FormPerinatales = ({idBen, showComponent}) => {
 
             {isPerinatal ? (
               <div className="Container-Beneficiario__Grid-button">
-                <button onClick={showOtherComponent} id="Perinatales" className="Button Button--Guardar">
+                <button
+                  onClick={showOtherComponent}
+                  id="Perinatales"
+                  className="Button Button--Guardar"
+                >
                   <div className="Button__Icono">
                     <FontAwesomeIcon icon="fa-solid fa-file-export" />
                   </div>
@@ -167,7 +181,7 @@ const FormPerinatales = ({idBen, showComponent}) => {
           </form>
         </div>
       ) : null}
-      
+
       <FormPostNatal showComponent={show} idBen={idBen} />
     </div>
   );

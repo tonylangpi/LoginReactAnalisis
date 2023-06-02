@@ -84,6 +84,12 @@
                 display: flex;
             }
         }
+
+        @media only screen and (max-width: 280px) {
+            &__Imagen {
+                width: 140px;
+            }
+        }
     }
 
     @keyframes aparecer {

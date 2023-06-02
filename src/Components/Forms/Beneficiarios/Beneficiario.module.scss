@@ -37,14 +37,18 @@
         width: 100%;
         align-self: center;
         justify-self: center;
-        left: 10px;
     }
 
     &__button {
         position: relative;
         align-self: center;
         justify-self: center;
-        left: 10px;
+    }
+
+    @media only screen and (max-width: 350px) {
+        & {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
     }
 }
 
