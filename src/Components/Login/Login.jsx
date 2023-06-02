@@ -36,7 +36,7 @@ function Login() {
         .post("https://amordownapi-production.up.railway.app/auth/login", usuario) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
-           
+            localStorage.setItem('id', data.id);
             localStorage.setItem("Auth", data.token);
             localStorage.setItem("nombreUsuario",data.nombre);
             localStorage.setItem("nombreRol",data.nombre_rol);
@@ -87,8 +87,7 @@ function Login() {
         </div>
       </div>
 
-      <div className={styles.Background}>
-      </div>
+      <div className={styles.Background}></div>
 
       <div className="Container-Form">
         <div className="Container-Form__Logo">

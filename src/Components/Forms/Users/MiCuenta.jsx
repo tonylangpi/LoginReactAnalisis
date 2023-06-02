@@ -3,6 +3,7 @@ import styles from './MiCuenta.module.scss';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function MiCuenta() {
+
   return (
     <div className={styles.Container}>
       <h1 className={styles.Titulo}>Mi Cuenta</h1>
