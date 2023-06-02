@@ -74,6 +74,20 @@
     }
 }
 
+.ContainerRadio {
+    @include FlexBox(center, center, row);
+    font-size: 1.2rem;
+
+    &__Radio {
+        @include FlexBox(center, center, row);
+        margin: 10px 15px;
+
+        input {
+            margin: 0 5px;
+        }
+    }
+}
+
 .Titulo {
     @include FlexBox(center, center, row);
     margin: 5px 0 10px 0;
@@ -95,12 +109,17 @@
     }
 }
 
+.tableContainer {
+    overflow-x: auto;
+}
+
 .Table {
     background: rgb(202, 196, 196);
     width: 100%;
     margin: 0 auto;
     margin-top: 2%;
     border-collapse: collapse;
+    border-spacing: 0;
     text-align: center;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 
@@ -164,6 +183,7 @@
         width: 20px;
         overflow: hidden;
         margin: 0 3px;
+        cursor: pointer;
 
         svg {
             height: 100%;
@@ -172,6 +192,70 @@
 
         a{
             color: #fff;
+        }
+    }
+
+    select {
+        width: 20px;
+        cursor: pointer;
+
+        option {
+            font-family: $font-family;
+            font-size: 1.1rem;
+        }
+    }
+}
+
+.Dropdown {
+    position: relative;
+    margin: 0 10px;
+
+    &__Options {
+        position: absolute;
+        top: 100%;
+        left: 1;
+        z-index: 10;
+        display: none;
+        min-width: 120px;
+        padding: 8px 0;
+        margin: 4px 0 0;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    @keyframes aparecer {
+        0% {
+            opacity: 0;
+            display: none;
+        }
+
+        100% {
+            opacity: 1;
+            display: block;
+        }
+    }
+
+    &__Options_open {
+        display: block;
+        width: 100%;
+        animation: aparecer 0.4s forwards;
+    }
+
+    &__Option {
+        display: block;
+        padding: 8px 12px;
+        font-size: 1rem;
+        font-family: $font-family;
+        color: #333;
+        text-decoration: none;
+
+        &:hover {
+            background-color: #f5f5f5;
         }
     }
 }

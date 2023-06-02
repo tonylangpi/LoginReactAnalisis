@@ -1,0 +1,220 @@
+@import '../../../Styles/Mixins';
+@import '../../../Styles/Variables';
+
+.Container {
+    position: absolute;
+    @include FlexBox(center, center, row);
+    background: rgba(255, 255, 255, 0.2);
+    width: 100%;
+    height: 100%;
+    // inset: 10px 20px 30px 40px;
+    backdrop-filter: blur(5px);
+    letter-spacing: 2px;
+    // padding-top: 500px;
+
+    &__Content{
+        padding: 20px 20px 20px 30px;
+        position: absolute;
+        width: 80%;
+        height: auto;
+        background-color: $background-modal;
+        color: #fff;
+        font-size: $font-size;
+        font-family: $font-family;
+        @include FlexBox(center, center, column);
+
+        .Titulo {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .ContentData {
+            @include FlexBox(center, center, column);
+            width: 100%;
+    
+            .SubTitulo {
+                margin: 10px 0;
+            }
+        }
+    }
+}
+
+.Form {
+    @include FlexBox(center, center, column);
+    width: 100%;
+    padding: 15px 0;
+
+    &__item {
+        width: 80%;
+        @include FlexBox(center, center, row);
+        margin: 25px 0;
+    }
+}
+
+.Button {
+    margin: 0 10px;
+    display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 200px;
+	height: 50px;
+	background: $color-button;
+	color: #fff;
+	font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+	font-weight: 100;
+	border: none;
+	cursor: pointer;
+	text-transform: uppercase;
+	transition: .3s ease all;
+	border-radius: 5px;
+	position: relative;
+	overflow: hidden;
+
+    &__Span {
+        transition: .4s ease-in-out all;
+	    position: absolute;
+	    left: 19%;
+        color: #FFF;
+        letter-spacing: 2px;
+    }
+
+    &__Icono {
+        display: flex;
+	    align-items: center;
+	    position: absolute;
+	    z-index: 2;
+	    left: -40px;
+	    transition: .3s ease-in-out all;
+	    opacity: 0;
+    }
+
+    &:hover {
+        background: $color-button-active;
+    }
+
+    &:hover &__Icono {
+        left: calc(100% - 30px);
+        opacity: 1;
+    }
+
+    &:hover &__Span {
+        left: 15px;
+    }
+}
+
+.Close {
+    cursor: pointer;
+
+    svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    &:hover {
+        color: rgb(253, 99, 99);
+    }
+}
+
+.Grid {
+    margin-top: 15px;
+    margin: 25px 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-auto-rows: auto;
+    column-gap: 20px;
+    row-gap: 45px;
+
+    &__item {
+        position: relative;
+        width: 100%;
+        align-self: center;
+        justify-self: center;
+    }
+
+    &__button {
+        position: relative;
+        align-self: center;
+        justify-self: center;
+        left: 10px;
+    }
+}
+
+.ContainerInput {
+    position: relative ;
+    width: 100% ;
+    letter-spacing: 2px;
+    font-family: $font-family;
+
+    textarea {
+        width: 98%;
+        height: 100px;
+        resize: vertical;
+    }
+
+    select {
+        height: 50px;
+        width: 94%;
+        letter-spacing: 2px;
+        font-family: $font-family;
+        cursor: pointer;
+    }
+
+    &__Input {
+        border: 1px solid grey;
+        outline: none;
+        background-color: $color-background-container;
+        width: 90%;
+        height: 35px;
+        border-radius: $border-radius;
+        padding: 0.5rem;
+        font-size: $font-size;
+        font-weight: $font-weight;
+
+        &:not(:placeholder-shown) ~ span, &:focus ~ span {
+            transform: translateX(0px) translateY(-30px);
+            font-size: 0.8em;
+            padding: 0 10px;
+            color: #fff;
+        }
+
+        @media only screen and (max-width: 500px) {
+            & {
+                font-size: 1rem;
+            }
+        }
+
+        @media only screen and (max-width: 360px) {
+            &:not(:placeholder-shown) ~ span, &:focus ~ span {
+                transform: translateX(0px) translateY(-30px);
+                font-size: 0.6em;
+                padding: 0 10px;
+            }
+        }
+    }
+
+    &__Span {
+        color: #000;
+        position: absolute;
+        left: 0;
+        top: 10px;
+        padding: 10px;
+        pointer-events: none;
+        font-size: 1rem;
+        text-transform: uppercase;
+        transition: 0.5s;
+
+        @media only screen and (max-width: 500px) {
+            & {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media only screen and (max-width: 360px) {
+            & {
+                font-size: 0.6em;
+            }
+        }
+    }
+}

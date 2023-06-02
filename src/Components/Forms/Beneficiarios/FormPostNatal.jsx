@@ -4,9 +4,9 @@ import axios from 'axios';
 import styles from './Antecedentes.module.scss';
 import { Link } from "react-router-dom";
 
-const FormPostNatal = ({ idBen }) => {
-  const [isPostnatal, setPostnatal] = useState(false);
+const FormPostNatal = ({ idBen, showComponent }) => {
 
+  const [isPostnatal, setPostnatal] = useState(true);
   const [Postnatal, setPostnatales] = React.useState({
     TRATAMIENTO: "",
     INFECCIONES: "",
@@ -39,7 +39,7 @@ const FormPostNatal = ({ idBen }) => {
             !mensaje
               ? alert("sucedio un error al registrar el historial perinatal")
               : alert(mensaje);
-            setPostnatal(true);
+              setPostnatal(false);
           })
           .catch(function (response) {
             alert("No se ha encontrado un registro");
@@ -57,224 +57,220 @@ const FormPostNatal = ({ idBen }) => {
     location.reload();
   }
 
+  const showOtherComponent = () => {
+    // setPostnatal(false);
+  }
+
   return (
 
-    <div className={styles.Container}>
+    <div hidden={showComponent} className={showComponent ? '' : styles.Container}>
 
-      <div className={styles.Titulo}>
-        <h1>Antecedentes Post-Natales</h1>
-      </div>
-
-      <form onSubmit={savePostnatal} className={styles.Form}>
-
-        <div className={styles.Grid}>
-          <div className={styles.Grid__item}>
-            <label htmlFor="">¿Tuvo tratamiento despues del parto?</label>
-            <div className={styles.ContainerRadio}>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  disabled={isPostnatal}
-                  value="SI"
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="TRATAMIENTO"
-                />
-                SI
-              </div>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  value="NO"
-                  disabled={isPostnatal}
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="TRATAMIENTO"
-                />
-                NO
-              </div>
-            </div>
+      {isPostnatal ? (
+        <div className={styles.Container}>
+          <div className={styles.Titulo}>
+            <h1>Antecedentes Post-Natales</h1>
           </div>
 
-          <div className={styles.Grid__item}>
-            <label htmlFor="">¿Tuvo infecciones?</label>
-            <div className={styles.ContainerRadio}>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  value="SI"
-                  disabled={isPostnatal}
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="INFECCIONES"
-                />
-                SI
-              </div>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  disabled={isPostnatal}
-                  value="NO"
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="INFECCIONES"
-                />
-                NO
-              </div>
-            </div>
-          </div>
+          <form onSubmit={savePostnatal} className={styles.Form}>
 
-          <div className={styles.Grid__item}>
-            <label htmlFor="">¿Tuvo Fiebre?</label>
-            <div className={styles.ContainerRadio}>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  value="SI"
-                  disabled={isPostnatal}
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="FIEBRE"
-                />
-                SI
+            <div className={styles.Grid}>
+              <div className={styles.Grid__item}>
+                <label htmlFor="">¿Tuvo tratamiento despues del parto?</label>
+                <div className={styles.ContainerRadio}>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="SI"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="TRATAMIENTO"
+                    />
+                    SI
+                  </div>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="NO"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="TRATAMIENTO"
+                    />
+                    NO
+                  </div>
+                </div>
               </div>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  value="NO"
-                  disabled={isPostnatal}
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="FIEBRE"
-                />
-                NO
-              </div>
-            </div>
-          </div>
 
-          <div className={styles.Grid__item}>
-            <label htmlFor="">¿Tuvo convulciones?</label>
-            <div className={styles.ContainerRadio}>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  disabled={isPostnatal}
-                  value="SI"
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="CONVULCIONES"
-                />
-                SI
+              <div className={styles.Grid__item}>
+                <label htmlFor="">¿Tuvo infecciones?</label>
+                <div className={styles.ContainerRadio}>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="SI"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="INFECCIONES"
+                    />
+                    SI
+                  </div>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="NO"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="INFECCIONES"
+                    />
+                    NO
+                  </div>
+                </div>
               </div>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  disabled={isPostnatal}
-                  value="NO"
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="CONVULCIONES"
-                />
-                NO
-              </div>
-            </div>
-          </div>
 
-          <div className={styles.Grid__item}>
-            <label htmlFor="">¿Tiene lenguaje?</label>
-            <div className={styles.ContainerRadio}>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  value="SI"
-                  disabled={isPostnatal}
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="LENGUAJE"
-                />
-                SI
+              <div className={styles.Grid__item}>
+                <label htmlFor="">¿Tuvo Fiebre?</label>
+                <div className={styles.ContainerRadio}>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="SI"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="FIEBRE"
+                    />
+                    SI
+                  </div>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="NO"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="FIEBRE"
+                    />
+                    NO
+                  </div>
+                </div>
               </div>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  value="NO"
-                  disabled={isPostnatal}
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="LENGUAJE"
-                />
-                NO
-              </div>
-            </div>
-          </div>
 
-          <div className={styles.Grid__item}>
-            <label htmlFor="">¿Camina?</label>
-            <div className={styles.ContainerRadio}>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  value="SI"
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="CAMINA"
-                />
-                SI
+              <div className={styles.Grid__item}>
+                <label htmlFor="">¿Tuvo convulciones?</label>
+                <div className={styles.ContainerRadio}>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="SI"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="CONVULCIONES"
+                    />
+                    SI
+                  </div>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="NO"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="CONVULCIONES"
+                    />
+                    NO
+                  </div>
+                </div>
               </div>
-              <div className={styles.ContainerRadio__Radio}>
-                <input
-                  required
-                  value="NO"
-                  onChange={saveDataTemporalyPostnatal}
-                  type="radio"
-                  name="CAMINA"
-                />
-                NO
+
+              <div className={styles.Grid__item}>
+                <label htmlFor="">¿Tiene lenguaje?</label>
+                <div className={styles.ContainerRadio}>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="SI"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="LENGUAJE"
+                    />
+                    SI
+                  </div>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="NO"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="LENGUAJE"
+                    />
+                    NO
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.Grid__item}>
+                <label htmlFor="">¿Camina?</label>
+                <div className={styles.ContainerRadio}>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="SI"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="CAMINA"
+                    />
+                    SI
+                  </div>
+                  <div className={styles.ContainerRadio__Radio}>
+                    <input
+                      required
+                      value="NO"
+                      onMouseDown={saveDataTemporalyPostnatal}
+                      type="radio"
+                      name="CAMINA"
+                    />
+                    NO
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+
+            <div className={styles.Form__item}>
+              <div className={styles.ContainerInput}>
+                <textarea
+                  name="OBSERVACIONES"
+                  onChange={saveDataTemporalyPostnatal}
+                  className={styles.ContainerInput__Input}
+                  placeholder=" ">
+                </textarea>
+                <span className={styles.ContainerInput__Span}>
+                  Observaciones
+                </span>
+              </div>
+            </div>
+
+            {isPostnatal ? (
+              <Link className={styles.Button} to="/FormListarBeneficiarios">
+                <div className={styles.Button__Icono}>
+                  <FontAwesomeIcon icon="fa-solid fa-file-export" />
+                </div>
+                <span className={styles.Button__Span}>Guardar</span>
+              </Link>
+
+              // <div className="Container-Beneficiario__Grid-button">
+              //   <button onClick={showOtherComponent} id="Postnatales" className="Button Button--Guardar" >
+              //     <div className="Button__Icono">
+              //       <FontAwesomeIcon icon="fa-solid fa-file-export" />
+              //     </div>
+              //     <span className="Button__Span Iniciar">Guardar</span>
+              //   </button>
+              // </div>
+            ) : null}
+          </form>
         </div>
-
-        <div className={styles.Form__item}>
-          <div className={styles.ContainerInput}>
-            <textarea
-              name="OBSERVACIONES"
-              onChange={saveDataTemporalyPostnatal}
-              className={styles.ContainerInput__Input}
-              placeholder=" ">
-            </textarea>
-            <span className={styles.ContainerInput__Span}>
-              Observaciones
-            </span>
-          </div>
+      ) : null}
+      {/* <Link className={styles.Button} to="/FormListarBeneficiarios">
+        <div className={styles.Button__Icono}>
+          <FontAwesomeIcon icon="fa-solid fa-file-export" />
         </div>
-
-        {!isPostnatal ? (
-
-          // <Link onClick={actualizarArea} className={styles.Button} to="/FormAreas">
-          //   <div className={styles.Button__Icono}>
-          //     <FontAwesomeIcon icon="fa-solid fa-file-export" />
-          //   </div>
-          //   <span className={styles.Button__Span}>Actualizar</span>
-          // </Link>
-          
-          <div className="Container-Beneficiario__Grid-button">
-            <button id="Postnatales" className="Button Button--Guardar">
-              <div className="Button__Icono">
-                <FontAwesomeIcon icon="fa-solid fa-file-export" />
-              </div>
-              <span className="Button__Span Iniciar">Guardar</span>
-            </button>
-          </div>
-        ) : null}
-
-        <Link className={styles.Button} to="/FormRoles">
-          <div className={styles.Button__Icono}>
-            <FontAwesomeIcon icon="fa-solid fa-file-export" />
-          </div>
-          <span className={styles.Button__Span}>Actualizar</span>
-        </Link>
-      </form>
+        <span className={styles.Button__Span}>Actualizar</span>
+      </Link> */}
     </div>
   );
 };
