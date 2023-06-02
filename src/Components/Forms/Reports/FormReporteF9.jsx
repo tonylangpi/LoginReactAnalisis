@@ -10,12 +10,12 @@ const FormReporteF9 = () => {
   const [sessionsPerPage] = useState(10);
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
-  const currentSessions = beneficiario.slice(indexOfFirstSession, indexOfLastSession);
+  const currentSessions = Array.isArray(beneficiario) ? beneficiario.slice(indexOfFirstSession, indexOfLastSession) : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
   const [datos, setDatos] = useState({
-    fecha_desde: '',
-    fecha_hasta: '',
+    "desde": "",
+    "hasta": ""
   });
 
   const saveDataTemporaly = (e) => {
@@ -29,15 +29,13 @@ const FormReporteF9 = () => {
   const ListarReporteF9 = () => {
     const idUsuario = localStorage.getItem('idUsuario');
     const token = localStorage.getItem('Auth');
-
+  
     axios
-      .get('https://amordownapi-production.up.railway.app/reportes/reporteF9', {
-        desde: datos.fecha_desde,
-        hasta: datos.fecha_hasta,
-      })
+      .get('http://localhost:4000/reportes/reporteF9', {datos})
       .then(function (response) {
         setBeneficiario(response.data);
         alert('Reporte Exitoso');
+        console.log(response);
       })
       .catch(function (error) {
         alert('No se ha encontrado un registro');
@@ -53,7 +51,7 @@ const FormReporteF9 = () => {
             <div className={styles.ContainerInput}>
               <input
                 onChange={saveDataTemporaly}
-                name="fecha_desde"
+                name="desde"
                 placeholder=" "
                 type="date"
                 className={styles.ContainerInput__Input}
@@ -66,7 +64,7 @@ const FormReporteF9 = () => {
             <div className={styles.ContainerInput}>
               <input
                 onChange={saveDataTemporaly}
-                name="fecha_hasta"
+                name="hasta"
                 placeholder=" "
                 type="date"
                 className={styles.ContainerInput__Input}
@@ -105,8 +103,8 @@ const FormReporteF9 = () => {
               .filter((item) => {
                 return (
                   search.toLowerCase() === '' ||
-                  item.BENEFICIARIO.toLowerCase().includes(search) ||
-                  item.BENEFICIARIO.toLowerCase().includes(search)
+                  item.NOMBRES.toLowerCase().includes(search) ||
+                  item.APELLIDOS.toLowerCase().includes(search)
                 );
               })
               .map((row, index) => (
@@ -128,8 +126,8 @@ const FormReporteF9 = () => {
           </tbody>
         </table>
         <Pagination
-          beneficiaryPerPage={sessionsPerPage}
-          allbeneficiary={beneficiario.length}
+          sessionsPerPage={sessionsPerPage}
+          totalSessions={beneficiario.length}
           pagination={pagination}
           currentPage={currentPage}
         />
