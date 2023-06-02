@@ -12,7 +12,7 @@ function MiCuenta() {
         id: localStorage.getItem("id"),
       })
       .then(function (response) {
-        setUserData(res.data[0]);
+        setUserData(response.data[0]);
       })
       .catch(function (error) {
         alert(error);
