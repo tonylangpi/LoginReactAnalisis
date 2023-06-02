@@ -3,7 +3,7 @@ import axios from 'axios';
 import Pagination from '../../utils/pagination';
 import styles from './Reporte.module.scss';
 
-const FormReporteF9 = () => {
+const FormReporteCualitativo = () => {
   const [search, setSearch] = useState('');
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,12 +26,12 @@ const FormReporteF9 = () => {
     });
   };
 
-  const ListarReporteF9 = () => {
+  const ListarReporteCualitativo = () => {
     const idUsuario = localStorage.getItem('idUsuario');
     const token = localStorage.getItem('Auth');
   
     axios
-      .post('https://amordownapi-production.up.railway.app/reportes/reporteF9', {desde:datos.desde, hasta: datos.hasta})
+      .post('https://amordownapi-production.up.railway.app/reportes/reporteCualitativo', {desde:datos.desde, hasta: datos.hasta})
       .then(function (response) {
         setBeneficiario(response.data);
         alert('Reporte Exitoso');
@@ -74,28 +74,20 @@ const FormReporteF9 = () => {
           </div>
 
           <div className={styles.Grid__button}>
-            <button className="Button" onClick={ListarReporteF9}>
+            <button className="Button" onClick={ListarReporteCualitativo}>
               Buscar Reporte
             </button>
           </div>
         </div>
 
-        <h1 className={styles.Titulo}>Lista de Reporte F9</h1>
+        <h1 className={styles.Titulo}>Lista de Reporte Cualitativo</h1>
         <table className={styles.Table}>
           <thead>
             <tr>
-              <th>Fechas Dias</th>
-              <th>Referencia</th>
-              <th>Nombres</th>
-              <th>Apellidos</th>
-              <th>Direccion </th>
-              <th>Sexo</th>
-              <th>Edad</th>
-              <th>Discapacidad</th>
-              <th>Escolaridad</th>
-              <th>Tipo de Sesión</th>
-              <th>Diagnostico</th>
-              <th>Servicio Recibido</th>
+              <th>Empresa</th> 
+              <th>Rango</th>
+              <th>Hombres</th>
+              <th>Mujeres</th>
             </tr>
           </thead>
           <tbody>
@@ -109,18 +101,10 @@ const FormReporteF9 = () => {
               })
               .map((row, index) => (
                 <tr key={index}>
-                  <td>{row.FECHA_DIAS}</td>
-                  <td>{row.REFERENCIA}</td>
-                  <td>{row.NOMBRES}</td>
-                  <td>{row.APELLIDOS}</td>
-                  <td>{row.DIRECCION}</td>
-                  <td>{row.SEXO}</td>
-                  <td>{Math.trunc(row.EDAD)}</td>
-                  <td>{row.DISCAPACIDAD}</td>
-                  <td>{row.ESCOLARIDAD}</td>
-                  <td>{row.TIPO_SESION}</td>
-                  <td>{row.DIAGNOSTICO}</td>
-                  <td>{row.SERVICIO_RECIBIDO}</td>
+                  <td>{row.EMPRESA}</td>
+                  <td>{row.RANGO}</td>
+                  <td>{row.HOMBRES}</td>
+                  <td>{row.MUJERES}</td>
                 </tr>
               ))}
           </tbody>
@@ -136,4 +120,4 @@ const FormReporteF9 = () => {
   );
 };
 
-export default FormReporteF9;
+export default FormReporteCualitativo;
