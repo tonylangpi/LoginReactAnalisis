@@ -8,6 +8,8 @@ import ReporteBeneficiario from "./Components/Forms/Reports/FormReporteBeneficia
 import ReporteArea from "./Components/Forms/Reports/FormReporteArea";
 import ListadoCitas from "./Components/Forms/Reports/FormListarCitas";
 import ReporteF9 from "./Components/Forms/Reports/FormReporteF9";
+import Estadistico from "./Components/Forms/Reports/FormReporteEstadistico";
+import InformeServicio from "./Components/Forms/Reports/FormReporteInformeServicio";
 import ReporteCuantitativo from "./Components/Forms/Reports/FormReporteCuantitativo";
 import ReporteCualitativo from "./Components/Forms/Reports/FormReporteCualitativo";
 import Usuarios from "./Components/Forms/Users/FormUsuarios";
@@ -99,6 +101,8 @@ function App() {
               <Route path="/FormReporteF9" element={<ReporteF9 />} />
               <Route path="/FormReporteCuantitativo" element={<ReporteCuantitativo />}/>
               <Route path="/FormReporteCualitativo" element={<ReporteCualitativo />}/>
+              <Route path="/FormReporteEstadistico" element={<Estadistico />}/>
+              <Route path="/FormReporteInformeServicio" element={<InformeServicio />}/>
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
