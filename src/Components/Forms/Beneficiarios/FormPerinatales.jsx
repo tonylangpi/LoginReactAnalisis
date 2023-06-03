@@ -154,7 +154,7 @@ const FormPerinatales = ({ idBen, showComponent }) => {
                   name="COLOR"
                   autoComplete="off"
                   required
-                  pattern="/^[a-zA-Z]{5,20}$/"
+                  pattern="^[a-zA-Z\s]{5,50}$"
                   onChange={saveDataTemporalyPerinatal}
                   className={styles.ContainerInput__Input}
                   placeholder=" "

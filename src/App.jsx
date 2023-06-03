@@ -101,7 +101,7 @@ function App() {
               <Route path="/FormReporteCualitativo" element={<ReporteCualitativo />}/>
               <Route path="/FormReporteEstadistico" element={<Estadistico />}/>
               <Route path="/FormReporteInformeServicio" element={<InformeServicio />}/>
-              {/* <Route path="*" element={<Navigate to="/" />} /> */}
+              <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>
         </>
@@ -109,7 +109,7 @@ function App() {
         <>
           <Routes>
             <Route path="/" element={<Login />} />
-            {/* <Route path="*" element={<Navigate to="/" />} /> */}
+            <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </>
       )}

@@ -124,7 +124,7 @@ const FormPrenatales = ({ idBen, showComponent }) => {
                 <div className={styles.ContainerInput}>
                   <textarea
                     autoComplete="off"
-                    pattern="/^[a-zA-Z]+$/"
+                    pattern="^[a-zA-Z\s]{3,50}$"
                     onChange={saveDataTemporalyPrenatal}
                     name="EXPLIQUE_EMBARAZO"
                     className={styles.ContainerInput__Input}
@@ -168,7 +168,7 @@ const FormPrenatales = ({ idBen, showComponent }) => {
                 <div className={styles.ContainerInput}>
                   <textarea
                     autoComplete="off"
-                    pattern="/^[a-zA-Z]+$/"
+                    pattern="^[a-zA-Z\s]{3,50}$"
                     onChange={saveDataTemporalyPrenatal}
                     name="EXPLIQUE_PARTO"
                     className={styles.ContainerInput__Input}
@@ -212,7 +212,7 @@ const FormPrenatales = ({ idBen, showComponent }) => {
                 <div className={styles.ContainerInput}>
                   <textarea
                     autoComplete="off"
-                    pattern="/^[a-zA-Z]+$/"
+                    pattern="^[a-zA-Z\s]{3,50}$"
                     onChange={saveDataTemporalyPrenatal}
                     name="EXPLIQUE_COMPLICACION"
                     className={styles.ContainerInput__Input}

@@ -291,7 +291,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
                     required
                     autoComplete="off"
                     type="text"
-                    pattern="/^[a-zA-Z]{5,50}$/"
+                    pattern="^[a-zA-Z\s]{5,50}$"
                     name="DIAGNOSTICO"
                     onChange={saveDataTemporalyHistorial}
                     className={styles.ContainerInput__Input}
@@ -309,7 +309,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
                     required
                     autoComplete="off"
                     type="text"
-                    pattern="/^[a-zA-Z]{5,50}$/"
+                    pattern="^[a-zA-Z\s]{5,50}$"
                     name="OTRAS"
                     onChange={saveDataTemporalyHistorial}
                     className={styles.ContainerInput__Input}

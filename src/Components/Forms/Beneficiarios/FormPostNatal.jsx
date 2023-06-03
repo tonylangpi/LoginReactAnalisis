@@ -227,7 +227,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
                 <textarea
                   autoComplete="off"
                   required
-                  pattern="/^[a-zA-Z]{5,50}$/"
+                  pattern="^[a-zA-Z\s]{3,50}$"
                   name="OBSERVACIONES"
                   onChange={saveDataTemporalyPostnatal}
                   className={styles.ContainerInput__Input}
