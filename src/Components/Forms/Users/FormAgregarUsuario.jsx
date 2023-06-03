@@ -287,7 +287,7 @@ function FormAgregarUsuario() {
               placeholder=" "
               type="text"
               required
-              pattern="/^\d{8}$/"
+              pattern="^\d{8}$"
               onChange={handleChange}
               className={styles.ContainerInput__Input}
             />

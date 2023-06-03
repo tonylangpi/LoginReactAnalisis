@@ -22,6 +22,19 @@
     }
 }
 
+.Close {
+    cursor: pointer;
+
+    svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    &:hover {
+        color: rgb(253, 99, 99);
+    }
+}
+
 .ContainerRadio {
     @include FlexBox(center, center, row);
     font-size: 1.2rem;

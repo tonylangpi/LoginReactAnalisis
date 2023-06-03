@@ -89,7 +89,7 @@ const FormListarBeneficiario = () => {
 
   const ActivarBeneficiario = (idBene) =>{
     axios
-      .post(`https://amordownapi-production.up.railway.app/activarBeneficiario/${idBene}`)
+      .post(`https://amordownapi-production.up.railway.app/beneficiarios/activarBeneficiario/${idBene}`)
       .then(function(response) {
           alert("Activado Exitoso");
           ListarBeneficiarios();
@@ -230,7 +230,7 @@ const FormListarBeneficiario = () => {
                         </span>
                         <button>
                           <a
-                            href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH1}`}
+                            href={`https://amordownapi-production.up.railway.app/beneficiarios/${row.RUTA_ARCH1}`}
                             target="_blank"
                           >
                             <FontAwesomeIcon icon="fa-solid fa-file" />
@@ -243,7 +243,7 @@ const FormListarBeneficiario = () => {
                         </span>
                         <button>
                           <a
-                            href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH2}`}
+                            href={`https://amordownapi-production.up.railway.app/beneficiarios/${row.RUTA_ARCH2}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

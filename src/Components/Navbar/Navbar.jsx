@@ -28,7 +28,6 @@ const Navbar = () => {
     { title: "Usuarios", path: "/FormUsuarios", icon: "", permiso: true },
   ])
 
-
   const [Dropdown, setDropdown] = React.useState({
     drop1: false,
     drop2: false,

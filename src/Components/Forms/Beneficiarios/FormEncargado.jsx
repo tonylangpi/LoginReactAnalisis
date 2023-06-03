@@ -29,14 +29,9 @@ function FormEncargado({ idBene, showComponent }) {
   const saveDate = (date) => {
     const selectDate = new Date(date.target.value);
     const currentDate = new Date();
-    const limitDate = new Date();
-    limitDate.setFullYear(limitDate.getFullYear() - 1);
 
     if (selectDate >= currentDate) {
       setErrorFecha("La fecha de nacimiento no debe ser futura");
-      setFechaNacimiento("");
-    } else if (selectDate >= limitDate) {
-      setErrorFecha("La fecha de nacimiento debe ser anterior a 12 meses");
       setFechaNacimiento("");
     } else {
       setErrorFecha("");
@@ -224,7 +219,7 @@ function FormEncargado({ idBene, showComponent }) {
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
-                  pattern="/^\d{8}$/"
+                  pattern="^\d{8}$"
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>Telefono</span>
