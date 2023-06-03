@@ -18,6 +18,7 @@ function FormAgregarUsuario() {
     id_area: 0,
     telefono: ''
   });
+
   const [prueba, setPrueba] = React.useState({
     auth: false,
     message: "",
@@ -44,7 +45,7 @@ function FormAgregarUsuario() {
         alert('No se ha encontrado un registro');
       });
 
-    axios.get(`https://amordownapi-production.up.railway.app/usuarios/getLevels`)
+    axios.post(`https://amordownapi-production.up.railway.app/usuarios/getLevels`, {nivel: localStorage.getItem('nivel')})
       .then(function (response) {
         setLevels(response.data);
       })
@@ -124,10 +125,11 @@ function FormAgregarUsuario() {
           <div className={styles.ContainerInput}>
             <input
               autoComplete='off'
+              pattern='/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i'
               name="email"
               placeholder=" "
               type="email"
-              required="required"
+              required
               onChange={handleChange}
               className={styles.ContainerInput__Input}
             />
@@ -141,6 +143,7 @@ function FormAgregarUsuario() {
           <div className={styles.ContainerInput}>
             <input
               autoComplete='off'
+              pattern='^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$'
               name="nombre"
               placeholder=" "
               type="text"
@@ -233,7 +236,8 @@ function FormAgregarUsuario() {
               name="telefono"
               placeholder=" "
               type="text"
-              required="required"
+              required
+              pattern='/^\d{8}$/'
               onChange={handleChange}
               className={styles.ContainerInput__Input}
             />

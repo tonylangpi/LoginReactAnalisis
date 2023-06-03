@@ -1,79 +1,81 @@
-@import '../../../Styles/Mixins';
-@import '../../../Styles/Variables';
+@import "../../../Styles/Mixins";
+@import "../../../Styles/Variables";
 
 .Container {
-    @include FlexBox(center, center, column);
-    width: 100%;
+  @include FlexBox(center, center, column);
+  width: 100%;
 }
 
 .ContainerSearch {
-    margin: 10px 0;
-    height: 100px;
-    width: 70%;
-    @include FlexBox(center, center, row);
-    flex-wrap: wrap;
+  margin: 10px 0;
+  height: 100px;
+  width: 70%;
+  @include FlexBox(center, center, row);
+  flex-wrap: wrap;
 }
 
 .ContainerInput {
-    margin: 0 30px;
-    left: -10px ;
-    position: relative ;
-    width: 80% ;
+  margin: 0 30px;
+  left: -10px;
+  position: relative;
+  width: 80%;
 
-    &__Input {
-        border: 1px solid grey;
-        outline: none;
-        background-color: $color-background-container;
-        width: 100% ;
-        height: 2rem ;
-        border-radius: $border-radius ;
-        padding: 0.5rem ;
-        font-size: $font-size ;
-        font-weight: $font-weight ;
+  &__Input {
+    border: 1px solid grey;
+    outline: none;
+    background-color: $color-background-container;
+    width: 100%;
+    height: 2rem;
+    border-radius: $border-radius;
+    padding: 0.5rem;
+    font-size: $font-size;
+    font-weight: $font-weight;
 
-        &:not(:placeholder-shown) ~ span, &:focus ~ span {
-            transform: translateX(0px) translateY(-30px);
-            font-size: 0.8em;
-            padding: 0 10px;
-        }
+    &:not(:placeholder-shown) ~ span,
+    &:focus ~ span {
+      transform: translateX(0px) translateY(-30px);
+      font-size: 0.8em;
+      padding: 0 10px;
     }
+  }
 
-    &__Span {
-        position: absolute;
-        left: 0;
-        top: 10px;
-        padding: 10px;
-        pointer-events: none;
-        font-size: 1rem;
-        text-transform: uppercase;
-        transition: 0.5s;
-    }
+  &__Span {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1rem;
+    text-transform: uppercase;
+    transition: 0.5s;
+  }
 }
 
 .Titulo {
-    @include FlexBox(center, center, row);
-    margin: 5px 0 10px 0;
-    font-family: $font-rubik;
-    letter-spacing: 2px;
-    color: #140172;
-    font-family: $font-family;
+  @include FlexBox(center, center, row);
+  margin: 5px 0 10px 0;
+  font-family: $font-rubik;
+  letter-spacing: 2px;
+  color: #140172;
+  font-family: $font-family;
 
-    @media only screen and (max-width: 600px) {
-        & {
-            font-size: 0.8rem;
-        }
+  @media only screen and (max-width: 600px) {
+    & {
+      font-size: 0.8rem;
     }
+  }
 
-    @media only screen and (max-width: 500px) {
-        & {
-            text-align: center;
-        }
+  @media only screen and (max-width: 500px) {
+    & {
+      text-align: center;
     }
+  }
 }
 
-.Table{
-    background: rgb(202, 196, 196);
-  width: 70%;
+.Table {
+  overflow-x: auto;
+  background: rgb(202, 196, 196);
+  width: 100%;
   margin: 0 auto;
   margin-top: 2%;
   border-collapse: collapse;
@@ -94,7 +96,7 @@
   tr:hover {
     background-color: rgb(167, 248, 244);
   }
-  .actionsBeneficiary{
+  .actionsBeneficiary {
     background-color: rgba(2, 9, 78, 0.192);
     text-align: center;
   }
@@ -102,7 +104,7 @@
     position: relative;
     display: inline-block;
   }
-  
+
   .tooltip .tooltiptext {
     visibility: hidden;
     width: 120px;
@@ -119,7 +121,7 @@
     opacity: 0;
     transition: opacity 0.3s;
   }
-  
+
   .tooltip:hover .tooltiptext {
     visibility: visible;
     opacity: 1;
@@ -130,21 +132,21 @@
   margin: 50px 0;
   width: 80%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-auto-rows: auto;
   column-gap: 20px;
   row-gap: 45px;
 
   &__item {
-      position: relative;
-      width: 100%;
-      align-self: center;
-      justify-self: center;
+    position: relative;
+    width: 100%;
+    align-self: center;
+    justify-self: center;
   }
 
   &__button {
-      position: relative;
-      align-self: center;
-      justify-self: center;
+    position: relative;
+    align-self: center;
+    justify-self: center;
   }
 }

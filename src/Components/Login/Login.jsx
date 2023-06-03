@@ -10,7 +10,7 @@ import ImagenFondo from '../../assets/images/wave.svg';
 
 function Login() {
   const navigate = useNavigate();
-  const [showpass, setShowpass] = React.useState(true);
+  const [showpass, setShowpass] = React.useState(false);
   const [usuario, setUser] = React.useState({
     email: "",
     password: "",
@@ -38,8 +38,6 @@ function Login() {
           if (data.auth) {
             localStorage.setItem('id', data.id);
             localStorage.setItem("Auth", data.token);
-            localStorage.setItem("nombreUsuario",data.nombre);
-            localStorage.setItem("nombreRol",data.nombre_rol);
             localStorage.setItem("nivel",data.nivel);
             //aqui se redirige al usuario a la pagina home
             navigate(0);

@@ -12,7 +12,7 @@ const FormBeneficiario = () => {
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [errorFecha, setErrorFecha] = useState("");
 
-  const saveData = (date) => {
+  const saveDate = (date) => {
     const selectDate = new Date(date.target.value);
     const currentDate = new Date();
     const limitDate = new Date();
@@ -124,11 +124,6 @@ const FormBeneficiario = () => {
         console.log(error);
       }
     }
-  };
-
-  const showOtherComponent = () => {
-    // setShow(false);
-    // setisBeneficiary(true);
   };
 
   return (
@@ -282,7 +277,7 @@ const FormBeneficiario = () => {
                     required
                     disabled={isBeneficiary}
                     name="FECHA_NACIMIENTO"
-                    onChange={(event) => saveData(event)}
+                    onChange={(event) => saveDate(event)}
                     placeholder=" "
                     type="date"
                     value={fechaNacimiento}
@@ -337,6 +332,7 @@ const FormBeneficiario = () => {
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <input
+                    autoComplete="off"
                     required
                     disabled={isBeneficiary}
                     name="NUMERO_HERMANOS"
