@@ -1,6 +1,6 @@
 import "./App.scss"; // Importar estilos
 import Login from "./Components/Login/Login";
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import FormBeneficiario from "./Components/Forms/Beneficiarios/FormBeneficiario";
 import Navbar from "./Components/Navbar/Navbar";
 import ListarBeneficiarios from "./Components/Forms/Beneficiarios/FomListarBeneficiarios";
@@ -15,7 +15,6 @@ import ReporteCualitativo from "./Components/Forms/Reports/FormReporteCualitativ
 import Usuarios from "./Components/Forms/Users/FormUsuarios";
 import MiCuenta from "./Components/Forms/Users/MiCuenta";
 import AreaActualizar from "./Components/Forms/Areas/AreaActualizar";
-import Servicios from "./Components/Forms/FormServicios";
 import Areas from "./Components/Forms/Areas/FormAreas";
 import AreaCrear from "./Components/Forms/Areas/AreaCrear";
 import AddUser from "./Components/Forms/Users/FormAgregarUsuario";
@@ -34,7 +33,7 @@ import Home from "./Components/Home/Home";
 function App() {
   library.add(fas);
   
-  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   
   const validateAuth = () => {
     axios
@@ -47,7 +46,6 @@ function App() {
         if (data.auth) {
           setIsLoggedIn(data.auth);
         } else {
-          console.log(data.auth);
           setIsLoggedIn(data.auth);
           localStorage.clear();
         }
@@ -66,6 +64,7 @@ function App() {
 
       // Recarga la página si se ha producido un cambio
       window.location.reload();
+      alert('A sos ReTroll');
     };
 
     // Observa los cambios en el localStorage
@@ -97,7 +96,6 @@ function App() {
               <Route path="/AreaActualizar" element={<AreaActualizar />} />
               <Route path="/FormAreas" element={<Areas />} />
               <Route path="/AreaCrear" element={<AreaCrear />} />
-              <Route path="/FormServicios" element={<Servicios />} />
               <Route path="/FormReporteF9" element={<ReporteF9 />} />
               <Route path="/FormReporteCuantitativo" element={<ReporteCuantitativo />}/>
               <Route path="/FormReporteCualitativo" element={<ReporteCualitativo />}/>

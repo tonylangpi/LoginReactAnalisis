@@ -129,6 +129,7 @@ function FormEncargado({ idBene, showComponent }) {
             <div className={styles.Grid__item}>
               <div className={styles.ContainerInput}>
                 <input
+                  autoComplete="off"
                   required
                   name="NOMBRE1"
                   onChange={saveDataTemporalyEncargado}
@@ -147,6 +148,7 @@ function FormEncargado({ idBene, showComponent }) {
               <div className={styles.ContainerInput}>
                 <input
                   required
+                  autoComplete="off"
                   name="NOMBRE2"
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
@@ -164,6 +166,7 @@ function FormEncargado({ idBene, showComponent }) {
               <div className={styles.ContainerInput}>
                 <input
                   name="NOMBRE3"
+                  autoComplete="off"
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
@@ -181,6 +184,7 @@ function FormEncargado({ idBene, showComponent }) {
                 <input
                   required
                   name="APELLIDO1"
+                  autoComplete="off"
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
@@ -198,6 +202,7 @@ function FormEncargado({ idBene, showComponent }) {
                 <input
                   required
                   name="APELLIDO2"
+                  autoComplete="off"
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
@@ -215,6 +220,7 @@ function FormEncargado({ idBene, showComponent }) {
                 <input
                   required
                   name="TELEFONO"
+                  autoComplete="off"
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
@@ -267,6 +273,7 @@ function FormEncargado({ idBene, showComponent }) {
               <div className={styles.ContainerInput}>
                 <input
                   required
+                  autoComplete="off"
                   name="OCUPACION"
                   pattern="/^[a-zA-Z0-9]{5,50}$/"
                   onChange={saveDataTemporalyEncargado}

@@ -74,6 +74,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
             <div className={styles.Form__item}>
               <div className={styles.ContainerInput}>
                 <textarea
+                  autoComplete="off"
                   required
                   pattern="/^[\w\d\s\S]{5,100}$/"
                   name="ENFERMEDAD_PADECE"
@@ -90,6 +91,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
             <div className={styles.Form__item}>
               <div className={styles.ContainerInput}>
                 <textarea
+                  autoComplete="off"
                   required
                   pattern="/^[\w\d\s\S]{5,100}$/"
                   name="MEDICAMENTOS_INGIERE"
@@ -287,6 +289,8 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
                 <div className={styles.ContainerInput}>
                   <input
                     required
+                    autoComplete="off"
+                    type="text"
                     pattern="/^[a-zA-Z]{5,50}$/"
                     name="DIAGNOSTICO"
                     onChange={saveDataTemporalyHistorial}
@@ -303,6 +307,8 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
                 <div className={styles.ContainerInput}>
                   <input
                     required
+                    autoComplete="off"
+                    type="text"
                     pattern="/^[a-zA-Z]{5,50}$/"
                     name="OTRAS"
                     onChange={saveDataTemporalyHistorial}

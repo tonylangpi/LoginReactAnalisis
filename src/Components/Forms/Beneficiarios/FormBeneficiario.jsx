@@ -332,6 +332,7 @@ const FormBeneficiario = () => {
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <input
+                    autoComplete="off"
                     required
                     disabled={isBeneficiary}
                     name="NUMERO_HERMANOS"

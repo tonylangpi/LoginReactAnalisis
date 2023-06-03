@@ -152,6 +152,7 @@ const FormPerinatales = ({ idBen, showComponent }) => {
               <div className={styles.ContainerInput}>
                 <textarea
                   name="COLOR"
+                  autoComplete="off"
                   required
                   pattern="/^[a-zA-Z]{5,20}$/"
                   onChange={saveDataTemporalyPerinatal}

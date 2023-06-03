@@ -9,7 +9,6 @@ const Navbar = () => {
   const [menuBeneficiario, setMenuBeneficiario] = React.useState([
     { title: "Ficha de Ingreso", path: "/formBene", icon: "", permiso: true },
     { title: "Listado de Beneficiarios", path: "/FormListarBeneficiarios", icon: "", permiso: true },
-    { title: "Servicios", path: "/FormServicios", icon: "", permiso: true }
   ])
 
   const [menuReportes, setMenuReportes] = React.useState([
@@ -79,13 +78,17 @@ const Navbar = () => {
 
   const ModifySubMenus = ()=>{
     if (localStorage.getItem('nivel') == 2) {
-      menuSeguridad[1].permiso =false ;
     } else if (localStorage.getItem('nivel') == 3) {
 
       menuBeneficiario[0].permiso = false;
 
       menuReportes[0].permiso = false;
       menuReportes[1].permiso = false;
+      menuReportes[3].permiso = false;
+      menuReportes[4].permiso = false;
+      menuReportes[5].permiso = false;
+      menuReportes[6].permiso = false;
+      menuReportes[7].permiso = false;
 
       menuSeguridad[0].permiso = false ;
       menuSeguridad[1].permiso = false ;
@@ -118,23 +121,6 @@ const Navbar = () => {
     { title: "REPORTES", ref1: menuRef2, drop: Dropdown.drop2, permiso: true },
     { title: "SEGURIDAD", ref1: menuRef3, drop: Dropdown.drop3, permiso: false },
   ];
-
-  // const subMenuBeneficiario = [
-  //   { title: "Ficha de Ingreso", path: "/formBene", icon: "", permiso: true },
-  //   { title: "Listado de Beneficiarios", path: "/FormListarBeneficiarios", icon: "", permiso: true },
-  //   { title: "Servicios", path: "/FormServicios", icon: "", permiso: true }
-  // ]
-
-  // const subMenuReportes = [
-  //   { title: "Reporte de Areas", path: "/FormReporteArea", icon: "", permiso: true },
-  //   { title: "Reporte de Beneficiarios", path: "/FormReporteBeneficiario", icon: "", permiso: true },
-  //   { title: "Reporte de Citas", path: "/FormListarCitas", icon: "", permiso: true }
-  // ]
-
-  // const subMenuSeguridad = [
-  //   { title: "Areas", path: "/FormAreas", icon: "", permiso: true },
-  //   { title: "Usuarios", path: "/FormUsuarios", icon: "", permiso: true },
-  // ]
 
   return (
     <>

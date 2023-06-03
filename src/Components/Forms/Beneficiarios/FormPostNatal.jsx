@@ -225,6 +225,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
             <div className={styles.Form__item}>
               <div className={styles.ContainerInput}>
                 <textarea
+                  autoComplete="off"
                   required
                   pattern="/^[a-zA-Z]{5,50}$/"
                   name="OBSERVACIONES"

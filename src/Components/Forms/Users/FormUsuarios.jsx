@@ -78,13 +78,13 @@ function FormUsuarios() {
       <table className={styles.Table}>
         <thead>
           <tr>
-            <th>ID Usuario</th>
             <th>Nombre</th>
             <th>Email</th>
+            <th>Nivel</th>
             <th>Rol</th>
             <th>Area</th>
-            <th>Direccion</th>
             <th>Nombre Empresa</th>
+            <th>Telefono</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -93,13 +93,13 @@ function FormUsuarios() {
             return item
           }).map((row, index) => (
             <tr key={index}>
-              <td>{row.ID_USUARIO}</td>
-              <td>{row.NOMBRE_USUARIO}</td>
-              <td>{row.EMAIL_USUARIO}</td>
-              <td>{row.ROL_USUARIO}</td>
-              <td>{row.NOMBRE_AREA}</td>
-              <td>{row.DIRECCION_EMPRESA}</td>
-              <td>{row.NOMBRE_EMPRESA}</td>
+              <td>{row.nombre}</td>
+              <td>{row.email}</td>
+              <td>{row.nivel}</td>
+              <td>{row.rol}</td>
+              <td>{row.area}</td>
+              <td>{row.empresa}</td>
+              <td>{row.telefono}</td>
               <td className={styles.actionsBeneficiary}>
                 <div className={styles.tooltip}><span className={styles.tooltiptext}>Editar Usuario</span>
                   <button onClick={() => {setshowMyModal(true), underSelect(row) }}><FontAwesomeIcon icon="fa-solid fa-arrows-rotate" /></button>
