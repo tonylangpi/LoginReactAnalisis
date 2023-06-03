@@ -1,99 +1,110 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styles from './AddUsers.module.scss';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import styles from "./AddUsers.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function FormAgregarUsuario() {
-
   const [roles, setRoles] = useState([]);
   const [areas, setAreas] = useState([]);
   const [level, setLevels] = useState([]);
   const [company, setCompany] = useState([]);
   const [usuario, setUsuarios] = React.useState({
-    email: '',
-    nombre: '',
+    email: "",
+    nombre: "",
     id_nivel: 0,
     id_rol: 0,
     id_empresa: 0,
     id_area: 0,
-    telefono: ''
+    telefono: "",
   });
 
   const [prueba, setPrueba] = React.useState({
     auth: false,
     message: "",
-    show: false
+    show: false,
   });
 
-  const handleOnClose = () => setshowMyModal(false)
+  const handleOnClose = () => setshowMyModal(false);
 
   const Listar = () => {
-    
-    axios.get(`https://amordownapi-production.up.railway.app/roles/`)
+    axios
+      .get(`https://amordownapi-production.up.railway.app/roles/`)
       .then(function (response) {
         setRoles(response.data);
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
 
-    axios.post(`https://amordownapi-production.up.railway.app/servicios/`, {NOMBRE: ''})
+    axios
+      .post(`https://amordownapi-production.up.railway.app/servicios/`, {
+        NOMBRE: "",
+      })
       .then(function (response) {
         setAreas(response.data);
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
 
-    axios.post(`https://amordownapi-production.up.railway.app/usuarios/getLevels`, {nivel: localStorage.getItem('nivel')})
+    axios
+      .post(
+        `https://amordownapi-production.up.railway.app/usuarios/getLevels`,
+        { nivel: localStorage.getItem("nivel") }
+      )
       .then(function (response) {
         setLevels(response.data);
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
 
-    axios.get(`https://amordownapi-production.up.railway.app/usuarios/getCompany`)
+    axios
+      .get(`https://amordownapi-production.up.railway.app/usuarios/getCompany`)
       .then(function (response) {
         setCompany(response.data);
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
   };
 
-  const fileSubmit = (e)=>{
+  const fileSubmit = (e) => {
     e.preventDefault();
-    axios.post(`https://amordownapi-production.up.railway.app/usuarios/create`, usuario)
+    axios
+      .post(
+        `https://amordownapi-production.up.railway.app/usuarios/create`,
+        usuario
+      )
       .then(function (response) {
         if (!response.data.auth) {
           setPrueba({
             auth: response.data.auth,
             message: response.data.message,
-            show: true
+            show: true,
           });
         } else {
           setPrueba({
             auth: response.data.auth,
             message: response.data.message,
-            show: true
+            show: true,
           });
         }
-        console.log(response)
+        console.log(response);
       })
       .catch(function (error) {
         alert(error);
       });
-  }
+  };
 
-  const Desaparecer = ()=>{
-    setPrueba({show: false});
-  }
+  const Desaparecer = () => {
+    setPrueba({ show: false });
+  };
 
   const handleChange = (e) => {
     setUsuarios({
       ...usuario,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -101,17 +112,42 @@ function FormAgregarUsuario() {
     Listar();
   }, []);
 
+  const rolFilter1 = roles.filter(function(roles) {
+    return roles.id_roles == '1';
+  });
+
+  const rolFilter2 = roles.filter(function(roles) {
+    return roles.id_roles == '2';
+  });
+
   return (
     <div className={styles.Container}>
-
-      <div id="Modal" className={prueba.show ? styles.ModalShow : "Container-Modal"}>
-        <div className={`Container-Modal__Modal ${prueba.auth ? 'Valido' : 'Invalido'}`}>
-          <FontAwesomeIcon className="Container-Modal__Modal-Icono Modal-Item" icon={`fa-solid ${prueba.auth ? 'fa-circle-check' : 'fa-triangle-exclamation'} `} />
+      <div
+        id="Modal"
+        className={prueba.show ? styles.ModalShow : "Container-Modal"}
+      >
+        <div
+          className={`Container-Modal__Modal ${
+            prueba.auth ? "Valido" : "Invalido"
+          }`}
+        >
+          <FontAwesomeIcon
+            className="Container-Modal__Modal-Icono Modal-Item"
+            icon={`fa-solid ${
+              prueba.auth ? "fa-circle-check" : "fa-triangle-exclamation"
+            } `}
+          />
           <div className="Container-Modal__Modal-Message Modal-Item">
-            <p id="Titulo" className="Titulo">{prueba.auth ? 'USUARIO REGISTRADO 🙂' : 'ERROR 🙁'}</p>
+            <p id="Titulo" className="Titulo">
+              {prueba.auth ? "USUARIO REGISTRADO 🙂" : "ERROR 🙁"}
+            </p>
             <p className="Message">{prueba.message}</p>
           </div>
-          <FontAwesomeIcon className="Container-Modal__Modal-Icono-Cerrar Modal-Item" onClick={Desaparecer} icon="fa-solid fa-xmark" />
+          <FontAwesomeIcon
+            className="Container-Modal__Modal-Icono-Cerrar Modal-Item"
+            onClick={Desaparecer}
+            icon="fa-solid fa-xmark"
+          />
         </div>
       </div>
 
@@ -120,12 +156,10 @@ function FormAgregarUsuario() {
       </div>
 
       <form onSubmit={fileSubmit} className={styles.Grid}>
-        
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
-              pattern='/^[\w.%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/i'
+              autoComplete="off"
               name="email"
               placeholder=" "
               type="email"
@@ -142,8 +176,8 @@ function FormAgregarUsuario() {
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
-              pattern='^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$'
+              autoComplete="off"
+              pattern="^[a-zA-Z]{5,20}(?:\s[a-zA-Z]{0,15})?$"
               name="nombre"
               placeholder=" "
               type="text"
@@ -163,10 +197,13 @@ function FormAgregarUsuario() {
               required
               className={styles.ContainerInput__Input}
               name="id_nivel"
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value=""></option>
               {level.map((row, index) => (
-                <option key={index} value={row.ID_NIVEL}>{row.NIVEL}</option>
+                <option key={index} value={row.ID_NIVEL}>
+                  {row.NIVEL}
+                </option>
               ))}
             </select>
             <span className={styles.ContainerInput__Span}>
@@ -178,18 +215,23 @@ function FormAgregarUsuario() {
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <select
-              required
+              required = {usuario.id_nivel == 1 || usuario.id_nivel == 2 ? true : false}
               className={styles.ContainerInput__Input}
               name="id_rol"
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value=""></option>
-              {roles.map((row, index) => (
-                <option key={index} value={row.id_roles}>{row.nombre_rol}</option>
-              ))}
+              {usuario.id_nivel == 1 ? rolFilter1.map((row, index) => (
+                <option key={index} value={row.id_roles}>
+                  {row.nombre_rol}
+                </option>
+              )) : usuario.id_nivel == 2 ? rolFilter2.map((row, index) => (
+                <option key={index} value={row.id_roles}>
+                  {row.nombre_rol}
+                </option>
+              )) : null}
             </select>
-            <span className={styles.ContainerInput__Span}>
-              Rol del Usuario
-            </span>
+            <span className={styles.ContainerInput__Span}>Rol del Usuario</span>
           </div>
         </div>
 
@@ -199,10 +241,13 @@ function FormAgregarUsuario() {
               required
               className={styles.ContainerInput__Input}
               name="id_empresa"
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value=""></option>
               {company.map((row, index) => (
-                <option key={index} value={row.id_empresa}>{row.nombre}</option>
+                <option key={index} value={row.id_empresa}>
+                  {row.nombre}
+                </option>
               ))}
             </select>
             <span className={styles.ContainerInput__Span}>
@@ -214,14 +259,19 @@ function FormAgregarUsuario() {
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <select
-              required
+              required = {usuario.id_nivel == 1 || usuario.id_nivel == 2 ? false : true}
               className={styles.ContainerInput__Input}
               name="id_area"
-              onChange={handleChange}>
+              onChange={handleChange}
+            >
               <option value=""></option>
-              {areas.map((row, index)=>(
-                <option key={index} value={row.ID_AREA}>{row.NOMBRE}</option>
-              ))}
+              {usuario.id_nivel == 1 || usuario.id_nivel == 2
+                ? null
+                : areas.map((row, index) => (
+                    <option key={index} value={row.ID_AREA}>
+                      {row.NOMBRE}
+                    </option>
+                  ))}
             </select>
             <span className={styles.ContainerInput__Span}>
               Area del Usuario
@@ -232,12 +282,12 @@ function FormAgregarUsuario() {
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <input
-              autoComplete='off'
+              autoComplete="off"
               name="telefono"
               placeholder=" "
               type="text"
               required
-              pattern='/^\d{8}$/'
+              pattern="/^\d{8}$/"
               onChange={handleChange}
               className={styles.ContainerInput__Input}
             />
@@ -257,7 +307,7 @@ function FormAgregarUsuario() {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default FormAgregarUsuario
+export default FormAgregarUsuario;

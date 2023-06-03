@@ -72,59 +72,81 @@
   }
 }
 
-.Table {
-  overflow-x: auto;
-  background: rgb(202, 196, 196);
-  width: 100%;
-  margin: 0 auto;
-  margin-top: 2%;
-  border-collapse: collapse;
-  text-align: center;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-  th {
-    background-color: rgb(4, 63, 82);
-    height: 35px;
-    border-bottom: 1px solid rgb(210, 220, 250);
-    color: rgb(223, 216, 216);
-    text-align: center;
-  }
-  td {
-    color: rgb(32, 35, 36);
-    height: 30px;
-    border: 0.5px solid rgba(240, 240, 240, 10);
-  }
-  tr:hover {
-    background-color: rgb(167, 248, 244);
-  }
-  .actionsBeneficiary {
-    background-color: rgba(2, 9, 78, 0.192);
-    text-align: center;
-  }
-  .tooltip {
-    position: relative;
-    display: inline-block;
+.ContainerTable {
+  width: 90%;
+  overflow-x: scroll;
+
+  @media only screen and (max-width: 500px) {
+    & {
+      width: 80%;
+    }
   }
 
-  .tooltip .tooltiptext {
-    visibility: hidden;
-    width: 120px;
-    background-color: #02143b;
-    color: #fff;
+  .Table {
+    background: rgb(202, 196, 196);
+    width: 100vw;
+    margin: 0 auto;
+    margin-top: 2%;
+    border-collapse: collapse;
     text-align: center;
-    border-radius: 6px;
-    padding: 5px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
 
-  .tooltip:hover .tooltiptext {
-    visibility: visible;
-    opacity: 1;
+    th {
+      width: auto;
+      background-color: rgb(4, 63, 82);
+      border-bottom: 1px solid rgb(210, 220, 250);
+      color: rgb(223, 216, 216);
+      text-align: center;
+    }
+    td {
+      color: rgb(32, 35, 36);
+      height: 30px;
+      border: 0.5px solid rgba(240, 240, 240, 10);
+    }
+    tr:hover {
+      background-color: rgb(167, 248, 244);
+    }
+    .actionsBeneficiary {
+      background-color: rgba(2, 9, 78, 0.192);
+      text-align: center;
+    }
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: #02143b;
+      color: #fff;
+      text-align: center;
+      border-radius: 6px;
+      padding: 5px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    @media only screen and (max-width: 500px) {
+      & {
+        width: 80vw;
+      }
+    }
+
+    @media only screen and (max-width: 460px) {
+      & {
+        width: 100vw;
+      }
+    }
   }
 }
 

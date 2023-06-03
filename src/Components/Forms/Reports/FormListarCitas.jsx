@@ -61,10 +61,7 @@ const FormListarCitas = () => {
             <tbody>
               {currentSessions
                 .filter((item) => {
-                  return search.toLowerCase() === ""
-                    ? item
-                    : item.BENEFICIARIO.toLowerCase().includes(search) ||
-                        item.BENEFICIARIO.toLowerCase().includes(search);
+                  return item;
                 })
                 .map((row, index) => (
                   <tr key={index}>
