@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Pagination from '../../utils/pagination';
 import styles from './Reporte.module.scss';
+import { read, writeFileXLSX } from "xlsx";
+import * as XLSX from "xlsx";
 
 const FormReporteCualitativo = () => {
   const [search, setSearch] = useState('');
@@ -12,6 +14,17 @@ const FormReporteCualitativo = () => {
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
   const currentSessions = Array.isArray(beneficiario) ? beneficiario.slice(indexOfFirstSession, indexOfLastSession) : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
+
+  const [exportData, setExportData] = useState([]);
+  
+  const exportToExcel = () => {
+    const worksheet = XLSX.utils.json_to_sheet(exportData);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Reporte');
+    XLSX.writeFile(workbook, 'reporte.xlsx');
+  };
+
+
 
   const [datos, setDatos] = useState({
     "desde": "",
@@ -38,6 +51,7 @@ const FormReporteCualitativo = () => {
       .post('https://amordownapi-production.up.railway.app/reportes/reporteCualitativo', {desde:datos.desde, hasta: datos.hasta})
       .then(function (response) {
         setBeneficiario(response.data);
+        setExportData(response.data);
         alert('Reporte Exitoso');
         console.log(response);
       })
@@ -131,6 +145,11 @@ const FormReporteCualitativo = () => {
               ))}
           </tbody>
         </table>
+
+        <button className="Button" onClick={exportToExcel}>
+  Descargar
+</button>
+
         <Pagination
           sessionsPerPage={sessionsPerPage}
           totalSessions={beneficiario.length}
