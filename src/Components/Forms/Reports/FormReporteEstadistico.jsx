@@ -29,6 +29,10 @@ const FormReporteEstadistico = () => {
   const ListarReporteEstadistico = () => {
     const idUsuario = localStorage.getItem('idUsuario');
     const token = localStorage.getItem('Auth');
+
+    if (!validarFechas()) {
+      return;
+    }
   
     axios
       .post('https://amordownapi-production.up.railway.app/reportes/reporteEstadistico', {desde:datos.desde, hasta: datos.hasta})
@@ -40,6 +44,23 @@ const FormReporteEstadistico = () => {
       .catch(function (error) {
         alert('No se ha encontrado un registro');
       });
+  };
+
+  const validarFechas = () => {
+    const fechaInicio = new Date(datos.desde).getTime();
+    const fechaFinal = new Date(datos.hasta).getTime();
+
+    if (isNaN(fechaInicio) || isNaN(fechaFinal)) {
+      alert('Ingresa fechas válidas');
+      return false;
+    }
+
+    if (fechaInicio > fechaFinal) {
+      alert('La fecha de inicio debe ser anterior o igual a la fecha final');
+      return false;
+    }
+
+    return true;
   };
 
 

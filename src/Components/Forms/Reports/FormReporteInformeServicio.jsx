@@ -14,24 +14,47 @@ const FormReporteInformeServicio = () => {
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
   const [datos, setDatos] = useState({
-    "desde": "",
-    "hasta": ""
+    desde: '',
+    hasta: ''
   });
 
   const saveDataTemporaly = (e) => {
-    e.preventDefault();
     setDatos({
       ...datos,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value
     });
+  };
+
+  const validarFechas = () => {
+    const fechaInicio = new Date(datos.desde).getTime();
+    const fechaFinal = new Date(datos.hasta).getTime();
+
+    if (isNaN(fechaInicio) || isNaN(fechaFinal)) {
+      alert('Ingresa fechas válidas');
+      return false;
+    }
+
+    if (fechaInicio > fechaFinal) {
+      alert('La fecha de inicio debe ser anterior o igual a la fecha final');
+      return false;
+    }
+
+    return true;
   };
 
   const ListarReporteInformeServicio = () => {
     const idUsuario = localStorage.getItem('idUsuario');
     const token = localStorage.getItem('Auth');
-  
+
+    if (!validarFechas()) {
+      return;
+    }
+
     axios
-      .post('https://amordownapi-production.up.railway.app/reportes/reporteInformeServicio', {desde:datos.desde, hasta: datos.hasta})
+      .post('https://amordownapi-production.up.railway.app/reportes/reporteInformeServicio', {
+        desde: datos.desde,
+        hasta: datos.hasta
+      })
       .then(function (response) {
         setBeneficiario(response.data);
         alert('Reporte Exitoso');
@@ -41,7 +64,6 @@ const FormReporteInformeServicio = () => {
         alert('No se ha encontrado un registro');
       });
   };
-
 
   return (
     <>
@@ -84,7 +106,7 @@ const FormReporteInformeServicio = () => {
         <table className={styles.Table}>
           <thead>
             <tr>
-              <th>Area</th> 
+              <th>Area</th>
               <th>Beneficiarios Atendidos</th>
               <th>Terapias Brindadas</th>
               <th>Mes</th>
