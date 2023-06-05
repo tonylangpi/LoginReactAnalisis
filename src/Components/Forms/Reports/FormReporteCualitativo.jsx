@@ -16,14 +16,59 @@ const FormReporteCualitativo = () => {
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
   const [exportData, setExportData] = useState([]);
-  
-  const exportToExcel = () => {
-    const worksheet = XLSX.utils.json_to_sheet(exportData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Reporte');
-    XLSX.writeFile(workbook, 'reporte.xlsx');
-  };
+  // const exportToExcel = () => {
+    
+  //   const worksheet = XLSX.utils.json_to_sheet(exportData);
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Reporte');
+  //   XLSX.writeFile(workbook, 'reporte.xlsx');
+  // };
 
+
+  // const exportToExcel = () => {
+  //   const worksheet = XLSX.utils.json_to_sheet([
+  //     { "Fecha Inicio": datos.desde, "Fecha Final": datos.hasta },
+  //     ...exportData
+  //   ]);
+
+  //   const workbook = XLSX.utils.book_new();
+  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Reporte Cualitativo");
+  //   XLSX.writeFile(workbook, "Reporte Cualitativo.xlsx");
+  // };
+
+  const exportToExcel = () => {
+    const fechaInicio = { "Fecha Inicio": datos.desde };
+    const fechaFinal = { "Fecha Final": datos.hasta };
+  
+    const worksheet = XLSX.utils.json_to_sheet([
+      { "Fecha Inicio": datos.desde, "Fecha Final": datos.hasta }
+    ]);
+    // Agregar título "Reporte Cualitativo" en la celda A1
+    worksheet["A5"] = { v: "Reporte Cualitativo" };
+  
+    // Agregar las fechas en la misma fila
+  worksheet["A2"] = { v: fechaInicio["Fecha Inicio"] };
+  worksheet["B2"] = { v: fechaFinal["Fecha Final"] };
+    // Agregar nombres de columna
+    worksheet["A7"] = { v: "EMPRESA" };
+    worksheet["B7"] = { v: "RANGO" };
+    worksheet["C7"] = { v: "HOMBRES" };
+    worksheet["D7"] = { v: "MUJERES" };
+
+    // Agregar los datos debajo de los encabezados
+    const dataRows = exportData.map((row, index) => ({
+      A: { v: row.EMPRESA },
+      B: { v: row.RANGO },
+      C: { v: row.HOMBRES },
+      D: { v: row.MUJERES },
+    }));
+  
+    XLSX.utils.sheet_add_json(worksheet, dataRows, { skipHeader: true, origin: "A8" });
+  
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Reporte");
+    XLSX.writeFile(workbook, "reporte.xlsx");
+  };
 
 
   const [datos, setDatos] = useState({
@@ -114,10 +159,15 @@ const FormReporteCualitativo = () => {
               Buscar Reporte
             </button>
           </div>
+          <div>
+            <button className="Button" onClick={exportToExcel}>
+              Exportar en Excel
+            </button>
+          </div>
         </div>
 
         <h1 className={styles.Titulo}>Lista de Reporte Cualitativo</h1>
-        <table className={styles.Table}>
+        <table className={styles.Table}  id="report-table">
           <thead>
             <tr>
               <th>Empresa</th> 
@@ -146,9 +196,7 @@ const FormReporteCualitativo = () => {
           </tbody>
         </table>
 
-        <button className="Button" onClick={exportToExcel}>
-  Descargar
-</button>
+     
 
         <Pagination
           sessionsPerPage={sessionsPerPage}
