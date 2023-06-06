@@ -16,60 +16,31 @@ const FormReporteCualitativo = () => {
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
   const [exportData, setExportData] = useState([]);
-  // const exportToExcel = () => {
-    
-  //   const worksheet = XLSX.utils.json_to_sheet(exportData);
-  //   const workbook = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(workbook, worksheet, 'Reporte');
-  //   XLSX.writeFile(workbook, 'reporte.xlsx');
-  // };
 
+  const descargarArchivo = () => {
+    if (!validarFechas()) {
+      return;
+    }
 
-  // const exportToExcel = () => {
-  //   const worksheet = XLSX.utils.json_to_sheet([
-  //     { "Fecha Inicio": datos.desde, "Fecha Final": datos.hasta },
-  //     ...exportData
-  //   ]);
-
-  //   const workbook = XLSX.utils.book_new();
-  //   XLSX.utils.book_append_sheet(workbook, worksheet, "Reporte Cualitativo");
-  //   XLSX.writeFile(workbook, "Reporte Cualitativo.xlsx");
-  // };
-
-  const exportToExcel = () => {
-    const fechaInicio = { "Fecha Inicio": datos.desde };
-    const fechaFinal = { "Fecha Final": datos.hasta };
-  
-    const worksheet = XLSX.utils.json_to_sheet([
-      { "Fecha Inicio": datos.desde, "Fecha Final": datos.hasta }
-    ]);
-    // Agregar título "Reporte Cualitativo" en la celda A1
-    worksheet["A5"] = { v: "Reporte Cualitativo" };
-  
-    // Agregar las fechas en la misma fila
-  worksheet["A2"] = { v: fechaInicio["Fecha Inicio"] };
-  worksheet["B2"] = { v: fechaFinal["Fecha Final"] };
-    // Agregar nombres de columna
-    worksheet["A7"] = { v: "EMPRESA" };
-    worksheet["B7"] = { v: "RANGO" };
-    worksheet["C7"] = { v: "HOMBRES" };
-    worksheet["D7"] = { v: "MUJERES" };
-
-    // Agregar los datos debajo de los encabezados
-    const dataRows = exportData.map((row, index) => ({
-      A: { v: row.EMPRESA },
-      B: { v: row.RANGO },
-      C: { v: row.HOMBRES },
-      D: { v: row.MUJERES },
-    }));
-  
-    XLSX.utils.sheet_add_json(worksheet, dataRows, { skipHeader: true, origin: "A8" });
-  
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "Reporte");
-    XLSX.writeFile(workbook, "reporte.xlsx");
+    axios
+      .post('https://amordownapi-production.up.railway.app/reportes/descargarReporteCualitativo', {
+        desde: datos.desde,
+        hasta: datos.hasta,
+      }, {
+        responseType: 'blob', // Indicar que la respuesta es un archivo binario
+      })
+      .then(function (response) {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'Reporte Cualitativo.xlsx'); // Nombre del archivo a descargar
+        document.body.appendChild(link);
+        link.click();
+      })
+      .catch(function (error) {
+        alert('No se ha encontrado un registro');
+      });
   };
-
 
   const [datos, setDatos] = useState({
     "desde": "",
@@ -159,11 +130,13 @@ const FormReporteCualitativo = () => {
               Buscar Reporte
             </button>
           </div>
+          
           <div>
-            <button className="Button" onClick={exportToExcel}>
+            <a className="Button" onClick={descargarArchivo}>
               Exportar en Excel
-            </button>
+            </a>
           </div>
+
         </div>
 
         <h1 className={styles.Titulo}>Lista de Reporte Cualitativo</h1>

@@ -13,6 +13,33 @@ const FormReporteInformeServicio = () => {
   const currentSessions = Array.isArray(beneficiario) ? beneficiario.slice(indexOfFirstSession, indexOfLastSession) : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
+  const [exportData, setExportData] = useState([]);
+
+  const descargarArchivo = () => {
+    if (!validarFechas()) {
+      return;
+    }
+
+    axios
+      .post('https://amordownapi-production.up.railway.app/reportes/descargarReporteInformeServicios', {
+        desde: datos.desde,
+        hasta: datos.hasta,
+      }, {
+        responseType: 'blob', // Indicar que la respuesta es un archivo binario
+      })
+      .then(function (response) {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'Reporte Informe Servicio.xlsx'); // Nombre del archivo a descargar
+        document.body.appendChild(link);
+        link.click();
+      })
+      .catch(function (error) {
+        alert('No se ha encontrado un registro');
+      });
+  };
+  
   const [datos, setDatos] = useState({
     desde: '',
     hasta: ''
@@ -99,6 +126,11 @@ const FormReporteInformeServicio = () => {
             <button className="Button" onClick={ListarReporteInformeServicio}>
               Buscar Reporte
             </button>
+          </div>
+          <div>
+            <a className="Button" onClick={descargarArchivo}>
+              Exportar en Excel
+            </a>
           </div>
         </div>
 
