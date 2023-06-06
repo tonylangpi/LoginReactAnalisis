@@ -45,7 +45,6 @@
     letter-spacing: 2px;
     font-family: $font-family;
     
-
     textarea {
         width: 98%;
         height: 100px;
@@ -150,6 +149,7 @@
 
         input {
             margin: 0 5px;
+            cursor: pointer;
         }
     }
 }

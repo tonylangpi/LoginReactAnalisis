@@ -8,9 +8,6 @@ import FormPerinatales from "./FormPerinatales";
 const FormPrenatales = ({ idBen, showComponent }) => {
   const [show, setShow] = useState(true);
   const [isPrenatal, setPrenatal] = useState(true);
-  const [textbox1, setTextBox1] = useState(false);
-  const [textbox2, setTextBox2] = useState(false);
-  const [textbox3, setTextBox3] = useState(false);
 
   const [Prenatales, setPrenatales] = React.useState({
     EMBARAZO_TERMINO: "",
@@ -27,26 +24,6 @@ const FormPrenatales = ({ idBen, showComponent }) => {
       ...Prenatales,
       [e.target.name]: e.target.value,
     });
-  };
-
-  const showTextBox = (num) => {
-    if (num == 1) {
-      setTextBox1(true);
-    } else if (num == 2) {
-      setTextBox2(true);
-    } else if (num == 3) {
-      setTextBox3(true);
-    }
-  };
-
-  const hideTextBox = (num) => {
-    if (num == 1) {
-      setTextBox1(false);
-    } else if (num == 2) {
-      setTextBox2(false);
-    } else if (num == 3) {
-      setTextBox3(false);
-    }
   };
 
   const savePrenatal = (e) => {
@@ -81,7 +58,6 @@ const FormPrenatales = ({ idBen, showComponent }) => {
   return (
     <div
       hidden={showComponent}
-      id="FormPrenatales"
       className={showComponent ? "" : styles.Container}
     >
       {isPrenatal ? (
@@ -98,7 +74,6 @@ const FormPrenatales = ({ idBen, showComponent }) => {
                   <input
                     required
                     value="SI"
-                    onClick={() => hideTextBox(1)}
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
                     name="EMBARAZO_TERMINO"
@@ -109,7 +84,6 @@ const FormPrenatales = ({ idBen, showComponent }) => {
                   <input
                     required
                     value="NO"
-                    onClick={() => showTextBox(1)}
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
                     name="EMBARAZO_TERMINO"
@@ -120,9 +94,10 @@ const FormPrenatales = ({ idBen, showComponent }) => {
             </div>
 
             <div className={styles.Form__item}>
-              {textbox1 ? (
+              {Prenatales.EMBARAZO_TERMINO == "NO" ? (
                 <div className={styles.ContainerInput}>
                   <textarea
+                    required={Prenatales.EMBARAZO_TERMINO == "NO" ? true : false}
                     autoComplete="off"
                     pattern="^[a-zA-Z\s]{3,50}$"
                     onChange={saveDataTemporalyPrenatal}
@@ -141,7 +116,6 @@ const FormPrenatales = ({ idBen, showComponent }) => {
                 <div className={styles.ContainerRadio__Radio}>
                   <input
                     required
-                    onClick={() => hideTextBox(2)}
                     value="SI"
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
@@ -152,7 +126,6 @@ const FormPrenatales = ({ idBen, showComponent }) => {
                 <div className={styles.ContainerRadio__Radio}>
                   <input
                     required
-                    onClick={() => showTextBox(2)}
                     value="NO"
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
@@ -164,9 +137,10 @@ const FormPrenatales = ({ idBen, showComponent }) => {
             </div>
 
             <div className={styles.Form__item}>
-              {textbox2 ? (
+              {Prenatales.PARTO_NORMAL == "NO" ? (
                 <div className={styles.ContainerInput}>
                   <textarea
+                  required={Prenatales.PARTO_NORMAL == "NO" ? true : false}
                     autoComplete="off"
                     pattern="^[a-zA-Z\s]{3,50}$"
                     onChange={saveDataTemporalyPrenatal}
@@ -185,7 +159,6 @@ const FormPrenatales = ({ idBen, showComponent }) => {
                 <div className={styles.ContainerRadio__Radio}>
                   <input
                     required
-                    onClick={() => showTextBox(3)}
                     value="SI"
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
@@ -196,7 +169,6 @@ const FormPrenatales = ({ idBen, showComponent }) => {
                 <div className={styles.ContainerRadio__Radio}>
                   <input
                     required
-                    onClick={() => hideTextBox(3)}
                     value="NO"
                     onMouseDown={saveDataTemporalyPrenatal}
                     type="radio"
@@ -208,9 +180,10 @@ const FormPrenatales = ({ idBen, showComponent }) => {
             </div>
 
             <div className={styles.Form__item}>
-              {textbox3 ? (
+              {Prenatales.COMPLICACIONES == "SI" ? (
                 <div className={styles.ContainerInput}>
                   <textarea
+                    required={Prenatales.COMPLICACIONES == "SI" ? true : false}
                     autoComplete="off"
                     pattern="^[a-zA-Z\s]{3,50}$"
                     onChange={saveDataTemporalyPrenatal}

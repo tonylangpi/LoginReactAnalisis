@@ -61,7 +61,6 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
   return (
     <div
       hidden={showComponent}
-      id="FormHistorialClinico"
       className={showComponent ? "" : styles.Container}
     >
       {isHistorial ? (
@@ -76,7 +75,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
                 <textarea
                   autoComplete="off"
                   required
-                  pattern="/^[\w\d\s\S]{5,100}$/"
+                  pattern="^[a-zA-Z\s]{5,100}$"
                   name="ENFERMEDAD_PADECE"
                   onChange={saveDataTemporalyHistorial}
                   className={styles.ContainerInput__Input}
@@ -93,7 +92,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
                 <textarea
                   autoComplete="off"
                   required
-                  pattern="/^[\w\d\s\S]{5,100}$/"
+                  pattern="^[a-zA-Z\s]{5,100}$"
                   name="MEDICAMENTOS_INGIERE"
                   onChange={saveDataTemporalyHistorial}
                   className={styles.ContainerInput__Input}

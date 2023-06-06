@@ -1,35 +1,70 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styles from './Modal.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import styles from "./Modal.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function ModalEncargados({ beneficiary, onClose }) {
   const [encargados, setEncargados] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [fechaNacimiento, setFechaNacimiento] = useState("");
+  const [errorFecha, setErrorFecha] = useState("");
 
   useEffect(() => {
     const fetchEncargados = async () => {
       try {
-        const response = await axios.get(`https://amordownapi-production.up.railway.app/beneficiarios/buscarEncargadoBene/${beneficiary.ID_BENEFICIARIO}`);
+        const response = await axios.get(
+          `https://amordownapi-production.up.railway.app/beneficiarios/buscarEncargadoBene/${beneficiary.ID_BENEFICIARIO}`
+        );
         setEncargados(response.data);
-        console.log(encargados);
         setIsLoading(false);
       } catch (error) {
-        alert('Error al obtener la información:', error);
+        alert("Error al obtener la información:", error);
       }
     };
 
     fetchEncargados();
-  }, [beneficiary.ID_BENEFICIARIO]);
+  }, []);
 
-  const actualizarEncargado = async (idEncargado, encargadoActualizado) => {
-    console.log(encargadoActualizado);
+  const actualizarEncargado = async (e, idEncargado, encargadoActualizado) => {
+    e.preventDefault();
     try {
-      await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateEncargadosBene/${idEncargado}`, encargadoActualizado);
-      alert('Información actualizada correctamente');
+      await axios.post(
+        `https://amordownapi-production.up.railway.app/beneficiarios/updateEncargadosBene/${idEncargado}`,
+        encargadoActualizado
+      );
+      alert("Información actualizada correctamente");
+      onClose();
     } catch (error) {
-      alert('Error al actualizar la información:', error);
+      alert("Error al actualizar la información:", error);
     }
+  };
+
+  const saveDate = (date, idEncargado) => {
+    const selectDate = new Date(date.target.value);
+    const currentDate = new Date();
+
+    if (selectDate >= currentDate) {
+      setErrorFecha("La fecha de nacimiento no debe ser futura");
+      setFechaNacimiento("");
+    } else {
+      setErrorFecha("");
+      const updatedEncargados = encargados.map((enc) =>
+        enc.ID_ENCARGADO === idEncargado
+          ? { ...enc, FECHA_NACIMIENTO: date.target.value }
+          : enc
+      );
+      setEncargados(updatedEncargados);
+      setFechaNacimiento(date.target.value);
+    }
+  };
+
+  const changeEncargado = (e, id) => {
+    const updatedEncargados = encargados.map((enc) =>
+      enc.ID_ENCARGADO === id
+        ? { ...enc, [e.target.name]: e.target.value }
+        : enc
+    );
+    setEncargados(updatedEncargados);
   };
 
   if (isLoading) {
@@ -43,21 +78,28 @@ function ModalEncargados({ beneficiary, onClose }) {
           <div className={styles.ContentData} key={encargado.ID_ENCARGADO}>
             <h3 className={styles.SubTitulo}>Encargado {index + 1}</h3>
 
-            <div className={styles.Grid}>
-
+            <form
+              onSubmit={(e) =>
+                actualizarEncargado(
+                  e,
+                  encargado.ID_ENCARGADO,
+                  encargados[index]
+                )
+              }
+              className={styles.Grid}
+            >
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <input
-                    placeholder=' '
-                   className={styles.ContainerInput__Input}
+                    autoComplete="off"
+                    required
+                    name="NOMBRE1"
+                    pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
+                    placeholder=" "
+                    className={styles.ContainerInput__Input}
                     type="text"
                     value={encargado.NOMBRE1}
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, NOMBRE1: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}
+                    onChange={(e) => changeEncargado(e, encargado.ID_ENCARGADO)}
                   />
                   <span className={styles.ContainerInput__Span}>
                     Primer Nombre
@@ -68,16 +110,15 @@ function ModalEncargados({ beneficiary, onClose }) {
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <input
-                    placeholder=' '
+                    autoComplete="off"
+                    required
+                    name="NOMBRE2"
+                    pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
+                    placeholder=" "
                     className={styles.ContainerInput__Input}
                     type="text"
                     value={encargado.NOMBRE2}
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, NOMBRE2: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}
+                    onChange={(e) => changeEncargado(e, encargado.ID_ENCARGADO)}
                   />
                   <span className={styles.ContainerInput__Span}>
                     Segundo Nombre
@@ -88,16 +129,15 @@ function ModalEncargados({ beneficiary, onClose }) {
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <input
-                    placeholder=' '
+                    autoComplete="off"
+                    required
+                    pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
+                    placeholder=" "
                     className={styles.ContainerInput__Input}
                     type="text"
                     value={encargado.NOMBRE3}
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, NOMBRE3: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}
+                    name="NOMBRE3"
+                    onChange={(e) => changeEncargado(e, encargado.ID_ENCARGADO)}
                   />
                   <span className={styles.ContainerInput__Span}>
                     Tercer Nombre
@@ -108,16 +148,15 @@ function ModalEncargados({ beneficiary, onClose }) {
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <input
-                    placeholder=' '
+                    autoComplete="off"
+                    required
+                    pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
+                    placeholder=" "
                     className={styles.ContainerInput__Input}
                     type="text"
                     value={encargado.APELLIDO1}
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, APELLIDO1: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}
+                    name="APELLIDO1"
+                    onChange={(e) => changeEncargado(e, encargado.ID_ENCARGADO)}
                   />
                   <span className={styles.ContainerInput__Span}>
                     Primer Apellido
@@ -128,16 +167,15 @@ function ModalEncargados({ beneficiary, onClose }) {
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <input
-                    placeholder=' '
+                    autoComplete="off"
+                    required
+                    pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
+                    placeholder=" "
                     className={styles.ContainerInput__Input}
                     type="text"
                     value={encargado.APELLIDO2}
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, APELLIDO2: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}
+                    name="APELLIDO2"
+                    onChange={(e) => changeEncargado(e, encargado.ID_ENCARGADO)}
                   />
                   <span className={styles.ContainerInput__Span}>
                     Segundo Apellido
@@ -148,40 +186,43 @@ function ModalEncargados({ beneficiary, onClose }) {
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <input
-                    placeholder=' '
+                    required
+                    autoComplete="off"
+                    pattern="^\d{8}$"
+                    placeholder=" "
                     className={styles.ContainerInput__Input}
                     type="text"
                     value={encargado.TELEFONO}
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, TELEFONO: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}
+                    name="TELEFONO"
+                    onChange={(e) => changeEncargado(e, encargado.ID_ENCARGADO)}
                   />
-                  <span className={styles.ContainerInput__Span}>
-                    Teléfono
-                  </span>
+                  <span className={styles.ContainerInput__Span}>Teléfono</span>
                 </div>
               </div>
 
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <select
+                    required
                     className={styles.ContainerInput__Input}
-                    name='TIPO'
+                    name="TIPO"
                     type="text"
                     value={encargado.TIPO}
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, TIPO: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}>
+                    onChange={(e) => changeEncargado(e, encargado.ID_ENCARGADO)}
+                  >
                     <option></option>
-                    <option value="Encargado" selected={encargado.TIPO === "Encargado"}>Encargado</option>
-                    <option value="Mamá" selected={encargado.TIPO === "Mamá"}>Mamá</option>
-                    <option value="Papá" selected={encargado.TIPO === "Papá"}>Papá</option>
+                    <option
+                      value="Encargado"
+                      selected={encargado.TIPO === "Encargado"}
+                    >
+                      Encargado
+                    </option>
+                    <option value="Mamá" selected={encargado.TIPO === "Mamá"}>
+                      Mamá
+                    </option>
+                    <option value="Papá" selected={encargado.TIPO === "Papá"}>
+                      Papá
+                    </option>
                   </select>
                   <span className={styles.ContainerInput__Span}>
                     Tipo Encargado
@@ -192,20 +233,42 @@ function ModalEncargados({ beneficiary, onClose }) {
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <select
+                    required
                     className={styles.ContainerInput__Input}
                     name="ESCOLARIDAD"
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, ESCOLARIDAD: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}>
+                    onChange={(e) => changeEncargado(e, encargado.ID_ENCARGADO)}
+                  >
                     <option></option>
-                    <option value="No Tiene" selected={encargado.ESCOLARIDAD === "No Tiene"}>No Tiene</option>
-                    <option value="Primaria" selected={encargado.ESCOLARIDAD === "Primaria"}>Primaria</option>
-                    <option value="Basico" selected={encargado.ESCOLARIDAD === "Basico"}>Basico</option>
-                    <option value="Diversificado" selected={encargado.ESCOLARIDAD === "Diversificado"}>Diversificado</option>
-                    <option value="Universitario" selected={encargado.ESCOLARIDAD === "Universitario"}>Universitario</option>
+                    <option
+                      value="No Tiene"
+                      selected={encargado.ESCOLARIDAD === "No Tiene"}
+                    >
+                      No Tiene
+                    </option>
+                    <option
+                      value="Primaria"
+                      selected={encargado.ESCOLARIDAD === "Primaria"}
+                    >
+                      Primaria
+                    </option>
+                    <option
+                      value="Basico"
+                      selected={encargado.ESCOLARIDAD === "Basico"}
+                    >
+                      Basico
+                    </option>
+                    <option
+                      value="Diversificado"
+                      selected={encargado.ESCOLARIDAD === "Diversificado"}
+                    >
+                      Diversificado
+                    </option>
+                    <option
+                      value="Universitario"
+                      selected={encargado.ESCOLARIDAD === "Universitario"}
+                    >
+                      Universitario
+                    </option>
                   </select>
                   <span className={styles.ContainerInput__Span}>
                     Escolaridad
@@ -216,20 +279,17 @@ function ModalEncargados({ beneficiary, onClose }) {
               <div className={styles.Grid__item}>
                 <div className={styles.ContainerInput}>
                   <input
-                    placeholder=' '
+                    required
+                    autoComplete="off"
+                    pattern="^[a-zA-Z\s]{3,50}$"
+                    placeholder=" "
                     className={styles.ContainerInput__Input}
                     type="text"
                     value={encargado.OCUPACION}
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, OCUPACION: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}
+                    name="OCUPACION"
+                    onChange={(e) => changeEncargado(e, encargado.ID_ENCARGADO)}
                   />
-                  <span className={styles.ContainerInput__Span}>
-                    Ocupacion
-                  </span>
+                  <span className={styles.ContainerInput__Span}>Ocupacion</span>
                 </div>
               </div>
 
@@ -237,24 +297,26 @@ function ModalEncargados({ beneficiary, onClose }) {
                 <div className={styles.ContainerInput}>
                   <input
                     className={styles.ContainerInput__Input}
-                    placeholder=' '
+                    placeholder=" "
                     type="date"
-                    value={encargado.FECHA_NACIMIENTO.slice(0, 10)}
-                    onChange={(e) => {
-                      const updatedEncargados = encargados.map((enc) =>
-                        enc.ID_ENCARGADO === encargado.ID_ENCARGADO ? { ...enc, FECHA_NACIMIENTO: e.target.value } : enc
-                      );
-                      setEncargados(updatedEncargados);
-                    }}
+                    value={
+                      fechaNacimiento == ""
+                        ? encargado.FECHA_NACIMIENTO.slice(0, 10)
+                        : fechaNacimiento
+                    }
+                    onChange={(e) => saveDate(e, encargado.ID_ENCARGADO)}
                   />
                   <span className={styles.ContainerInput__Span}>
                     Fecha de Nacimiento
                   </span>
+                  {errorFecha && (
+                    <p className={styles.ErrorMessage}>{errorFecha}</p>
+                  )}
                 </div>
               </div>
 
               <div className={styles.Grid__button}>
-                <button className={styles.Button} onClick={() => actualizarEncargado(encargado.ID_ENCARGADO, encargados[index])}>
+                <button className={styles.Button}>
                   <div className={styles.Button__Icono}>
                     <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
                   </div>
@@ -268,13 +330,10 @@ function ModalEncargados({ beneficiary, onClose }) {
                   {/* &times; */}
                 </span>
               </div>
-
-            </div>
-            
+            </form>
           </div>
         ))}
       </div>
-
     </div>
   );
 }

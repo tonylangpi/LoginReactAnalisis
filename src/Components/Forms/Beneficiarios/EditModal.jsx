@@ -4,6 +4,8 @@ import styles from "./Modal.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const EditModal = ({ beneficiary, onClose }) => {
+  const [fechaNacimiento, setFechaNacimiento] = useState("");
+  const [errorFecha, setErrorFecha] = useState("");
   const [updatedData, setUpdatedData] = useState({
     NOMBRE1: beneficiary.NOMBRE1,
     NOMBRE2: beneficiary.NOMBRE2,
@@ -29,6 +31,7 @@ const EditModal = ({ beneficiary, onClose }) => {
       )
       .then(function (response) {
         alert("Datos actualizados:", response.data);
+        onClose();
       })
       .catch(function (error) {
         console.log(updatedData);
@@ -44,6 +47,24 @@ const EditModal = ({ beneficiary, onClose }) => {
     });
   };
 
+  const saveDate = (date) => {
+    const selectDate = new Date(date.target.value);
+    const currentDate = new Date();
+
+    if (selectDate >= currentDate) {
+      setErrorFecha("La fecha de nacimiento no debe ser futura");
+      setFechaNacimiento("");
+    } else {
+      setErrorFecha("");
+      date.preventDefault();
+      setUpdatedData({
+        ...updatedData,
+        [date.target.name]: date.target.value,
+      });
+      setFechaNacimiento(date.target.value);
+    }
+  };
+
   return (
     <div className={styles.Container}>
       <div className={styles.Container__Content}>
@@ -56,17 +77,14 @@ const EditModal = ({ beneficiary, onClose }) => {
                 className={styles.ContainerInput__Input}
                 type="text"
                 name="NOMBRE1"
+                required
+                pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
                 value={updatedData.NOMBRE1}
                 onChange={handleInputChange}
               />
               <span className={styles.ContainerInput__Span}>Primer Nombre</span>
             </div>
           </div>
-
-          {/* <div hidden>
-            <label>ID Beneficiario:</label>
-            <input type="number" value={beneficiary.ID_BENEFICIARIO} readOnly />
-          </div> */}
 
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
@@ -75,6 +93,8 @@ const EditModal = ({ beneficiary, onClose }) => {
                 className={styles.ContainerInput__Input}
                 type="text"
                 name="NOMBRE2"
+                required
+                pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
                 value={updatedData.NOMBRE2}
                 onChange={handleInputChange}
               />
@@ -91,6 +111,8 @@ const EditModal = ({ beneficiary, onClose }) => {
                 className={styles.ContainerInput__Input}
                 type="text"
                 name="NOMBRE3"
+                required
+                pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
                 value={updatedData.NOMBRE3}
                 onChange={handleInputChange}
               />
@@ -104,6 +126,8 @@ const EditModal = ({ beneficiary, onClose }) => {
                 placeholder=" "
                 className={styles.ContainerInput__Input}
                 type="text"
+                required
+                pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
                 name="APELLIDO1"
                 value={updatedData.APELLIDO1}
                 onChange={handleInputChange}
@@ -121,6 +145,8 @@ const EditModal = ({ beneficiary, onClose }) => {
                 className={styles.ContainerInput__Input}
                 type="text"
                 name="APELLIDO2"
+                required
+                pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
                 value={updatedData.APELLIDO2}
                 onChange={handleInputChange}
               />
@@ -133,6 +159,7 @@ const EditModal = ({ beneficiary, onClose }) => {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <select
+                required
                 name="ESCOLARIDAD"
                 className={styles.ContainerInput__Input}
                 value={updatedData.ESCOLARIDAD}
@@ -189,6 +216,7 @@ const EditModal = ({ beneficiary, onClose }) => {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <select
+                required
                 name="SEXO"
                 className={styles.ContainerInput__Input}
                 value={updatedData.SEXO}
@@ -212,18 +240,23 @@ const EditModal = ({ beneficiary, onClose }) => {
                 type="date"
                 name="FECHA_NACIMIENTO"
                 value={updatedData.FECHA_NACIMIENTO.slice(0, 10)}
-                onChange={handleInputChange}
+                onChange={(e) => saveDate(e)}
                 className={styles.ContainerInput__Input}
               />
               <span className={styles.ContainerInput__Span}>
                 Fecha de Nacimiento
               </span>
+              {errorFecha && (
+                <p className={styles.ErrorMessage}>{errorFecha}</p>
+              )}
             </div>
           </div>
 
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
+                required
+                pattern="^[a-zA-Z0-9\s\W]{5,50}$"
                 type="text"
                 name="DIRECCION"
                 value={updatedData.DIRECCION}
@@ -240,6 +273,7 @@ const EditModal = ({ beneficiary, onClose }) => {
               <select
                 className={styles.ContainerInput__Input}
                 type="text"
+                required
                 name="REFERENCIA"
                 value={updatedData.REFERENCIA}
                 onChange={handleInputChange}
@@ -265,6 +299,9 @@ const EditModal = ({ beneficiary, onClose }) => {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
+                required
+                min={0}
+                max={100}
                 type="number"
                 name="NUMERO_HERMANOS"
                 value={updatedData.NUMERO_HERMANOS}
@@ -281,6 +318,9 @@ const EditModal = ({ beneficiary, onClose }) => {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
+                required
+                min={0}
+                max={100}
                 type="number"
                 name="NUMERO_OCUPA"
                 value={updatedData.NUMERO_OCUPA}
@@ -295,7 +335,7 @@ const EditModal = ({ beneficiary, onClose }) => {
           </div>
 
           <div className={styles.Grid__button}>
-            <button className={styles.Button} type="submit">
+            <button className={styles.Button}>
               <div className={styles.Button__Icono}>
                 <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
               </div>

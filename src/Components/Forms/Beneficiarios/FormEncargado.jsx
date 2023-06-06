@@ -111,7 +111,6 @@ function FormEncargado({ idBene, showComponent }) {
   return (
     <div
       hidden={showComponent}
-      id="FormDatosEncargado"
       className={showComponent ? "" : styles.Container}
     >
       {isEncargado ? (

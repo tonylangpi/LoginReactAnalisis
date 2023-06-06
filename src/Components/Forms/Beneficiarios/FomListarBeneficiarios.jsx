@@ -1,27 +1,25 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios';
-import Pagination from '../../utils/pagination';
-import styles from './ListBeneficiarios.module.scss';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Pagination from "../../utils/pagination";
+import styles from "./ListBeneficiarios.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Modal from './Modal';
-import EditModal from './EditModal';
-import ModalPeri from './ModalPeri';
-import ModalEncargado from './ModalEncargado';
-import ModalHistorial from './ModalHistorial';
-import ModalPostNatal from './ModalPostNatal';
-import ModalPreNatal from './ModalPreNatal';
-
+import Modal from "./Modal";
+import EditModal from "./EditModal";
+import ModalPeri from "./ModalPeri";
+import ModalEncargado from "./ModalEncargado";
+import ModalHistorial from "./ModalHistorial";
+import ModalPostNatal from "./ModalPostNatal";
+import ModalPreNatal from "./ModalPreNatal";
 
 const FormListarBeneficiario = () => {
-
-  const [estadoBene, setEstadoBene] = useState('ACTIVO');
+  const [estadoBene, setEstadoBene] = useState("ACTIVO");
   const [showBeneficiario, setShowBeneficiario] = useState(false);
   const [encargado, SetEncargado] = useState(false);
   const [historialC, setHistorialC] = useState(false);
   const [prenatal, setPrenatal] = useState(false);
   const [peri, setPeri] = useState(false);
   const [postnatal, SetPostnatal] = useState(false);
-  
+
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(false);
 
   const handleEditClick = (e, beneficiary) => {
@@ -45,26 +43,32 @@ const FormListarBeneficiario = () => {
       setSelectedBeneficiary(beneficiary);
       SetPostnatal(true);
     }
+    e.target.value = '';
   };
 
   const [beneficiarios, setBeneficiarios] = useState([]);
   const [dataSelect, setDataSelect] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [beneficiaryPerPage] = useState(5);
-  const [showMyModal, setshowMyModal] = useState(false)
+  const [showMyModal, setshowMyModal] = useState(false);
   const indexOfLastBeneficiary = currentPage * beneficiaryPerPage;
   const indexOfFirstBeneficiary = indexOfLastBeneficiary - beneficiaryPerPage;
-  const currentBeneficiary = beneficiarios?.slice(indexOfFirstBeneficiary, indexOfLastBeneficiary);
-  const pagination = (pageNumber) => { setCurrentPage(pageNumber) };
+  const currentBeneficiary = beneficiarios?.slice(
+    indexOfFirstBeneficiary,
+    indexOfLastBeneficiary
+  );
+  const pagination = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   const [name, setName] = React.useState({
-    nombre: ''
+    nombre: "",
   });
 
-  const handleOnClose = () => setshowMyModal(false)
+  const handleOnClose = () => setshowMyModal(false);
   const underSelect = (item) => {
-    setDataSelect(item)
-  }
-  
+    setDataSelect(item);
+  };
+
   const saveDataTemporaly = (e) => {
     e.preventDefault();
     setName({
@@ -76,56 +80,67 @@ const FormListarBeneficiario = () => {
 
   const ListarBeneficiarios = () => {
     axios
-      .post(`https://amordownapi-production.up.railway.app/beneficiarios/allByName`, { nombre: name.nombre })
+      .post(
+        `https://amordownapi-production.up.railway.app/beneficiarios/allByName`,
+        { nombre: name.nombre }
+      )
       .then(function (response) {
         // Filtrar solo los beneficiarios activos
-        const beneficiariosActivos = response.data.filter(beneficiario => beneficiario.ESTADO === estadoBene);
+        const beneficiariosActivos = response.data.filter(
+          (beneficiario) => beneficiario.ESTADO === estadoBene
+        );
         setBeneficiarios(beneficiariosActivos);
+        console.log(beneficiarios);
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
-  }
+  };
 
-  const ActivarBeneficiario = (idBene) =>{
+  const ActivarBeneficiario = (idBene) => {
     axios
-      .post(`https://amordownapi-production.up.railway.app/beneficiarios/activarBeneficiario/${idBene}`)
-      .then(function(response) {
-          alert("Activado Exitoso");
-          ListarBeneficiarios();
+      .post(
+        `https://amordownapi-production.up.railway.app/beneficiarios/activarBeneficiario/${idBene}`
+      )
+      .then(function (response) {
+        alert("Activado Exitoso");
+        ListarBeneficiarios();
       })
-      .catch(function(error){
+      .catch(function (error) {
         alert("Error al activar el beneficiario");
         console.error(error);
       });
-  }
+  };
 
   const InactivarBeneficiario = (idBene) => {
     axios
-      .post(`https://amordownapi-production.up.railway.app/beneficiarios/inactivarBeneficiario/${idBene}`)
-      .then(function(response) {
-          alert("Inactivado Exitoso");
-          ListarBeneficiarios();
+      .post(
+        `https://amordownapi-production.up.railway.app/beneficiarios/inactivarBeneficiario/${idBene}`
+      )
+      .then(function (response) {
+        alert("Inactivado Exitoso");
+        ListarBeneficiarios();
       })
-      .catch(function(error){
+      .catch(function (error) {
         alert("Error al inactivar el beneficiario");
         console.error(error);
       });
   };
 
   const showActiveBene = () => {
-    ListarBeneficiarios();
     setEstadoBene("ACTIVO");
+    ListarBeneficiarios();
   };
 
   const showInActiveeBene = () => {
-    ListarBeneficiarios();
     setEstadoBene("INACTIVO");
+    ListarBeneficiarios();
+    
   };
 
   useEffect(() => {
-    ListarBeneficiarios()
-  }, [])
+    ListarBeneficiarios();
+  }, []);
 
   return (
     <>
@@ -151,32 +166,38 @@ const FormListarBeneficiario = () => {
         </div>
 
         <div className={styles.Container}>
-          <label htmlFor="">Mostrar Estado del Beneficiario</label>
+          <span>Mostrar Estado del Beneficiario</span>
           <div className={styles.ContainerRadio}>
             <div className={styles.ContainerRadio__Radio}>
-              <input
-                required
-                value="Activos"
-                onClick={showActiveBene}
-                type="radio"
-                name="Estado"
-              />
-              Activos
+              <label htmlFor="Activos">
+                <input
+                  id="Activos"
+                  required
+                  value="Activos"
+                  onClick={showActiveBene}
+                  type="radio"
+                  name="Estado"
+                />
+                Activos
+              </label>
             </div>
             <div className={styles.ContainerRadio__Radio}>
-              <input
-                required
-                value="Inactivos"
-                onClick={showInActiveeBene}
-                type="radio"
-                name="Estado"
-              />
-              Inactivos
+              <label htmlFor="Inactivos">
+                <input
+                  id="Inactivos"
+                  required
+                  value="Inactivos"
+                  onClick={showInActiveeBene}
+                  type="radio"
+                  name="Estado"
+                />
+                Inactivos
+              </label>
             </div>
           </div>
         </div>
 
-        <div className={styles.tableContainer}>
+        <div className={styles.ContainerTable}>
           <table className={styles.Table}>
             <thead>
               <tr>
@@ -189,6 +210,8 @@ const FormListarBeneficiario = () => {
                 <th>Genero</th>
                 <th>Direccion</th>
                 <th>Fecha de Nacimiento</th>
+                <th>Edad</th>
+                <th>Etapa</th>
                 <th>Acciones</th>
                 {localStorage.getItem("nivel") == 3 ? null : <th>Editar</th>}
               </tr>
@@ -209,6 +232,8 @@ const FormListarBeneficiario = () => {
                     <td>{row.SEXO}</td>
                     <td>{row.DIRECCION}</td>
                     <td>{row.FECHA_NACIMIENTO.slice(0, 10)}</td>
+                    <td>{row.EDAD}</td>
+                    <td>{row.grupo_edad}</td>
                     <td className={styles.actionsBeneficiary}>
                       {localStorage.getItem("nivel") == 3 ? null : (
                         <div className={styles.tooltip}>
@@ -256,28 +281,29 @@ const FormListarBeneficiario = () => {
                         <div className={styles.tooltip}>
                           <span className={styles.tooltiptext}>Inactivar</span>
                           <button
-                            onClick={() => InactivarBeneficiario(row.ID_BENEFICIARIO)}
+                            onClick={() =>
+                              InactivarBeneficiario(row.ID_BENEFICIARIO)
+                            }
                           >
                             <FontAwesomeIcon icon="fa-solid fa-user-xmark" />
                           </button>
                         </div>
-                      ) : estadoBene == 'INACTIVO' ? (
-                          <div className={styles.tooltip}>
-                            <span className={styles.tooltiptext}>
-                              Activar
-                            </span>
-                            <button
-                              onClick={() => ActivarBeneficiario(row.ID_BENEFICIARIO)}
-                            >
-                              <FontAwesomeIcon icon="fa-solid fa-user-check" />
-                            </button>
-                          </div>
-                        
+                      ) : estadoBene == "INACTIVO" ? (
+                        <div className={styles.tooltip}>
+                          <span className={styles.tooltiptext}>Activar</span>
+                          <button
+                            onClick={() =>
+                              ActivarBeneficiario(row.ID_BENEFICIARIO)
+                            }
+                          >
+                            <FontAwesomeIcon icon="fa-solid fa-user-check" />
+                          </button>
+                        </div>
                       ) : null}
                     </td>
                     {localStorage.getItem("nivel") == 3 ? null : (
                       <td className={styles.actionsBeneficiary}>
-                        <select onChange={(e) => handleEditClick(e, row)}>
+                        <select id={index} onChange={(e) => handleEditClick(e, row)}>
                           <option value={""}></option>
                           <option value={1}>Beneficiario</option>
                           <option value={2}>Encargado</option>
@@ -350,6 +376,5 @@ const FormListarBeneficiario = () => {
       </div>
     </>
   );
-}
-export default FormListarBeneficiario
-
+};
+export default FormListarBeneficiario;

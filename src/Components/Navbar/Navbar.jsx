@@ -182,7 +182,7 @@ const Navbar = () => {
               <Link className={styles.Dropdown__Option} onClick={() => closeDropdown(4)} to="/MiCuenta" >
                 Mi Cuenta
               </Link>
-              <Link className={styles.Dropdown__Option} onClick={() => { localStorage.clear(); location.reload(); }}>
+              <Link path='/' className={styles.Dropdown__Option} onClick={() => { localStorage.clear(); location.reload(); }}>
                 Cerrar Sesion
               </Link>
             </div>
@@ -244,7 +244,7 @@ const Navbar = () => {
               <Link className={styles.Dropdown__Option} onClick={`${() => closeDropdown(4)} ${ShowMenu}`} to="/MiCuenta" >
                 Mi Cuenta
               </Link>
-              <Link className={styles.Dropdown__Option} onClick={() => { localStorage.clear(); location.reload(); }}>
+              <Link path='/' className={styles.Dropdown__Option} onClick={() => { localStorage.clear(); location.reload(); }}>
                 Cerrar Sesion
               </Link>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../assets/scss/Modal.module.scss";
 import axios from "axios";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Modal = ({ onClose, visible, dataSelect }) => {
   const [archivo, setArchivo] = useState(null);
@@ -147,7 +147,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
             <div className={styles.ContainerRadio}>
               <div className={styles.ContainerRadio__Radio}>
                 <input
-                  onChange={saveDataTemporaly}
+                  onMouseDown={saveDataTemporaly}
                   type="radio"
                   value={"Normal"}
                   name="tipo_sesion"
@@ -156,7 +156,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
               </div>
               <div className={styles.ContainerRadio__Radio}>
                 <input
-                  onChange={saveDataTemporaly}
+                  onMouseDown={saveDataTemporaly}
                   type="radio"
                   value={"Inicial"}
                   name="tipo_sesion"
@@ -181,18 +181,20 @@ const Modal = ({ onClose, visible, dataSelect }) => {
             </div>
           </div>
 
-          <div className={styles.Grid__item}>
-            <div className="Container-Input-file">
-              <span className="Container-Input-file__Span">Hoja</span>
-              <input
-                name="files"
-                onChange={selectImageList}
-                placeholder=" "
-                type="file"
-                className="Container-Input-file__Input"
-              />
+          {citas.tipo_sesion == "Inicial" ? (
+            <div className={styles.Grid__item}>
+              <div className="Container-Input-file">
+                <span className="Container-Input-file__Span">Hoja</span>
+                <input
+                  name="files"
+                  onChange={selectImageList}
+                  placeholder=" "
+                  type="file"
+                  className="Container-Input-file__Input"
+                />
+              </div>
             </div>
-          </div>
+          ) : null}
 
           <button className="Button">Registrar Cita</button>
 

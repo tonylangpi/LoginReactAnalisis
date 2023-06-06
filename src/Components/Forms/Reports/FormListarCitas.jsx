@@ -43,7 +43,6 @@ const FormListarCitas = () => {
   return (
     <>
       <div className={styles.Container}>
-        {/* search */}
 
         <h1 className={styles.Titulo}>Listado de Sesiones</h1>
 

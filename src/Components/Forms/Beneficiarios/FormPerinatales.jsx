@@ -51,10 +51,6 @@ const FormPerinatales = ({ idBen, showComponent }) => {
     }
   };
 
-  const showOtherComponent = () => {
-    // setShow(false);
-    // setPerinatal(false);
-  };
   return (
     <div
       hidden={showComponent}
@@ -167,11 +163,7 @@ const FormPerinatales = ({ idBen, showComponent }) => {
 
             {isPerinatal ? (
               <div className="Container-Beneficiario__Grid-button">
-                <button
-                  onClick={showOtherComponent}
-                  id="Perinatales"
-                  className="Button Button--Guardar"
-                >
+                <button className="Button Button--Guardar">
                   <div className="Button__Icono">
                     <FontAwesomeIcon icon="fa-solid fa-file-export" />
                   </div>
