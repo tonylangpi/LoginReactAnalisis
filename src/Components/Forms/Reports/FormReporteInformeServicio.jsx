@@ -1,18 +1,19 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import Pagination from '../../utils/pagination';
-import styles from './Reporte.module.scss';
+import React, { useState } from "react";
+import axios from "axios";
+import Pagination from "../../utils/pagination";
+import styles from "./Reporte.module.scss";
 
 const FormReporteInformeServicio = () => {
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
-  const currentSessions = Array.isArray(beneficiario) ? beneficiario.slice(indexOfFirstSession, indexOfLastSession) : [];
+  const currentSessions = Array.isArray(beneficiario)
+    ? beneficiario.slice(indexOfFirstSession, indexOfLastSession)
+    : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
-
   const [exportData, setExportData] = useState([]);
 
   const descargarArchivo = () => {
@@ -72,23 +73,14 @@ const FormReporteInformeServicio = () => {
   const ListarReporteInformeServicio = () => {
     const idUsuario = localStorage.getItem('idUsuario');
     const token = localStorage.getItem('Auth');
-
-    if (!validarFechas()) {
-      return;
-    }
-
+  
     axios
-      .post('https://amordownapi-production.up.railway.app/reportes/reporteInformeServicio', {
-        desde: datos.desde,
-        hasta: datos.hasta
-      })
+      .post('https://amordownapi-production.up.railway.app/reportes/reporteInformeServicio', {desde:datos.desde, hasta: datos.hasta})
       .then(function (response) {
         setBeneficiario(response.data);
-        alert('Reporte Exitoso');
-        console.log(response);
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
   };
 
@@ -138,7 +130,7 @@ const FormReporteInformeServicio = () => {
         <table className={styles.Table}>
           <thead>
             <tr>
-              <th>Area</th>
+              <th>Area</th> 
               <th>Beneficiarios Atendidos</th>
               <th>Terapias Brindadas</th>
               <th>Mes</th>

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 function ModalPreNatal({ beneficiary, onClose }) {
   const [isLoading, setIsLoading] = useState(true);
   const [prenatal, setPrenatal] = useState({});
+
   useEffect(() => {
     const fetchPrenatal = async () => {
       try {
@@ -20,9 +21,10 @@ function ModalPreNatal({ beneficiary, onClose }) {
     };
 
     fetchPrenatal();
-  }, [beneficiary.ID_BENEFICIARIO]);
+  }, []);
 
-  const actualizarPrenatal = async () => {
+  const actualizarPrenatal = async (e) => {
+    e.preventDefault();
     try {
       await axios.post(
         `https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePrenatales/${beneficiary.ID_BENEFICIARIO}`,
@@ -34,6 +36,11 @@ function ModalPreNatal({ beneficiary, onClose }) {
     }
   };
 
+  const changePreNatal = (e) => {
+    e.preventDefault();
+    setPrenatal({ ...prenatal, [e.target.name]: e.target.value });
+  };
+
   if (isLoading) {
     return <div>Cargando información...</div>;
   }
@@ -43,14 +50,14 @@ function ModalPreNatal({ beneficiary, onClose }) {
       <div className={styles.Container__Content}>
         <h2>Información Prenatal</h2>
 
-        <div className={styles.Grid}>
+        <form onSubmit={actualizarPrenatal} className={styles.Grid}>
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <select
+                required
+                name="EMBARAZO_TERMINO"
                 value={prenatal.EMBARAZO_TERMINO}
-                onChange={(e) =>
-                  setPrenatal({ ...prenatal, EMBARAZO_TERMINO: e.target.value })
-                }
+                onChange={changePreNatal}
                 className={styles.ContainerInput__Input}
               >
                 <option
@@ -75,14 +82,12 @@ function ModalPreNatal({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
+                required
+                pattern="^[a-zA-Z\s]{3,50}$"
+                name="EXPLIQUE_EMBARAZO"
                 type="text"
                 value={prenatal.EXPLIQUE_EMBARAZO}
-                onChange={(e) =>
-                  setPrenatal({
-                    ...prenatal,
-                    EXPLIQUE_EMBARAZO: e.target.value,
-                  })
-                }
+                onChange={changePreNatal}
                 className={styles.ContainerInput__Input}
                 placeholder=" "
               ></input>
@@ -95,10 +100,10 @@ function ModalPreNatal({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <select
+                required
+                name="PARTO_NORMAL"
                 value={prenatal.PARTO_NORMAL}
-                onChange={(e) =>
-                  setPrenatal({ ...prenatal, PARTO_NORMAL: e.target.value })
-                }
+                onChange={changePreNatal}
                 className={styles.ContainerInput__Input}
               >
                 <option value="SI" selected={prenatal.PARTO_NORMAL === "SI"}>
@@ -117,11 +122,12 @@ function ModalPreNatal({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
+                required
+                name="EXPLIQUE_PARTO"
                 type="text"
+                pattern="^[a-zA-Z\s]{3,50}$"
                 value={prenatal.EXPLIQUE_PARTO}
-                onChange={(e) =>
-                  setPrenatal({ ...prenatal, EXPLIQUE_PARTO: e.target.value })
-                }
+                onChange={changePreNatal}
                 className={styles.ContainerInput__Input}
                 placeholder=" "
               ></input>
@@ -134,10 +140,10 @@ function ModalPreNatal({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <select
+                required
+                name="COMPLICACIONES"
                 value={prenatal.COMPLICACIONES}
-                onChange={(e) =>
-                  setPrenatal({ ...prenatal, COMPLICACIONES: e.target.value })
-                }
+                onChange={changePreNatal}
                 className={styles.ContainerInput__Input}
               >
                 <option value="SI" selected={prenatal.COMPLICACIONES === "SI"}>
@@ -156,14 +162,12 @@ function ModalPreNatal({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
+                required
+                name="EXPLIQUE_COMPLICACION"
+                pattern="^[a-zA-Z\s]{3,50}$"
                 type="text"
                 value={prenatal.EXPLIQUE_COMPLICACION}
-                onChange={(e) =>
-                  setPrenatal({
-                    ...prenatal,
-                    EXPLIQUE_COMPLICACION: e.target.value,
-                  })
-                }
+                onChange={changePreNatal}
                 className={styles.ContainerInput__Input}
                 placeholder=" "
               ></input>
@@ -174,7 +178,7 @@ function ModalPreNatal({ beneficiary, onClose }) {
           </div>
 
           <div className={styles.Grid__button}>
-            <button className={styles.Button} onClick={actualizarPrenatal}>
+            <button className={styles.Button}>
               <div className={styles.Button__Icono}>
                 <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
               </div>
@@ -188,7 +192,7 @@ function ModalPreNatal({ beneficiary, onClose }) {
               {/* &times; */}
             </span>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

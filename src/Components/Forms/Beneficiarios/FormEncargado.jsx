@@ -29,20 +29,15 @@ function FormEncargado({ idBene, showComponent }) {
   const saveDate = (date) => {
     const selectDate = new Date(date.target.value);
     const currentDate = new Date();
-    const limitDate = new Date();
-    limitDate.setFullYear(limitDate.getFullYear() - 1);
 
     if (selectDate >= currentDate) {
       setErrorFecha("La fecha de nacimiento no debe ser futura");
       setFechaNacimiento("");
-    } else if (selectDate >= limitDate) {
-      setErrorFecha("La fecha de nacimiento debe ser anterior a 12 meses");
-      setFechaNacimiento("");
     } else {
       setErrorFecha("");
       date.preventDefault();
-      setBeneficiario({
-        ...beneficiario,
+      setEncargado({
+        ...Encargado,
         [date.target.name]: date.target.value,
       });
       setFechaNacimiento(date.target.value);
@@ -116,7 +111,6 @@ function FormEncargado({ idBene, showComponent }) {
   return (
     <div
       hidden={showComponent}
-      id="FormDatosEncargado"
       className={showComponent ? "" : styles.Container}
     >
       {isEncargado ? (
@@ -224,7 +218,7 @@ function FormEncargado({ idBene, showComponent }) {
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
-                  pattern="/^\d{8}$/"
+                  pattern="^\d{8}$"
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>Telefono</span>
@@ -275,7 +269,7 @@ function FormEncargado({ idBene, showComponent }) {
                   required
                   autoComplete="off"
                   name="OCUPACION"
-                  pattern="/^[a-zA-Z0-9]{5,50}$/"
+                  pattern="^[a-zA-Z\s]{3,50}$"
                   onChange={saveDataTemporalyEncargado}
                   placeholder=" "
                   type="text"
@@ -289,12 +283,12 @@ function FormEncargado({ idBene, showComponent }) {
               <div className={styles.ContainerInput}>
                 <input
                   required
-                  value={fechaNacimiento}
                   name="FECHA_NACIMIENTO"
                   onChange={(event) => saveDate(event)}
                   placeholder=" "
-                  pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
                   type="date"
+                  value={fechaNacimiento}
+                  pattern="^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
                   className={styles.ContainerInput__Input}
                 />
                 <span className={styles.ContainerInput__Span}>

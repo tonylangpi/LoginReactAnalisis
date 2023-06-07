@@ -21,18 +21,25 @@ function ModalPostNatal({ beneficiary, onClose }) {
     };
 
     fetchPostnatal();
-  }, [beneficiary.ID_BENEFICIARIO]);
+  }, []);
 
-  const actualizarPostnatal = async () => {
+  const actualizarPostnatal = async (e) => {
+    e.preventDefault();
     try {
       await axios.post(
         `https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePostnatales/${beneficiary.ID_BENEFICIARIO}`,
         postnatal
       );
       alert("Información actualizada correctamente");
+      onClose();
     } catch (error) {
       alert("Error al actualizar la información:", error);
     }
+  };
+
+  const changePostNatal = (e) => {
+    e.preventDefault();
+    setPostnatal({ ...postnatal, [e.target.name]: e.target.value });
   };
 
   if (isLoading) {
@@ -44,14 +51,14 @@ function ModalPostNatal({ beneficiary, onClose }) {
       <div className={styles.Container__Content}>
         <h2 className={styles.Titulo}>Información Postnatal</h2>
 
-        <div className={styles.Grid}>
+        <form onSubmit={actualizarPostnatal} className={styles.Grid}>
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <select
+                required
+                name="TRATAMIENTO"
                 value={postnatal.TRATAMIENTO}
-                onChange={(e) =>
-                  setPostnatal({ ...postnatal, TRATAMIENTO: e.target.value })
-                }
+                onChange={changePostNatal}
                 className={styles.ContainerInput__Input}
               >
                 <option value="SI" selected={postnatal.TRATAMIENTO === "SI"}>
@@ -69,10 +76,10 @@ function ModalPostNatal({ beneficiary, onClose }) {
 
           <div className={styles.ContainerInput}>
             <select
+              required
+              name="INFECCIONES"
               value={postnatal.INFECCIONES}
-              onChange={(e) =>
-                setPostnatal({ ...postnatal, INFECCIONES: e.target.value })
-              }
+              onChange={changePostNatal}
               className={styles.ContainerInput__Input}
             >
               <option value="SI" selected={postnatal.INFECCIONES === "SI"}>
@@ -89,10 +96,10 @@ function ModalPostNatal({ beneficiary, onClose }) {
 
           <div className={styles.ContainerInput}>
             <select
+              required
+              name="FIEBRE"
               value={postnatal.FIEBRE}
-              onChange={(e) =>
-                setPostnatal({ ...postnatal, FIEBRE: e.target.value })
-              }
+              onChange={changePostNatal}
               className={styles.ContainerInput__Input}
             >
               <option value="SI" selected={postnatal.FIEBRE === "SI"}>
@@ -107,10 +114,10 @@ function ModalPostNatal({ beneficiary, onClose }) {
 
           <div className={styles.ContainerInput}>
             <select
+              required
+              name="CONVULCIONES"
               value={postnatal.CONVULCIONES}
-              onChange={(e) =>
-                setPostnatal({ ...postnatal, CONVULCIONES: e.target.value })
-              }
+              onChange={changePostNatal}
               className={styles.ContainerInput__Input}
             >
               <option value="SI" selected={postnatal.CONVULCIONES === "SI"}>
@@ -127,10 +134,10 @@ function ModalPostNatal({ beneficiary, onClose }) {
 
           <div className={styles.ContainerInput}>
             <select
+              required
+              name="LENGUAJE"
               value={postnatal.LENGUAJE}
-              onChange={(e) =>
-                setPostnatal({ ...postnatal, LENGUAJE: e.target.value })
-              }
+              onChange={changePostNatal}
               className={styles.ContainerInput__Input}
             >
               <option value="SI" selected={postnatal.LENGUAJE === "SI"}>
@@ -147,10 +154,10 @@ function ModalPostNatal({ beneficiary, onClose }) {
 
           <div className={styles.ContainerInput}>
             <select
+              required
+              name="CAMINA"
               value={postnatal.CAMINA}
-              onChange={(e) =>
-                setPostnatal({ ...postnatal, CAMINA: e.target.value })
-              }
+              onChange={changePostNatal}
               className={styles.ContainerInput__Input}
             >
               <option value="SI" selected={postnatal.CAMINA === "SI"}>
@@ -166,11 +173,12 @@ function ModalPostNatal({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
+                name="OBSERVACIONES"
+                required
+                pattern="^[a-zA-Z\s]{3,50}$"
                 type="text"
                 value={postnatal.OBSERVACIONES}
-                onChange={(e) =>
-                  setPostnatal({ ...postnatal, OBSERVACIONES: e.target.value })
-                }
+                onChange={changePostNatal}
                 className={styles.ContainerInput__Input}
                 placeholder=" "
               ></input>
@@ -179,7 +187,7 @@ function ModalPostNatal({ beneficiary, onClose }) {
           </div>
 
           <div className={styles.Grid__button}>
-            <button className={styles.Button} onClick={actualizarPostnatal}>
+            <button className={styles.Button}>
               <div className={styles.Button__Icono}>
                 <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
               </div>
@@ -193,7 +201,7 @@ function ModalPostNatal({ beneficiary, onClose }) {
               {/* &times; */}
             </span>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

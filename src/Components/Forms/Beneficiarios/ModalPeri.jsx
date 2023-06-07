@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import styles from './Modal.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import styles from "./Modal.module.scss";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function ModalPeri({ beneficiary, onClose }) {
   const [peri, setPeri] = useState({});
@@ -10,24 +10,36 @@ function ModalPeri({ beneficiary, onClose }) {
   useEffect(() => {
     const fetchPeri = async () => {
       try {
-        const response = await axios.get(`https://amordownapi-production.up.railway.app/beneficiarios/buscarPerinatalesBene/${beneficiary.ID_BENEFICIARIO}`);
-        setPeri(response.data[0]); 
+        const response = await axios.get(
+          `https://amordownapi-production.up.railway.app/beneficiarios/buscarPerinatalesBene/${beneficiary.ID_BENEFICIARIO}`
+        );
+        setPeri(response.data[0]);
         setIsLoading(false);
       } catch (error) {
-        alert('Error al obtener la información:', error);
+        alert("Error al obtener la información:", error);
       }
     };
 
     fetchPeri();
   }, [beneficiary.ID_BENEFICIARIO]);
 
-  const actualizarPeri = async () => {
+  const actualizarPeri = async (e) => {
+    e.preventDefault();
     try {
-      await axios.post(`https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePerinatales/${beneficiary.ID_BENEFICIARIO}`, peri);
-      alert('Información actualizada correctamente');
+      await axios.post(
+        `https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePerinatales/${beneficiary.ID_BENEFICIARIO}`,
+        peri
+      );
+      alert("Información actualizada correctamente");
+      onClose();
     } catch (error) {
-      alert('Error al actualizar la información:', error);
+      alert("Error al actualizar la información:", error);
     }
+  };
+
+  const changePerinatal = (e) => {
+    e.preventDefault();
+    setPeri({ ...peri, [e.target.name]: e.target.value });
   };
 
   if (isLoading) {
@@ -39,16 +51,28 @@ function ModalPeri({ beneficiary, onClose }) {
       <div className={styles.Container__Content}>
         <h2 className={styles.Titulo}>Editar Informacion PeriNatal</h2>
 
-        <div className={styles.Grid}>
-
+        <form onSubmit={actualizarPeri} className={styles.Grid}>
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <select
-                value={peri.LLORO_INMEDIATAMENTE} 
-                onChange={(e) => setPeri({ ...peri, LLORO_INMEDIATAMENTE: e.target.value })}
-                className={styles.ContainerInput__Input}>
-                <option value="SI" selected={peri.LLORO_INMEDIATAMENTE === "SI"}>SI</option>
-                <option value="NO" selected={peri.LLORO_INMEDIATAMENTE === "NO"}>NO</option>
+                required
+                name="LLORO_INMEDIATAMENTE"
+                value={peri.LLORO_INMEDIATAMENTE}
+                onChange={changePerinatal}
+                className={styles.ContainerInput__Input}
+              >
+                <option
+                  value="SI"
+                  selected={peri.LLORO_INMEDIATAMENTE === "SI"}
+                >
+                  SI
+                </option>
+                <option
+                  value="NO"
+                  selected={peri.LLORO_INMEDIATAMENTE === "NO"}
+                >
+                  NO
+                </option>
               </select>
               <span className={styles.ContainerInput__Span}>
                 Lloro inmediatamente al nacer
@@ -59,11 +83,18 @@ function ModalPeri({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <select
-                value={peri.COLORACION} 
-                onChange={(e) => setPeri({ ...peri, COLORACION: e.target.value })}
-                className={styles.ContainerInput__Input}>
-                <option value="SI" selected={peri.COLORACION === "SI"}>SI</option>
-                <option value="NO" selected={peri.COLORACION === "NO"}>NO</option>
+                name="COLORACION"
+                required
+                value={peri.COLORACION}
+                onChange={changePerinatal}
+                className={styles.ContainerInput__Input}
+              >
+                <option value="SI" selected={peri.COLORACION === "SI"}>
+                  SI
+                </option>
+                <option value="NO" selected={peri.COLORACION === "NO"}>
+                  NO
+                </option>
               </select>
               <span className={styles.ContainerInput__Span}>
                 ¿Su coloracion fue normal?
@@ -74,26 +105,18 @@ function ModalPeri({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <select
-                value={peri.INCUBADORA} 
-                onChange={(e) => setPeri({ ...peri, INCUBADORA: e.target.value })}
-                className={styles.ContainerInput__Input}>
-                <option value="SI" selected={peri.INCUBADORA === "SI"}>SI</option>
-                <option value="NO" selected={peri.INCUBADORA === "NO"}>NO</option>
-              </select>
-              <span className={styles.ContainerInput__Span}>
-                ¿Estuvo en incubadora?
-              </span>
-            </div>
-          </div>
-
-          <div className={styles.Grid__item}>
-            <div className={styles.ContainerInput}>
-              <select
-                value={peri.INCUBADORA} 
-                onChange={(e) => setPeri({ ...peri, INCUBADORA: e.target.value })}
-                className={styles.ContainerInput__Input}>
-                <option value="SI" selected={peri.INCUBADORA === "SI"}>SI</option>
-                <option value="NO" selected={peri.INCUBADORA === "NO"}>NO</option>
+                name="INCUBADORA"
+                required
+                value={peri.INCUBADORA}
+                onChange={changePerinatal}
+                className={styles.ContainerInput__Input}
+              >
+                <option value="SI" selected={peri.INCUBADORA === "SI"}>
+                  SI
+                </option>
+                <option value="NO" selected={peri.INCUBADORA === "NO"}>
+                  NO
+                </option>
               </select>
               <span className={styles.ContainerInput__Span}>
                 ¿Estuvo en incubadora?
@@ -104,12 +127,15 @@ function ModalPeri({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
-                value={peri.COLOR} 
-                onChange={(e) => setPeri({ ...peri, COLOR: e.target.value })} 
-                type='text'
+                name="COLOR"
+                value={peri.COLOR}
+                required
+                pattern="^[a-zA-Z\s]{5,50}$"
+                onChange={changePerinatal}
+                type="text"
                 className={styles.ContainerInput__Input}
-                placeholder=" ">
-              </input>
+                placeholder=" "
+              ></input>
               <span className={styles.ContainerInput__Span}>
                 ¿Nacio amarillo o morado?
               </span>
@@ -117,7 +143,7 @@ function ModalPeri({ beneficiary, onClose }) {
           </div>
 
           <div className={styles.Grid__button}>
-            <button className={styles.Button} onClick={actualizarPeri}>
+            <button className={styles.Button}>
               <div className={styles.Button__Icono}>
                 <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
               </div>
@@ -131,8 +157,7 @@ function ModalPeri({ beneficiary, onClose }) {
               {/* &times; */}
             </span>
           </div>
-
-        </div>
+        </form>
       </div>
     </div>
   );

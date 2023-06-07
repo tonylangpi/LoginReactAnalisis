@@ -43,7 +43,6 @@ const FormListarCitas = () => {
   return (
     <>
       <div className={styles.Container}>
-        {/* search */}
 
         <h1 className={styles.Titulo}>Listado de Sesiones</h1>
 
@@ -61,10 +60,7 @@ const FormListarCitas = () => {
             <tbody>
               {currentSessions
                 .filter((item) => {
-                  return search.toLowerCase() === ""
-                    ? item
-                    : item.BENEFICIARIO.toLowerCase().includes(search) ||
-                        item.BENEFICIARIO.toLowerCase().includes(search);
+                  return item;
                 })
                 .map((row, index) => (
                   <tr key={index}>

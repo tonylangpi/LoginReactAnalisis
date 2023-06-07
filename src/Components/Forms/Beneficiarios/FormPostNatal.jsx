@@ -227,7 +227,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
                 <textarea
                   autoComplete="off"
                   required
-                  pattern="/^[a-zA-Z]{5,50}$/"
+                  pattern="^[a-zA-Z\s]{3,50}$"
                   name="OBSERVACIONES"
                   onChange={saveDataTemporalyPostnatal}
                   className={styles.ContainerInput__Input}
@@ -246,24 +246,10 @@ const FormPostNatal = ({ idBen, showComponent }) => {
                 </div>
                 <span className={styles.Button__Span}>Guardar</span>
               </Link>
-            ) : // <div className="Container-Beneficiario__Grid-button">
-            //   <button onClick={showOtherComponent} id="Postnatales" className="Button Button--Guardar" >
-            //     <div className="Button__Icono">
-            //       <FontAwesomeIcon icon="fa-solid fa-file-export" />
-            //     </div>
-            //     <span className="Button__Span Iniciar">Guardar</span>
-            //   </button>
-            // </div>
-            null}
+            ) : null}
           </form>
         </div>
       ) : null}
-      {/* <Link className={styles.Button} to="/FormListarBeneficiarios">
-        <div className={styles.Button__Icono}>
-          <FontAwesomeIcon icon="fa-solid fa-file-export" />
-        </div>
-        <span className={styles.Button__Span}>Actualizar</span>
-      </Link> */}
     </div>
   );
 };
