@@ -5,6 +5,7 @@ import styles from "./Reporte.module.scss";
 
 const FormReporteCuantitativo = () => {
   const [search, setSearch] = useState("");
+  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
@@ -14,9 +15,11 @@ const FormReporteCuantitativo = () => {
     ? beneficiario.slice(indexOfFirstSession, indexOfLastSession)
     : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
-
   
-  const [exportData, setExportData] = useState([]);
+  const [datos, setDatos] = useState({
+    desde: "",
+    hasta: "",
+  });
 
   const descargarArchivo = () => {
     if (!validarFechas()) {
@@ -24,29 +27,28 @@ const FormReporteCuantitativo = () => {
     }
 
     axios
-      .post('https://amordownapi-production.up.railway.app/reportes/descargarReporteCuantitativo', {
-        desde: datos.desde,
-        hasta: datos.hasta,
-      }, {
-        responseType: 'blob', // Indicar que la respuesta es un archivo binario
-      })
+      .post(
+        "https://amordownapi-production.up.railway.app/reportes/descargarReporteCuantitativo",
+        {
+          desde: datos.desde,
+          hasta: datos.hasta,
+        },
+        {
+          responseType: "blob", // Indicar que la respuesta es un archivo binario
+        }
+      )
       .then(function (response) {
         const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = url;
-        link.setAttribute('download', 'Reporte Cuantitativo.xlsx'); // Nombre del archivo a descargar
+        link.setAttribute("download", "Reporte Cuantitativo.xlsx"); // Nombre del archivo a descargar
         document.body.appendChild(link);
         link.click();
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
   };
-  
-  const [datos, setDatos] = useState({
-    desde: "",
-    hasta: "",
-  });
 
   const saveDataTemporaly = (e) => {
     e.preventDefault();
@@ -56,6 +58,7 @@ const FormReporteCuantitativo = () => {
     });
   };
 
+  const ListarReporteCuantitativo = () => {
     const idUsuario = localStorage.getItem("idUsuario");
     const token = localStorage.getItem("Auth");
 
@@ -63,7 +66,6 @@ const FormReporteCuantitativo = () => {
       return;
     }
 
-  
     axios
       .post(
         "https://amordownapi-production.up.railway.app/reportes/reporteCuantitativo",
@@ -82,18 +84,17 @@ const FormReporteCuantitativo = () => {
     const fechaFinal = new Date(datos.hasta).getTime();
 
     if (isNaN(fechaInicio) || isNaN(fechaFinal)) {
-      alert('Ingresa fechas válidas');
+      alert("Ingresa fechas válidas");
       return false;
     }
 
     if (fechaInicio > fechaFinal) {
-      alert('La fecha de inicio debe ser anterior o igual a la fecha final');
+      alert("La fecha de inicio debe ser anterior o igual a la fecha final");
       return false;
     }
 
     return true;
   };
-
 
   return (
     <>
@@ -131,14 +132,11 @@ const FormReporteCuantitativo = () => {
             </button>
           </div>
 
-           
-          <div>
+          <div className={styles.Grid__button}>
             <a className="Button" onClick={descargarArchivo}>
               Exportar en Excel
             </a>
           </div>
-
-
         </div>
 
         <h1 className={styles.Titulo}>Lista de Reporte Cuantitativo</h1>

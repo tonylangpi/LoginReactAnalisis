@@ -23,26 +23,29 @@ const FormReporteEstadistico = () => {
     }
 
     axios
-      .post('https://amordownapi-production.up.railway.app/reportes/descargarReporteEstadistico', {
-        desde: datos.desde,
-        hasta: datos.hasta,
-      }, {
-        responseType: 'blob', // Indicar que la respuesta es un archivo binario
-      })
+      .post(
+        "https://amordownapi-production.up.railway.app/reportes/descargarReporteEstadistico",
+        {
+          desde: datos.desde,
+          hasta: datos.hasta,
+        },
+        {
+          responseType: "blob", // Indicar que la respuesta es un archivo binario
+        }
+      )
       .then(function (response) {
         const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = url;
-        link.setAttribute('download', 'Reporte Estadistico.xlsx'); // Nombre del archivo a descargar
+        link.setAttribute("download", "Reporte Estadistico.xlsx"); // Nombre del archivo a descargar
         document.body.appendChild(link);
         link.click();
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
   };
 
-  
   const [datos, setDatos] = useState({
     desde: "",
     hasta: "",
@@ -56,6 +59,7 @@ const FormReporteEstadistico = () => {
     });
   };
 
+  const ListarReporteEstadistico = () => {
     const idUsuario = localStorage.getItem("idUsuario");
     const token = localStorage.getItem("Auth");
 
@@ -63,7 +67,6 @@ const FormReporteEstadistico = () => {
       return;
     }
 
-  
     axios
       .post(
         "https://amordownapi-production.up.railway.app/reportes/reporteEstadistico",
@@ -82,18 +85,17 @@ const FormReporteEstadistico = () => {
     const fechaFinal = new Date(datos.hasta).getTime();
 
     if (isNaN(fechaInicio) || isNaN(fechaFinal)) {
-      alert('Ingresa fechas válidas');
+      alert("Ingresa fechas válidas");
       return false;
     }
 
     if (fechaInicio > fechaFinal) {
-      alert('La fecha de inicio debe ser anterior o igual a la fecha final');
+      alert("La fecha de inicio debe ser anterior o igual a la fecha final");
       return false;
     }
 
     return true;
   };
-
 
   return (
     <>
@@ -136,7 +138,6 @@ const FormReporteEstadistico = () => {
             </a>
           </div>
         </div>
-
         <h1 className={styles.Titulo}>Lista de Reporte Estadístico</h1>
         <div className={styles.ContainerTable}>
           <table className={styles.Table}>
@@ -168,7 +169,6 @@ const FormReporteEstadistico = () => {
             </tbody>
           </table>
         </div>
-
         <Pagination
           sessionsPerPage={sessionsPerPage}
           totalSessions={beneficiario.length}
