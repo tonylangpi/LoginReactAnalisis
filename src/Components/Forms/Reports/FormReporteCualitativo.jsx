@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Pagination from '../../utils/pagination';
 import styles from './Reporte.module.scss';
-import { read, writeFileXLSX } from "xlsx";
-import * as XLSX from "xlsx";
+
+
 
 const FormReporteCualitativo = () => {
   const [search, setSearch] = useState('');
