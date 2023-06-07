@@ -5,7 +5,6 @@ import styles from "./Reporte.module.scss";
 
 const FormReporteCuantitativo = () => {
   const [search, setSearch] = useState("");
-  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);

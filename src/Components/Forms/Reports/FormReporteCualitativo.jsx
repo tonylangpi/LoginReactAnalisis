@@ -3,8 +3,6 @@ import axios from "axios";
 import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
 
-
-
 const FormReporteCualitativo = () => {
   const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
@@ -17,30 +15,32 @@ const FormReporteCualitativo = () => {
     : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
-  const [exportData, setExportData] = useState([]);
-
   const descargarArchivo = () => {
     if (!validarFechas()) {
       return;
     }
 
     axios
-      .post('https://amordownapi-production.up.railway.app/reportes/descargarReporteCualitativo', {
-        desde: datos.desde,
-        hasta: datos.hasta,
-      }, {
-        responseType: 'blob', // Indicar que la respuesta es un archivo binario
-      })
+      .post(
+        "https://amordownapi-production.up.railway.app/reportes/descargarReporteCualitativo",
+        {
+          desde: datos.desde,
+          hasta: datos.hasta,
+        },
+        {
+          responseType: "blob", // Indicar que la respuesta es un archivo binario
+        }
+      )
       .then(function (response) {
         const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = url;
-        link.setAttribute('download', 'Reporte Cualitativo.xlsx'); // Nombre del archivo a descargar
+        link.setAttribute("download", "Reporte Cualitativo.xlsx"); // Nombre del archivo a descargar
         document.body.appendChild(link);
         link.click();
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
   };
 
@@ -58,13 +58,13 @@ const FormReporteCualitativo = () => {
   };
 
   const ListarReporteCualitativo = () => {
-    const idUsuario = localStorage.getItem('idUsuario');
-    const token = localStorage.getItem('Auth');
+    const idUsuario = localStorage.getItem("idUsuario");
+    const token = localStorage.getItem("Auth");
 
     if (!validarFechas()) {
       return;
     }
-  
+
     axios
       .post(
         "https://amordownapi-production.up.railway.app/reportes/reporteCualitativo",
@@ -72,14 +72,11 @@ const FormReporteCualitativo = () => {
       )
       .then(function (response) {
         setBeneficiario(response.data);
-        alert('Reporte Exitoso');
-        console.log(response);
       })
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
   };
-
 
   return (
     <>
@@ -116,44 +113,46 @@ const FormReporteCualitativo = () => {
               Buscar Reporte
             </button>
           </div>
-          
-          <div>
+
+          <div className={styles.Grid__button}>
             <a className="Button" onClick={descargarArchivo}>
               Exportar en Excel
             </a>
           </div>
-
         </div>
 
         <h1 className={styles.Titulo}>Lista de Reporte Cualitativo</h1>
-        <table className={styles.Table}>
-          <thead>
-            <tr>
-              <th>Empresa</th> 
-              <th>Rango</th>
-              <th>Hombres</th>
-              <th>Mujeres</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentSessions
-              .filter((item) => {
-                return (
-                  search.toLowerCase() === '' ||
-                  item.NOMBRES.toLowerCase().includes(search) ||
-                  item.APELLIDOS.toLowerCase().includes(search)
-                );
-              })
-              .map((row, index) => (
-                <tr key={index}>
-                  <td>{row.EMPRESA}</td>
-                  <td>{row.RANGO}</td>
-                  <td>{row.HOMBRES}</td>
-                  <td>{row.MUJERES}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <div className={styles.ContainerTable}>
+          <table className={styles.Table}>
+            <thead>
+              <tr>
+                <th>Empresa</th>
+                <th>Rango</th>
+                <th>Hombres</th>
+                <th>Mujeres</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentSessions
+                .filter((item) => {
+                  return (
+                    search.toLowerCase() === "" ||
+                    item.NOMBRES.toLowerCase().includes(search) ||
+                    item.APELLIDOS.toLowerCase().includes(search)
+                  );
+                })
+                .map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.EMPRESA}</td>
+                    <td>{row.RANGO}</td>
+                    <td>{row.HOMBRES}</td>
+                    <td>{row.MUJERES}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+
         <Pagination
           sessionsPerPage={sessionsPerPage}
           totalSessions={beneficiario.length}

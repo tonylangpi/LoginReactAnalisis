@@ -15,8 +15,6 @@ const FormReporteEstadistico = () => {
     : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
-  const [exportData, setExportData] = useState([]);
-
   const descargarArchivo = () => {
     if (!validarFechas()) {
       return;
@@ -60,8 +58,6 @@ const FormReporteEstadistico = () => {
   };
 
   const ListarReporteEstadistico = () => {
-    const idUsuario = localStorage.getItem("idUsuario");
-    const token = localStorage.getItem("Auth");
 
     if (!validarFechas()) {
       return;
@@ -132,7 +128,7 @@ const FormReporteEstadistico = () => {
               Buscar Reporte
             </button>
           </div>
-          <div>
+          <div className={styles.Grid__button}>
             <a className="Button" onClick={descargarArchivo}>
               Exportar en Excel
             </a>

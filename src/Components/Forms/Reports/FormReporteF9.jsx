@@ -15,33 +15,35 @@ const FormReporteF9 = () => {
     : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
-  const [exportData, setExportData] = useState([]);
-
   const descargarArchivo = () => {
     if (!validarFechas()) {
       return;
     }
 
     axios
-      .post('https://amordownapi-production.up.railway.app/reportes/descargarReporteF9', {
-        desde: datos.desde,
-        hasta: datos.hasta,
-      }, {
-        responseType: 'blob', // Indicar que la respuesta es un archivo binario
-      })
+      .post(
+        "https://amordownapi-production.up.railway.app/reportes/descargarReporteF9",
+        {
+          desde: datos.desde,
+          hasta: datos.hasta,
+        },
+        {
+          responseType: "blob", // Indicar que la respuesta es un archivo binario
+        }
+      )
       .then(function (response) {
         const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = url;
-        link.setAttribute('download', 'Reporte F9.xlsx'); // Nombre del archivo a descargar
+        link.setAttribute("download", "Reporte F9.xlsx"); // Nombre del archivo a descargar
         document.body.appendChild(link);
         link.click();
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
   };
-  
+
   const [datos, setDatos] = useState({
     desde: "",
     hasta: "",
@@ -55,6 +57,7 @@ const FormReporteF9 = () => {
     });
   };
 
+  const ListarReporteF9 = () => {
     const idUsuario = localStorage.getItem("idUsuario");
     const token = localStorage.getItem("Auth");
 
@@ -62,7 +65,6 @@ const FormReporteF9 = () => {
       return;
     }
 
-  
     axios
       .post(
         "https://amordownapi-production.up.railway.app/reportes/reporteF9",
@@ -81,12 +83,12 @@ const FormReporteF9 = () => {
     const fechaFinal = new Date(datos.hasta).getTime();
 
     if (isNaN(fechaInicio) || isNaN(fechaFinal)) {
-      alert('Ingresa fechas válidas');
+      alert("Ingresa fechas válidas");
       return false;
     }
 
     if (fechaInicio > fechaFinal) {
-      alert('La fecha de inicio debe ser anterior o igual a la fecha final');
+      alert("La fecha de inicio debe ser anterior o igual a la fecha final");
       return false;
     }
 
@@ -128,7 +130,8 @@ const FormReporteF9 = () => {
               Buscar Reporte
             </button>
           </div>
-          <div>
+          
+          <div className={styles.Grid__button}>
             <a className="Button" onClick={descargarArchivo}>
               Exportar en Excel
             </a>

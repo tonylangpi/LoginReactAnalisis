@@ -22,34 +22,38 @@ const FormReporteInformeServicio = () => {
     }
 
     axios
-      .post('https://amordownapi-production.up.railway.app/reportes/descargarReporteInformeServicios', {
-        desde: datos.desde,
-        hasta: datos.hasta,
-      }, {
-        responseType: 'blob', // Indicar que la respuesta es un archivo binario
-      })
+      .post(
+        "https://amordownapi-production.up.railway.app/reportes/descargarReporteInformeServicios",
+        {
+          desde: datos.desde,
+          hasta: datos.hasta,
+        },
+        {
+          responseType: "blob", // Indicar que la respuesta es un archivo binario
+        }
+      )
       .then(function (response) {
         const url = window.URL.createObjectURL(new Blob([response.data]));
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = url;
-        link.setAttribute('download', 'Reporte Informe Servicio.xlsx'); // Nombre del archivo a descargar
+        link.setAttribute("download", "Reporte Informe Servicio.xlsx"); // Nombre del archivo a descargar
         document.body.appendChild(link);
         link.click();
       })
       .catch(function (error) {
-        alert('No se ha encontrado un registro');
+        alert("No se ha encontrado un registro");
       });
   };
-  
+
   const [datos, setDatos] = useState({
-    desde: '',
-    hasta: ''
+    desde: "",
+    hasta: "",
   });
 
   const saveDataTemporaly = (e) => {
     setDatos({
       ...datos,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -58,12 +62,12 @@ const FormReporteInformeServicio = () => {
     const fechaFinal = new Date(datos.hasta).getTime();
 
     if (isNaN(fechaInicio) || isNaN(fechaFinal)) {
-      alert('Ingresa fechas válidas');
+      alert("Ingresa fechas válidas");
       return false;
     }
 
     if (fechaInicio > fechaFinal) {
-      alert('La fecha de inicio debe ser anterior o igual a la fecha final');
+      alert("La fecha de inicio debe ser anterior o igual a la fecha final");
       return false;
     }
 
@@ -71,11 +75,14 @@ const FormReporteInformeServicio = () => {
   };
 
   const ListarReporteInformeServicio = () => {
-    const idUsuario = localStorage.getItem('idUsuario');
-    const token = localStorage.getItem('Auth');
-  
+    const idUsuario = localStorage.getItem("idUsuario");
+    const token = localStorage.getItem("Auth");
+
     axios
-      .post('https://amordownapi-production.up.railway.app/reportes/reporteInformeServicio', {desde:datos.desde, hasta: datos.hasta})
+      .post(
+        "https://amordownapi-production.up.railway.app/reportes/reporteInformeServicio",
+        { desde: datos.desde, hasta: datos.hasta }
+      )
       .then(function (response) {
         setBeneficiario(response.data);
       })
@@ -119,7 +126,7 @@ const FormReporteInformeServicio = () => {
               Buscar Reporte
             </button>
           </div>
-          <div>
+          <div className={styles.Grid__button}>
             <a className="Button" onClick={descargarArchivo}>
               Exportar en Excel
             </a>
@@ -127,34 +134,37 @@ const FormReporteInformeServicio = () => {
         </div>
 
         <h1 className={styles.Titulo}>Lista de Reporte Informe de Servicio</h1>
-        <table className={styles.Table}>
-          <thead>
-            <tr>
-              <th>Area</th> 
-              <th>Beneficiarios Atendidos</th>
-              <th>Terapias Brindadas</th>
-              <th>Mes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentSessions
-              .filter((item) => {
-                return (
-                  search.toLowerCase() === '' ||
-                  item.NOMBRES.toLowerCase().includes(search) ||
-                  item.APELLIDOS.toLowerCase().includes(search)
-                );
-              })
-              .map((row, index) => (
-                <tr key={index}>
-                  <td>{row.AREA}</td>
-                  <td>{row.BENEFICIARIOS_ATENDIDOS}</td>
-                  <td>{row.TERAPIAS_BRINDADAS}</td>
-                  <td>{row.MES}</td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <div className={styles.ContainerTable}>
+          <table className={styles.Table}>
+            <thead>
+              <tr>
+                <th>Area</th>
+                <th>Beneficiarios Atendidos</th>
+                <th>Terapias Brindadas</th>
+                <th>Mes</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentSessions
+                .filter((item) => {
+                  return (
+                    search.toLowerCase() === "" ||
+                    item.NOMBRES.toLowerCase().includes(search) ||
+                    item.APELLIDOS.toLowerCase().includes(search)
+                  );
+                })
+                .map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.AREA}</td>
+                    <td>{row.BENEFICIARIOS_ATENDIDOS}</td>
+                    <td>{row.TERAPIAS_BRINDADAS}</td>
+                    <td>{row.MES}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+
         <Pagination
           sessionsPerPage={sessionsPerPage}
           totalSessions={beneficiario.length}
