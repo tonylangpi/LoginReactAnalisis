@@ -306,7 +306,7 @@ const Navbar = () => {
                 Mi Cuenta
               </Link>
               <Link
-                path="/"
+                to={"/"}
                 className={styles.Dropdown__Option}
                 onClick={() => {
                   localStorage.clear();
@@ -425,7 +425,7 @@ const Navbar = () => {
                 Mi Cuenta
               </Link>
               <Link
-                path="/"
+                to={"/"}
                 className={styles.Dropdown__Option}
                 onClick={() => {
                   localStorage.clear();

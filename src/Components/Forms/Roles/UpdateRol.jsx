@@ -52,7 +52,7 @@ function UpdateRol() {
 
   return (
     <div className={styles.Container}>
-      <form className={styles.Grid}>
+      <form onSubmit={UpdatePermisos} className={styles.Grid}>
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <input
@@ -71,7 +71,7 @@ function UpdateRol() {
         </div>
 
         <div className={styles.Grid__button}>
-          <Link onClick={UpdatePermisos} to='/ListRol' className={styles.Button}>
+          <Link to='/ListRol' className={styles.Button}>
             <div className={styles.Button__Icono}>
               <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
             </div>
