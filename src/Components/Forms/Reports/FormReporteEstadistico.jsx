@@ -4,7 +4,6 @@ import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
 
 const FormReporteEstadistico = () => {
-  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
@@ -14,6 +13,35 @@ const FormReporteEstadistico = () => {
     ? beneficiario.slice(indexOfFirstSession, indexOfLastSession)
     : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
+
+  const descargarArchivo = () => {
+    if (!validarFechas()) {
+      return;
+    }
+
+    axios
+      .post(
+        "https://amordownapi-production.up.railway.app/reportes/descargarReporteEstadistico",
+        {
+          desde: datos.desde,
+          hasta: datos.hasta,
+        },
+        {
+          responseType: "blob", // Indicar que la respuesta es un archivo binario
+        }
+      )
+      .then(function (response) {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "Reporte Estadistico.xlsx"); // Nombre del archivo a descargar
+        document.body.appendChild(link);
+        link.click();
+      })
+      .catch(function (error) {
+        alert("No se ha encontrado un registro");
+      });
+  };
 
   const [datos, setDatos] = useState({
     desde: "",
@@ -29,8 +57,9 @@ const FormReporteEstadistico = () => {
   };
 
   const ListarReporteEstadistico = () => {
-    const idUsuario = localStorage.getItem("idUsuario");
-    const token = localStorage.getItem("Auth");
+    if (!validarFechas()) {
+      return;
+    }
 
     axios
       .post(
@@ -43,6 +72,23 @@ const FormReporteEstadistico = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+  };
+
+  const validarFechas = () => {
+    const fechaInicio = new Date(datos.desde).getTime();
+    const fechaFinal = new Date(datos.hasta).getTime();
+
+    if (isNaN(fechaInicio) || isNaN(fechaFinal)) {
+      alert("Ingresa fechas válidas");
+      return false;
+    }
+
+    if (fechaInicio > fechaFinal) {
+      alert("La fecha de inicio debe ser anterior o igual a la fecha final");
+      return false;
+    }
+
+    return true;
   };
 
   return (
@@ -77,11 +123,15 @@ const FormReporteEstadistico = () => {
 
           <div className={styles.Grid__button}>
             <button className="Button" onClick={ListarReporteEstadistico}>
-              Buscar Reporte
+              Consultar
             </button>
           </div>
+          <div className={styles.Grid__button}>
+            <a className="Button" onClick={descargarArchivo}>
+              Exportar en Excel
+            </a>
+          </div>
         </div>
-
         <h1 className={styles.Titulo}>Lista de Reporte Estadístico</h1>
         <div className={styles.ContainerTable}>
           <table className={styles.Table}>
@@ -96,11 +146,7 @@ const FormReporteEstadistico = () => {
             <tbody>
               {currentSessions
                 .filter((item) => {
-                  return (
-                    search.toLowerCase() === "" ||
-                    item.NOMBRES.toLowerCase().includes(search) ||
-                    item.APELLIDOS.toLowerCase().includes(search)
-                  );
+                  return item;
                 })
                 .map((row, index) => (
                   <tr key={index}>
@@ -113,7 +159,6 @@ const FormReporteEstadistico = () => {
             </tbody>
           </table>
         </div>
-
         <Pagination
           sessionsPerPage={sessionsPerPage}
           totalSessions={beneficiario.length}

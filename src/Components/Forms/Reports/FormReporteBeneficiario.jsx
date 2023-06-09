@@ -4,7 +4,6 @@ import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
 
 const FormReporteBeneficiario = () => {
-  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(5);
@@ -31,7 +30,6 @@ const FormReporteBeneficiario = () => {
   };
 
   const ListarSesionesPorArea = () => {
-    const idUsuario = localStorage.getItem("idUsuario");
     const token = localStorage.getItem("Auth");
 
     axios
@@ -49,7 +47,6 @@ const FormReporteBeneficiario = () => {
   return (
     <>
       <div className={styles.Container}>
-        {/* search */}
         <div className={styles.Grid}>
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
@@ -94,7 +91,7 @@ const FormReporteBeneficiario = () => {
 
           <div className={styles.Grid__button}>
             <button className="Button" onClick={ListarSesionesPorArea}>
-              Buscar Reporte
+              Consultar
             </button>
           </div>
         </div>
