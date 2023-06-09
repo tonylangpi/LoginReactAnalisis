@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 import styles from "./Usuarios.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "./Modal";
+import jwtDecode from "jwt-decode";
 
 function FormUsuarios() {
+  const tokenDecode = jwtDecode(localStorage.getItem("Auth"));
   const [dataSelect, setDataSelect] = useState([]);
   const [showMyModal, setshowMyModal] = useState(false);
   const [sesiones, setSesiones] = useState([]);
@@ -76,14 +78,16 @@ function FormUsuarios() {
           </div>
         </div>
 
-        <div className={styles.Flex__item}>
-          <Link className={styles.Button} to="/FormAgregarUsuario">
-            <div className={styles.Button__Icono}>
-              <FontAwesomeIcon icon="fa-solid fa-user-plus" />
-            </div>
-            <span className={styles.Button__Span}>Agregar Usuario</span>
-          </Link>
-        </div>
+        {tokenDecode.crear_usuarios == 0 ? null : (
+          <div className={styles.Flex__item}>
+            <Link className={styles.Button} to="/FormAgregarUsuario">
+              <div className={styles.Button__Icono}>
+                <FontAwesomeIcon icon="fa-solid fa-user-plus" />
+              </div>
+              <span className={styles.Button__Span}>Agregar Usuario</span>
+            </Link>
+          </div>
+        )}
       </div>
 
       <div className={styles.ContainerTable}>
@@ -97,7 +101,7 @@ function FormUsuarios() {
               <th>Area</th>
               <th>Nombre Empresa</th>
               <th>Telefono</th>
-              <th>Acciones</th>
+              {tokenDecode.actualizar_usuarios == 0 ? null : <th>Acciones</th>}
             </tr>
           </thead>
           <tbody>
@@ -114,18 +118,22 @@ function FormUsuarios() {
                   <td>{row.area}</td>
                   <td>{row.empresa}</td>
                   <td>{row.telefono}</td>
-                  <td className={styles.actionsBeneficiary}>
-                    <div className={styles.tooltip}>
-                      <span className={styles.tooltiptext}>Editar Usuario</span>
-                      <button
-                        onClick={() => {
-                          setshowMyModal(true), underSelect(row);
-                        }}
-                      >
-                        <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
-                      </button>
-                    </div>
-                  </td>
+                  {tokenDecode.actualizar_usuarios == 0 ? null : (
+                    <td className={styles.actionsBeneficiary}>
+                      <div className={styles.tooltip}>
+                        <span className={styles.tooltiptext}>
+                          Editar Usuario
+                        </span>
+                        <button
+                          onClick={() => {
+                            setshowMyModal(true), underSelect(row);
+                          }}
+                        >
+                          <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
+                        </button>
+                      </div>
+                    </td>
+                  )}
                 </tr>
               ))}
           </tbody>

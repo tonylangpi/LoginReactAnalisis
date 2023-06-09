@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./AddUsers.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import jwtDecode from "jwt-decode";
 
 function FormAgregarUsuario() {
+  const tokenDecode = jwtDecode(localStorage.getItem("Auth"));
   const [roles, setRoles] = useState([]);
   const [areas, setAreas] = useState([]);
   const [level, setLevels] = useState([]);
@@ -23,8 +25,6 @@ function FormAgregarUsuario() {
     message: "",
     show: false,
   });
-
-  const handleOnClose = () => setshowMyModal(false);
 
   const Listar = () => {
     axios
@@ -50,7 +50,7 @@ function FormAgregarUsuario() {
     axios
       .post(
         `https://amordownapi-production.up.railway.app/usuarios/getLevels`,
-        { nivel: localStorage.getItem("nivel") }
+        { nivel: tokenDecode.nivel }
       )
       .then(function (response) {
         setLevels(response.data);
@@ -112,12 +112,12 @@ function FormAgregarUsuario() {
     Listar();
   }, []);
 
-  const rolFilter1 = roles.filter(function(roles) {
-    return roles.id_roles == '1';
+  const rolFilter1 = roles.filter(function (roles) {
+    return roles.id_roles == "1";
   });
 
-  const rolFilter2 = roles.filter(function(roles) {
-    return roles.id_roles == '2';
+  const rolFilter2 = roles.filter(function (roles) {
+    return roles.id_roles == "2";
   });
 
   return (
@@ -215,21 +215,31 @@ function FormAgregarUsuario() {
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <select
-              required = {usuario.id_nivel == 1 || usuario.id_nivel == 2 ? true : false}
+              required={
+                usuario.id_nivel == 1 || usuario.id_nivel == 2 ? true : false
+              }
               className={styles.ContainerInput__Input}
               name="id_rol"
               onChange={handleChange}
             >
               <option value=""></option>
-              {usuario.id_nivel == 1 ? rolFilter1.map((row, index) => (
-                <option key={index} value={row.id_roles}>
-                  {row.nombre_rol}
-                </option>
-              )) : usuario.id_nivel == 2 ? rolFilter2.map((row, index) => (
-                <option key={index} value={row.id_roles}>
-                  {row.nombre_rol}
-                </option>
-              )) : null}
+              {usuario.id_nivel == 1
+                ? rolFilter1.map((row, index) => (
+                    <option key={index} value={row.id_roles}>
+                      {row.nombre_rol}
+                    </option>
+                  ))
+                : usuario.id_nivel == 2
+                ? rolFilter2.map((row, index) => (
+                    <option key={index} value={row.id_roles}>
+                      {row.nombre_rol}
+                    </option>
+                  ))
+                : roles.map((row, index) => (
+                    <option key={index} value={row.id_roles}>
+                      {row.nombre_rol}
+                    </option>
+                  ))}
             </select>
             <span className={styles.ContainerInput__Span}>Rol del Usuario</span>
           </div>
@@ -259,7 +269,9 @@ function FormAgregarUsuario() {
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <select
-              required = {usuario.id_nivel == 1 || usuario.id_nivel == 2 ? false : true}
+              required={
+                usuario.id_nivel == 1 || usuario.id_nivel == 2 ? false : true
+              }
               className={styles.ContainerInput__Input}
               name="id_area"
               onChange={handleChange}

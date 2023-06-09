@@ -4,7 +4,6 @@ import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
 
 const FormReporteF9 = () => {
-  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
@@ -58,9 +57,6 @@ const FormReporteF9 = () => {
   };
 
   const ListarReporteF9 = () => {
-    const idUsuario = localStorage.getItem("idUsuario");
-    const token = localStorage.getItem("Auth");
-
     if (!validarFechas()) {
       return;
     }
@@ -130,7 +126,7 @@ const FormReporteF9 = () => {
               Buscar Reporte
             </button>
           </div>
-          
+
           <div className={styles.Grid__button}>
             <a className="Button" onClick={descargarArchivo}>
               Exportar en Excel
@@ -160,11 +156,7 @@ const FormReporteF9 = () => {
             <tbody>
               {currentSessions
                 .filter((item) => {
-                  return (
-                    search.toLowerCase() === "" ||
-                    item.NOMBRES.toLowerCase().includes(search) ||
-                    item.APELLIDOS.toLowerCase().includes(search)
-                  );
+                  return item;
                 })
                 .map((row, index) => (
                   <tr key={index}>

@@ -4,7 +4,6 @@ import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
 
 const FormReporteInformeServicio = () => {
-  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
@@ -14,7 +13,6 @@ const FormReporteInformeServicio = () => {
     ? beneficiario.slice(indexOfFirstSession, indexOfLastSession)
     : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
-  const [exportData, setExportData] = useState([]);
 
   const descargarArchivo = () => {
     if (!validarFechas()) {
@@ -75,9 +73,6 @@ const FormReporteInformeServicio = () => {
   };
 
   const ListarReporteInformeServicio = () => {
-    const idUsuario = localStorage.getItem("idUsuario");
-    const token = localStorage.getItem("Auth");
-
     axios
       .post(
         "https://amordownapi-production.up.railway.app/reportes/reporteInformeServicio",
@@ -147,11 +142,7 @@ const FormReporteInformeServicio = () => {
             <tbody>
               {currentSessions
                 .filter((item) => {
-                  return (
-                    search.toLowerCase() === "" ||
-                    item.NOMBRES.toLowerCase().includes(search) ||
-                    item.APELLIDOS.toLowerCase().includes(search)
-                  );
+                  return item;
                 })
                 .map((row, index) => (
                   <tr key={index}>

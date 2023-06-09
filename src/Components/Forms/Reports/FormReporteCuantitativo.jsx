@@ -4,7 +4,6 @@ import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
 
 const FormReporteCuantitativo = () => {
-  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
@@ -14,7 +13,7 @@ const FormReporteCuantitativo = () => {
     ? beneficiario.slice(indexOfFirstSession, indexOfLastSession)
     : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
-  
+
   const [datos, setDatos] = useState({
     desde: "",
     hasta: "",
@@ -58,9 +57,6 @@ const FormReporteCuantitativo = () => {
   };
 
   const ListarReporteCuantitativo = () => {
-    const idUsuario = localStorage.getItem("idUsuario");
-    const token = localStorage.getItem("Auth");
-
     if (!validarFechas()) {
       return;
     }
@@ -127,7 +123,7 @@ const FormReporteCuantitativo = () => {
 
           <div className={styles.Grid__button}>
             <button className="Button" onClick={ListarReporteCuantitativo}>
-              Buscar Reporte
+              Consultar
             </button>
           </div>
 
@@ -156,11 +152,7 @@ const FormReporteCuantitativo = () => {
             <tbody>
               {currentSessions
                 .filter((item) => {
-                  return (
-                    search.toLowerCase() === "" ||
-                    item.NOMBRES.toLowerCase().includes(search) ||
-                    item.APELLIDOS.toLowerCase().includes(search)
-                  );
+                  return item
                 })
                 .map((row, index) => (
                   <tr key={index}>

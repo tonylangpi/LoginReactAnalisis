@@ -36,9 +36,7 @@ function Login() {
         .post("https://amordownapi-production.up.railway.app/auth/login", usuario) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
-            localStorage.setItem('id', data.id);
             localStorage.setItem("Auth", data.token);
-            localStorage.setItem("nivel",data.nivel);
             //aqui se redirige al usuario a la pagina home
             navigate(0);
           } else {

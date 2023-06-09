@@ -10,6 +10,7 @@ import ModalEncargado from "./ModalEncargado";
 import ModalHistorial from "./ModalHistorial";
 import ModalPostNatal from "./ModalPostNatal";
 import ModalPreNatal from "./ModalPreNatal";
+import jwt_decode from "jwt-decode";
 
 const FormListarBeneficiario = () => {
   const [estadoBene, setEstadoBene] = useState("ACTIVO");
@@ -21,6 +22,8 @@ const FormListarBeneficiario = () => {
   const [postnatal, SetPostnatal] = useState(false);
 
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(false);
+
+  const tokenDecode = jwt_decode(localStorage.getItem("Auth"));
 
   const handleEditClick = (e, beneficiary) => {
     let value = e.target.value;
@@ -43,7 +46,7 @@ const FormListarBeneficiario = () => {
       setSelectedBeneficiary(beneficiary);
       SetPostnatal(true);
     }
-    e.target.value = '';
+    e.target.value = "";
   };
 
   const [beneficiarios, setBeneficiarios] = useState([]);
@@ -90,7 +93,6 @@ const FormListarBeneficiario = () => {
           (beneficiario) => beneficiario.ESTADO === estadoBene
         );
         setBeneficiarios(beneficiariosActivos);
-        console.log(beneficiarios);
       })
       .catch(function (error) {
         alert("No se ha encontrado un registro");
@@ -135,7 +137,6 @@ const FormListarBeneficiario = () => {
   const showInActiveeBene = () => {
     setEstadoBene("INACTIVO");
     ListarBeneficiarios();
-    
   };
 
   useEffect(() => {
@@ -145,8 +146,6 @@ const FormListarBeneficiario = () => {
   return (
     <>
       <div className={styles.Container}>
-        {/* search */}
-
         <div className={styles.Titulo}>
           <h1>Lista de Beneficiarios</h1>
         </div>
@@ -161,7 +160,7 @@ const FormListarBeneficiario = () => {
             onKeyUp={saveDataTemporaly}
           />
           <span className={styles.ContainerInput__Span}>
-            Ingrese el Beneficiario
+            Nombre
           </span>
         </div>
 
@@ -213,7 +212,7 @@ const FormListarBeneficiario = () => {
                 <th>Edad</th>
                 <th>Etapa</th>
                 <th>Acciones</th>
-                {localStorage.getItem("nivel") == 3 ? null : <th>Editar</th>}
+                {tokenDecode.actualizar_bene == 0 ? null : <th>Editar</th>}
               </tr>
             </thead>
             <tbody>
@@ -235,7 +234,7 @@ const FormListarBeneficiario = () => {
                     <td>{row.EDAD}</td>
                     <td>{row.grupo_edad}</td>
                     <td className={styles.actionsBeneficiary}>
-                      {localStorage.getItem("nivel") == 3 ? null : (
+                      {tokenDecode.crear_sesiones == 0 ? null : (
                         <div className={styles.tooltip}>
                           <span className={styles.tooltiptext}>
                             Agregar Cita
@@ -276,8 +275,8 @@ const FormListarBeneficiario = () => {
                           </a>
                         </button>
                       </div>
-
-                      {estadoBene == "ACTIVO" ? (
+                      {tokenDecode.inhabilitar_bene == 0 ? null : estadoBene ==
+                        "ACTIVO" ? (
                         <div className={styles.tooltip}>
                           <span className={styles.tooltiptext}>Inactivar</span>
                           <button
@@ -301,9 +300,12 @@ const FormListarBeneficiario = () => {
                         </div>
                       ) : null}
                     </td>
-                    {localStorage.getItem("nivel") == 3 ? null : (
+                    {tokenDecode.actualizar_bene == 0 ? null : (
                       <td className={styles.actionsBeneficiary}>
-                        <select id={index} onChange={(e) => handleEditClick(e, row)}>
+                        <select
+                          id={index}
+                          onChange={(e) => handleEditClick(e, row)}
+                        >
                           <option value={""}></option>
                           <option value={1}>Beneficiario</option>
                           <option value={2}>Encargado</option>

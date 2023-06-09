@@ -18,6 +18,8 @@ import AreaActualizar from "./Components/Forms/Areas/AreaActualizar";
 import Areas from "./Components/Forms/Areas/FormAreas";
 import AreaCrear from "./Components/Forms/Areas/AreaCrear";
 import AddUser from "./Components/Forms/Users/FormAgregarUsuario";
+import ListaRoles from './Components/Forms/Roles/ListaRoles';
+import UpdateRol from './Components/Forms/Roles/UpdateRol';
 
 import axios from "axios";
 import {
@@ -38,9 +40,7 @@ function App() {
   const validateAuth = () => {
     axios
       .post("https://amordownapi-production.up.railway.app/auth/verifyToken", {
-        token: localStorage.getItem("Auth"),
-        nivel: localStorage.getItem("nivel"),
-        id: localStorage.getItem("id"),
+        token: localStorage.getItem("Auth")
       })
       .then(({ data }) => {
         if (data.auth) {
@@ -101,6 +101,8 @@ function App() {
               <Route path="/FormReporteCualitativo" element={<ReporteCualitativo />}/>
               <Route path="/FormReporteEstadistico" element={<Estadistico />}/>
               <Route path="/FormReporteInformeServicio" element={<InformeServicio />}/>
+              <Route path="/ListRol" element={<ListaRoles/>}/>
+              <Route path="/UpdateRol" element={<UpdateRol/>}/>
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>

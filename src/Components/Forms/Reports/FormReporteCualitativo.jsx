@@ -4,7 +4,6 @@ import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
 
 const FormReporteCualitativo = () => {
-  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
@@ -14,6 +13,23 @@ const FormReporteCualitativo = () => {
     ? beneficiario.slice(indexOfFirstSession, indexOfLastSession)
     : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
+
+  const validarFechas = () => {
+    const fechaInicio = new Date(datos.desde).getTime();
+    const fechaFinal = new Date(datos.hasta).getTime();
+
+    if (isNaN(fechaInicio) || isNaN(fechaFinal)) {
+      alert('Ingresa fechas válidas');
+      return false;
+    }
+
+    if (fechaInicio > fechaFinal) {
+      alert('La fecha de inicio debe ser anterior o igual a la fecha final');
+      return false;
+    }
+
+    return true;
+  };
 
   const descargarArchivo = () => {
     if (!validarFechas()) {
@@ -58,8 +74,6 @@ const FormReporteCualitativo = () => {
   };
 
   const ListarReporteCualitativo = () => {
-    const idUsuario = localStorage.getItem("idUsuario");
-    const token = localStorage.getItem("Auth");
 
     if (!validarFechas()) {
       return;
@@ -110,7 +124,7 @@ const FormReporteCualitativo = () => {
 
           <div className={styles.Grid__button}>
             <button className="Button" onClick={ListarReporteCualitativo}>
-              Buscar Reporte
+              Consultar
             </button>
           </div>
 
@@ -135,11 +149,7 @@ const FormReporteCualitativo = () => {
             <tbody>
               {currentSessions
                 .filter((item) => {
-                  return (
-                    search.toLowerCase() === "" ||
-                    item.NOMBRES.toLowerCase().includes(search) ||
-                    item.APELLIDOS.toLowerCase().includes(search)
-                  );
+                  return item
                 })
                 .map((row, index) => (
                   <tr key={index}>

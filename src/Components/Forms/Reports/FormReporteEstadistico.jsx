@@ -4,7 +4,6 @@ import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
 
 const FormReporteEstadistico = () => {
-  const [search, setSearch] = useState("");
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
@@ -58,7 +57,6 @@ const FormReporteEstadistico = () => {
   };
 
   const ListarReporteEstadistico = () => {
-
     if (!validarFechas()) {
       return;
     }
@@ -125,7 +123,7 @@ const FormReporteEstadistico = () => {
 
           <div className={styles.Grid__button}>
             <button className="Button" onClick={ListarReporteEstadistico}>
-              Buscar Reporte
+              Consultar
             </button>
           </div>
           <div className={styles.Grid__button}>
@@ -148,11 +146,7 @@ const FormReporteEstadistico = () => {
             <tbody>
               {currentSessions
                 .filter((item) => {
-                  return (
-                    search.toLowerCase() === "" ||
-                    item.NOMBRES.toLowerCase().includes(search) ||
-                    item.APELLIDOS.toLowerCase().includes(search)
-                  );
+                  return item;
                 })
                 .map((row, index) => (
                   <tr key={index}>

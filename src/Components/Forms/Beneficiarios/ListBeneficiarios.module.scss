@@ -4,6 +4,7 @@
 .Container {
   @include FlexBox(center, center, column);
   padding: 20px 0;
+  width: 100%
 }
 
 .ContainerData {
