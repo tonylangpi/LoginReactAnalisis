@@ -35,7 +35,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
       if (idBenefi != null) {
         axios
           .post(
-            `https://amordownapi-production.up.railway.app/beneficiarios/createHistorialClinico/${idBenefi}`,
+            `http://localhost:4000/beneficiarios/createHistorialClinico/${idBenefi}`,
             Historial
           )
           .then(function (response) {

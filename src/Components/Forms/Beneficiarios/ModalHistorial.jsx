@@ -11,7 +11,7 @@ function ModalHistorial({ beneficiary, onClose }) {
     const fetchHistorial = async () => {
       try {
         const response = await axios.get(
-          `https://amordownapi-production.up.railway.app/beneficiarios/buscarHistorialClinicoBene/${beneficiary.ID_BENEFICIARIO}`
+          `http://localhost:4000/beneficiarios/buscarHistorialClinicoBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setHistorial(response.data[0]); // Asumiendo que la respuesta es un arreglo de un solo elemento
         setIsLoading(false);

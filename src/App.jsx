@@ -39,7 +39,7 @@ function App() {
   
   const validateAuth = () => {
     axios
-      .post("https://amordownapi-production.up.railway.app/auth/verifyToken", {
+      .post("http://localhost:4000/auth/verifyToken", {
         token: localStorage.getItem("Auth")
       })
       .then(({ data }) => {

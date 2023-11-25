@@ -32,7 +32,7 @@ const FormPrenatales = ({ idBen, showComponent }) => {
       if (idBen != null) {
         axios
           .post(
-            `https://amordownapi-production.up.railway.app/beneficiarios/createPrenatales/${idBen}`,
+            `http://localhost:4000/beneficiarios/createPrenatales/${idBen}`,
             Prenatales
           )
           .then(function (response) {

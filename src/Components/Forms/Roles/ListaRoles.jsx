@@ -16,7 +16,7 @@ function ListaRoles() {
 
   const listarRoles = async () => {
     const result = await axios(
-      `https://amordownapi-production.up.railway.app/roles/`
+      `http://localhost:4000/roles/`
     );
     setRoles(result.data);
   };

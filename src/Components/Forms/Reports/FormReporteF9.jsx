@@ -21,7 +21,7 @@ const FormReporteF9 = () => {
 
     axios
       .post(
-        "https://amordownapi-production.up.railway.app/reportes/descargarReporteF9",
+        "http://localhost:4000/reportes/descargarReporteF9",
         {
           desde: datos.desde,
           hasta: datos.hasta,
@@ -63,7 +63,7 @@ const FormReporteF9 = () => {
 
     axios
       .post(
-        "https://amordownapi-production.up.railway.app/reportes/reporteF9",
+        "http://localhost:4000/reportes/reporteF9",
         { desde: datos.desde, hasta: datos.hasta }
       )
       .then(function (response) {

@@ -9,7 +9,7 @@ function UpdateRol() {
 
   const listarPermisos = async () => {
     const result = await axios(
-      `https://amordownapi-production.up.railway.app/roles/getRolID/${sessionStorage.getItem(
+      `http://localhost:4000/roles/getRolID/${sessionStorage.getItem(
         "idRol"
       )}`
     );
@@ -20,7 +20,7 @@ function UpdateRol() {
     e.preventDefault();
     axios
       .post(
-        `https://amordownapi-production.up.railway.app/roles/updateRoles`,
+        `http://localhost:4000/roles/updateRoles`,
         permisos
       )
       .then(function (response) {
@@ -71,7 +71,7 @@ function UpdateRol() {
         </div>
 
         <div className={styles.Grid__button}>
-          <Link to='/ListRol' className={styles.Button}>
+          <Link to='/ListRol' className={styles.Button} onClick={UpdatePermisos}>
             <div className={styles.Button__Icono}>
               <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
             </div>

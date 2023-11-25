@@ -26,7 +26,7 @@ const EditModal = ({ beneficiary, onClose }) => {
 
     axios
       .post(
-        `https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBeneGeneral/${beneficiary.ID_BENEFICIARIO}`,
+        `http://localhost:4000/beneficiarios/updateInfoBeneGeneral/${beneficiary.ID_BENEFICIARIO}`,
         updatedData
       )
       .then(function (response) {

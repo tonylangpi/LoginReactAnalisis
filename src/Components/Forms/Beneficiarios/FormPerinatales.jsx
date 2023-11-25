@@ -28,7 +28,7 @@ const FormPerinatales = ({ idBen, showComponent }) => {
       if (idBen != null) {
         axios
           .post(
-            `https://amordownapi-production.up.railway.app/beneficiarios/createPeriNatales/${idBen}`,
+            `http://localhost:4000/beneficiarios/createPeriNatales/${idBen}`,
             Perinatal
           )
           .then(function (response) {

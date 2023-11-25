@@ -24,7 +24,7 @@ function MiCuenta() {
 
   const Listar = () => {
     axios
-      .get(`https://amordownapi-production.up.railway.app/roles/`)
+      .get(`http://localhost:4000/roles/`)
       .then(function (response) {
         setRoles(response.data);
       })
@@ -33,7 +33,7 @@ function MiCuenta() {
       });
 
     axios
-      .post(`https://amordownapi-production.up.railway.app/servicios/`, {
+      .post(`http://localhost:4000/servicios/`, {
         NOMBRE: "",
       })
       .then(function (response) {
@@ -45,7 +45,7 @@ function MiCuenta() {
 
     axios
       .post(
-        `https://amordownapi-production.up.railway.app/usuarios/getLevels`,
+        `http://localhost:4000/usuarios/getLevels`,
         { nivel: tokenDecode.nivel }
       )
       .then(function (response) {
@@ -56,7 +56,7 @@ function MiCuenta() {
       });
 
     axios
-      .get(`https://amordownapi-production.up.railway.app/usuarios/getCompany`)
+      .get(`http://localhost:4000/usuarios/getCompany`)
       .then(function (response) {
         setCompany(response.data);
       })
@@ -69,7 +69,7 @@ function MiCuenta() {
     e.preventDefault();
     axios
       .post(
-        `https://amordownapi-production.up.railway.app/usuarios/updateUsers/${tokenDecode.id}`,
+        `http://localhost:4000/usuarios/updateUsers/${tokenDecode.id}`,
         usuario
       )
       .then(function (response) {

@@ -33,7 +33,7 @@ const FormReporteArea = () => {
 
     axios
       .get(
-        `https://amordownapi-production.up.railway.app/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`,
+        `http://localhost:4000/reportes/sesionesPorArea/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`,
         datos
       )
       .then(function (response) {

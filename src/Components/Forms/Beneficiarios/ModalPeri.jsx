@@ -11,7 +11,7 @@ function ModalPeri({ beneficiary, onClose }) {
     const fetchPeri = async () => {
       try {
         const response = await axios.get(
-          `https://amordownapi-production.up.railway.app/beneficiarios/buscarPerinatalesBene/${beneficiary.ID_BENEFICIARIO}`
+          `http://localhost:4000/beneficiarios/buscarPerinatalesBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setPeri(response.data[0]);
         setIsLoading(false);

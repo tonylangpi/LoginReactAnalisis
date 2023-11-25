@@ -13,7 +13,7 @@ function AreaCrear() {
 
   const guardarArea = () => {
     axios
-      .post("https://amordownapi-production.up.railway.app/servicios/createServicios", {
+      .post("http://localhost:4000/servicios/createServicios", {
         NOMBRE: area.NOMBRE
       })
       .then(function (response) {

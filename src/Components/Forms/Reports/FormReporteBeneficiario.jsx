@@ -14,7 +14,6 @@ const FormReporteBeneficiario = () => {
     indexOfLastSession
   );
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
-
   const [datos, setDatos] = React.useState({
     idBeneficiario: "",
     fecha_desde: "",
@@ -34,7 +33,7 @@ const FormReporteBeneficiario = () => {
 
     axios
       .get(
-        `https://amordownapi-production.up.railway.app/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`
+        `http://localhost:4000/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`
       )
       .then(function (response) {
         setBeneficiario(response.data);
@@ -113,10 +112,7 @@ const FormReporteBeneficiario = () => {
             <tbody>
               {currentSessions
                 .filter((item) => {
-                  return search.toLowerCase() === ""
-                    ? item
-                    : item.BENEFICIARIO.toLowerCase().includes(search) ||
-                        item.BENEFICIARIO.toLowerCase().includes(search);
+                  return item;
                 })
                 .map((row, index) => (
                   <tr key={index}>

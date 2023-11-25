@@ -30,7 +30,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
       if (idBen != null) {
         axios
           .post(
-            `https://amordownapi-production.up.railway.app/beneficiarios/createPostNatales/${idBen}`,
+            `http://localhost:4000/beneficiarios/createPostNatales/${idBen}`,
             Postnatal
           )
           .then(function (response) {

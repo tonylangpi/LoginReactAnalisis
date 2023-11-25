@@ -28,7 +28,7 @@ function FormAgregarUsuario() {
 
   const Listar = () => {
     axios
-      .get(`https://amordownapi-production.up.railway.app/roles/`)
+      .get(`http://localhost:4000/roles/`)
       .then(function (response) {
         setRoles(response.data);
       })
@@ -37,7 +37,7 @@ function FormAgregarUsuario() {
       });
 
     axios
-      .post(`https://amordownapi-production.up.railway.app/servicios/`, {
+      .post(`http://localhost:4000/servicios/`, {
         NOMBRE: "",
       })
       .then(function (response) {
@@ -49,7 +49,7 @@ function FormAgregarUsuario() {
 
     axios
       .post(
-        `https://amordownapi-production.up.railway.app/usuarios/getLevels`,
+        `http://localhost:4000/usuarios/getLevels`,
         { nivel: tokenDecode.nivel }
       )
       .then(function (response) {
@@ -60,7 +60,7 @@ function FormAgregarUsuario() {
       });
 
     axios
-      .get(`https://amordownapi-production.up.railway.app/usuarios/getCompany`)
+      .get(`http://localhost:4000/usuarios/getCompany`)
       .then(function (response) {
         setCompany(response.data);
       })
@@ -73,7 +73,7 @@ function FormAgregarUsuario() {
     e.preventDefault();
     axios
       .post(
-        `https://amordownapi-production.up.railway.app/usuarios/create`,
+        `http://localhost:4000/usuarios/create`,
         usuario
       )
       .then(function (response) {

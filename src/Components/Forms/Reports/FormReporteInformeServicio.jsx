@@ -21,7 +21,7 @@ const FormReporteInformeServicio = () => {
 
     axios
       .post(
-        "https://amordownapi-production.up.railway.app/reportes/descargarReporteInformeServicios",
+        "http://localhost:4000/reportes/descargarReporteInformeServicios",
         {
           desde: datos.desde,
           hasta: datos.hasta,
@@ -75,7 +75,7 @@ const FormReporteInformeServicio = () => {
   const ListarReporteInformeServicio = () => {
     axios
       .post(
-        "https://amordownapi-production.up.railway.app/reportes/reporteInformeServicio",
+        "http://localhost:4000/reportes/reporteInformeServicio",
         { desde: datos.desde, hasta: datos.hasta }
       )
       .then(function (response) {

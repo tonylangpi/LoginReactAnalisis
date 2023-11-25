@@ -11,7 +11,7 @@ function ModalPreNatal({ beneficiary, onClose }) {
     const fetchPrenatal = async () => {
       try {
         const response = await axios.get(
-          `https://amordownapi-production.up.railway.app/beneficiarios/buscarPrenatalesBene/${beneficiary.ID_BENEFICIARIO}`
+          `http://localhost:4000/beneficiarios/buscarPrenatalesBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setPrenatal(response.data[0]);
         setIsLoading(false);
@@ -27,7 +27,7 @@ function ModalPreNatal({ beneficiary, onClose }) {
     e.preventDefault();
     try {
       await axios.post(
-        `https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePrenatales/${beneficiary.ID_BENEFICIARIO}`,
+        `http://localhost:4000/beneficiarios/updateInfoBenePrenatales/${beneficiary.ID_BENEFICIARIO}`,
         prenatal
       );
       alert("Información actualizada correctamente");

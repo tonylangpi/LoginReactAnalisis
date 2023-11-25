@@ -11,7 +11,7 @@ function ModalPostNatal({ beneficiary, onClose }) {
     const fetchPostnatal = async () => {
       try {
         const response = await axios.get(
-          `https://amordownapi-production.up.railway.app/beneficiarios/buscarPostNatalesBene/${beneficiary.ID_BENEFICIARIO}`
+          `http://localhost:4000/beneficiarios/buscarPostNatalesBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setPostnatal(response.data[0]);
         setIsLoading(false);
@@ -27,7 +27,7 @@ function ModalPostNatal({ beneficiary, onClose }) {
     e.preventDefault();
     try {
       await axios.post(
-        `https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePostnatales/${beneficiary.ID_BENEFICIARIO}`,
+        `http://localhost:4000/beneficiarios/updateInfoBenePostnatales/${beneficiary.ID_BENEFICIARIO}`,
         postnatal
       );
       alert("Información actualizada correctamente");

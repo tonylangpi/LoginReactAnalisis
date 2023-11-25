@@ -26,7 +26,7 @@ const FormReporteCuantitativo = () => {
 
     axios
       .post(
-        "https://amordownapi-production.up.railway.app/reportes/descargarReporteCuantitativo",
+        "http://localhost:4000/reportes/descargarReporteCuantitativo",
         {
           desde: datos.desde,
           hasta: datos.hasta,
@@ -63,7 +63,7 @@ const FormReporteCuantitativo = () => {
 
     axios
       .post(
-        "https://amordownapi-production.up.railway.app/reportes/reporteCuantitativo",
+        "http://localhost:4000/reportes/reporteCuantitativo",
         { desde: datos.desde, hasta: datos.hasta }
       )
       .then(function (response) {

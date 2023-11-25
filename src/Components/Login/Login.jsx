@@ -33,7 +33,7 @@ function Login() {
     e.preventDefault();
     try {
       axios
-        .post("https://amordownapi-production.up.railway.app/auth/login", usuario) //peticion a la api para loguearse
+        .post("http://localhost:4000/auth/login", usuario) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
             localStorage.setItem("Auth", data.token);
@@ -53,7 +53,6 @@ function Login() {
     }
   };
 
-  // Cambio de icono en el evento clic
   let icono ="fa-eye-slash";
   if (showpass) {
     icono ="fa-eye";

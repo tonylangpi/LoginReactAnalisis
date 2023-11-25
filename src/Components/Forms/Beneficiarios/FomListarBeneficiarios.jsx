@@ -84,7 +84,7 @@ const FormListarBeneficiario = () => {
   const ListarBeneficiarios = () => {
     axios
       .post(
-        `https://amordownapi-production.up.railway.app/beneficiarios/allByName`,
+        `http://localhost:4000/beneficiarios/allByName`,
         { nombre: name.nombre }
       )
       .then(function (response) {
@@ -102,7 +102,7 @@ const FormListarBeneficiario = () => {
   const ActivarBeneficiario = (idBene) => {
     axios
       .post(
-        `https://amordownapi-production.up.railway.app/beneficiarios/activarBeneficiario/${idBene}`
+        `http://localhost:4000/beneficiarios/activarBeneficiario/${idBene}`
       )
       .then(function (response) {
         alert("Activado Exitoso");
@@ -117,7 +117,7 @@ const FormListarBeneficiario = () => {
   const InactivarBeneficiario = (idBene) => {
     axios
       .post(
-        `https://amordownapi-production.up.railway.app/beneficiarios/inactivarBeneficiario/${idBene}`
+        `http://localhost:4000/beneficiarios/inactivarBeneficiario/${idBene}`
       )
       .then(function (response) {
         alert("Inactivado Exitoso");
@@ -254,7 +254,7 @@ const FormListarBeneficiario = () => {
                         </span>
                         <button>
                           <a
-                            href={`https://amordownapi-production.up.railway.app/beneficiarios/${row.RUTA_ARCH1}`}
+                            href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH1}`}
                             target="_blank"
                           >
                             <FontAwesomeIcon icon="fa-solid fa-file" />
@@ -267,7 +267,7 @@ const FormListarBeneficiario = () => {
                         </span>
                         <button>
                           <a
-                            href={`https://amordownapi-production.up.railway.app/beneficiarios/${row.RUTA_ARCH2}`}
+                            href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH2}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

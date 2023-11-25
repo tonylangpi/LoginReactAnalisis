@@ -58,7 +58,7 @@ function FormEncargado({ idBene, showComponent }) {
       if (idBene != null) {
         axios
           .post(
-            `https://amordownapi-production.up.railway.app/beneficiarios/createEncargados/${idBene}`,
+            `http://localhost:4000/beneficiarios/createEncargados/${idBene}`,
             Encargado
           )
           .then(function (response) {

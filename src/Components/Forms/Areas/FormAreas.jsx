@@ -35,7 +35,7 @@ function FormAreas() {
 
   const ListarUsuarios = () => {
     axios
-      .post(`https://amordownapi-production.up.railway.app/servicios/`, {
+      .post(`http://localhost:4000/servicios/`, {
         NOMBRE: name.NOMBRE,
       })
       .then(function (response) {
@@ -53,7 +53,7 @@ function FormAreas() {
   const eliminarArea = (idArea) => {
     axios
       .delete(
-        `https://amordownapi-production.up.railway.app/servicios/deleteServicios/${idArea}`
+        `http://localhost:4000/servicios/deleteServicios/${idArea}`
       )
       .then(function (response) {
         const respuesta = response?.data.message;

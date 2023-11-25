@@ -43,7 +43,7 @@ function FormUsuarios() {
 
   const ListarUsuarios = () => {
     axios
-      .post(`https://amordownapi-production.up.railway.app/usuarios/userName`, {
+      .post(`http://localhost:4000/usuarios/userName`, {
         nombre: name.nombre,
       })
       .then(function (response) {

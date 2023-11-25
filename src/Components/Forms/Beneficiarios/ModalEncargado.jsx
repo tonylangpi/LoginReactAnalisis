@@ -13,7 +13,7 @@ function ModalEncargados({ beneficiary, onClose }) {
     const fetchEncargados = async () => {
       try {
         const response = await axios.get(
-          `https://amordownapi-production.up.railway.app/beneficiarios/buscarEncargadoBene/${beneficiary.ID_BENEFICIARIO}`
+          `http://localhost:4000/beneficiarios/buscarEncargadoBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setEncargados(response.data);
         setIsLoading(false);
@@ -29,7 +29,7 @@ function ModalEncargados({ beneficiary, onClose }) {
     e.preventDefault();
     try {
       await axios.post(
-        `https://amordownapi-production.up.railway.app/beneficiarios/updateEncargadosBene/${idEncargado}`,
+        `http://localhost:4000/beneficiarios/updateEncargadosBene/${idEncargado}`,
         encargadoActualizado
       );
       alert("Información actualizada correctamente");

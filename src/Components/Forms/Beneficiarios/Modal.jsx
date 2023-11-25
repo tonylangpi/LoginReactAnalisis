@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "../../assets/scss/Modal.module.scss";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Modal = ({ onClose, visible, dataSelect }) => {
   const [archivo, setArchivo] = useState(null);
+  const [Sesiones, setSesiones] = useState([])
   const fileSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -20,7 +21,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
       }
       axios({
         method: "POST",
-        url: "https://amordownapi-production.up.railway.app/sesiones/createSesion",
+        url: "http://localhost:4000/sesiones/createSesion",
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -42,6 +43,23 @@ const Modal = ({ onClose, visible, dataSelect }) => {
       [e.target.name]: e.target.value,
     });
   };
+
+  const [citas, setCitas] = React.useState({
+    id_beneficiario: "",
+    id_usuario: localStorage.getItem("id"),
+    id_sesion: "",
+    tipo_sesion: "",
+    observacion: "",
+    fecha: "",
+  });
+  useEffect(() => {
+    async function fetchData() {
+        const TSesiones = await axios.post('http://localhost:4000/sesiones/SesionesDisponibles', {Fecha: citas.fecha, Beneficiario:dataSelect.ID_BENEFICIARIO});
+        setSesiones(TSesiones.data);
+    }
+    fetchData();
+  }, [citas.fecha]);
+
   const sesion = [
     { id: 1, title: "Sesion 1" },
     { id: 2, title: "Sesion 2" },
@@ -74,14 +92,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
       setArchivo(uplodadList);
     }
   };
-  const [citas, setCitas] = React.useState({
-    id_beneficiario: "",
-    id_usuario: localStorage.getItem("id"),
-    id_sesion: "",
-    tipo_sesion: "",
-    observacion: "",
-    fecha: "",
-  });
+
   const handleOnClose = () => {
     onClose();
   };
@@ -119,9 +130,9 @@ const Modal = ({ onClose, visible, dataSelect }) => {
                 id=""
               >
                 <option value=""></option>
-                {sesion.map((item) => (
-                  <option key={item.id} value={item.id}>
-                    {item.title}
+                {Sesiones.map((item) => (
+                  <option key={item.ID_SESION} value={item.ID_SESION}>
+                   Sesion No. {item.NUMERO_SESION}
                   </option>
                 ))}
               </select>
