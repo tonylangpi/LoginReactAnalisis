@@ -82,7 +82,6 @@ function ModalPreNatal({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
-                required
                 pattern="^[a-zA-Z\s]{3,50}$"
                 name="EXPLIQUE_EMBARAZO"
                 type="text"
@@ -122,7 +121,6 @@ function ModalPreNatal({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
-                required
                 name="EXPLIQUE_PARTO"
                 type="text"
                 pattern="^[a-zA-Z\s]{3,50}$"
@@ -162,7 +160,6 @@ function ModalPreNatal({ beneficiary, onClose }) {
           <div className={styles.Grid__item}>
             <div className={styles.ContainerInput}>
               <input
-                required
                 name="EXPLIQUE_COMPLICACION"
                 pattern="^[a-zA-Z\s]{3,50}$"
                 type="text"

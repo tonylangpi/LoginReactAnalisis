@@ -189,20 +189,6 @@ const Navbar = () => {
     },
   ];
 
-  // const logOut = ()=>{
-  //   axios
-  //     .post(
-  //       `https://amordownapi-production.up.railway.app/auth/logout`,
-  //       localStorage.getItem('Auth')
-  //     )
-  //     .then(function (response) {
-  //       console.log(response);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
-
   return (
     <>
       <div className={styles.Header}>

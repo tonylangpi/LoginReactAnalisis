@@ -52,6 +52,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
     observacion: "",
     fecha: "",
   });
+
   useEffect(() => {
     async function fetchData() {
         const TSesiones = await axios.post('http://localhost:4000/sesiones/SesionesDisponibles', {Fecha: citas.fecha, Beneficiario:dataSelect.ID_BENEFICIARIO});
@@ -116,7 +117,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
                 <option value=""></option>
                 {Sesiones.map((item) => (
                   <option key={item.ID_SESION} value={item.ID_SESION}>
-                   Sesion No. {item.NUMERO_SESION} ({item.INICIO})
+                   Sesion No. {item.NUMERO_SESION} ({item.HORA_INGRESO} a {item.HORA_EGRESO})
                   </option>
                 ))}
               </select>

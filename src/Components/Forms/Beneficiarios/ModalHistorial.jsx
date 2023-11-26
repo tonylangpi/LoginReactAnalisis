@@ -27,7 +27,7 @@ function ModalHistorial({ beneficiary, onClose }) {
     e.preventDefault();
     try {
       await axios.post(
-        `https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBeneHistorialClinico/${beneficiary.ID_BENEFICIARIO}`,
+        `http://localhost:4000/beneficiarios/updateInfoBeneHistorialClinico/${beneficiary.ID_BENEFICIARIO}`,
         historial
       );
       alert("Historial actualizado correctamente");
