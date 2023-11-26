@@ -60,22 +60,6 @@ const Modal = ({ onClose, visible, dataSelect }) => {
     fetchData();
   }, [citas.fecha]);
 
-  const sesion = [
-    { id: 1, title: "Sesion 1" },
-    { id: 2, title: "Sesion 2" },
-    { id: 3, title: "Sesion 3" },
-    { id: 4, title: "Sesion 4" },
-    { id: 5, title: "Sesion 5" },
-    { id: 6, title: "Sesion 6" },
-    { id: 7, title: "Sesion 7" },
-    { id: 8, title: "Sesion 8" },
-    { id: 9, title: "Sesion 9" },
-    { id: 10, title: "Sesion 10" },
-    { id: 11, title: "Sesion 11" },
-    { id: 12, title: "Sesion 12" },
-    { id: 13, title: "Sesion 13" },
-    { id: 14, title: "Sesion 14" },
-  ];
 
   const selectImageList = (e) => {
     const uplodad = e.target.files;
@@ -132,7 +116,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
                 <option value=""></option>
                 {Sesiones.map((item) => (
                   <option key={item.ID_SESION} value={item.ID_SESION}>
-                   Sesion No. {item.NUMERO_SESION}
+                   Sesion No. {item.NUMERO_SESION} ({item.INICIO})
                   </option>
                 ))}
               </select>
