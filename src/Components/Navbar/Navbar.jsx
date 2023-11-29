@@ -16,7 +16,12 @@ const Navbar = () => {
       path: "/FormListarBeneficiarios",
       icon: "",
       permiso: true,
-    },
+    },{
+      title: "Asistencias", 
+      path: "/formasis",
+      icon: "", 
+      permiso: true
+    }
   ]);
 
   const [menuReportes, setMenuReportes] = React.useState([

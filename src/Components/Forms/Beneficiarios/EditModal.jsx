@@ -111,7 +111,6 @@ const EditModal = ({ beneficiary, onClose }) => {
                 className={styles.ContainerInput__Input}
                 type="text"
                 name="NOMBRE3"
-                required
                 pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
                 value={updatedData.NOMBRE3}
                 onChange={handleInputChange}

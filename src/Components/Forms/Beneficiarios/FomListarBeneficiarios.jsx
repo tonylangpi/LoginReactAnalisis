@@ -114,6 +114,8 @@ const FormListarBeneficiario = () => {
       });
   };
 
+  
+
   const InactivarBeneficiario = (idBene) => {
     axios
       .post(
@@ -137,6 +139,20 @@ const FormListarBeneficiario = () => {
   const showInActiveeBene = () => {
     setEstadoBene("INACTIVO");
     ListarBeneficiarios();
+  };
+
+  const Asistencia = (idBene) => {
+    axios
+      .post(
+        `http://localhost:4000/beneficiarios/AgregarAsistencia`, {Beneficiario: idBene}
+      )
+      .then(function (response) {
+        alert(response.data.message);
+      })
+      .catch(function (error) {
+        alert("Error al activar el beneficiario");
+        console.error(error);
+      });
   };
 
   useEffect(() => {
@@ -233,21 +249,16 @@ const FormListarBeneficiario = () => {
                     <td>{row.FECHA_NACIMIENTO.slice(0, 10)}</td>
                     <td>{row.EDAD}</td>
                     <td>{row.grupo_edad}</td>
-                    <td className={styles.actionsBeneficiary}>
-                      {tokenDecode.crear_sesiones == 0 ? null : (
+                    <td className={styles.actionsBeneficiary}>                      
                         <div className={styles.tooltip}>
                           <span className={styles.tooltiptext}>
-                            Agregar Cita
+                            Agregar Asistencia
                           </span>
-                          <button
-                            onClick={() => {
-                              setshowMyModal(true), underSelect(row);
-                            }}
-                          >
+                          <button onClick={() => {Asistencia(row.ID_BENEFICIARIO)}} >
                             <FontAwesomeIcon icon="fa-solid fa-calendar-check" />
                           </button>
-                        </div>
-                      )}
+                        </div>               
+
                       <div className={styles.tooltip}>
                         <span className={styles.tooltiptext}>
                           Ver Archivo 1
@@ -327,11 +338,6 @@ const FormListarBeneficiario = () => {
           allbeneficiary={beneficiarios.length}
           pagination={pagination}
           currentPage={currentPage}
-        />
-        <Modal
-          dataSelect={dataSelect}
-          onClose={handleOnClose}
-          visible={showMyModal}
         />
 
         {showBeneficiario && selectedBeneficiary && (

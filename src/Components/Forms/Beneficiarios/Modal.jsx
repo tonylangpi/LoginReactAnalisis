@@ -3,9 +3,10 @@ import styles from "../../assets/scss/Modal.module.scss";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const Modal = ({ onClose, visible, dataSelect }) => {
+const Modal = ({ onClose, visible, dataSelect, fecha }) => {
   const [archivo, setArchivo] = useState(null);
   const [Sesiones, setSesiones] = useState([])
+
   const fileSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -15,7 +16,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
       formData.append("id_sesion", citas.id_sesion);
       formData.append("tipo_sesion", citas.tipo_sesion);
       formData.append("observacion", citas.observacion);
-      formData.append("fecha", citas.fecha);
+      formData.append("fecha", fecha);
       for (let i = 0; i < archivo?.length; i++) {
         formData.append("evaluaciones", archivo[i]);
       }
@@ -27,6 +28,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
       })
         .then(function (response) {
           alert("cita insertada correctamente");
+          onClose();
         })
         .catch(function (response) {
           alert("No se ha encontrado un registro");
@@ -49,17 +51,18 @@ const Modal = ({ onClose, visible, dataSelect }) => {
     id_usuario: localStorage.getItem("id"),
     id_sesion: "",
     tipo_sesion: "",
-    observacion: "",
-    fecha: "",
+    observacion: ""
   });
 
-  useEffect(() => {
-    async function fetchData() {
-        const TSesiones = await axios.post('http://localhost:4000/sesiones/SesionesDisponibles', {Fecha: citas.fecha, Beneficiario:dataSelect.ID_BENEFICIARIO});
+  async function fetchData() {
+        const TSesiones = await axios.post('http://localhost:4000/sesiones/SesionesDisponibles', {Fecha: fecha, Beneficiario:dataSelect.ID_BENEFICIARIO});
         setSesiones(TSesiones.data);
     }
-    fetchData();
-  }, [citas.fecha]);
+
+  if(visible){
+    fetchData()
+  }
+    
 
 
   const selectImageList = (e) => {
@@ -94,7 +97,7 @@ const Modal = ({ onClose, visible, dataSelect }) => {
             <div className={styles.ContainerInput}>
               <input
                 onChange={saveDataTemporaly}
-                value={`${dataSelect.NOMBRE1} ${dataSelect.APELLIDO1}`}
+                value={`${dataSelect.NOMBRES} ${dataSelect.APELLIDOS}`}
                 id="NombreBeneficiario"
                 type="text"
                 name="id_beneficiario"
@@ -122,19 +125,6 @@ const Modal = ({ onClose, visible, dataSelect }) => {
                 ))}
               </select>
               <span className={styles.ContainerInput__Span}>Sessiones</span>
-            </div>
-          </div>
-
-          <div className={styles.Grid__item}>
-            <div className={styles.ContainerInput}>
-              <input
-                onChange={saveDataTemporaly}
-                type="date"
-                name="fecha"
-                placeholder=" "
-                className={styles.ContainerInput__Input}
-              />
-              <span className={styles.ContainerInput__Span}>Fecha</span>
             </div>
           </div>
 

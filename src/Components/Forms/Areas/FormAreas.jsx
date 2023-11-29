@@ -50,14 +50,15 @@ function FormAreas() {
     ListarUsuarios();
   }, []);
 
-  const eliminarArea = (idArea) => {
+  const eliminarArea = ({Area, Estado}) => {
+    
     axios
-      .delete(
-        `http://localhost:4000/servicios/deleteServicios/${idArea}`
+      .post(
+        `http://localhost:4000/servicios/deleteServicios`, {Area, Estado}
       )
       .then(function (response) {
         const respuesta = response?.data.message;
-        alert("Eliminado Exitoso");
+        alert("Se cambio estado");
         ListarUsuarios();
       })
       .catch(function (error) {
@@ -106,6 +107,7 @@ function FormAreas() {
           <tr>
             <th>ID Area</th>
             <th>Nombre del Area</th>
+            <th>Estado</th>
             <th>Acciones</th>
           </tr>
         </thead>
@@ -118,25 +120,15 @@ function FormAreas() {
               <tr key={index}>
                 <td>{row.ID_AREA}</td>
                 <td>{row.NOMBRE}</td>
+                <td>{row.ESTADO === 1 ? ("Activo") : "Inactivo"}</td>
                 <td className={styles.actionsBeneficiary}>
                   <div className={styles.tooltip}>
-                    <span className={styles.tooltiptext}>Eliminar Area</span>
-                    <button onClick={() => eliminarArea(row.ID_AREA)}>
-                      <FontAwesomeIcon icon="fa-solid fa-trash" />
+                    <span className={styles.tooltiptext}>Cambiar Estado</span>
+                    <button onClick={() => eliminarArea({Area:row.ID_AREA, Estado:row.ESTADO})}>
+                      <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
                     </button>
                   </div>
                 </td>
-                {/* <td>
-                    <button
-                      onClick={() => eliminarArea(row.ID_AREA)}
-                      className="Button Button--Eliminar"
-                    >
-                      <div className="Button__Icono">
-                        <FontAwesomeIcon icon="fa-solid fa-sync" />
-                      </div>
-                      <span className="Button__Span Iniciar">Eliminar</span>
-                    </button>
-                  </td> */}
               </tr>
             ))}
         </tbody>

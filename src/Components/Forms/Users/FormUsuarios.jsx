@@ -101,7 +101,6 @@ function FormUsuarios() {
               <th>Area</th>
               <th>Nombre Empresa</th>
               <th>Telefono</th>
-              {tokenDecode.actualizar_usuarios == 0 ? null : <th>Acciones</th>}
             </tr>
           </thead>
           <tbody>
@@ -118,22 +117,6 @@ function FormUsuarios() {
                   <td>{row.area}</td>
                   <td>{row.empresa}</td>
                   <td>{row.telefono}</td>
-                  {tokenDecode.actualizar_usuarios == 0 ? null : (
-                    <td className={styles.actionsBeneficiary}>
-                      <div className={styles.tooltip}>
-                        <span className={styles.tooltiptext}>
-                          Editar Usuario
-                        </span>
-                        <button
-                          onClick={() => {
-                            setshowMyModal(true), underSelect(row);
-                          }}
-                        >
-                          <FontAwesomeIcon icon="fa-solid fa-arrows-rotate" />
-                        </button>
-                      </div>
-                    </td>
-                  )}
                 </tr>
               ))}
           </tbody>

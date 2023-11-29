@@ -37,7 +37,7 @@ function FormAgregarUsuario() {
       });
 
     axios
-      .post(`http://localhost:4000/servicios/`, {
+      .post(`http://localhost:4000/servicios/Areas`, {
         NOMBRE: "",
       })
       .then(function (response) {
