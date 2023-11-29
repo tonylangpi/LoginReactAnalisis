@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import styles from "./Antecedentes.module.scss";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 
 const FormPostNatal = ({ idBen, showComponent }) => {
   const [isPostnatal, setPostnatal] = useState(true);
+  const navigate = useNavigate()
   const [Postnatal, setPostnatales] = React.useState({
     TRATAMIENTO: "",
     INFECCIONES: "",
@@ -15,7 +16,6 @@ const FormPostNatal = ({ idBen, showComponent }) => {
     CAMINA: "",
     OBSERVACIONES: "",
   });
-
   const saveDataTemporalyPostnatal = (e) => {
     e.preventDefault();
     setPostnatales({
@@ -44,6 +44,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
             alert("No se ha encontrado un registro");
             console.log(response);
           });
+          navigate(`/FormListarBeneficiarios`)
       } else {
         alert("No se encontro el id del beneficiario");
       }
@@ -240,12 +241,12 @@ const FormPostNatal = ({ idBen, showComponent }) => {
             </div>
 
             {isPostnatal ? (
-              <Link className={styles.Button} to="/FormListarBeneficiarios">
+              <button className={styles.Button} type="submit">
                 <div className={styles.Button__Icono}>
                   <FontAwesomeIcon icon="fa-solid fa-file-export" />
                 </div>
                 <span className={styles.Button__Span}>Guardar</span>
-              </Link>
+              </button>
             ) : null}
           </form>
         </div>

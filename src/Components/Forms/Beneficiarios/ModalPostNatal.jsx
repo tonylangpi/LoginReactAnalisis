@@ -57,7 +57,7 @@ function ModalPostNatal({ beneficiary, onClose }) {
               <select
                 required
                 name="TRATAMIENTO"
-                value={postnatal.TRATAMIENTO}
+                value={postnatal.TRATAMIENTO || ""}
                 onChange={changePostNatal}
                 className={styles.ContainerInput__Input}
               >
