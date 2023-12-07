@@ -14,6 +14,7 @@ function FormAreas() {
   const [sessionsPerPage] = useState(5);
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
+  const [busqueda, setBusqueda] = useState('')
   const currentSessions = sesiones?.slice(
     indexOfFirstSession,
     indexOfLastSession
@@ -35,9 +36,7 @@ function FormAreas() {
 
   const ListarUsuarios = () => {
     axios
-      .post(`http://localhost:4000/servicios/`, {
-        NOMBRE: name.NOMBRE,
-      })
+      .post(`http://localhost:4000/servicios/`)
       .then(function (response) {
         setSesiones(response.data);
       })
@@ -66,6 +65,14 @@ function FormAreas() {
       });
   };
 
+  const handleBusquedaChange = (event) => {
+    setBusqueda(event.target.value);
+  };
+
+  const AreasFiltradas = sesiones.filter((nombre) =>
+  nombre.NOMBRE.toLowerCase().includes(busqueda.toLowerCase())
+);
+
   return (
     <div className={styles.Container}>
       <h1 className={styles.Titulo}>Listado de Areas</h1>
@@ -78,7 +85,7 @@ function FormAreas() {
             placeholder=" "
             type="text"
             className={styles.ContainerInput__Input}
-            onKeyUp={saveDataTemporaly}
+            onChange={handleBusquedaChange}
           />
           <span className={styles.ContainerInput__Span}>Nombre del Area</span>
         </div>
@@ -112,11 +119,7 @@ function FormAreas() {
           </tr>
         </thead>
         <tbody>
-          {currentSessions
-            .filter((item) => {
-              return item;
-            })
-            .map((row, index) => (
+          {AreasFiltradas.map((row, index) => (
               <tr key={index}>
                 <td>{row.ID_AREA}</td>
                 <td>{row.NOMBRE}</td>

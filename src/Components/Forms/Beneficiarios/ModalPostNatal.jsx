@@ -174,7 +174,6 @@ function ModalPostNatal({ beneficiary, onClose }) {
             <div className={styles.ContainerInput}>
               <input
                 name="OBSERVACIONES"
-                required
                 pattern="^[a-zA-Z\s]{3,50}$"
                 type="text"
                 value={postnatal.OBSERVACIONES}

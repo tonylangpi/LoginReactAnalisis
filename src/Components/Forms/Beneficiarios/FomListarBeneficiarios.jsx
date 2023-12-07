@@ -20,6 +20,7 @@ const FormListarBeneficiario = () => {
   const [prenatal, setPrenatal] = useState(false);
   const [peri, setPeri] = useState(false);
   const [postnatal, SetPostnatal] = useState(false);
+  const [busqueda, setBusqueda] = useState('')
 
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(false);
 
@@ -50,10 +51,10 @@ const FormListarBeneficiario = () => {
   };
 
   const [beneficiarios, setBeneficiarios] = useState([]);
-  const [dataSelect, setDataSelect] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [beneficiaryPerPage] = useState(5);
-  const [showMyModal, setshowMyModal] = useState(false);
+
+
   const indexOfLastBeneficiary = currentPage * beneficiaryPerPage;
   const indexOfFirstBeneficiary = indexOfLastBeneficiary - beneficiaryPerPage;
   const currentBeneficiary = beneficiarios?.slice(
@@ -63,32 +64,13 @@ const FormListarBeneficiario = () => {
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
-  const [name, setName] = React.useState({
-    nombre: "",
-  });
-
-  const handleOnClose = () => setshowMyModal(false);
-  const underSelect = (item) => {
-    setDataSelect(item);
-  };
-
-  const saveDataTemporaly = (e) => {
-    e.preventDefault();
-    setName({
-      ...name,
-      [e.target.name]: e.target.value,
-    });
-    ListarBeneficiarios();
-  };
 
   const ListarBeneficiarios = () => {
     axios
-      .post(
-        `http://localhost:4000/beneficiarios/allByName`,
-        { nombre: name.nombre }
+      .get(
+        `http://localhost:4000/beneficiarios/all`
       )
       .then(function (response) {
-        // Filtrar solo los beneficiarios activos
         const beneficiariosActivos = response.data.filter(
           (beneficiario) => beneficiario.ESTADO === estadoBene
         );
@@ -159,6 +141,14 @@ const FormListarBeneficiario = () => {
     ListarBeneficiarios();
   }, []);
 
+  const handleBusquedaChange = (event) => {
+    setBusqueda(event.target.value);
+  };
+
+  const BeneficiariosFiltrados = beneficiarios.filter((carnet) =>
+    carnet.CARNET.toLowerCase().includes(busqueda.toLowerCase())
+  );
+
   return (
     <>
       <div className={styles.Container}>
@@ -167,17 +157,19 @@ const FormListarBeneficiario = () => {
         </div>
 
         <div className={styles.ContainerInput}>
+          <div>
           <input
             required
             name="nombre"
             placeholder=" "
             type="text"
             className={styles.ContainerInput__Input}
-            onKeyUp={saveDataTemporaly}
+            onChange={handleBusquedaChange}
           />
           <span className={styles.ContainerInput__Span}>
-            Nombre
+            Carnet
           </span>
+          </div>
         </div>
 
         <div className={styles.Container}>
@@ -217,6 +209,7 @@ const FormListarBeneficiario = () => {
             <thead>
               <tr>
                 <th>ID</th>
+                <th>Carnet</th>
                 <th>Primer Nombre</th>
                 <th>Segundo Nombre</th>
                 <th>Tercer Nombre</th>
@@ -232,13 +225,11 @@ const FormListarBeneficiario = () => {
               </tr>
             </thead>
             <tbody>
-              {currentBeneficiary
-                .filter((item) => {
-                  return item;
-                })
+              {BeneficiariosFiltrados
                 .map((row, index) => (
                   <tr key={index}>
                     <td>{row.ID_BENEFICIARIO}</td>
+                    <td>{row.CARNET}</td>
                     <td>{row.NOMBRE1}</td>
                     <td>{row.NOMBRE2}</td>
                     <td>{row.NOMBRE3}</td>

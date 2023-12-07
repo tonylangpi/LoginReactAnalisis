@@ -15,6 +15,7 @@ function FormUsuarios() {
   const [sesiones, setSesiones] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(5);
+  const [busqueda, setBusqueda] = useState('')
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
   const currentSessions = sesiones?.slice(
@@ -43,9 +44,7 @@ function FormUsuarios() {
 
   const ListarUsuarios = () => {
     axios
-      .post(`http://localhost:4000/usuarios/userName`, {
-        nombre: name.nombre,
-      })
+      .get(`http://localhost:4000/usuarios/all`)
       .then(function (response) {
         setSesiones(response.data);
       })
@@ -57,6 +56,14 @@ function FormUsuarios() {
   useEffect(() => {
     ListarUsuarios();
   }, []);
+
+  const handleBusquedaChange = (event) => {
+    setBusqueda(event.target.value);
+  };
+
+  const UsuariosFiltradas = sesiones.filter((usuarios) =>
+  usuarios.NOMBRE_USUARIO.toLowerCase().includes(busqueda.toLowerCase())
+);
 
   return (
     <div className={styles.Container}>
@@ -70,7 +77,7 @@ function FormUsuarios() {
               placeholder=" "
               type="text"
               className={styles.ContainerInput__Input}
-              onKeyUp={saveDataTemporaly}
+              onChange={handleBusquedaChange}
             />
             <span className={styles.ContainerInput__Span}>
               Nombre del Usuario
@@ -104,19 +111,15 @@ function FormUsuarios() {
             </tr>
           </thead>
           <tbody>
-            {currentSessions
-              .filter((item) => {
-                return item;
-              })
-              .map((row, index) => (
+            {UsuariosFiltradas.map((row, index) => (
                 <tr key={index}>
-                  <td>{row.nombre}</td>
-                  <td>{row.email}</td>
-                  <td>{row.nivel}</td>
-                  <td>{row.rol}</td>
-                  <td>{row.area}</td>
-                  <td>{row.empresa}</td>
-                  <td>{row.telefono}</td>
+                  <td>{row.NOMBRE_USUARIO}</td>
+                  <td>{row.EMAIL_USUARIO}</td>
+                  <td>Nivel {row.ID_NIVEL}</td>
+                  <td>{row.ROL_USUARIO}</td>
+                  <td>{row.NOMBRE_AREA}</td>
+                  <td>{row.NOMBRE_EMPRESA}</td>
+                  <td>{row.TELEFONO}</td>
                 </tr>
               ))}
           </tbody>

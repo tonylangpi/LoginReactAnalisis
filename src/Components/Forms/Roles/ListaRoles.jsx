@@ -11,6 +11,7 @@ function ListaRoles() {
   const [rolesPerPage] = useState(5);
   const indexOfLastSession = currentPage * rolesPerPage;
   const indexOfFirstSession = indexOfLastSession - rolesPerPage;
+  const [busqueda, setBusqueda] = useState('')
   const currentSessions = roles?.slice(indexOfFirstSession, indexOfLastSession);
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -20,6 +21,15 @@ function ListaRoles() {
     );
     setRoles(result.data);
   };
+
+  
+  const handleBusquedaChange = (event) => {
+    setBusqueda(event.target.value);
+  };
+
+  const RolesFiltradas = roles.filter((roles) =>
+  roles.nombre_rol.toLowerCase().includes(busqueda.toLowerCase())
+);
 
   useEffect(() => {
     listarRoles();
@@ -37,6 +47,7 @@ function ListaRoles() {
               placeholder=" "
               type="text"
               className={styles.ContainerInput__Input}
+              onChange={handleBusquedaChange}
             />
             <span className={styles.ContainerInput__Span}>Nombre del Rol</span>
           </div>
@@ -62,11 +73,7 @@ function ListaRoles() {
             </tr>
           </thead>
           <tbody>
-            {currentSessions
-              .filter((item) => {
-                return item;
-              })
-              .map((row, index) => (
+            {RolesFiltradas.map((row, index) => (
                 <tr key={index}>
                   <td>{row.id_roles}</td>
                   <td>{row.nombre_rol}</td>

@@ -130,7 +130,6 @@ function ModalEncargados({ beneficiary, onClose }) {
                 <div className={styles.ContainerInput}>
                   <input
                     autoComplete="off"
-                    required
                     pattern="^[A-ZÁÉÍÓÚÑ][a-zA-ZáéíóúÁÉÍÓÚñÑ]{1,19}$"
                     placeholder=" "
                     className={styles.ContainerInput__Input}

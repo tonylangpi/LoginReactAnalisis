@@ -292,7 +292,6 @@ function ModalHistorial({ beneficiary, onClose }) {
           <div className={styles.ContainerHistorial__item}>
             <div className={styles.ContainerInput}>
               <input
-                required
                 pattern="^[a-zA-Z\s]{5,50}$"
                 name="OTRAS"
                 type="text"
