@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "../../utils/pagination";
 import styles from "./ListaCitas.module.scss";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormListarCitas = () => {
   const [search, setSearch] = useState("");
   const [sesiones, setSesiones] = useState([]);
@@ -10,6 +10,7 @@ const FormListarCitas = () => {
   const [sessionsPerPage] = useState(5);
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
+  const { Api } = useAuth();
   const currentSessions = sesiones?.slice(
     indexOfFirstSession,
     indexOfLastSession
@@ -25,7 +26,7 @@ const FormListarCitas = () => {
   const ListarSesionesPorArea = () => {
     axios
       .get(
-        `http://localhost:4000/sesiones/AreaSesiones/${token}`,
+        `${Api}sesiones/AreaSesiones/${token}`,
         Area
       )
       .then(function (response) {

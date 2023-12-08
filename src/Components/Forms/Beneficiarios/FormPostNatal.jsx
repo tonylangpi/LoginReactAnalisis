@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import styles from "./Antecedentes.module.scss";
 import { Link , useNavigate } from "react-router-dom";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormPostNatal = ({ idBen, showComponent }) => {
   const [isPostnatal, setPostnatal] = useState(true);
+  const { Api } = useAuth();
   const navigate = useNavigate()
   const [Postnatal, setPostnatales] = React.useState({
     TRATAMIENTO: "",
@@ -30,7 +31,7 @@ const FormPostNatal = ({ idBen, showComponent }) => {
       if (idBen != null) {
         axios
           .post(
-            `http://localhost:4000/beneficiarios/createPostNatales/${idBen}`,
+            `${Api}beneficiarios/createPostNatales/${idBen}`,
             Postnatal
           )
           .then(function (response) {

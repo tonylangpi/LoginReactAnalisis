@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import styles from "./Beneficiario.module.scss";
 import FormHistorialClinico from "./formHistorialClinico";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function FormEncargado({ idBene, showComponent }) {
   // CAMPOS DEL ENCARGADO
   const [showNext, setShowNext] = useState(false);
@@ -12,6 +12,7 @@ function FormEncargado({ idBene, showComponent }) {
   const [isEncargado, setIsEncargado] = useState(true);
   const [IdEncargado, setIdencargado] = useState(null);
   const [fechaNacimiento, setFechaNacimiento] = useState("");
+  const { Api } = useAuth();
   const [errorFecha, setErrorFecha] = useState("");
   const [Encargado, setEncargado] = React.useState({
     NOMBRE1: "",
@@ -58,7 +59,7 @@ function FormEncargado({ idBene, showComponent }) {
       if (idBene != null) {
         axios
           .post(
-            `http://localhost:4000/beneficiarios/createEncargados/${idBene}`,
+            `${Api}beneficiarios/createEncargados/${idBene}`,
             Encargado
           )
           .then(function (response) {
@@ -84,7 +85,7 @@ function FormEncargado({ idBene, showComponent }) {
       if (IdEncargado != null && idBene != null) {
         axios
           .post(
-            "http://localhost:4000/beneficiarios/unionBeneficiarioEncargado",
+            `${Api}beneficiarios/unionBeneficiarioEncargado`,
             {
               ID_BENEFICIARIO: idBene,
               ID_ENCARGADO: IdEncargado,

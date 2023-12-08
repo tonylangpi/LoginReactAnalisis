@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 import styles from "../../assets/scss/Modal.module.scss";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const Modal = ({ onClose, visible, dataSelect, fecha }) => {
   const [archivo, setArchivo] = useState(null);
   const [Sesiones, setSesiones] = useState([])
-
+  const { Api } = useAuth();
   const fileSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -22,7 +22,7 @@ const Modal = ({ onClose, visible, dataSelect, fecha }) => {
       }
       axios({
         method: "POST",
-        url: "http://localhost:4000/sesiones/createSesion",
+        url: `${Api}sesiones/createSesion`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })
@@ -55,7 +55,7 @@ const Modal = ({ onClose, visible, dataSelect, fecha }) => {
   });
 
   async function fetchData() {
-        const TSesiones = await axios.post('http://localhost:4000/sesiones/SesionesDisponibles', {Fecha: fecha, Beneficiario:dataSelect.ID_BENEFICIARIO});
+        const TSesiones = await axios.post(`${Api}sesiones/SesionesDisponibles`, {Fecha: fecha, Beneficiario:dataSelect.ID_BENEFICIARIO});
         setSesiones(TSesiones.data);
     }
 

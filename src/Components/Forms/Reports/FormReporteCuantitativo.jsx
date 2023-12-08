@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormReporteCuantitativo = () => {
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
   const indexOfLastSession = currentPage * sessionsPerPage;
+  const { Api } = useAuth();
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
   const currentSessions = Array.isArray(beneficiario)
     ? beneficiario.slice(indexOfFirstSession, indexOfLastSession)
@@ -20,13 +21,14 @@ const FormReporteCuantitativo = () => {
   });
 
   const descargarArchivo = () => {
-    if (!validarFechas()) {
+    if(datos.desde && datos.hasta){
+      if (!validarFechas()) {
       return;
     }
 
     axios
       .post(
-        "http://localhost:4000/reportes/descargarReporteCuantitativo",
+        `${Api}reportes/descargarReporteCuantitativo`,
         {
           desde: datos.desde,
           hasta: datos.hasta,
@@ -46,6 +48,10 @@ const FormReporteCuantitativo = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    } else {
+      alert("Ingrese el rango de fechas")
+    }
+    
   };
 
   const saveDataTemporaly = (e) => {
@@ -57,13 +63,14 @@ const FormReporteCuantitativo = () => {
   };
 
   const ListarReporteCuantitativo = () => {
-    if (!validarFechas()) {
+    if(datos.desde && datos.hasta){
+if (!validarFechas()) {
       return;
     }
 
     axios
       .post(
-        "http://localhost:4000/reportes/reporteCuantitativo",
+        `${Api}reportes/reporteCuantitativo`,
         { desde: datos.desde, hasta: datos.hasta }
       )
       .then(function (response) {
@@ -72,6 +79,10 @@ const FormReporteCuantitativo = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    } else {
+      alert("Ingrese el rango de fechas")
+    }
+    
   };
 
   const validarFechas = () => {

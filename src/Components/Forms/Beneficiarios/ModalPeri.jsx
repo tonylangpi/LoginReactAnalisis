@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Modal.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function ModalPeri({ beneficiary, onClose }) {
   const [peri, setPeri] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
+  const { Api } = useAuth();
   useEffect(() => {
     const fetchPeri = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/beneficiarios/buscarPerinatalesBene/${beneficiary.ID_BENEFICIARIO}`
+          `${Api}beneficiarios/buscarPerinatalesBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setPeri(response.data[0]);
         setIsLoading(false);
@@ -27,7 +27,7 @@ function ModalPeri({ beneficiary, onClose }) {
     e.preventDefault();
     try {
       await axios.post(
-        `https://amordownapi-production.up.railway.app/beneficiarios/updateInfoBenePerinatales/${beneficiary.ID_BENEFICIARIO}`,
+        `${Api}beneficiarios/updateInfoBenePerinatales/${beneficiary.ID_BENEFICIARIO}`,
         peri
       );
       alert("Información actualizada correctamente");

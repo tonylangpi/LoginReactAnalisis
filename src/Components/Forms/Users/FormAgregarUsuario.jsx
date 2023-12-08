@@ -3,12 +3,13 @@ import axios from "axios";
 import styles from "./AddUsers.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import jwtDecode from "jwt-decode";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function FormAgregarUsuario() {
   const tokenDecode = jwtDecode(localStorage.getItem("Auth"));
   const [roles, setRoles] = useState([]);
   const [areas, setAreas] = useState([]);
   const [level, setLevels] = useState([]);
+  const { Api } = useAuth();
   const [company, setCompany] = useState([]);
   const [usuario, setUsuarios] = React.useState({
     email: "",
@@ -28,7 +29,7 @@ function FormAgregarUsuario() {
 
   const Listar = () => {
     axios
-      .get(`http://localhost:4000/roles/`)
+      .get(`${Api}roles/`)
       .then(function (response) {
         setRoles(response.data);
       })
@@ -37,7 +38,7 @@ function FormAgregarUsuario() {
       });
 
     axios
-      .post(`http://localhost:4000/servicios/Areas`, {
+      .post(`${Api}servicios/Areas`, {
         NOMBRE: "",
       })
       .then(function (response) {
@@ -49,7 +50,7 @@ function FormAgregarUsuario() {
 
     axios
       .post(
-        `http://localhost:4000/usuarios/getLevels`,
+        `${Api}usuarios/getLevels`,
         { nivel: tokenDecode.nivel }
       )
       .then(function (response) {
@@ -60,7 +61,7 @@ function FormAgregarUsuario() {
       });
 
     axios
-      .get(`http://localhost:4000/usuarios/getCompany`)
+      .get(`${Api}usuarios/getCompany`)
       .then(function (response) {
         setCompany(response.data);
       })
@@ -73,7 +74,7 @@ function FormAgregarUsuario() {
     e.preventDefault();
     axios
       .post(
-        `http://localhost:4000/usuarios/create`,
+        `${Api}usuarios/create`,
         usuario
       )
       .then(function (response) {
@@ -269,17 +270,12 @@ function FormAgregarUsuario() {
         <div className={styles.Grid__item}>
           <div className={styles.ContainerInput}>
             <select
-              required={
-                usuario.id_nivel == 1 || usuario.id_nivel == 2 ? false : true
-              }
               className={styles.ContainerInput__Input}
               name="id_area"
               onChange={handleChange}
             >
               <option value=""></option>
-              {usuario.id_nivel == 1 || usuario.id_nivel == 2
-                ? null
-                : areas.map((row, index) => (
+              {areas.map((row, index) => (
                     <option key={index} value={row.ID_AREA}>
                       {row.NOMBRE}
                     </option>

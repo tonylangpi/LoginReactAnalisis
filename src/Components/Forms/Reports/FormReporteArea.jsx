@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormReporteArea = () => {
   const [sesiones, setSesiones] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(5);
+  const { Api } = useAuth();
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
   const currentSessions = sesiones?.slice(
@@ -30,10 +31,10 @@ const FormReporteArea = () => {
 
   const ListarSesionesPorArea = () => {
     const token = localStorage.getItem("Auth");
-
-    axios
+    if(datos.fecha_desde && datos.fecha_hasta){
+      axios
       .get(
-        `http://localhost:4000/reportes/sesionesPorArea/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`,
+        `${Api}reportes/sesionesPorArea/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`,
         datos
       )
       .then(function (response) {
@@ -42,6 +43,10 @@ const FormReporteArea = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    } else {
+      alert("Ingrese el rango de fechas")
+    }
+    
   };
 
   return (

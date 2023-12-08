@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import styles from "./HistorialClinico.module.scss";
 import FormPrenatales from "./FormPrenatales";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const formHistorialClinico = ({ idBenefi, showComponent }) => {
   const [isHistorial, setIsHistorial] = useState(true);
   const [show, setShow] = useState(true);
+  const { Api } = useAuth();
   const [Historial, setHistorial] = React.useState({
     ENFERMEDAD_PADECE: "",
     MEDICAMENTOS_INGIERE: "",
@@ -35,7 +36,7 @@ const formHistorialClinico = ({ idBenefi, showComponent }) => {
       if (idBenefi != null) {
         axios
           .post(
-            `http://localhost:4000/beneficiarios/createHistorialClinico/${idBenefi}`,
+            `${Api}beneficiarios/createHistorialClinico/${idBenefi}`,
             Historial
           )
           .then(function (response) {

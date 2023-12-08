@@ -4,11 +4,11 @@ import axios from "axios";
 import styles from "./Antecedentes.module.scss";
 import { text } from "@fortawesome/fontawesome-svg-core";
 import FormPerinatales from "./FormPerinatales";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormPrenatales = ({ idBen, showComponent }) => {
   const [show, setShow] = useState(true);
   const [isPrenatal, setPrenatal] = useState(true);
-
+  const { Api } = useAuth();
   const [Prenatales, setPrenatales] = React.useState({
     EMBARAZO_TERMINO: "",
     EXPLIQUE_EMBARAZO: "",
@@ -32,7 +32,7 @@ const FormPrenatales = ({ idBen, showComponent }) => {
       if (idBen != null) {
         axios
           .post(
-            `http://localhost:4000/beneficiarios/createPrenatales/${idBen}`,
+            `${Api}beneficiarios/createPrenatales/${idBen}`,
             Prenatales
           )
           .then(function (response) {

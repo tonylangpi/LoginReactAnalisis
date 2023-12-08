@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Modal.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function ModalEncargados({ beneficiary, onClose }) {
   const [encargados, setEncargados] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [errorFecha, setErrorFecha] = useState("");
-
+  const { Api } = useAuth();
   useEffect(() => {
     const fetchEncargados = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/beneficiarios/buscarEncargadoBene/${beneficiary.ID_BENEFICIARIO}`
+          `${Api}beneficiarios/buscarEncargadoBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setEncargados(response.data);
         setIsLoading(false);
@@ -29,7 +29,7 @@ function ModalEncargados({ beneficiary, onClose }) {
     e.preventDefault();
     try {
       await axios.post(
-        `http://localhost:4000/beneficiarios/updateEncargadosBene/${idEncargado}`,
+        `${Api}beneficiarios/updateEncargadosBene/${idEncargado}`,
         encargadoActualizado
       );
       alert("Información actualizada correctamente");

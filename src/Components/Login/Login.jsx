@@ -7,10 +7,11 @@ import axios from "axios";
 import Home from "../Home/Home";
 import styles from "./Login.module.scss";
 import ImagenFondo from '../../assets/images/wave.svg';
-
+import { useAuth } from "../../context/authContext";
 function Login() {
   const navigate = useNavigate();
   const [showpass, setShowpass] = React.useState(false);
+  const { Api } = useAuth();
   const [usuario, setUser] = React.useState({
     email: "",
     password: "",
@@ -33,7 +34,7 @@ function Login() {
     e.preventDefault();
     try {
       axios
-        .post("http://localhost:4000/auth/login", usuario) //peticion a la api para loguearse
+        .post(`${Api}auth/login`, usuario) //peticion a la api para loguearse
         .then(({ data }) => {
           if (data.auth) {
             localStorage.setItem("Auth", data.token);

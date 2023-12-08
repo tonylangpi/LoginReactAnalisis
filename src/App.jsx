@@ -32,15 +32,15 @@ import {
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import Home from "./Components/Home/Home";
-
+import {useAuth} from "../src/context/authContext.jsx"
 function App() {
   library.add(fas);
   
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  
+  const { Api } = useAuth();
   const validateAuth = () => {
     axios
-      .post("http://localhost:4000/auth/verifyToken", {
+      .post(`${Api}auth/verifyToken`, {
         token: localStorage.getItem("Auth")
       })
       .then(({ data }) => {
@@ -65,7 +65,7 @@ function App() {
 
       // Recarga la página si se ha producido un cambio
       window.location.reload();
-      alert('A sos ReTroll');
+      alert('Solo personal Autorizado');
     };
 
     // Observa los cambios en el localStorage

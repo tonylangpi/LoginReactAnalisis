@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormReporteInformeServicio = () => {
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
+  const { Api } = useAuth();
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
   const currentSessions = Array.isArray(beneficiario)
@@ -15,13 +16,14 @@ const FormReporteInformeServicio = () => {
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
   const descargarArchivo = () => {
-    if (!validarFechas()) {
+    if(datos.desde && datos.hasta){
+      if (!validarFechas()) {
       return;
     }
 
     axios
       .post(
-        "http://localhost:4000/reportes/descargarReporteInformeServicios",
+        `${Api}reportes/descargarReporteInformeServicios`,
         {
           desde: datos.desde,
           hasta: datos.hasta,
@@ -41,6 +43,10 @@ const FormReporteInformeServicio = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    } else {
+      alert("Ingrese el rango de fechas")
+    }
+    
   };
 
   const [datos, setDatos] = useState({
@@ -73,9 +79,10 @@ const FormReporteInformeServicio = () => {
   };
 
   const ListarReporteInformeServicio = () => {
-    axios
+    if(datos.desde && datos.hasta) {
+      axios
       .post(
-        "http://localhost:4000/reportes/reporteInformeServicio",
+        `${Api}reportes/reporteInformeServicio`,
         { desde: datos.desde, hasta: datos.hasta }
       )
       .then(function (response) {
@@ -84,6 +91,10 @@ const FormReporteInformeServicio = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    } else {
+      alert("Ingrese el rango de fechas")
+    }
+    
   };
 
   return (

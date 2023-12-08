@@ -11,7 +11,7 @@ import ModalHistorial from "./ModalHistorial";
 import ModalPostNatal from "./ModalPostNatal";
 import ModalPreNatal from "./ModalPreNatal";
 import jwt_decode from "jwt-decode";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormListarBeneficiario = () => {
   const [estadoBene, setEstadoBene] = useState("ACTIVO");
   const [showBeneficiario, setShowBeneficiario] = useState(false);
@@ -20,6 +20,7 @@ const FormListarBeneficiario = () => {
   const [prenatal, setPrenatal] = useState(false);
   const [peri, setPeri] = useState(false);
   const [postnatal, SetPostnatal] = useState(false);
+  const { Api } = useAuth();
   const [busqueda, setBusqueda] = useState('')
 
   const [selectedBeneficiary, setSelectedBeneficiary] = useState(false);
@@ -68,7 +69,7 @@ const FormListarBeneficiario = () => {
   const ListarBeneficiarios = () => {
     axios
       .get(
-        `http://localhost:4000/beneficiarios/all`
+        `${Api}beneficiarios/all`
       )
       .then(function (response) {
         const beneficiariosActivos = response.data.filter(
@@ -84,7 +85,7 @@ const FormListarBeneficiario = () => {
   const ActivarBeneficiario = (idBene) => {
     axios
       .post(
-        `http://localhost:4000/beneficiarios/activarBeneficiario/${idBene}`
+        `${Api}beneficiarios/activarBeneficiario/${idBene}`
       )
       .then(function (response) {
         alert("Activado Exitoso");
@@ -101,7 +102,7 @@ const FormListarBeneficiario = () => {
   const InactivarBeneficiario = (idBene) => {
     axios
       .post(
-        `http://localhost:4000/beneficiarios/inactivarBeneficiario/${idBene}`
+        `${Api}beneficiarios/inactivarBeneficiario/${idBene}`
       )
       .then(function (response) {
         alert("Inactivado Exitoso");
@@ -126,7 +127,7 @@ const FormListarBeneficiario = () => {
   const Asistencia = (idBene) => {
     axios
       .post(
-        `http://localhost:4000/beneficiarios/AgregarAsistencia`, {Beneficiario: idBene}
+        `${Api}beneficiarios/AgregarAsistencia`, {Beneficiario: idBene}
       )
       .then(function (response) {
         alert(response.data.message);
@@ -256,7 +257,7 @@ const FormListarBeneficiario = () => {
                         </span>
                         <button>
                           <a
-                            href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH1}`}
+                            href={`${Api}beneficiarios/${row.RUTA_ARCH1}`}
                             target="_blank"
                           >
                             <FontAwesomeIcon icon="fa-solid fa-file" />
@@ -269,7 +270,7 @@ const FormListarBeneficiario = () => {
                         </span>
                         <button>
                           <a
-                            href={`http://localhost:4000/beneficiarios/${row.RUTA_ARCH2}`}
+                            href={`${Api}beneficiarios/${row.RUTA_ARCH2}`}
                             target="_blank"
                             rel="noopener noreferrer"
                           >

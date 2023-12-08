@@ -5,7 +5,7 @@ import styles from "./ListBeneficiarios.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "./Modal";
 import jwt_decode from "jwt-decode";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormListarBeneficiario = () => {
 
   const tokenDecode = jwt_decode(localStorage.getItem("Auth"));
@@ -16,7 +16,7 @@ const FormListarBeneficiario = () => {
   const [Fecha, setFecha] = useState('')
   const [showMyModal, setshowMyModal] = useState(false);
   
-
+  const { Api } = useAuth();
   const pagination = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -30,9 +30,10 @@ const FormListarBeneficiario = () => {
   const [Listado, setListado] = useState([])
 
   const ListarAsistencia = () => {
-    axios
+    if(Fecha){
+      axios
       .post(
-        `http://localhost:4000/beneficiarios/ListarAsistencias`,
+        `${Api}beneficiarios/ListarAsistencias`,
         { Fecha }
       )
       .then(function (response) {
@@ -42,7 +43,10 @@ const FormListarBeneficiario = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
-    
+    } else {
+      alert("Ingrese la fecha")
+    }
+
   }
 
   return (

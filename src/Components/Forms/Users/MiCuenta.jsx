@@ -3,13 +3,14 @@ import styles from "./MiCuenta.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import jwt_Decode from "jwt-decode";
 import axios from "axios";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function MiCuenta() {
   const tokenDecode = jwt_Decode(localStorage.getItem("Auth"));
   const [roles, setRoles] = useState([]);
   const [areas, setAreas] = useState([]);
   const [level, setLevels] = useState([]);
   const [company, setCompany] = useState([]);
+  const { Api } = useAuth();
   const [disabled, setDisabled] = useState(true);
   const [usuario, setUsuarios] = React.useState({
     email: tokenDecode.email,
@@ -24,7 +25,7 @@ function MiCuenta() {
 
   const Listar = () => {
     axios
-      .get(`http://localhost:4000/roles/`)
+      .get(`${Api}roles/`)
       .then(function (response) {
         setRoles(response.data);
       })
@@ -33,7 +34,7 @@ function MiCuenta() {
       });
 
     axios
-      .post(`http://localhost:4000/servicios/`, {
+      .post(`${Api}servicios/`, {
         NOMBRE: "",
       })
       .then(function (response) {
@@ -45,7 +46,7 @@ function MiCuenta() {
 
     axios
       .post(
-        `http://localhost:4000/usuarios/getLevels`,
+        `${Api}usuarios/getLevels`,
         { nivel: tokenDecode.nivel }
       )
       .then(function (response) {
@@ -56,7 +57,7 @@ function MiCuenta() {
       });
 
     axios
-      .get(`http://localhost:4000/usuarios/getCompany`)
+      .get(`${Api}usuarios/getCompany`)
       .then(function (response) {
         setCompany(response.data);
       })
@@ -69,7 +70,7 @@ function MiCuenta() {
     e.preventDefault();
     axios
       .post(
-        `http://localhost:4000/usuarios/updateUsers/${tokenDecode.id}`,
+        `${Api}usuarios/updateUsers/${tokenDecode.id}`,
         usuario
       )
       .then(function (response) {

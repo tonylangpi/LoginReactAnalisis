@@ -3,10 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import styles from "./Antecedentes.module.scss";
 import FormPostNatal from "./FormPostNatal";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormPerinatales = ({ idBen, showComponent }) => {
   const [show, setShow] = useState(true);
   const [isPerinatal, setPerinatal] = useState(true);
+  const { Api } = useAuth();
   const [Perinatal, setPerinatales] = React.useState({
     LLORO_INMEDIATAMENTE: "",
     COLORACION: "",
@@ -28,7 +29,7 @@ const FormPerinatales = ({ idBen, showComponent }) => {
       if (idBen != null) {
         axios
           .post(
-            `http://localhost:4000/beneficiarios/createPeriNatales/${idBen}`,
+            `${Api}beneficiarios/createPeriNatales/${idBen}`,
             Perinatal
           )
           .then(function (response) {

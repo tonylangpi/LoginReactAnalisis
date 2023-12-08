@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Modal.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function ModalHistorial({ beneficiary, onClose }) {
   const [historial, setHistorial] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
+  const { Api } = useAuth();
   useEffect(() => {
     const fetchHistorial = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/beneficiarios/buscarHistorialClinicoBene/${beneficiary.ID_BENEFICIARIO}`
+          `${Api}beneficiarios/buscarHistorialClinicoBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setHistorial(response.data[0]); // Asumiendo que la respuesta es un arreglo de un solo elemento
         setIsLoading(false);
@@ -27,7 +27,7 @@ function ModalHistorial({ beneficiary, onClose }) {
     e.preventDefault();
     try {
       await axios.post(
-        `http://localhost:4000/beneficiarios/updateInfoBeneHistorialClinico/${beneficiary.ID_BENEFICIARIO}`,
+        `${Api}beneficiarios/updateInfoBeneHistorialClinico/${beneficiary.ID_BENEFICIARIO}`,
         historial
       );
       alert("Historial actualizado correctamente");

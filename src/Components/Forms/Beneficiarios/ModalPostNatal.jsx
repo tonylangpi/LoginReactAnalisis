@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Modal.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function ModalPostNatal({ beneficiary, onClose }) {
   const [postnatal, setPostnatal] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-
+  const { Api } = useAuth();
   useEffect(() => {
     const fetchPostnatal = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/beneficiarios/buscarPostNatalesBene/${beneficiary.ID_BENEFICIARIO}`
+          `${Api}beneficiarios/buscarPostNatalesBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setPostnatal(response.data[0]);
         setIsLoading(false);
@@ -27,7 +27,7 @@ function ModalPostNatal({ beneficiary, onClose }) {
     e.preventDefault();
     try {
       await axios.post(
-        `http://localhost:4000/beneficiarios/updateInfoBenePostnatales/${beneficiary.ID_BENEFICIARIO}`,
+        `${Api}beneficiarios/updateInfoBenePostnatales/${beneficiary.ID_BENEFICIARIO}`,
         postnatal
       );
       alert("Información actualizada correctamente");

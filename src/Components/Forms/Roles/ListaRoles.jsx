@@ -4,11 +4,12 @@ import Pagination from "../../utils/pagination";
 import styles from "./ListRol.module.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function ListaRoles() {
   const [roles, setRoles] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [rolesPerPage] = useState(5);
+  const { Api } = useAuth();
   const indexOfLastSession = currentPage * rolesPerPage;
   const indexOfFirstSession = indexOfLastSession - rolesPerPage;
   const [busqueda, setBusqueda] = useState('')
@@ -17,7 +18,7 @@ function ListaRoles() {
 
   const listarRoles = async () => {
     const result = await axios(
-      `http://localhost:4000/roles/`
+      `${Api}roles/`
     );
     setRoles(result.data);
   };

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import styles from "./Modal.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const EditModal = ({ beneficiary, onClose }) => {
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [errorFecha, setErrorFecha] = useState("");
@@ -20,13 +20,13 @@ const EditModal = ({ beneficiary, onClose }) => {
     NUMERO_HERMANOS: beneficiary.NUMERO_HERMANOS,
     NUMERO_OCUPA: beneficiary.NUMERO_OCUPA,
   });
-
+  const { Api } = useAuth();
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
     axios
       .post(
-        `http://localhost:4000/beneficiarios/updateInfoBeneGeneral/${beneficiary.ID_BENEFICIARIO}`,
+        `${Api}beneficiarios/updateInfoBeneGeneral/${beneficiary.ID_BENEFICIARIO}`,
         updatedData
       )
       .then(function (response) {

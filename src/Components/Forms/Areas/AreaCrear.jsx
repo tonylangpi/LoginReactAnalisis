@@ -4,16 +4,17 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import '../../assets/scss/form.scss'
 import styles from './AddArea.module.scss';
-
+import {useAuth} from "../../../context/authContext.jsx"
 function AreaCrear() {
   const [area, setArea] = React.useState({
     NOMBRE: "",
     ID_AREA: ""
   });
-
+  const { Api } = useAuth();
   const guardarArea = () => {
-    axios
-      .post("http://localhost:4000/servicios/createServicios", {
+    if(area.NOMBRE){
+      axios
+      .post(`${Api}servicios/createServicios`, {
         NOMBRE: area.NOMBRE
       })
       .then(function (response) {
@@ -23,6 +24,10 @@ function AreaCrear() {
       .catch(function (error) {
         console.log(error);
       });
+    } else {
+      alert("Ingrese el nombre del área")
+    }
+    
   };
 
   const handleChange = (e) => {

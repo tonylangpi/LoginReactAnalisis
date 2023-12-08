@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormReporteBeneficiario = () => {
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(5);
+  const { Api } = useAuth();
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
   const currentSessions = beneficiario?.slice(
@@ -30,10 +31,10 @@ const FormReporteBeneficiario = () => {
 
   const ListarSesionesPorArea = () => {
     const token = localStorage.getItem("Auth");
-
-    axios
+    if(datos.idBeneficiario && datos.fecha_desde && datos.fecha_hasta){
+      axios
       .get(
-        `http://localhost:4000/reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`
+        `${Api}reportes/sesionesPorBeneficiario/${datos.idBeneficiario}/${token}/${datos.fecha_desde}/${datos.fecha_hasta}`
       )
       .then(function (response) {
         setBeneficiario(response.data);
@@ -41,6 +42,10 @@ const FormReporteBeneficiario = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    } else {
+      alert("Complete todos los datos solicitados")
+    }
+    
   };
 
   return (

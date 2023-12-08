@@ -4,13 +4,13 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import '../../assets/scss/form.scss';
 import styles from './Update.module.scss';
-
+import {useAuth} from "../../../context/authContext.jsx"
 function AreaActualizar() {
   const [area, setArea] = React.useState({
     NOMBRE: "",
     ID_AREA: ""
   });
-
+  const { Api } = useAuth();
   const [name, setName] = React.useState({
     NOMBRE: ''
   });
@@ -27,7 +27,7 @@ function AreaActualizar() {
   const [areas, setAreas] = useState([]);
 
   const Listar = () => {
-    axios.post(`http://localhost:4000/servicios/`, {NOMBRE: name.NOMBRE})
+    axios.post(`${Api}servicios/`, {NOMBRE: name.NOMBRE})
       .then(function (response) {
         setAreas(response.data);
       })
@@ -42,7 +42,7 @@ function AreaActualizar() {
 
   const actualizarArea = () => {
     axios
-      .put(`http://localhost:4000/servicios/updateServicios/${area.ID_AREA}`, { 
+      .put(`${Api}servicios/updateServicios/${area.ID_AREA}`, { 
         NOMBRE: area.NOMBRE,
         ID_AREA: area.ID_AREA
       })
@@ -110,24 +110,6 @@ function AreaActualizar() {
         </div>
         <span className={styles.Button__Span}>Actualizar</span>
       </Link>
-
-      {/* <div className="Container-Beneficiario__Grid-button">
-
-        <button id="button-beneficiario" className="Button Button--Guardar"
-          onClick={actualizarArea}>
-          <div className="Button__Icono">
-            <FontAwesomeIcon icon="fa-solid fa-file-export" />
-          </div>
-          <span className="Button__Span Iniciar">Guardar</span>
-        </button>
-        <div className={styles.ContainerSearch}>
-          <Link to="/FormAreas">
-            <button className='Button' to="/FormAreas" >Regresar</button>
-
-          </Link>
-        </div>
-
-      </div> */}
     </div>
   );
 }

@@ -6,7 +6,7 @@ import styles from "./Areas.module.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import jwtDecode from "jwt-decode";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function FormAreas() {
   const tokenDecode = jwtDecode(localStorage.getItem("Auth"));
   const [sesiones, setSesiones] = useState([]);
@@ -14,6 +14,7 @@ function FormAreas() {
   const [sessionsPerPage] = useState(5);
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
+  const { Api } = useAuth();
   const [busqueda, setBusqueda] = useState('')
   const currentSessions = sesiones?.slice(
     indexOfFirstSession,
@@ -36,7 +37,7 @@ function FormAreas() {
 
   const ListarUsuarios = () => {
     axios
-      .post(`http://localhost:4000/servicios/`)
+      .post(`${Api}servicios/`)
       .then(function (response) {
         setSesiones(response.data);
       })
@@ -53,7 +54,7 @@ function FormAreas() {
     
     axios
       .post(
-        `http://localhost:4000/servicios/deleteServicios`, {Area, Estado}
+        `${Api}servicios/deleteServicios`, {Area, Estado}
       )
       .then(function (response) {
         const respuesta = response?.data.message;

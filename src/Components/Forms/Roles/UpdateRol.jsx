@@ -3,13 +3,13 @@ import axios from "axios";
 import styles from "./UpdateRol.module.scss";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function UpdateRol() {
   const [permisos, setPermisos] = useState([]);
-
+  const { Api } = useAuth();
   const listarPermisos = async () => {
     const result = await axios(
-      `http://localhost:4000/roles/getRolID/${sessionStorage.getItem(
+      `${Api}roles/getRolID/${sessionStorage.getItem(
         "idRol"
       )}`
     );
@@ -20,7 +20,7 @@ function UpdateRol() {
     e.preventDefault();
     axios
       .post(
-        `http://localhost:4000/roles/updateRoles`,
+        `${Api}roles/updateRoles`,
         permisos
       )
       .then(function (response) {

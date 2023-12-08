@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormReporteEstadistico = () => {
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
+  const { Api } = useAuth();
   const indexOfLastSession = currentPage * sessionsPerPage;
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
   const currentSessions = Array.isArray(beneficiario)
@@ -15,13 +16,14 @@ const FormReporteEstadistico = () => {
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
   const descargarArchivo = () => {
-    if (!validarFechas()) {
+    if(datos.desde && datos.hasta){
+      if (!validarFechas()) {
       return;
     }
 
     axios
       .post(
-        "http://localhost:4000/reportes/descargarReporteEstadistico",
+        `${Api}reportes/descargarReporteEstadistico`,
         {
           desde: datos.desde,
           hasta: datos.hasta,
@@ -41,6 +43,8 @@ const FormReporteEstadistico = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    }
+    
   };
 
   const [datos, setDatos] = useState({
@@ -57,13 +61,14 @@ const FormReporteEstadistico = () => {
   };
 
   const ListarReporteEstadistico = () => {
-    if (!validarFechas()) {
+    if(datos.desde && datos.hasta){
+      if (!validarFechas()) {
       return;
     }
 
     axios
       .post(
-        "http://localhost:4000/reportes/reporteEstadistico",
+        `${Api}reportes/reporteEstadistico`,
         { desde: datos.desde, hasta: datos.hasta }
       )
       .then(function (response) {
@@ -72,6 +77,8 @@ const FormReporteEstadistico = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    }
+    
   };
 
   const validarFechas = () => {

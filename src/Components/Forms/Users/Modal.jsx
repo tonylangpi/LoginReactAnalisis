@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import styles from './Modal.module.scss';
 import axios from 'axios';
+import {useAuth} from "../../../context/authContext.jsx"
 const Modal=({onClose, visible, dataSelect}) => {
   const [archivo, setArchivo] = useState(null)
+  const { Api } = useAuth();
   const fileSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -18,7 +20,7 @@ const Modal=({onClose, visible, dataSelect}) => {
       }
       axios({
         method: "POST",
-        url: "http://localhost:4000/sesiones/createSesion",
+        url: `${Api}sesiones/createSesion`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       })

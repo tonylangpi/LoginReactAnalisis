@@ -7,11 +7,12 @@ import styles from "./Usuarios.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Modal from "./Modal";
 import jwtDecode from "jwt-decode";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function FormUsuarios() {
   const tokenDecode = jwtDecode(localStorage.getItem("Auth"));
   const [dataSelect, setDataSelect] = useState([]);
   const [showMyModal, setshowMyModal] = useState(false);
+  const { Api } = useAuth();
   const [sesiones, setSesiones] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(5);
@@ -44,7 +45,7 @@ function FormUsuarios() {
 
   const ListarUsuarios = () => {
     axios
-      .get(`http://localhost:4000/usuarios/all`)
+      .get(`${Api}usuarios/all`)
       .then(function (response) {
         setSesiones(response.data);
       })

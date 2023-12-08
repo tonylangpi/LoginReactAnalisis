@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import FormEncargado from "./FormEncargado";
 import axios from "axios";
 import styles from "./Beneficiario.module.scss";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormBeneficiario = () => {
   const [show, setShow] = useState(true);
   const [archivo, setArchivo] = useState(null);
@@ -11,6 +11,7 @@ const FormBeneficiario = () => {
   const [isBeneficiary, setisBeneficiary] = useState(false);
   const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [errorFecha, setErrorFecha] = useState("");
+  const { Api } = useAuth();
 
   const saveDate = (date) => {
     const selectDate = new Date(date.target.value);
@@ -97,7 +98,7 @@ const FormBeneficiario = () => {
 
         axios({
           method: "post",
-          url: "http://localhost:4000/beneficiarios/create",
+          url: `${Api}beneficiarios/create`,
           data: data,
           headers: { "Content-Type": "multipart/form-data" },
         })

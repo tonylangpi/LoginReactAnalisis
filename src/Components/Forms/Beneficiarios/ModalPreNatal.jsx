@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Modal.module.scss";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import {useAuth} from "../../../context/authContext.jsx"
 function ModalPreNatal({ beneficiary, onClose }) {
   const [isLoading, setIsLoading] = useState(true);
   const [prenatal, setPrenatal] = useState({});
-
+  const { Api } = useAuth();
   useEffect(() => {
     const fetchPrenatal = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/beneficiarios/buscarPrenatalesBene/${beneficiary.ID_BENEFICIARIO}`
+          `${Api}beneficiarios/buscarPrenatalesBene/${beneficiary.ID_BENEFICIARIO}`
         );
         setPrenatal(response.data[0]);
         setIsLoading(false);
@@ -27,7 +27,7 @@ function ModalPreNatal({ beneficiary, onClose }) {
     e.preventDefault();
     try {
       await axios.post(
-        `http://localhost:4000/beneficiarios/updateInfoBenePrenatales/${beneficiary.ID_BENEFICIARIO}`,
+        `${Api}beneficiarios/updateInfoBenePrenatales/${beneficiary.ID_BENEFICIARIO}`,
         prenatal
       );
       alert("Información actualizada correctamente");

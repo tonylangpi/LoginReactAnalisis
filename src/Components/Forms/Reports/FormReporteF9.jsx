@@ -2,26 +2,29 @@ import React, { useState } from "react";
 import axios from "axios";
 import Pagination from "../../utils/pagination";
 import styles from "./Reporte.module.scss";
-
+import {useAuth} from "../../../context/authContext.jsx"
 const FormReporteF9 = () => {
   const [beneficiario, setBeneficiario] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sessionsPerPage] = useState(10);
   const indexOfLastSession = currentPage * sessionsPerPage;
+  const { Api } = useAuth();
   const indexOfFirstSession = indexOfLastSession - sessionsPerPage;
   const currentSessions = Array.isArray(beneficiario)
+  
     ? beneficiario.slice(indexOfFirstSession, indexOfLastSession)
     : [];
   const pagination = (pageNumber) => setCurrentPage(pageNumber);
 
   const descargarArchivo = () => {
-    if (!validarFechas()) {
+    if(datos.desde && datos.hasta){
+      if (!validarFechas()) {
       return;
     }
 
     axios
       .post(
-        "http://localhost:4000/reportes/descargarReporteF9",
+        `${Api}reportes/descargarReporteF9`,
         {
           desde: datos.desde,
           hasta: datos.hasta,
@@ -41,6 +44,10 @@ const FormReporteF9 = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    } else {
+      alert("Ingrese el rango de fechas")
+    }
+    
   };
 
   const [datos, setDatos] = useState({
@@ -57,13 +64,14 @@ const FormReporteF9 = () => {
   };
 
   const ListarReporteF9 = () => {
-    if (!validarFechas()) {
+    if(datos.desde && datos.hasta){
+      if (!validarFechas()) {
       return;
     }
 
     axios
       .post(
-        "http://localhost:4000/reportes/reporteF9",
+        `${Api}reportes/reporteF9`,
         { desde: datos.desde, hasta: datos.hasta }
       )
       .then(function (response) {
@@ -72,6 +80,10 @@ const FormReporteF9 = () => {
       .catch(function (error) {
         alert("No se ha encontrado un registro");
       });
+    } else {
+      alert("Ingrese el rango de fechas")
+    }
+    
   };
 
   const validarFechas = () => {
