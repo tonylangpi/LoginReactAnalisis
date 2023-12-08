@@ -20,7 +20,8 @@ import AreaCrear from "./Components/Forms/Areas/AreaCrear";
 import AddUser from "./Components/Forms/Users/FormAgregarUsuario";
 import ListaRoles from './Components/Forms/Roles/ListaRoles';
 import UpdateRol from './Components/Forms/Roles/UpdateRol';
-import Asistencia from './Components/Forms/Beneficiarios/FormAsistenciaBeneficiario'
+import Asistencia from './Components/Forms/Beneficiarios/FormAsistenciaBeneficiario';
+import CreateRoles from './Components/Forms/Roles/Rolescrear.jsx';
 
 import axios from "axios";
 import {
@@ -105,6 +106,7 @@ function App() {
               <Route path="/Formasis" element={<Asistencia/>}/>
               <Route path="/ListRol" element={<ListaRoles/>}/>
               <Route path="/UpdateRol" element={<UpdateRol/>}/>
+              <Route path="/CreateRol" element={<CreateRoles/>}/>
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>

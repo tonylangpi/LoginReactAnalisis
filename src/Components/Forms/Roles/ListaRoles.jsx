@@ -55,7 +55,7 @@ function ListaRoles() {
         </div>
 
         <div className={styles.Flex__item}>
-          <Link className={styles.Button}>
+          <Link to={'/CreateRol'} className={styles.Button}>
             <div className={styles.Button__Icono}>
               <FontAwesomeIcon icon="fa-solid fa-plus" />
             </div>
